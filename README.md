@@ -1,2 +1,3 @@
-# DayPlanner
-# Hello
+Day Planner Application 
+
+CoE intern innovation project
