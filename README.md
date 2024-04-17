@@ -11,10 +11,10 @@ Included in this app are:
 **CoE intern innovation project**
 ---
 **Team involved:**
--Project Manager: Amie Higgins
--Scrum Leader: Eoin Connolly
--Quality Assurance: David Cox
--Developers:
--Conor McNulty-Cleary
--Sean Zhuang
--Ignas Prakapas
+- Project Manager: Amie Higgins
+- Scrum Leader: Eoin Connolly
+- Quality Assurance: David Cox
+- Developers:
+- Conor McNulty-Cleary
+- Sean Zhuang
+- Ignas Prakapas
