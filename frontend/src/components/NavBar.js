@@ -57,7 +57,7 @@ export function NavBar() {
             text="Book a Meeting Room"
         />
         <Tab
-            text="Todo List"
+            text="My Tasks"
         />
         <Tab
             text="Carpool"
