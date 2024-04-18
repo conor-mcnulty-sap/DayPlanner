@@ -7,6 +7,9 @@ import {
 
 const TabRoutes = {
     "Default": "/",
+    "Tab 1.1": "/tab1.1",
+    "Tab 1.2": "/tab1.2",
+    "Tab 1.3": "/tab1.3",
     "Book a Desk": "/bookdesk",
     "Find my Desk": "/finddesk",
     "Book a Meeting Room": "/bookmeeting",
