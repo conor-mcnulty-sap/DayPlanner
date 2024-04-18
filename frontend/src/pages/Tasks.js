@@ -1,5 +1,5 @@
 import React from "react";
-import { TasksForm } from "../components/TasksForm";
+import { TasksForm } from "../components//Tasks/TasksForm";
 
 function Tasks() {
     return(<TasksForm/>)

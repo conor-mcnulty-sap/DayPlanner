@@ -7,7 +7,7 @@ import {
   Button,
 } from "@ui5/webcomponents-react";
 
-export function CarpoolForm() {
+export function CarpoolerForm() {
   return (
     <Form
       backgroundDesign="Transparent"
@@ -22,7 +22,7 @@ export function CarpoolForm() {
       style={{
         alignItems: "center",
       }}
-      titleText="Apply for Carpooling"
+      titleText="Apply to give a Carpool Lift"
     >
       <FormGroup titleText="Personal Data">
         <FormItem label="Name">
