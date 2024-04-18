@@ -48,18 +48,10 @@ export function NavBar() {
         </Tab>
         <TabSeparator />
         <Tab text="Book a Desk" />
-        <Tab
-            text="Find my Desk"
-        />
-        <Tab
-            text="Book a Meeting Room"
-        />
-        <Tab
-            text="My Tasks"
-        />
-        <Tab
-            text="Carpool"
-        />
+        <Tab text="Find my Desk" />
+        <Tab text="Book a Meeting Room" />
+        <Tab text="My Tasks" />
+        <Tab text="Carpool" />
         </TabContainer>
     )
 }
