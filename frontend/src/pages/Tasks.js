@@ -1,11 +1,9 @@
 import React from "react";
+import { TasksForm } from "../components/TasksForm";
 
 function Tasks() {
-  const x = 10;
+    return(<TasksForm/>)
 
-  return (
-    <h1>Tasks</h1>
-  )
 }
 
 export default Tasks;
