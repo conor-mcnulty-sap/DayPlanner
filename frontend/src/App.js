@@ -1,12 +1,30 @@
 import logo from './logo.svg';
 import { Header } from './components/Header';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Home from './pages/Home';
+import Carpool from './pages/Carpool';
+import Tasks from './pages/Tasks';
+import BookDesk from './pages/BookDesk';
+import BookMeeting from './pages/BookMeeting';
+import FindDesk from './pages/FindDesk';
+
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-    </div>
+    <Router>
+      <div className = "App">
+        <Header />
+        <Routes>
+          <Route path = "/" element = {<Home />} />
+          <Route path = "/carpool" element = {<Carpool />} />
+          <Route path = "/tasks" element = {<Tasks />} />
+          <Route path = "/bookdesk" element = {<BookDesk />} />
+          <Route path = "/bookmeeting" element = {<BookMeeting />} />
+          <Route path = "/finddesk" element = {<FindDesk />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,11 +1,11 @@
 import React from "react";
 
-function Home () {
+function Tasks() {
   const x = 10;
 
   return (
-    <h1>Home</h1>
+    <h1>Tasks</h1>
   )
 }
 
-export default Home;
+export default Tasks;
