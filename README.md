@@ -2,11 +2,12 @@
 
 ## This application allows staff working within SAP to organise and book their day.
 
-Included in this app are:
+Included  features in this app are:
 1. A desk booking tool
 2. A meeting room booking tool
-3. An outlook calendar integrated todo list
+3. An todo list section that is integrated with Outlook calendar
 4. A carpool organisation tool
+5. A tool to find the desk that was booked for today
 ---
 **CoE intern innovation project**
 ---
@@ -18,3 +19,4 @@ Included in this app are:
 - Conor McNulty-Cleary
 - Sean Zhuang
 - Ignas Prakapas
+- Contractors: Dylan Murtagh
