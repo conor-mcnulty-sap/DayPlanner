@@ -19,8 +19,7 @@ export function Header(){
           style={{
             height: '100vh',
           }}>
-          <Panel headerText="Hello, FirstName" fixed={true}>
-            </Panel>
+
         
         </Page>
       );
