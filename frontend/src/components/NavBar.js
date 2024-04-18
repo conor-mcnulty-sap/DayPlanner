@@ -1,40 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {
     TabContainer,
     Tab,
     TabSeparator
     } from '@ui5/webcomponents-react';
 
+const TabRoutes = {
+    "Default": "/",
+    "Book a Desk": "/bookdesk",
+    "Find my Desk": "/finddesk",
+    "Book a Meeting Room": "/bookmeeting",
+    "My Tasks": "/tasks",
+    "Carpool": "/carpool"
+};
+
+const tabs = ["Home"];
 export function NavBar() {
-    const tabContainerRef = useRef(null);
-
-    useEffect(() => {
-        const ro = new ResizeObserver(entries => {
-            window.requestAnimationFrame(() => {
-                for (let entry of entries) {
-                    const {width, height} = entry.contentRect;
-                    console.log('Element:', entry.target);
-                    console.log(`Element size: ${width}px x ${height}px`);
-                    console.log(`Element padding: ${entry.target.style.padding}`);
-                }
-            });
-        });
-
-        if (tabContainerRef.current) {
-            ro.observe(tabContainerRef.current);
+    const handleTabSelect = (e) => {
+        const selectedTabText = e.detail.tab.attributes[1].nodeValue;
+        const route = TabRoutes[selectedTabText];
+        if (route) {
+            window.location.href = route;
+        } else {
+            console.error(`No route found for tab "${selectedTabText}"`);
         }
+    };
 
-        return () => {
-            if (tabContainerRef.current) {
-                ro.unobserve(tabContainerRef.current);
-            }
-        };
-    }, []);
     return(
         <TabContainer
         contentBackgroundDesign="Solid"
         headerBackgroundDesign="Solid"
-        //onTabSelect={function _a(){}}
+        onTabSelect={handleTabSelect}
+        collapsed='true' 
+        fixed='true'
         tabLayout="Standard"
         >
         <Tab
@@ -49,7 +47,8 @@ export function NavBar() {
             />
         </Tab>
         <TabSeparator />
-        <Tab text="Book a Desk" />
+        <Tab text="Book a Desk">
+        </Tab>
         <Tab
             text="Find my Desk"
         />
