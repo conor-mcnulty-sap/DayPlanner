@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     TabContainer,
-    Tab,
-    TabSeparator
+    Tab
 } from '@ui5/webcomponents-react';
 
 const TabRoutes = {
