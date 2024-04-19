@@ -1,15 +1,20 @@
 import React from "react";
-import { CarpoolForm } from "../components/CarpoolForm";
+import { CarpooleeForm } from "../components/Carpool/CarpooleeForm";
+import { CarpoolerForm } from "../components/Carpool/CarpoolerForm";
+import { CarpoolList } from "../components/Carpool/CarpoolList";
+import { Grid } from "@ui5/webcomponents-react";
 
 function Carpool() {
-  const x = 10;
-  
+
   return (
     <>
-    <h1>Carpool</h1>
-    <CarpoolForm/>
+      <Grid defaultSpan="xl6" vSpacing={"20rem"}>
+        <CarpooleeForm />
+        <CarpoolerForm />
+        <CarpoolList />
+      </Grid>
     </>
-  )
+  );
 }
 
 export default Carpool;
