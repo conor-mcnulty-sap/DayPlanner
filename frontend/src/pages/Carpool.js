@@ -5,7 +5,6 @@ import { CarpoolList } from "../components/Carpool/CarpoolList";
 import { Grid } from "@ui5/webcomponents-react";
 
 function Carpool() {
-  const x = 10;
 
   return (
     <>

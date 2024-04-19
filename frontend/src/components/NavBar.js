@@ -3,13 +3,10 @@ import {
     TabContainer,
     Tab,
     TabSeparator
-    } from '@ui5/webcomponents-react';
+} from '@ui5/webcomponents-react';
 
 const TabRoutes = {
-    "Default": "/",
-    "Tab 1.1": "/tab1.1",
-    "Tab 1.2": "/tab1.2",
-    "Tab 1.3": "/tab1.3",
+    "Home": "/",
     "Book a Desk": "/bookdesk",
     "Find my Desk": "/finddesk",
     "Book a Meeting Room": "/bookmeeting",
@@ -17,7 +14,6 @@ const TabRoutes = {
     "Carpool": "/carpool"
 };
 
-const tabs = ["Home"];
 export function NavBar() {
     const handleTabSelect = (e) => {
         const selectedTabText = e.detail.tab.attributes[1].nodeValue;
@@ -29,32 +25,24 @@ export function NavBar() {
         }
     };
 
-    return(
+    const currentRoute = window.location.pathname;
+
+    return (
         <TabContainer
-        contentBackgroundDesign="Solid"
-        headerBackgroundDesign="Solid"
-        onTabSelect={handleTabSelect}
-        collapsed='true' 
-        fixed='true'
-        tabLayout="Standard"
+            contentBackgroundDesign="Solid"
+            headerBackgroundDesign="Solid"
+            onTabSelect={handleTabSelect}
+            collapsed='true' 
+            fixed='true'
+            tabLayout="Standard"
         >
-        <Tab
-            selected
-            subTabs={<><Tab text="Tab 1.1" /><Tab text="Tab 1.2" /><Tab text="Tab 1.3" /></>}
-            text="Home"
-        >
-            <div
-            style={{
-                display: 'none'
-            }}
-            />
-        </Tab>
-        <TabSeparator />
-        <Tab text="Book a Desk" />
-        <Tab text="Find my Desk" />
-        <Tab text="Book a Meeting Room" />
-        <Tab text="My Tasks" />
-        <Tab text="Carpool" />
+            {Object.entries(TabRoutes).map(([tabText, route]) => (
+                <Tab
+                    key={tabText}
+                    text={tabText}
+                    selected={route === currentRoute}
+                />
+            ))}
         </TabContainer>
-    )
+    );
 }
