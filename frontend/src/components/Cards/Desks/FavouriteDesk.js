@@ -16,7 +16,6 @@ const FavouriteDesk = ( { data } ) => {
     >
       <List
         headerText="DUB05-3-R" // desk.id
-        footerText="[might be unneeded]" // last booking date.
         >
           <Button design="Positive">
             Book

@@ -1,7 +1,9 @@
 import React from "react";
-import LastBooked from "../components/Cards/LastBooked";
-import FavouriteDesk from "../components/Cards/FavouriteDesk";
-import CurrentDesk from "../components/Cards/CurrentDesk";
+import LastBooked from "../components/Cards/Desks/LastBooked";
+import FavouriteDesk from "../components/Cards/Desks/FavouriteDesk";
+import CurrentDesk from "../components/Cards/Desks/CurrentDesk";
+import WhosIn from "../components/WhosIn";
+import NewsCard from "../components/Cards/NewsCard";
 
 function Home () {
 
@@ -11,6 +13,14 @@ function Home () {
       <CurrentDesk />
       <LastBooked />
       <FavouriteDesk />
+
+      <br /><br /><br />
+
+      <WhosIn />
+
+      <br /><br /><br />
+
+      <NewsCard />
     </>
   );
 }
