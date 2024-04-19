@@ -5,7 +5,7 @@ const CurrentDesk = ( { data } ) => {
     // Implement function to check if user has a booking
     // const hasBooking = () => {
 
-    if(true) {
+    if(false) {
         return (
             <Card
               header={
