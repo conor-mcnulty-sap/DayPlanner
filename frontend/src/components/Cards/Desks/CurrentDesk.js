@@ -5,7 +5,7 @@ const CurrentDesk = ( { data } ) => {
     // Implement function to check if user has a booking
     // const hasBooking = () => {
 
-    if(false) {
+    if(true) {
         return (
             <Card
               header={
@@ -19,7 +19,6 @@ const CurrentDesk = ( { data } ) => {
             >
               <List
                 headerText="DUB05-3-R" // desk.id
-                footerText="[might be unneeded]" // last booking date.
                 >
                   <Button design="Negative">
                     Cancel Booking

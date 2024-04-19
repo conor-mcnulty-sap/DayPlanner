@@ -1,7 +1,11 @@
 import React from "react";
 import { Card, CardHeader, List, Button } from "@ui5/webcomponents-react";
 
-const LastBooked = ( { data } ) => {
+const LastBooked = () => {
+  const lastBooked = {
+    id: "DUB05-3-R",
+    date: "2021-09-01",
+  }
 
   return (
     <Card
@@ -15,8 +19,7 @@ const LastBooked = ( { data } ) => {
       }}
     >
       <List
-        headerText="DUB05-3-R" // desk.id
-        footerText="Last booked on 2021-09-01 [could be moved]" // last booking date.
+        headerText={`${lastBooked.id}`} // desk.id
         >
           <Button design="Positive">
             Book
