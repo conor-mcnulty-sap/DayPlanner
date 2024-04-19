@@ -1,16 +1,15 @@
-import React from "react";
+import { ColorPalettePopoverComponent } from './ColourPalette';
 import {
   Form,
   Input,
   Label,
   TextArea,
-  Button,
   FormGroup,
   FormItem,
-  TimePicker,
-  ColorPalettePopover,
-  ColorPaletteItem,
+  TimePicker
 } from "@ui5/webcomponents-react";
+import "@ui5/webcomponents-localization/dist/Assets.js";
+
 
 export function TasksForm() {
   return (
@@ -25,59 +24,61 @@ export function TasksForm() {
       labelSpanS={12}
       labelSpanXL={4}
       style={{
-        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end", 
+        paddingRight:"300px"
       }}
-      titleText="My Tasks"
+      titleText="Create A Task"
     >
-      <FormGroup titleText="Adding A Task">
-        <FormItem label="Title">
+      <FormGroup >
+        <FormItem label={
+            <Label style={{  display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end", 
+            paddingRight:"200px"}}>
+              Title
+            </Label>
+        }
+      >
           <Input type="Text" />
         </FormItem>
-        <FormItem label="Time">
-          <TimePicker
-            onChange={function _a() {}}
-            onInput={function _a() {}}
-            valueState="None"
-          />
+          <FormItem label={
+              <Label style={{  display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end", 
+              paddingRight:"200px"}}>
+                Time
+              </Label>
+            }
+          >
+            <TimePicker
+              placeholder="Enter Time"
+              onChange={function _a(){}}
+              onInput={function _a(){}}
+            />
         </FormItem>
         <FormItem
           label={
-            <Label style={{ alignSelf: "start", paddingTop: "0.25rem" }}>
+            <Label style={{  display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end", 
+            paddingRight:"200px"}}>
               Description
             </Label>
           }
         >
           <TextArea placeholder="Description" rows={5} />
         </FormItem>
-        <FormItem label="Colour">
-          <Button
-            ref={{
-              current: "[Circular]",
-            }}
-            onClick={function _a() {}}
-          >
-            Open ColorPalettePopover
-          </Button>
-          <ColorPalettePopover
-            ref={{
-              current: "[Circular]",
-            }}
-            onClose={function _a() {}}
-            onItemClick={function _a() {}}
-          >
-            <ColorPaletteItem value="black" />
-            <ColorPaletteItem value="darkblue" />
-            <ColorPaletteItem value="#444444" />
-            <ColorPaletteItem value="rgb(0,200,0)" />
-            <ColorPaletteItem value="green" />
-            <ColorPaletteItem value="darkred" />
-            <ColorPaletteItem value="yellow" />
-            <ColorPaletteItem value="blue" />
-            <ColorPaletteItem value="cyan" />
-            <ColorPaletteItem value="orange" />
-            <ColorPaletteItem value="#5480e7" />
-            <ColorPaletteItem value="#ff6699" />
-          </ColorPalettePopover>
+        <FormItem  label={
+            <Label style={{  display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end", 
+            paddingRight:"200px"}}>
+              Colour
+            </Label>
+          }>
+          <ColorPalettePopoverComponent />
         </FormItem>
       </FormGroup>
     </Form>
