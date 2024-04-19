@@ -46,6 +46,7 @@ export function TasksForm(){
       />
     </FormItem>
     <FormItem label="Colour">
+  
     <Button
     ref={{
       current: '[Circular]'
@@ -74,6 +75,7 @@ export function TasksForm(){
     <ColorPaletteItem value="#5480e7" />
     <ColorPaletteItem value="#ff6699" />
   </ColorPalettePopover>
+ 
     </FormItem>
   </FormGroup>
 </Form>
