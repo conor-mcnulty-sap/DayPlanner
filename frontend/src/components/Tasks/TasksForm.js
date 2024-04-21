@@ -23,12 +23,7 @@ export function TasksForm() {
       labelSpanM={2}
       labelSpanS={12}
       labelSpanXL={4}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end", 
-        paddingRight:"300px"
-      }}
+    
       titleText="Create A Task"
     >
       <FormGroup >
