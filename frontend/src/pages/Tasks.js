@@ -6,7 +6,7 @@ function Tasks() {
     return (
         <>
             <Grid defaultSpan="auto" vSpacing={"120rem"}>
-                <div style={{ marginRight: "1rem" , marginTop: "20rem"}}>
+                <div style={{ marginRight: "20px" , marginTop: "295px"}}>
                     <MyTasks/>
                 </div>
                 <div style={{ marginLeft: "10rem" }}>

@@ -7,13 +7,26 @@ import {
   FormGroup,
   FormItem,
   TimePicker,
-  Button
+  Button,
+  Card,
+  CardHeader
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-localization/dist/Assets.js";
 
 
 export function TasksForm() {
   return (
+    <Card header={
+      <CardHeader
+        titleText="Create A Task"
+      />
+    }
+    style={{
+      width: "400px",
+      height:"500px",
+      paddingTop:"10px"
+    }}
+  >
     <Form
       backgroundDesign="Transparent"
       columnsL={1}
@@ -24,8 +37,11 @@ export function TasksForm() {
       labelSpanM={2}
       labelSpanS={12}
       labelSpanXL={4}
-    
-      titleText="Create A Task"
+      style={{
+        paddingLeft:"20px",
+        paddingRight:"20px"
+
+      }}
     >
       <FormGroup >
         <FormItem label={
@@ -90,5 +106,6 @@ export function TasksForm() {
       </FormGroup>
 
     </Form>
+    </Card>
   );
 }
