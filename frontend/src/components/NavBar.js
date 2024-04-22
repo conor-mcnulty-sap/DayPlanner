@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-    TabContainer,
-    Tab
-} from '@ui5/webcomponents-react';
+import { TabContainer, Tab } from '@ui5/webcomponents-react';
 
 const TabRoutes = {
     "Home": "/",

@@ -1,10 +1,5 @@
 import React from "react";
-import{
-     List, 
-     StandardListItem,
-    } from "@ui5/webcomponents-react";
-
-
+import{ List, StandardListItem } from "@ui5/webcomponents-react";
 
     export function MyTasks() {
         return (
