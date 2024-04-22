@@ -48,11 +48,12 @@ export function TasksForm() {
               </Label>
             }
           >
-            <TimePicker
-              placeholder="Enter Time"
-              onChange={function _a(){}}
-              onInput={function _a(){}}
-            />
+             <TimePicker
+            formatPattern="HH:mm"
+            placeholder="Enter Time"
+            onChange={function _a() {}}
+            onInput={function _a() {}}
+          />
         </FormItem>
         <FormItem
           label={
