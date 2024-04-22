@@ -1,9 +1,14 @@
 import React from "react";
+import MeetingRoomCarousel from "../components/Carousels/MeetingRoomCarousel";
+import MeetingRoomFrom from "../components/Forms/MeetingRoomForm";
 
 function BookMeeting() {
   
   return (
-    <h1>Book Meeting</h1>
+    <>
+      <MeetingRoomFrom />
+      <MeetingRoomCarousel />
+    </>
   )
 }
 

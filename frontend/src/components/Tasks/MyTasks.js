@@ -1,10 +1,7 @@
 import React from "react";
-import {
-    List,
-    StandardListItem,
-    Icon
-} from "@ui5/webcomponents-react";
-import "@ui5/webcomponents-icons/dist/AllIcons.js";
+import{ List,StandardListItem, Icon} from "@ui5/webcomponents-react";
+    import "@ui5/webcomponents-icons/dist/AllIcons.js";
+
 
 export function MyTasks() {
     return (

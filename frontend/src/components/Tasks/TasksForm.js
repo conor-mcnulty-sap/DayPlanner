@@ -6,7 +6,8 @@ import {
   TextArea,
   FormGroup,
   FormItem,
-  TimePicker
+  TimePicker,
+  Button
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-localization/dist/Assets.js";
 
@@ -75,7 +76,18 @@ export function TasksForm() {
           }>
           <ColorPalettePopoverComponent />
         </FormItem>
+        <FormItem>
+        <Button
+          ref={{
+            current: "[Circular]",
+          }}
+          onClick={function _a() {}}
+        >
+          Submit
+        </Button>
+        </FormItem>
       </FormGroup>
+
     </Form>
   );
 }
