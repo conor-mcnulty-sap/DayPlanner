@@ -8,7 +8,7 @@ function Carpool() {
 
   return (
     <>
-      <Grid defaultSpan="xl6" vSpacing={"20rem"}>
+      <Grid defaultSpan="xl6" vSpacing={"20rem"} hSpacing={"10rem"}>
         <CarpooleeForm />
         <CarpoolerForm />
         <CarpoolList />
