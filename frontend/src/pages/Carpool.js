@@ -3,6 +3,7 @@ import { CarpooleeForm } from "../components/Carpool/CarpooleeForm";
 import { CarpoolerForm } from "../components/Carpool/CarpoolerForm";
 import { CarpoolList } from "../components/Carpool/CarpoolList";
 import { Grid } from "@ui5/webcomponents-react";
+import CarpoolMap from "../components/Carpool/CarpoolMap";
 
 function Carpool() {
 
@@ -12,6 +13,7 @@ function Carpool() {
         <CarpooleeForm />
         <CarpoolerForm />
         <CarpoolList />
+        <CarpoolMap/>
       </Grid>
     </>
   );
