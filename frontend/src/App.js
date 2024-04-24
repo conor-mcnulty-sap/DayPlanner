@@ -7,12 +7,15 @@ import BookDesk from "./pages/BookDesk";
 import BookMeeting from "./pages/BookMeeting";
 import FindDesk from "./pages/FindDesk";
 import { NavBar } from "./components/NavBar";
+import SignIn from "./components/SignIn";
+
 
 function App() {
   return (
     <Router>
       <div className="App">
         <NavBar />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/carpool" element={<Carpool />} />
