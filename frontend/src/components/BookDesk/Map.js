@@ -7,7 +7,7 @@ import floorPlan from '../../assets/floor-plan-png-9.png';
 function Map() {
   const bounds = [
     [0, 0],
-    [10, 10],
+    [10, 29],
   ];
 
   const markerPosition = [5, 5]; // adjust this to the desired position
