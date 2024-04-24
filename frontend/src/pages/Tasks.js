@@ -5,7 +5,7 @@ import { Grid } from "@ui5/webcomponents-react";
 import SignIn from "../components/SignIn"
 function Tasks() {
     return (
-        <>
+        <React.StrictMode>
             <Grid defaultSpan="auto" vSpacing={"120rem"}>
                 <div style={{ marginRight: "20px" , marginTop: "295px"}}>
                     <MyTasks/>
@@ -16,7 +16,7 @@ function Tasks() {
                 <SignIn/>
 
             </Grid>
-        </>
+        </React.StrictMode>
     );
 }
 
