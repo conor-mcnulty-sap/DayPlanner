@@ -13,7 +13,7 @@ function Map() {
   return (
     <MapContainer 
       center={[5, 5]} 
-      zoom={2} 
+      zoom={6} 
       style={{ height: "100vh", width: "100%" }}
       crs={L.CRS.Simple}
     >
@@ -21,6 +21,7 @@ function Map() {
         url={floorPlan}
         bounds={bounds}
       />
+      
     </MapContainer>
   );
 }

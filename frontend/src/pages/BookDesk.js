@@ -5,9 +5,9 @@ import { Grid } from "@ui5/webcomponents-react";
 function BookDesk() {
 
   return (
-    <Grid>
+    
       <Map/>
-    </Grid>
+    
     
   )
 }
