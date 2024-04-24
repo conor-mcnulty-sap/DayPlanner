@@ -2,7 +2,7 @@ import React from 'react';
 import { MapContainer, ImageOverlay } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import floorPlan from './floor-plan-png-9.png';
+import floorPlan from '../../assets/floor-plan-png-9.png';
 
 function Map() {
   const bounds = [

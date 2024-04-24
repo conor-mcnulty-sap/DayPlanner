@@ -1,14 +1,16 @@
 import React from 'react';
-import { MapContainer, ImageOverlay } from 'react-leaflet';
+import { MapContainer, ImageOverlay, Circle, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import floorPlan from './floor-plan-png-9.png';
+import floorPlan from '../../assets/floor-plan-png-9.png';
 
 function Map() {
   const bounds = [
     [0, 0],
     [10, 10],
   ];
+
+  const markerPosition = [5, 5]; // adjust this to the desired position
 
   return (
     <MapContainer 
@@ -21,7 +23,11 @@ function Map() {
         url={floorPlan}
         bounds={bounds}
       />
-      
+      <Circle center={markerPosition} radius={.1} color="red" fillOpacity={0}>
+        <Popup>
+        DUB05-3-L-34
+        </Popup>
+      </Circle>
     </MapContainer>
   );
 }

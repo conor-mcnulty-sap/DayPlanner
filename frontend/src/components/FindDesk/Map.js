@@ -1,8 +1,8 @@
 import React from 'react';
-import { MapContainer, ImageOverlay, Marker } from 'react-leaflet';
+import { MapContainer, ImageOverlay, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import floorPlan from './floor-plan-png-9.png';
+import floorPlan from '../../assets/floor-plan-png-9.png';
 
 // Fix for the default marker icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -31,7 +31,11 @@ function Map() {
         url={floorPlan}
         bounds={bounds}
       />
-      <Marker position={markerPosition} />
+      <Marker position={markerPosition}>
+        <Popup>
+          DUB05-3-L-34
+        </Popup>
+      </Marker>
     </MapContainer>
   );
 }
