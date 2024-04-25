@@ -14,6 +14,15 @@ export function CarpoolList() {
       onLoadMore={function _a() {}}
       onSelectionChange={function _a() {}}
       separators="All"
+      style={
+        {
+          alignItems: "center",
+          width: "20rem",
+          height: "20rem",
+          paddingLeft: "15rem",
+          margin: "1rem",
+        }
+      }
     >
       <StandardListItem additionalText="10m away">John Joe</StandardListItem>
       <StandardListItem additionalText="9m away">Joe John</StandardListItem>

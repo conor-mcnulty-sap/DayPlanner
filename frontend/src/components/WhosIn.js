@@ -37,6 +37,15 @@ const WhosIn = () => {
             />
             <List
                 headerText="Who's In"
+                style={
+                    {
+                      alignItems: "center",
+                      width: "20rem",
+                      height: "20rem",
+                      padding: "1rem",
+                      margin: "1rem",
+                    }
+                }
             >
                 {foundUsers.map((user) => (
                     <StandardListItem key={user.id}>

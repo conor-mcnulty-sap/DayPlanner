@@ -3,22 +3,21 @@ import {TasksForm} from "../components/Tasks/TasksForm";
 import {MyTasks} from "../components/Tasks/MyTasks";
 import { Grid } from "@ui5/webcomponents-react";
 import SignIn from "../components/SignIn"
+
 function Tasks() {
     return (
         <React.StrictMode>
-            <Grid defaultSpan="auto" vSpacing={"120rem"}>
-                <div style={{ marginRight: "20px" , marginTop: "295px"}}>
+            <Grid defaultSpan="XL6 L12 M12 S12" vSpacing="1rem" hSpacing="1rem">
+                <div style={{ marginRight: "20px" }}>
                     <MyTasks/>
                 </div>
-                <div style={{ marginLeft: "10rem" }}>
+                <div style={{ marginLeft: "1rem" }}>
                     <TasksForm/>
                 </div>
                 <SignIn/>
-
             </Grid>
         </React.StrictMode>
     );
 }
-
 
 export default Tasks;

@@ -8,20 +8,18 @@ import NewsCard from "../components/Cards/NewsCard";
 function Home () {
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
       <h1>Home</h1>
-      <CurrentDesk />
-      <LastBooked />
-      <FavouriteDesk />
-
-      <br /><br /><br />
+      <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+        <CurrentDesk />
+        <LastBooked />
+        <FavouriteDesk />
+      </div>
 
       <WhosIn />
 
-      <br /><br /><br />
-
       <NewsCard />
-    </>
+    </div>
   );
 }
 

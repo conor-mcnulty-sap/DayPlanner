@@ -2,7 +2,7 @@ import React from 'react';
 import { MapContainer, ImageOverlay, Circle, Popup, Rectangle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import floorPlan from '../../assets/floor-plan-png-9.png';
+import floorPlan from '../../assets/floor-plan-png-9.jpg';
 
 function Map() {
   const bounds = [
@@ -35,7 +35,7 @@ function Map() {
     <MapContainer 
       center={[5, 5]} 
       zoom={6} 
-      style={{ height: "100vh", width: "100%" }}
+      style={{ height: "100vh", width: "100%", backgroundColor: "white"}}
       crs={L.CRS.Simple}
     >
       <ImageOverlay
@@ -45,6 +45,7 @@ function Map() {
       {rectangles.map((rectangle, index) => (
         <Rectangle key={index} bounds={rectangle} color="black" fillOpacity={0} />
       ))}
+      
       {coordinates.map((coordinate, index) => (
         <Circle key={index} center={coordinate.position} radius={.1} color="red" fillOpacity={0}>
           <Popup>
