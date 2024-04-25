@@ -24,7 +24,7 @@ function Map() {
     <MapContainer 
       center={[5, 5]} 
       zoom={6} 
-      style={{ height: "100vh", width: "100%", backgroundColor: "white"}}
+      style={{ height: "90vh", width: "100%", backgroundColor: "white"}}
       crs={L.CRS.Simple}
     >
       <ImageOverlay

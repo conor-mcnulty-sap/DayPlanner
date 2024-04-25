@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { List, StandardListItem, Input} from "@ui5/webcomponents-react";
 
 const WhosIn = () => {
-    // ? Possible to implement by team using Grouped List Items.
     const users = [
         { id: "I123", name: 'John Doe', desk: 'DUB05-3-R 1'},
         { id: "I456", name: 'Jane Doe', desk: 'DUB05-3-R 2'},
@@ -24,13 +23,8 @@ const WhosIn = () => {
         }
     }
 
-    // Function That loads the users that are currently in the office
-    // const fetchWhosIn = () => {
-    
-    // ? Busy = true -> Short load time to allow for fetching the data
-
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Input
                 placeholder="Search..."
                 onChange={filter}
@@ -39,7 +33,6 @@ const WhosIn = () => {
                 headerText="Who's In"
                 style={
                     {
-                      alignItems: "center",
                       width: "20rem",
                       height: "20rem",
                       padding: "1rem",
@@ -53,7 +46,7 @@ const WhosIn = () => {
                     </StandardListItem>
                 ))}
             </List>
-        </>
+        </div>
     );
 }
 export default WhosIn;

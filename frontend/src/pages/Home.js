@@ -10,15 +10,16 @@ function Home () {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
       <h1>Home</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <CurrentDesk />
         <LastBooked />
         <FavouriteDesk />
       </div>
 
-      <WhosIn />
-
-      <NewsCard />
+      <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+        <WhosIn />
+        <NewsCard />
+      </div>
     </div>
   );
 }

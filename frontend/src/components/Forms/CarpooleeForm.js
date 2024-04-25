@@ -9,6 +9,7 @@ import {
 
 export function CarpooleeForm() {
   return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <Form
       backgroundDesign="Transparent"
       columnsL={1}
@@ -20,15 +21,12 @@ export function CarpooleeForm() {
       labelSpanS={12}
       labelSpanXL={4}
       style={{
-        paddingLeft: "10rem",
+        
         alignItems: "center",
       }}
       titleText="Apply For Carpool Lift"
     >
       <FormGroup titleText="Personal Data"  >
-        <FormItem label="Name">
-          <Input type="Text" />
-        </FormItem>
         <FormItem label="Eircode">
           <Input type="Text" />
         </FormItem>
@@ -44,5 +42,6 @@ export function CarpooleeForm() {
         </Button>
       </FormItem>
     </Form>
+    </div>
   );
 }
