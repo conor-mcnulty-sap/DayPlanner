@@ -8,7 +8,7 @@ import {
   DatePicker
 } from "@ui5/webcomponents-react";
 
-export function DeskForm() {
+export function DeskForm({ selectedDesk }) {
   return (
     <Form
       backgroundDesign="Transparent"
@@ -27,15 +27,15 @@ export function DeskForm() {
       titleText="Book a Desk"
     >
       <FormGroup titleText=""  >
-        <FormItem label="Building">
-          <Input type="Text" />
-        </FormItem>
-        <FormItem label="Floor">
-          <Input type="Text" />
-        </FormItem>
-        <FormItem label="Desk">
-          <Input type="Text" />
-        </FormItem>
+      <FormItem label="Building">
+        <Input type="Text" value={selectedDesk ? selectedDesk.building : ''} />
+      </FormItem>
+      <FormItem label="Floor">
+        <Input type="Text" value={selectedDesk ? selectedDesk.floor : ''} />
+      </FormItem>
+      <FormItem label="Desk">
+        <Input type="Text" value={selectedDesk ? selectedDesk.popup : ''} />
+      </FormItem>
         <FormItem label="Date">
         <DatePicker
                 formatPattern="yyyy-MM-dd"

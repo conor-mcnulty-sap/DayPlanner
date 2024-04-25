@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid} from "@ui5/webcomponents-react";
-import Map from "../components/FindDesk/Map";
+import Map from "../components/Maps/FindDeskMap";
 import { Calendar } from "@ui5/webcomponents-react";
 function FindDesk() {
 

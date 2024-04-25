@@ -1,10 +1,11 @@
+// BookDeskMap.js
 import React, { useState, useEffect } from 'react';
 import { MapContainer, ImageOverlay, Circle, Popup, Rectangle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import floorPlan from '../../assets/floor-plan-png-9.jpg';
 
-function Map() {
+function Map({ onCircleClick }) {
   const bounds = [
     [0, 0],
     [10, 29],
@@ -53,7 +54,18 @@ function Map() {
       ))}
       
       {coordinates.map((coordinate, index) => (
-        <Circle key={index} center={coordinate.position} radius={.1} color="red" fillOpacity={0}>
+        <Circle 
+          key={index} 
+          center={coordinate.position} 
+          radius={.1} 
+          color="red" 
+          fillOpacity={0}
+          eventHandlers={{
+            click: () => {
+              onCircleClick(coordinate);
+            },
+          }}
+        >
           <Popup>
             {coordinate.popup}
           </Popup>

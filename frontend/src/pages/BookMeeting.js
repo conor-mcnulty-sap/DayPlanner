@@ -2,7 +2,7 @@ import React from "react";
 import MeetingRoomCarousel from "../components/Carousels/MeetingRoomCarousel";
 import MeetingRoomFrom from "../components/Forms/MeetingRoomForm";
 import { Grid } from "@ui5/webcomponents-react";
-import Map from "../components/BookMeeting/Map";
+import Map from "../components/Maps/BookMeetingMap";
 function BookMeeting() {
   
   return (

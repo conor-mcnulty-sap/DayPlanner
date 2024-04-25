@@ -1,6 +1,6 @@
 import React from "react";
-import { CarpooleeForm } from "../components/Carpool/CarpooleeForm";
-import { CarpoolerForm } from "../components/Carpool/CarpoolerForm";
+import { CarpooleeForm } from "../components/Forms/CarpooleeForm";
+import { CarpoolerForm } from "../components/Forms/CarpoolerForm";
 import { CarpoolList } from "../components/Carpool/CarpoolList";
 import { Grid } from "@ui5/webcomponents-react";
 import CarpoolMap from "../components/Carpool/CarpoolMap";
