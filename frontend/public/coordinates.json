@@ -5,7 +5,30 @@
     { "position": [5.75, 4.65], "popup": "DUB05-2-L-15" },
     { "position": [5.6, 5.4], "popup": "DUB05-2-L-16" },
     { "position": [6.25, 5.15], "popup": "DUB05-2-L-17" },
+
     { "position": [5.5, 6.55], "popup": "DUB05-2-L-18" },
     { "position": [4.85, 6.6], "popup": "DUB05-2-L-19" },
-    { "position": [5.2, 7.15], "popup": "DUB05-2-L-20" }
-  ]
+    { "position": [5.2, 7.15], "popup": "DUB05-2-L-20" },
+
+    
+    { "position": [7.35, 5.75], "popup": "DUB05-2-L-21" },
+    { "position": [6.75, 5.95], "popup": "DUB05-2-L-22" },
+    { "position": [6.4, 6.4], "popup": "DUB05-2-L-23" },
+    { "position": [6.25, 7.1], "popup": "DUB05-2-L-24" },
+    { "position": [6.9, 6.85], "popup": "DUB05-2-L-25" },
+    { "position": [7.25, 6.4], "popup": "DUB05-2-L-26" },
+
+    
+    { "position": [6.1, 8.55], "popup": "DUB05-2-L-27" },
+    { "position": [5.45, 8.6], "popup": "DUB05-2-L-28" },
+    { "position": [5.8, 9.15], "popup": "DUB05-2-L-29" },
+
+    
+    { "position": [7.85, 7.65], "popup": "DUB05-2-L-30" },
+    { "position": [7.25, 7.85], "popup": "DUB05-2-L-31" },
+    { "position": [6.9, 8.3], "popup": "DUB05-2-L-32" },
+    { "position": [6.75, 9], "popup": "DUB05-2-L-33" },
+    { "position": [7.4, 8.75], "popup": "DUB05-2-L-34" },
+    { "position": [7.75, 8.3], "popup": "DUB05-2-L-35" }
+  
+]
