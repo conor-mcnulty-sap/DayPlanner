@@ -5,6 +5,7 @@ import {
   FormItem,
   Input,
   Button,
+  DatePicker
 } from "@ui5/webcomponents-react";
 
 export function DeskForm() {
@@ -20,18 +21,29 @@ export function DeskForm() {
       labelSpanS={12}
       labelSpanXL={4}
       style={{
-        paddingLeft: "1rem",
+        paddingLeft: "15rem",
         alignItems: "center",
       }}
-      titleText="Apply For Carpool Lift"
+      titleText="Book a Desk"
     >
-      <FormGroup titleText="Personal Data"  >
-        <FormItem label="Name">
+      <FormGroup titleText=""  >
+        <FormItem label="Building">
           <Input type="Text" />
         </FormItem>
-        <FormItem label="Eircode">
+        <FormItem label="Floor">
           <Input type="Text" />
         </FormItem>
+        <FormItem label="Desk">
+          <Input type="Text" />
+        </FormItem>
+        <FormItem label="Date">
+        <DatePicker
+                formatPattern="yyyy-MM-dd"
+                onChange={function _a() {}}
+                onInput={function _a() {}}
+                valueState="None"
+              />
+              </FormItem>
       </FormGroup>
       <FormItem>
         <Button

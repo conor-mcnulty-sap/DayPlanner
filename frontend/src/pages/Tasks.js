@@ -5,20 +5,19 @@ import { Grid } from "@ui5/webcomponents-react";
 
 function Tasks() {
     return (
-        <>
-            <Grid defaultSpan="auto" vSpacing={"120rem"}>
-                <div style={{ marginRight: "20px" , marginTop: "295px"}}>
+        <React.StrictMode>
+            <Grid defaultSpan="XL6 L12 M12 S12" vSpacing="1rem" hSpacing="1rem">
+                <div style={{ marginRight: "20px" }}>
                     <MyTasks/>
                 </div>
-                <div style={{ marginLeft: "10rem" }}>
+                <div style={{ marginLeft: "1rem" }}>
                     <TasksForm/>
                 </div>
                 
 
             </Grid>
-        </>
+        </React.StrictMode>
     );
 }
-
 
 export default Tasks;

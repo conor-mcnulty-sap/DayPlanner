@@ -5,7 +5,7 @@ import { DeskForm } from "../components/BookDesk/DeskForm";
 function FindDesk() {
 
   return (
-    <Grid defaultSpan="xl6" vSpacing={"20rem"} hSpacing={"10rem"}>
+    <Grid defaultSpan="XL6 L12 M12 S12" vSpacing={"1rem"} hSpacing={"1rem"}>
       <DeskForm/>
       <Map/>
       </Grid>

@@ -21,6 +21,7 @@ export function CarpoolerForm() {
       labelSpanXL={4}
       style={{
         alignItems: "center",
+        paddingLeft: "10rem",
       }}
       titleText="Apply to give a Carpool Lift"
     >
