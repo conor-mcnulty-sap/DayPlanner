@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, StandardListItem, Input} from "@ui5/webcomponents-react";
 
 const WhosIn = () => {
-    const users = [
-        { id: "I123", name: 'John Doe', desk: 'DUB05-3-R 1'},
-        { id: "I456", name: 'Jane Doe', desk: 'DUB05-3-R 2'},
-        { id: "I789", name: 'Alan Smith', desk: 'DUB05-3-R 3'},
-    ];
+    const [users, setUsers] = useState([]);
+    const [foundUsers, setFoundUsers] = useState([]);
 
-    const [foundUsers, setFoundUsers] = useState(users);
+    useEffect(() => {
+        fetch('/whosin.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                setUsers(data);
+                setFoundUsers(data);
+            })
+            .catch(error => console.log('Fetching failed: ', error));
+    }, []);
 
     const filter = (e) => {
         const keyword = e.target.value;

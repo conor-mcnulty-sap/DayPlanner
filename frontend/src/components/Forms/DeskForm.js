@@ -5,10 +5,19 @@ import {
   FormItem,
   Input,
   Button,
-  DatePicker
+  DateRangePicker
 } from "@ui5/webcomponents-react";
 
 export function DeskForm({ selectedDesk }) {
+  const today = new Date();
+  const endDate = new Date();
+  endDate.setDate(today.getDate() + 7); // set the end date to 7 days from today
+
+  const startString = today.toISOString().split('T')[0]; // format the start date as "yyyy-mm-dd"
+  const endString = endDate.toISOString().split('T')[0]; // format the end date as "yyyy-mm-dd"
+
+  const defaultRange = `${startString} - ${endString}`; // create a range from the start date to the end date
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Form
@@ -37,14 +46,16 @@ export function DeskForm({ selectedDesk }) {
         <FormItem label="Desk">
           <Input type="Text" value={selectedDesk ? selectedDesk.popup : ''} />
         </FormItem>
-          <FormItem label="Date">
-          <DatePicker
-                  formatPattern="yyyy-MM-dd"
-                  onChange={function _a() {}}
-                  onInput={function _a() {}}
-                  valueState="None"
-                />
-                </FormItem>
+        <FormItem>
+        <DateRangePicker
+          onChange={function _a(){}}
+          onInput={function _a(){}}
+          onValueStateChange={function _a(){}}
+          primaryCalendarType="Gregorian"
+          valueState="None"
+          defaultValue={defaultRange}
+        />
+        </FormItem>
         </FormGroup>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
