@@ -1,5 +1,6 @@
 import React from 'react';
 import { TabContainer, Tab } from '@ui5/webcomponents-react';
+import SignIn from './SignIn'
 
 const TabRoutes = {
     "Home": "/",
@@ -8,6 +9,7 @@ const TabRoutes = {
     "Book a Meeting Room": "/bookmeeting",
     "My Tasks": "/tasks",
     "Carpool": "/carpool"
+
 };
 
 export function NavBar() {
@@ -23,22 +25,27 @@ export function NavBar() {
 
     const currentRoute = window.location.pathname;
 
+ 
     return (
-        <TabContainer
-            contentBackgroundDesign="Solid"
-            headerBackgroundDesign="Solid"
-            onTabSelect={handleTabSelect}
-            collapsed='true' 
-            fixed='true'
-            tabLayout="Standard"
-        >
-            {Object.entries(TabRoutes).map(([tabText, route]) => (
-                <Tab
-                    key={tabText}
-                    text={tabText}
-                    selected={route === currentRoute}
-                />
-            ))}
-        </TabContainer>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
+            <TabContainer
+                contentBackgroundDesign="Solid"
+                headerBackgroundDesign="Solid"
+                onTabSelect={handleTabSelect}
+                collapsed='true'
+                fixed='true'
+                tabLayout="Standard"
+               
+            >
+                {Object.entries(TabRoutes).map(([tabText, route]) => (
+                    <Tab
+                        key={tabText}
+                        text={tabText}
+                        selected={route === currentRoute}
+                    />
+                ))}
+            </TabContainer>
+            <SignIn />
+        </div>
     );
 }
