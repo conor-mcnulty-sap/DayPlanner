@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, ImageOverlay, Circle, Popup, Rectangle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -10,18 +10,24 @@ function Map() {
     [10, 29],
   ];
 
-  // Array of coordinates with popup text
-  const coordinates = [
-    { position: [6.8, 3.9], popup: 'DUB05-2-L-12' },
-    { position: [6.65, 4.65], popup: 'DUB05-2-L-13' },
-    { position: [6.15, 4.15], popup: 'DUB05-2-L-14' },
-    { position: [5.75, 4.65], popup: 'DUB05-2-L-15' },
-    { position: [5.6, 5.4], popup: 'DUB05-2-L-16' },
-    { position: [6.25, 5.15], popup: 'DUB05-2-L-17' },
-    { position: [5.5, 6.55], popup: 'DUB05-2-L-18' },
-    { position: [4.85, 6.6], popup: 'DUB05-2-L-19' },
-    { position: [5.2, 7.15], popup: 'DUB05-2-L-20' },
-  ]; // adjust this to your desired coordinates
+  // State to store the coordinates
+  const [coordinates, setCoordinates] = useState([]);
+
+  // Fetch the coordinates from the JSON file when the component mounts
+  useEffect(() => {
+    fetch('/coordinates.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched coordinates: ', data);
+        setCoordinates(data);
+      })
+      .catch(error => console.log('Fetching coordinates failed: ', error));
+  }, []);
 
   // Create an array of rectangles for the grid
   const rectangles = [];
