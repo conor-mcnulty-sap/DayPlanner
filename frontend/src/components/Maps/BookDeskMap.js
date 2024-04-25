@@ -40,8 +40,8 @@ function Map({ onCircleClick }) {
 
   return (
     <MapContainer 
-      center={[5, 5]} 
-      zoom={6} 
+      center={[5, 14.5]} 
+      zoom={5} 
       style={{ height: "90vh", width: "100%", backgroundColor: "white"}}
       crs={L.CRS.Simple}
     >
@@ -49,17 +49,19 @@ function Map({ onCircleClick }) {
         url={floorPlan}
         bounds={bounds}
       />
-      {rectangles.map((rectangle, index) => (
-        <Rectangle key={index} bounds={rectangle} color="black" fillOpacity={0} />
-      ))}
       
       {coordinates.map((coordinate, index) => (
         <Circle 
           key={index} 
           center={coordinate.position} 
           radius={.1} 
-          color="red" 
-          fillOpacity={0}
+          pathOptions={{
+            color: coordinate.color,
+            fillColor: coordinate.color,
+            fillOpacity: .2,
+            fill: true,
+          
+          }}
           eventHandlers={{
             click: () => {
               onCircleClick(coordinate);
