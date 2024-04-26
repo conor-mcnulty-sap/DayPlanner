@@ -2,6 +2,7 @@ import React from "react";
 import {TasksForm} from "../components/Tasks/TasksForm";
 import {MyTasks} from "../components/Tasks/MyTasks";
 import { Grid } from "@ui5/webcomponents-react";
+import Calendar from "../components/Tasks/Calendar/MyCalendar";
 
 function Tasks() {
     return (
@@ -12,6 +13,9 @@ function Tasks() {
                 </div>
                 <div style={{ marginLeft: "1rem" }}>
                     <TasksForm/>
+                </div>
+                <div>
+                    <Calendar/>
                 </div>
                 
 
