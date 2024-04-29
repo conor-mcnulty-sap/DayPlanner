@@ -6,6 +6,7 @@ const TabRoutes = {
     "Home": "/",
     "Book a Desk": "/bookdesk",
     "Find my Desk": "/finddesk",
+    "Team Booking": "/bookteam",
     "Book a Meeting Room": "/bookmeeting",
     "My Tasks": "/tasks",
     "Carpool": "/carpool"
