@@ -6,6 +6,7 @@ import Tasks from "./pages/Tasks";
 import BookDesk from "./pages/BookDesk";
 import BookMeeting from "./pages/BookMeeting";
 import FindDesk from "./pages/FindDesk";
+import BookTeam from "./pages/BookTeam";
 import { NavBar } from "./components/NavBar";
 import SignIn from "./components/SignIn";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/bookdesk" element={<BookDesk />} />
           <Route path="/bookmeeting" element={<BookMeeting />} />
           <Route path="/finddesk" element={<FindDesk />} />
+          <Route path="/bookteam" element={<BookTeam />} />
         </Routes>
       </div>
     </Router>
