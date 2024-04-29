@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { List, StandardListItem } from "@ui5/webcomponents-react";
+import { Title, List, StandardListItem } from "@ui5/webcomponents-react";
 
 function CarpoolList() {
   const [listData, setListData] = useState([]);
@@ -22,7 +22,7 @@ function CarpoolList() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h2>Nearest available people</h2>
+      <Title level="H2">Nearest available people</Title>
       <List
         growing="None"
         mode="None"

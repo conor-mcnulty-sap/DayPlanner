@@ -16,7 +16,7 @@ function Home () {
         <FavouriteDesk />
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-around', width: '50%' }}>
         <WhosIn />
         <NewsCard />
       </div>
