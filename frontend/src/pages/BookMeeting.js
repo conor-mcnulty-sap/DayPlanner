@@ -6,7 +6,7 @@ import Map from "../components/Maps/BookMeetingMap";
 function BookMeeting() {
   
   return (
-    <Grid defaultSpan="XL6 L6 M12 S12" vSpacing={"20rem"} hSpacing={"10rem"}>
+    <Grid defaultSpan="XL6 L6 M6 S12" vSpacing={"5rem"} hSpacing={"5rem"}>
       <>
       <MeetingRoomFrom />
       <MeetingRoomCarousel />
