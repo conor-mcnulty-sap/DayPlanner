@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Map from "../components/Maps/BookDeskMap";
-import {DeskForm}  from "../components/Forms/DeskForm";
+import DeskForm  from "../components/Forms/DeskForm";
 import { Grid } from "@ui5/webcomponents-react";
 
 

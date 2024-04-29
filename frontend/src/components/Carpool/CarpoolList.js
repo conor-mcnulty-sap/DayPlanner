@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { List, StandardListItem } from "@ui5/webcomponents-react";
 
-export function CarpoolList() {
+function CarpoolList() {
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
@@ -49,3 +49,5 @@ export function CarpoolList() {
     </div>
   );
 }
+
+export default CarpoolList;

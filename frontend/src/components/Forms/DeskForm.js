@@ -8,7 +8,7 @@ import {
   DateRangePicker
 } from "@ui5/webcomponents-react";
 
-export function DeskForm({ selectedDesk }) {
+function DeskForm ({ selectedDesk }) {
   const today = new Date();
   const endDate = new Date();
   endDate.setDate(today.getDate() + 7); // set the end date to 7 days from today
@@ -71,3 +71,5 @@ export function DeskForm({ selectedDesk }) {
     </div>
   );
 }
+
+export default DeskForm;

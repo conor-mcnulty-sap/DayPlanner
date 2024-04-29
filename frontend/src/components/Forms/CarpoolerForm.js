@@ -7,7 +7,7 @@ import {
   Button,
 } from "@ui5/webcomponents-react";
 
-export function CarpoolerForm() {
+const CarpoolerForm= () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <Form
@@ -45,3 +45,6 @@ export function CarpoolerForm() {
     </div>
   );
 }
+
+
+export default CarpoolerForm;
