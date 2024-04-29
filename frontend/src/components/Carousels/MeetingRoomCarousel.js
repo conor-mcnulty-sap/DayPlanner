@@ -22,7 +22,7 @@ const MeetingRoomCarousel = () => {
   return (
     <Carousel arrowsPlacement="Content" hidePageIndicator style={carouselStyle} backgroundDesign="Transparent" pageIndicatorBackgroundDesign="Transparent" cyclic>
       {sampleRooms.map((room) => (
-        <div key={room.id} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <div key={room.id} style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}>
           <img src={room.img}
             alt="Meeting Room"
             style={{
