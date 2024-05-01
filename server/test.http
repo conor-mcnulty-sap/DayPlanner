@@ -18,3 +18,12 @@ Content-Type: application/json
     "date": "2022-09-15"
 }
 
+###
+
+POST /api/bookings/removebooking HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "id": "1",
+}
