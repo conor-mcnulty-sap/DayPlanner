@@ -1,15 +1,21 @@
-const express = require('express'); 
-const app = express();
+const express = require('express');
+const cors = require('cors');
 
-app.get('/api/news', (req, res) => {
-    //res.json({"Users": ["Alice", "Bob", "Charlie"]});
+const routes = require('./api/routes');
+
+const prepareServer = () => {
+    const app = express();
+
+    app.use(cors());
+    app.use(express.json());
+
+    app.use('/', routes);
     
-    res.sendFile('output.json', { root: __dirname });
-    }
-);
+    app.listen(5000, () => {
+        console.log('Server is running on port 5000');
+    });
 
+    return app;
+}
 
-
-app.listen(5000, () => {
-    console.log('Server is running on port 5000');
-});
+module.exports = {prepareServer};
