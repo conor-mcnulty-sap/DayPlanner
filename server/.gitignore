@@ -1,8 +1,0 @@
-# dependencies
-/node_modules
-*.local
-# Ignore .env
-.env
-.env.*
-*.env
-
