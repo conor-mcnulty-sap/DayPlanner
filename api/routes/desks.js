@@ -75,7 +75,7 @@ router.delete('/removefavourite', async (req, res) => {
         .delete()
         .eq('desk_id', in_deskid)
         .eq('user_id', in_userid);
-        res.send(data);
+        res.send("Desk removed from favourites");
         console.log('Desk removed from favourites');
     }
 });

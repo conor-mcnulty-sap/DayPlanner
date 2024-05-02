@@ -51,9 +51,9 @@ router.post('/addcarpooler', async (req, res) => {
                 eircode: eircode
             }
         );
+        res.send(data);
+        console.log('Carpooler added successfully');
     }
-    console.log('Carpooler added successfully');
-    res.send(data);
 });
 
 // Add Carpoolee
@@ -81,9 +81,61 @@ router.post('/addcarpoolee', async (req, res) => {
                 eircode: eircode
             }
         );
+        console.log('Carpoolee added successfully');
+        res.send(data);
     }
-    console.log('Carpoolee added successfully');
-    res.send(data);
+});
+
+// Remove Carpooler
+router.delete('/removecarpooler', async (req, res) => {
+    let user_id = req.body.user_id;
+
+    //if carpooler does not exist
+    const {data: carpoolers, error} = await supabase
+    .from('carpooler')
+    .select('user_id')
+    .eq('user_id', user_id);
+
+    if (carpoolers.length == 0) {
+        res.send('Carpooler does not exist');
+        console.log('Carpooler does not exist');
+        return;
+    }
+    else {
+        const {data, error} = await supabase
+        .from('carpooler')
+        .delete()
+        .eq('user_id', user_id);
+        console.log('Carpooler removed successfully');
+        res.send(data);
+    }
+
+    
+});
+
+// Remove Carpoolee
+router.delete('/removecarpoolee', async (req, res) => {
+    let user_id = req.body.user_id;
+
+    //if carpoolee does not exist
+    const {data: carpoolees, error} = await supabase
+    .from('carpoolee')
+    .select('user_id')
+    .eq('user_id', user_id);
+
+    if (carpoolees.length == 0) {
+        res.send('Carpoolee does not exist');
+        console.log('Carpoolee does not exist');
+        return;
+    }
+    else {
+        const {data, error} = await supabase
+        .from('carpoolee')
+        .delete()
+        .eq('user_id', user_id);
+        console.log('Carpoolee removed successfully');
+        res.send(data);
+    }
 });
 
 // Distance Between Two EirCodes

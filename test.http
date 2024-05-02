@@ -108,6 +108,24 @@ Content-Type: application/json
     "eircode": "D24 Y99R"
 }
 
+### Remove carpooler
+DELETE /api/carpools/removecarpooler HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "1"
+}
+
+### Remove carpoolee
+DELETE /api/carpools/removecarpoolee HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "3"
+}
+
 ### Get distance between two eircodes
 GET /api/carpools/distance HTTP/1.1
 Host: localhost:5000
