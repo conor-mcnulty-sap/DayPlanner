@@ -6,7 +6,15 @@ Host: localhost:5000
 GET /api/users HTTP/1.1
 Host: localhost:5000
 
-###
+### Get desks
+GET /api/desks HTTP/1.1
+Host: localhost:5000
+
+### Get Favourites
+GET /api/desks/favourites HTTP/1.1
+Host: localhost:5000
+
+### Add booking
 
 POST /api/bookings/bookdesk HTTP/1.1
 Host: localhost:5000
@@ -19,7 +27,7 @@ Content-Type: application/json
 }
 
 
-###
+### Remove booking
 
 DELETE /api/bookings/removebooking HTTP/1.1
 Host: localhost:5000
@@ -28,5 +36,43 @@ Content-Type: application/json
 {
     "user_id": "1",
     "desk_id": "101",
+    "date": "2022-09-15"
+}
+
+### Favourite desks
+POST /api/desks/favouritedesk HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "desk_id": "101"
+}
+
+### Unfavourite desks
+DELETE /api/desks/removefavourite HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "desk_id": "101"
+}
+
+### Filter desks by floor
+GET /api/desks/filterbyfloor HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "floor": "1"
+}
+
+### What users have booked desks at a certain date
+GET /api/bookings/bookingsbydate HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
     "date": "2022-09-15"
 }

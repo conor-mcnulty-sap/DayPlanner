@@ -74,4 +74,15 @@ router.delete('/removebooking', async (req, res) => {
     }
 });
 
+// What users have booked desks at a certain date
+router.get('/bookingsbydate', async (req, res) => {
+    let in_date = req.body.date;
+
+    const {data, error} = await supabase
+    .from('bookings')
+    .select('*,users(*)')
+    .eq('date', in_date);
+    res.send(data);
+});
+
 module.exports = router;
