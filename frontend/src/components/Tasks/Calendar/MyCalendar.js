@@ -4,11 +4,11 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import axios from 'axios';
 
 const config = {
-    auth: {
-        clientId: '3687e9ca-a227-4c68-8400-6eef32c6e882',
-        redirectUri: 'http://localhost:3000',
-        authority: 'https://login.microsoftonline.com/ec0acb37-6c28-4d7b-8f76-c90ed4a41c13',
-      },
+  auth: {
+    clientId: 'f0ba26d6-c63f-494b-82a5-4c1ad00e8941',
+    redirectUri: 'http://localhost:3000',
+    authority: 'https://login.microsoftonline.com/c7cf020e-7c7c-49a7-8215-6bbaea2029d5',
+  },
   cache: {
     cacheLocation: 'localStorage',
     storeAuthStateInCookie: true,
@@ -22,13 +22,9 @@ const GraphApiCaller = () => {
 
   const callGraphApi = async (accessToken) => {
     try {
-      const apiResponse = await axios.get('https://graph.microsoft.com/v1.0/me', {
+      const apiResponse = await axios.get('https://graph.microsoft.com/v1.0/me/events', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          Prefer: 'outlook.timezone="Pacific Standard Time"', 
-        },
-        params: {
-         // $select: 'subject,body,bodyPreview,organizer,attendees,start,end,location',
         },
       });
 
@@ -45,12 +41,26 @@ const GraphApiCaller = () => {
       if (accounts.length > 0) {
         try {
           const response = await instance.acquireTokenSilent({
-            scopes: ['user.read', 'calendars.read'],
+            scopes: ['User.Read', 'Calendars.Read','Calendars.ReadBasic'],
             account: accounts[0],
           });
 
-          const accessToken = response.accessToken;
-          await callGraphApi(accessToken);
+          const tokenExpiration = new Date(response.expiresOn);
+          const now = new Date();
+
+          if (tokenExpiration > now) {
+            const accessToken = response.accessToken;
+            await callGraphApi(accessToken);
+          } else {
+          
+            const refreshedResponse = await instance.acquireTokenSilent({
+              scopes: ['User.Read', 'Calendars.Read','Calendars.ReadWrite','Calendars.ReadBasic'],
+              account: accounts[0],
+              forceRefresh: true,
+            });
+            const newAccessToken = refreshedResponse.accessToken;
+            await callGraphApi(newAccessToken);
+          }
         } catch (error) {
           console.error('Error acquiring access token:', error);
           setError(error);
@@ -87,7 +97,7 @@ const Calendar = () => {
     const initializeMsal = async () => {
       try {
         const pcaInstance = new PublicClientApplication(config);
-        await pcaInstance.initialize(); 
+        await pcaInstance.initialize();
         setPca(pcaInstance);
       } catch (error) {
         console.error('Error initializing MSAL:', error);

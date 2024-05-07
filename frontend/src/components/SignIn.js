@@ -7,9 +7,9 @@ import axios from 'axios';
 
 const config = {
   auth: {
-    clientId: '3687e9ca-a227-4c68-8400-6eef32c6e882',
+    clientId: 'f0ba26d6-c63f-494b-82a5-4c1ad00e8941',
     redirectUri: 'http://localhost:3000',
-    authority: 'https://login.microsoftonline.com/ec0acb37-6c28-4d7b-8f76-c90ed4a41c13',
+    authority: 'https://login.microsoftonline.com/c7cf020e-7c7c-49a7-8215-6bbaea2029d5',
   },
   cache: {
     cacheLocation: 'localStorage',
