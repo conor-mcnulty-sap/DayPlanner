@@ -1,5 +1,6 @@
 import React from 'react';
 import { TabContainer, Tab } from '@ui5/webcomponents-react';
+import { useNavigate } from 'react-router-dom';
 import SignIn from './SignIn'
 
 const TabRoutes = {
@@ -10,15 +11,16 @@ const TabRoutes = {
     "Book a Meeting Room": "/bookmeeting",
     "My Tasks": "/tasks",
     "Carpool": "/carpool"
-
 };
 
 export function NavBar() {
+    const navigate = useNavigate();
+
     const handleTabSelect = (e) => {
         const selectedTabText = e.detail.tab.attributes[1].nodeValue;
         const route = TabRoutes[selectedTabText];
         if (route) {
-            window.location.href = route;
+            navigate(route);
         } else {
             console.error(`No route found for tab "${selectedTabText}"`);
         }
