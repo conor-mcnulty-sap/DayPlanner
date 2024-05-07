@@ -1,12 +1,16 @@
-import React from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import React from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 function CarpoolMap() {
   const position = [51.505, -0.09]; // coordinates for London
 
   return (
-    <MapContainer center={position} zoom={13} style={{ height: "40vh", width: "90%" }}>
+    <MapContainer
+      center={position}
+      zoom={13}
+      style={{ height: "40vh", width: "90%" }}
+    >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

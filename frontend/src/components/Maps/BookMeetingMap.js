@@ -1,8 +1,8 @@
-import React from 'react';
-import { MapContainer, ImageOverlay } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import floorPlan from '../../assets/floor-plan-png-9.jpg';
+import React from "react";
+import { MapContainer, ImageOverlay } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import floorPlan from "../../assets/floor-plan-png-9.jpg";
 
 function Map() {
   const bounds = [
@@ -11,17 +11,13 @@ function Map() {
   ];
 
   return (
-    <MapContainer 
-      center={[5, 5]} 
-      zoom={6} 
+    <MapContainer
+      center={[5, 14.5]}
+      zoom={5}
       style={{ height: "90vh", width: "90%", backgroundColor: "white" }}
       crs={L.CRS.Simple}
     >
-      <ImageOverlay
-        url={floorPlan}
-        bounds={bounds}
-      />
-      
+      <ImageOverlay url={floorPlan} bounds={bounds} />
     </MapContainer>
   );
 }
