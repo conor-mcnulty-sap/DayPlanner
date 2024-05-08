@@ -33,7 +33,7 @@ function Home() {
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "center",
           maxWidth: "1000px",
           width: "100%",
         }}

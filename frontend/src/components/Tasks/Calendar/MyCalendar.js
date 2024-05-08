@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { MsalProvider, useMsal } from '@azure/msal-react';
-import { PublicClientApplication } from '@azure/msal-browser';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { MsalProvider, useMsal } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+import axios from "axios";
 
 const config = {
   auth: {
-    clientId: 'f0ba26d6-c63f-494b-82a5-4c1ad00e8941',
-    redirectUri: 'http://localhost:3000',
-    authority: 'https://login.microsoftonline.com/c7cf020e-7c7c-49a7-8215-6bbaea2029d5',
+    clientId: "f0ba26d6-c63f-494b-82a5-4c1ad00e8941",
+    redirectUri: "http://localhost:3000",
+    authority:
+      "https://login.microsoftonline.com/c7cf020e-7c7c-49a7-8215-6bbaea2029d5",
   },
   cache: {
-    cacheLocation: 'localStorage',
+    cacheLocation: "localStorage",
     storeAuthStateInCookie: true,
   },
 };
@@ -22,16 +23,22 @@ const GraphApiCaller = () => {
 
   const callGraphApi = async (accessToken) => {
     try {
-      const apiResponse = await axios.get('https://graph.microsoft.com/v1.0/me/events', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const apiResponse = await axios.get(
+        "https://graph.microsoft.com/v1.0/me/events",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       setEvents(apiResponse.data.value);
-      console.log('Microsoft Graph API call successful:', apiResponse.data.value);
+      console.log(
+        "Microsoft Graph API call successful:",
+        apiResponse.data.value
+      );
     } catch (error) {
-      console.error('Error calling Microsoft Graph API:', error);
+      console.error("Error calling Microsoft Graph API:", error);
       setError(error);
     }
   };
@@ -41,7 +48,7 @@ const GraphApiCaller = () => {
       if (accounts.length > 0) {
         try {
           const response = await instance.acquireTokenSilent({
-            scopes: ['User.Read', 'Calendars.Read','Calendars.ReadBasic'],
+            scopes: ["User.Read", "Calendars.Read", "Calendars.ReadBasic"],
             account: accounts[0],
           });
 
@@ -52,9 +59,13 @@ const GraphApiCaller = () => {
             const accessToken = response.accessToken;
             await callGraphApi(accessToken);
           } else {
-          
             const refreshedResponse = await instance.acquireTokenSilent({
-              scopes: ['User.Read', 'Calendars.Read','Calendars.ReadWrite','Calendars.ReadBasic'],
+              scopes: [
+                "User.Read",
+                "Calendars.Read",
+                "Calendars.ReadWrite",
+                "Calendars.ReadBasic",
+              ],
               account: accounts[0],
               forceRefresh: true,
             });
@@ -62,7 +73,7 @@ const GraphApiCaller = () => {
             await callGraphApi(newAccessToken);
           }
         } catch (error) {
-          console.error('Error acquiring access token:', error);
+          console.error("Error acquiring access token:", error);
           setError(error);
         }
       }
@@ -81,7 +92,7 @@ const GraphApiCaller = () => {
       <ul>
         {events.map((event) => (
           <li key={event.id}>
-            <strong>{event.subject}</strong> -{' '}
+            <strong>{event.subject}</strong> -{" "}
             {new Date(event.start.dateTime).toLocaleString()}
           </li>
         ))}
@@ -100,7 +111,7 @@ const Calendar = () => {
         await pcaInstance.initialize();
         setPca(pcaInstance);
       } catch (error) {
-        console.error('Error initializing MSAL:', error);
+        console.error("Error initializing MSAL:", error);
       }
     };
 
