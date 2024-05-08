@@ -3,7 +3,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 function CarpoolMap() {
-  const position = [51.505, -0.09]; // coordinates for London
+  const position = [39.03385, 125.75432]; // coordinates for London
 
   return (
     <MapContainer
