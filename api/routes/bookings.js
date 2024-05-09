@@ -85,4 +85,15 @@ router.get('/bookingsbydate', async (req, res) => {
     res.send(data);
 });
 
+// What desks have been booked by a certain user
+router.get('/bookingsbyuser', async (req, res) => {
+    let in_userid = req.body.user_id;
+
+    const {data, error} = await supabase
+    .from('bookings')
+    .select('*,desks(*)')
+    .eq('user_id', in_userid);
+    res.send(data);
+});
+
 module.exports = router;

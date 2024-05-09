@@ -4,6 +4,7 @@ const usersRoutes = require('./routes/users');
 const desksRoutes = require('./routes/desks');
 const bookingsRoutes = require('./routes/bookings');
 const carpoolsRoutes = require('./routes/carpools');
+const tasksRoutes = require('./routes/tasks');
 //const testRoutes = require('./routes/test');
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.use('/api/users', usersRoutes);
 router.use('/api/desks', desksRoutes);
 router.use('/api/bookings', bookingsRoutes);
 router.use('/api/carpools', carpoolsRoutes);
+router.use('/api/tasks', tasksRoutes);
 //router.use('/api/test', testRoutes);
 
 
