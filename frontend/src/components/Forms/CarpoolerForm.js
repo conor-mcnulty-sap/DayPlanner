@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Form,
   FormGroup,
@@ -8,6 +8,44 @@ import {
 } from "@ui5/webcomponents-react";
 
 const CarpoolerForm = () => {
+  const eircodeRef = useRef();
+  const userId = '1'; // Default user
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const eircode = eircodeRef.current.value;
+    console.log(eircode);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/carpools/addcarpooler`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        eircode: eircode,
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+  };
+
+  const handleDeregister = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/carpools/removecarpooler`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: userId,
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -29,24 +67,16 @@ const CarpoolerForm = () => {
       >
         <FormGroup titleText="Personal Data">
           <FormItem label="Eircode">
-            <Input type="Text" />
+            <Input type="Text" ref={eircodeRef} />
           </FormItem>
         </FormGroup>
         <FormItem>
-          <Button
-            ref={{
-              current: "[Circular]",
-            }}
-            onClick={function _a() {}}
-          >
+          <Button type="submit" onClick={handleSubmit}>
             Submit
           </Button>
           <Button
             design="Negative"
-            ref={{
-              current: "[Circular]",
-            }}
-            onClick={function _a() {}}
+            onClick={handleDeregister}
           >
             De-register
           </Button>
