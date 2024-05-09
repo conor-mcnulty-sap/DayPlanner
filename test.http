@@ -1,4 +1,4 @@
-GET /news HTTP/1.1
+GET /api/news HTTP/1.1
 Host: localhost:5000
 
 ###
@@ -20,6 +20,15 @@ Host: localhost:5000
 
 ### Get bookings by user
 GET /api/bookings/bookingsbyuser HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "1"
+}
+
+### Get last booked
+GET /api/bookings/lastbooked HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
 
@@ -182,5 +191,5 @@ Host: localhost:5000
 Content-Type: application/json
 
 {
-    "id": "1"
+    "id": "2"
 }
