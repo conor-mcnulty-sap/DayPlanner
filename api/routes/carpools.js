@@ -143,8 +143,8 @@ router.get('/distance', async (req, res) => {
 
     // var url = "http://dev.virtualearth.net/REST/v1/Locations?q=Seattle&key=" + bing_maps_api_key;
 
-    let eircode1 = req.body.eircode1;
-    let eircode2 = req.body.eircode2;
+    let eircode1 = req.query.eircode1;
+    let eircode2 = req.query.eircode2;
 
     let url = "http://dev.virtualearth.net/REST/v1/Routes?wp.0=" + eircode1 + "&wp.1=" + eircode2 + "&key=" + BING_MAPS_KEY;
     const {data, error} = await axios.get(url);

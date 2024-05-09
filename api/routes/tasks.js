@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
 
 // Get User Tasks
 router.get('/usertasks', async (req, res) => {
-    let in_userid = req.body.user_id;
+    let in_userid = req.query.user_id;
+
     const {data, error} = await supabase
     .from('tasks')
     .select('*,users(*)')

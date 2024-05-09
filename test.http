@@ -19,35 +19,18 @@ GET /api/bookings HTTP/1.1
 Host: localhost:5000
 
 ### Get bookings by user
-GET /api/bookings/bookingsbyuser HTTP/1.1
+GET /api/bookings/bookingsbyuser?user_id=1 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1"
-}
 
 ### Get last booked
-GET /api/bookings/lastbooked HTTP/1.1
+GET /api/bookings/lastbooked?user_id=1 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1"
-}
 
 ### Find desk by booking
-GET /api/bookings/finddesk HTTP/1.1
+GET /api/bookings/finddesk?user_id=3&date=3123-12-23 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "3",
-    "date": "3123-12-23"
-}
 
 ### Add booking
-
 POST /api/bookings/bookdesk HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
@@ -58,9 +41,7 @@ Content-Type: application/json
     "date": "2022-09-15"
 }
 
-
 ### Remove booking
-
 DELETE /api/bookings/removebooking HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
@@ -92,25 +73,13 @@ Content-Type: application/json
 }
 
 ### Filter desks by floor
-GET /api/desks/filterbyfloor HTTP/1.1
+GET /api/desks/filterbyfloor?floor=1 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "floor": "1"
-}
 
 ### What users have booked desks at a certain date
-GET /api/bookings/bookingsbydate HTTP/1.1
+GET /api/bookings/bookingsbydate?date=3123-12-23 HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
-
-{
-    "date": "2022-09-15"
-}
-
-
-
 
 ### Get all carpooler
 GET /api/carpools/carpooler HTTP/1.1
@@ -159,27 +128,16 @@ Content-Type: application/json
 }
 
 ### Get distance between two eircodes
-GET /api/carpools/distance HTTP/1.1
+GET /api/carpools/distance?eircode1=D24 FKT9&eircode2=D24 Y99R HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "eircode1": "D24 FKT9",
-    "eircode2": "D24 Y99R"
-}
 
 ### Get tasks
 GET /api/tasks HTTP/1.1
 Host: localhost:5000
 
 ### Get tasks by user
-GET /api/tasks/usertasks HTTP/1.1
+GET /api/tasks/usertasks?user_id=1 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1"
-}
 
 ### Add task
 POST /api/tasks/addtask HTTP/1.1

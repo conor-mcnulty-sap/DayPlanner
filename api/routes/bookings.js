@@ -76,7 +76,7 @@ router.delete('/removebooking', async (req, res) => {
 
 // What users have booked desks at a certain date
 router.get('/bookingsbydate', async (req, res) => {
-    let in_date = req.body.date;
+    let in_date = req.query.date;
 
     const {data, error} = await supabase
     .from('bookings')
@@ -87,7 +87,7 @@ router.get('/bookingsbydate', async (req, res) => {
 
 // What desks have been booked by a certain user
 router.get('/bookingsbyuser', async (req, res) => {
-    let in_userid = req.body.user_id;
+    let in_userid = req.query.user_id;
 
     const {data, error} = await supabase
     .from('bookings')
@@ -98,7 +98,7 @@ router.get('/bookingsbyuser', async (req, res) => {
 
 // Last booked for a certain user
 router.get('/lastbooked', async (req, res) => {
-    let in_userid = req.body.user_id;
+    let in_userid = req.query.user_id;
 
     const {data, error} = await supabase
     .from('bookings')
@@ -111,8 +111,8 @@ router.get('/lastbooked', async (req, res) => {
 
 // Find desk by booking
 router.get('/finddesk', async (req, res) => {
-    let in_userid = req.body.user_id;
-    let in_date = req.body.date;
+    let in_userid = req.query.user_id;
+    let in_date = req.query.date;
 
     const {data, error} = await supabase
     .from('bookings')

@@ -82,7 +82,7 @@ router.delete('/removefavourite', async (req, res) => {
 
 // Filter Desks by floor
 router.get('/filterbyfloor', async (req, res) => {
-    let in_floor = req.body.floor;
+    let in_floor = req.query.floor;
 
     const {data, error} = await supabase
     .from('desks')
