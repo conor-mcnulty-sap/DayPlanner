@@ -2,6 +2,7 @@
   "dependencies": {
     "cldr-data": "^36.0.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "leaflet": "^1.9.4",
     "react-leaflet": "^4.2.1",

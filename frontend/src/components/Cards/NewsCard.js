@@ -5,9 +5,13 @@ const NewsCard = () => {
   const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
-    fetch("/news.json")
-      .then((response) => response.json())
-      .then((data) => setNewsData(data));
+    fetch(`${process.env.REACT_APP_API_URL}/api/news`)
+  .then(response => response.json())
+  .then(data => {
+    const articles = data['Articles'];
+    setNewsData(articles);
+  })
+  .catch(error => console.error('Error:', error));
   }, []);
 
   return (
@@ -19,9 +23,9 @@ const NewsCard = () => {
     >
       {newsData.map((news) => (
         <div key={news.id}>
-          <img src={news.img} alt="News" />
+          <img src={news.image} alt="News" />
           <h2>{news.title}</h2>
-          <p>{news.content}</p>
+          <p>{news.author}</p>
         </div>
       ))}
     </Card>

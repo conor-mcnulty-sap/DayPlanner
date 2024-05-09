@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LastBooked from "../components/Cards/Desks/LastBooked";
 import FavouriteDesk from "../components/Cards/Desks/FavouriteDesk";
 import CurrentDesk from "../components/Cards/Desks/CurrentDesk";
@@ -6,6 +6,8 @@ import WhosIn from "../components/Home/WhosIn";
 import NewsCard from "../components/Cards/NewsCard";
 
 function Home() {
+  
+
   return (
     <div
       style={{
@@ -36,6 +38,7 @@ function Home() {
           justifyContent: "center",
           maxWidth: "1000px",
           width: "100%",
+          maxHeight: "50%"
         }}
       >
         <WhosIn />

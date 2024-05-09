@@ -10,7 +10,6 @@ import BookTeam from "./pages/BookTeam";
 import { NavBar } from "./components/NavBar";
 import SignIn from "./components/SignIn";
 
-
 function App() {
   return (
     <Router>

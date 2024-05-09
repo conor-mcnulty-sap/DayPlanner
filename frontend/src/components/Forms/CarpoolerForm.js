@@ -41,6 +41,15 @@ const CarpoolerForm = () => {
           >
             Submit
           </Button>
+          <Button
+            design="Negative"
+            ref={{
+              current: "[Circular]",
+            }}
+            onClick={function _a() {}}
+          >
+            De-register
+          </Button>
         </FormItem>
       </Form>
     </div>
