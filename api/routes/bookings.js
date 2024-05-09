@@ -109,4 +109,17 @@ router.get('/lastbooked', async (req, res) => {
     res.send(data);
 });
 
+// Find desk by booking
+router.get('/finddesk', async (req, res) => {
+    let in_userid = req.body.user_id;
+    let in_date = req.body.date;
+
+    const {data, error} = await supabase
+    .from('bookings')
+    .select('desks(*)')
+    .eq('user_id', in_userid)
+    .eq('date', in_date);
+    res.send(data);
+});
+
 module.exports = router;

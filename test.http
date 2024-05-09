@@ -36,6 +36,15 @@ Content-Type: application/json
     "user_id": "1"
 }
 
+### Find desk by booking
+GET /api/bookings/finddesk HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "3",
+    "date": "3123-12-23"
+}
 
 ### Add booking
 
