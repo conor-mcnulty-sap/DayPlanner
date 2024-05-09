@@ -25,6 +25,7 @@ router.get('/usertasks', async (req, res) => {
 router.post('/addtask', async (req, res) => {
     let in_userid = req.body.user_id;
     let in_taskname = req.body.task_name;
+    let in_taskdescription = req.body.task_description;
     let in_taskdate = req.body.task_date;
     let in_tasktime = req.body.task_time;
     let in_taskcolour = req.body.task_colour;
@@ -35,6 +36,7 @@ router.post('/addtask', async (req, res) => {
         {
             user: in_userid,
             task: in_taskname,
+            description: in_taskdescription,
             date: in_taskdate,
             time: in_tasktime,
             colour: in_taskcolour
