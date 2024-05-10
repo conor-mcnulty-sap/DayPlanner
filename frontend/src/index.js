@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { Providers } from "@microsoft/mgt-element";
 import { Msal2Provider } from "@microsoft/mgt-msal2-provider";
 
-Providers.globalProvider = new Msal2Provider({
+/*Providers.globalProvider = new Msal2Provider({
   clientId: 'f0ba26d6-c63f-494b-82a5-4c1ad00e8941'
-});
+});*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
