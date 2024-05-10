@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+/*Providers.globalProvider = new Msal2Provider({
+  clientId: 'f0ba26d6-c63f-494b-82a5-4c1ad00e8941'
+});*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
