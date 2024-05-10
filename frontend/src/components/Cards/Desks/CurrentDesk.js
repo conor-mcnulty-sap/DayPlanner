@@ -9,9 +9,7 @@ const CurrentDesk = ({ data }) => {
     return (
       <Card
         header={<CardHeader titleText="Current Desk" />}
-        style={{
-          width: "375px",
-        }}
+        
       >
         <List
           headerText="DUB05-3-R" // desk.id

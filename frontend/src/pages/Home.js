@@ -1,51 +1,66 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Card, CardHeader } from "@ui5/webcomponents-react";
 import LastBooked from "../components/Cards/Desks/LastBooked";
 import FavouriteDesk from "../components/Cards/Desks/FavouriteDesk";
 import CurrentDesk from "../components/Cards/Desks/CurrentDesk";
 import WhosIn from "../components/Home/WhosIn";
 import NewsCard from "../components/Cards/NewsCard";
+import {Timeline} from "@ui5/webcomponents-react"
 
 function Home() {
-  
-
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gridTemplateRows: "1fr 1fr",
         gap: "2rem",
-        margin: "2rem",
+        margin: "2rem auto 4rem auto", // Center the content
+        width: "90%", // Adjust the width of the page
+        alignItems: "start", // Align items to the start
       }}
     >
-      <div
+      <Card
+        header={<CardHeader titleText="My Desks" />}
         style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
+          gridColumn: "1",
+          gridRow: "1",
           width: "100%",
-          gap: "2rem"
         }}
       >
-        <CurrentDesk />
-        <LastBooked />
-        <FavouriteDesk />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ flex: 1, margin: "1rem" }}>
+              <CurrentDesk />
+            </div>
+            <div style={{ flex: 1, margin: "1rem" }}>
+              <LastBooked />
+            </div>
+          </div>
+          <div style={{ margin: "1rem" }}>
+            <FavouriteDesk />
+          </div>
+        </div>
+      </Card>
+
+      <div style={{ gridColumn: "2", gridRow: "1", alignSelf: "start" }}>
+        <WhosIn />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          maxWidth: "1000px",
-          width: "100%",
-          maxHeight: "50%",
-          alignItems: "center"
-        }}
-      >
-        <WhosIn />
+      <div style={{ gridColumn: "2", gridRow: "2" }}>
         <NewsCard />
       </div>
+
+      <Card
+        header={<CardHeader titleText="My Tasks" />}
+        style={{
+          gridColumn: "1",
+          gridRow: "2",
+          width: "100%",
+        }}
+      >
+        <Timeline />
+      </Card>
     </div>
   );
 }

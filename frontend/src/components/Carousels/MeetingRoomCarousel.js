@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel } from "@ui5/webcomponents-react";
+import { Carousel, Card } from "@ui5/webcomponents-react";
 
 const MeetingRoomCarousel = () => {
   // todo: Function to get list of all meeting rooms.
@@ -12,47 +12,46 @@ const MeetingRoomCarousel = () => {
   ];
 
   const carouselStyle = {
-    position: "fixed",
-    bottom: "10px",
-    left: "10px",
     width: "50vw",
     height: "35vh",
   };
 
   return (
-    <Carousel
-      arrowsPlacement="Content"
-      hidePageIndicator
-      style={carouselStyle}
-      backgroundDesign="Transparent"
-      pageIndicatorBackgroundDesign="Transparent"
-      cyclic
-    >
-      {sampleRooms.map((room) => (
-        <div
-          key={room.id}
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <img
-            src={room.img}
-            alt="Meeting Room"
+    <Card>
+      <Carousel
+        arrowsPlacement="Content"
+        hidePageIndicator
+        style={carouselStyle}
+        backgroundDesign="Transparent"
+        pageIndicatorBackgroundDesign="Transparent"
+        cyclic
+      >
+        {sampleRooms.map((room) => (
+          <div
+            key={room.id}
             style={{
-              flex: "1 1 auto",
+              height: "100%",
               width: "100%",
-              objectFit: "cover",
+              display: "flex",
+              flexDirection: "column",
             }}
-          />
-          <p style={{ color: "black", textAlign: "center", flex: "0 0 auto" }}>
-            {room.name}
-          </p>
-        </div>
-      ))}
-    </Carousel>
+          >
+            <img
+              src={room.img}
+              alt="Meeting Room"
+              style={{
+                flex: "1 1 auto",
+                width: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <p style={{ color: "black", textAlign: "center", flex: "0 0 auto" }}>
+              {room.name}
+            </p>
+          </div>
+        ))}
+      </Carousel>
+    </Card>
   );
 };
 

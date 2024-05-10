@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Card } from "@ui5/webcomponents-react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 
 function CarpoolMap() {
   const position = [53.287, -6.430];
@@ -10,7 +9,13 @@ function CarpoolMap() {
     const map = useMap();
 
     useEffect(() => {
-      map.invalidateSize();
+      const timeoutId = setTimeout(() => {
+        map.invalidateSize();
+      }, 100); // adjust delay as needed
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }, [map]);
 
     return null;
