@@ -38,7 +38,7 @@ Content-Type: application/json
 {
     "user_id": "1",
     "desk_id": "101",
-    "date": "2022-09-15"
+    "date": "2025-10-20-2025-10-25"
 }
 
 ### Remove booking
@@ -49,7 +49,7 @@ Content-Type: application/json
 {
     "user_id": "1",
     "desk_id": "101",
-    "date": "2022-09-15"
+    "date": "2025-10-20-2025-10-25"
 }
 
 ### Favourite desks
@@ -160,4 +160,19 @@ Content-Type: application/json
 
 {
     "id": "2"
+}
+
+### test
+GET /api/bookings/test HTTP/1.1
+Host: localhost:5000
+
+### test 2
+DELETE /api/bookings/test2 HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "desk_id": "101",
+    "date": "2025-10-20-2025-10-25"
 }

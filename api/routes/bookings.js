@@ -17,12 +17,19 @@ router.post('/bookdesk', async (req, res) => {
     let in_userid = req.body.user_id;
     let in_date = req.body.date;
 
-    // Check if desk is already booked for that date
+    //Split date
+    var dates = in_date.split("-");
+
+    var date1 = dates[0] + "-" + dates[1] + "-" + dates[2];
+    var date2 = dates[3] + "-" + dates[4] + "-" + dates[5];
+
+    // Check if desk is already booked from date 1 to date 2
     const {data: bookings, error} = await supabase
     .from('bookings')
     .select('desk_id')
     .eq('desk_id', in_deskid)
-    .eq('date', in_date);
+    .gte('date', date1)
+    .lte('date', date2);
 
     if (bookings.length > 0) {
         res.send('Desk already booked for that date');
@@ -30,17 +37,25 @@ router.post('/bookdesk', async (req, res) => {
         return;
     }
     else {
-        const {data, error} = await supabase
-        .from('bookings')
-        .insert(
-            {
-                desk_id: in_deskid,	
-                user_id: in_userid,
-                date: in_date
-            }
-        );
-        res.send(data);
-        console.log ('Desk booked successfully');
+        // Make a booking from date 1 to date 2 (including dates inbetween)
+        var date1 = new Date(date1);
+        var date2 = new Date(date2);
+
+        while (date1 <= date2) {
+            date1_str = date1.toISOString().split('T')[0];
+            const {data, error} = await supabase
+            .from('bookings')
+            .insert(
+                {
+                    desk_id: in_deskid,
+                    user_id: in_userid,
+                    date: date1_str
+                }
+            );
+            date1.setDate(date1.getDate() + 1);
+        }
+        res.send("Desk booked successfully");
+        console.log('Desk booked successfully');
     }
 });
 
@@ -50,12 +65,19 @@ router.delete('/removebooking', async (req, res) => {
     let in_userid = req.body.user_id;
     let in_date = req.body.date;
 
-    // If desk is not booked for that date
+    //Split date
+    var dates = in_date.split("-");
+
+    var date1 = dates[0] + "-" + dates[1] + "-" + dates[2];
+    var date2 = dates[3] + "-" + dates[4] + "-" + dates[5];
+
+    // If desk is not booked from date 1 to date 2
     const {data: bookings, error} = await supabase
     .from('bookings')
     .select('desk_id')
     .eq('desk_id', in_deskid)
-    .eq('date', in_date);
+    .gte('date', date1)
+    .lte('date', date2);
 
     if (bookings.length === 0) {
         res.send('Desk is not booked for that date');
@@ -63,13 +85,20 @@ router.delete('/removebooking', async (req, res) => {
         return;
     }
     else {
-        const {data, error} = await supabase
-        .from('bookings')
-        .delete()
-        .eq('desk_id', in_deskid)
-        .eq('user_id', in_userid)
-        .eq('date', in_date);
-        res.send(data);
+        var date1 = new Date(date1);
+        var date2 = new Date(date2);
+
+        while (date1 <= date2) {
+            date1_str = date1.toISOString().split('T')[0];
+            const {data, error} = await supabase
+            .from('bookings')
+            .delete()
+            .eq('desk_id', in_deskid)
+            .eq('user_id', in_userid)
+            .eq('date', date1_str);
+            date1.setDate(date1.getDate() + 1);
+        }
+        res.send("Booking removed successfully");
         console.log('Booking removed successfully');
     }
 });
@@ -121,5 +150,22 @@ router.get('/finddesk', async (req, res) => {
     .eq('date', in_date);
     res.send(data);
 });
+
+// Test 
+router.get('/test', async (req, res) => {
+    var str = "2022-09-15-2023-10-20";
+
+    var dates = str.split("-");
+
+    var date1 = dates[0] + "-" + dates[1] + "-" + dates[2];
+    var date2 = dates[3] + "-" + dates[4] + "-" + dates[5];
+    
+    console.log(date1); // output: Thu Sep 15 2022 ...
+    console.log(date2); // output: Fri Oct 20 2023 ...
+    res.send('Test');
+});
+
+// test 2
+
 
 module.exports = router;

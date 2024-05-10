@@ -154,4 +154,9 @@ router.get('/distance', async (req, res) => {
     console.log(traveldistance);
 });
 
+// Test 
+router.get('/test', async (req, res) => {
+    res.send('Test Successful');
+});
+
 module.exports = router;
