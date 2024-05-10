@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Title, List, StandardListItem } from "@ui5/webcomponents-react";
+import {
+  Card,
+  List,
+  StandardListItem,
+  CardHeader,
+} from "@ui5/webcomponents-react";
 
 function CarpoolList() {
   const [listData, setListData] = useState([]);
@@ -21,39 +26,43 @@ function CarpoolList() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <Card
+      header={<CardHeader titleText="Nearest Available People" />}
+      style={{ width: "100%" }}
     >
-      <Title level="H2">Nearest available people</Title>
-      <List
-        growing="None"
-        mode="None"
-        onItemClick={function _a() {}}
-        onItemClose={function _a() {}}
-        onItemDelete={function _a() {}}
-        onItemToggle={function _a() {}}
-        onLoadMore={function _a() {}}
-        onSelectionChange={function _a() {}}
-        separators="All"
+      <div
         style={{
-          width: "20rem",
-          height: "20rem",
-          margin: "1rem",
-          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        {listData.map((item, index) => (
-          <StandardListItem key={index} additionalText={item.distance}>
-            {item.name}
-          </StandardListItem>
-        ))}
-      </List>
-    </div>
+        <List
+          growing="None"
+          mode="None"
+          onItemClick={function _a() {}}
+          onItemClose={function _a() {}}
+          onItemDelete={function _a() {}}
+          onItemToggle={function _a() {}}
+          onLoadMore={function _a() {}}
+          onSelectionChange={function _a() {}}
+          separators="All"
+          style={{
+            width: "100%",
+            maxHeight: "50vh",
+            margin: "1rem",
+            overflow: "auto",
+          }}
+        >
+          {listData.map((item, index) => (
+            <StandardListItem key={index} additionalText={item.distance}>
+              {item.name}
+            </StandardListItem>
+          ))}
+        </List>
+      </div>
+    </Card>
   );
 }
 

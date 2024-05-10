@@ -24,6 +24,7 @@ function Home() {
           flexDirection: "row",
           justifyContent: "center",
           width: "100%",
+          gap: "2rem"
         }}
       >
         <CurrentDesk />
@@ -38,7 +39,8 @@ function Home() {
           justifyContent: "center",
           maxWidth: "1000px",
           width: "100%",
-          maxHeight: "50%"
+          maxHeight: "50%",
+          alignItems: "center"
         }}
       >
         <WhosIn />

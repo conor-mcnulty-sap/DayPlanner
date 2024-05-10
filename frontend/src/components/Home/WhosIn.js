@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { List, StandardListItem, Input, Title } from "@ui5/webcomponents-react";
+import {
+  Card,
+  CardHeader,
+  List,
+  StandardListItem,
+  Input,
+  Title,
+} from "@ui5/webcomponents-react";
 
 const WhosIn = () => {
   const [users, setUsers] = useState([]);
@@ -34,30 +41,41 @@ const WhosIn = () => {
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    <Card
+      header={<CardHeader titleText="Who's In?" />}
+      style={{ width: "100%", padding: "1rem", margin: "1rem", maxHeight: "50vh"}}
     >
-      <Title level="H2">Who's In?</Title>
-      <br />
-      <Input placeholder="Search..." onChange={filter} />
-
-      <List
+      <div
         style={{
-          width: "20rem",
-          height: "20rem",
-          padding: "1rem",
-          margin: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "100%",
         }}
       >
-        {foundUsers.map((user) => (
-          <StandardListItem key={user.id}>
-            {user.id} - {user.name}
-            <br />
-            {user.desk}
-          </StandardListItem>
-        ))}
-      </List>
-    </div>
+        <Input
+          placeholder="Search..."
+          onChange={filter}
+          style={{ marginBottom: "1rem", marginTop: "1rem" }}
+        />
+
+        <List
+          style={{
+            width: "100%",
+            maxHeight: "50vh",
+            overflowY: "auto",
+          }}
+        >
+          {foundUsers.map((user) => (
+            <StandardListItem key={user.id}>
+              {user.id} - {user.name}
+              <br />
+              {user.desk}
+            </StandardListItem>
+          ))}
+        </List>
+      </div>
+    </Card>
   );
 };
 export default WhosIn;
