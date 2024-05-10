@@ -10,9 +10,7 @@ const LastBooked = () => {
   return (
     <Card
       header={<CardHeader titleText="Last Booked Desk" />}
-      style={{
-        width: "375px",
-      }}
+      
     >
       <List
         headerText={`${lastBooked.id}`} // desk.id

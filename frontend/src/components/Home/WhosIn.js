@@ -43,7 +43,7 @@ const WhosIn = () => {
   return (
     <Card
       header={<CardHeader titleText="Who's In?" />}
-      style={{ width: "100%", padding: "1rem", margin: "1rem", maxHeight: "50vh"}}
+      style={{ width: "100%", maxHeight: "50vh"}}
     >
       <div
         style={{

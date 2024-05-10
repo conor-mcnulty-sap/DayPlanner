@@ -10,8 +10,14 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import floorPlan from "../../assets/floor-plan-png-9.jpg";
+import { Card } from "@ui5/webcomponents-react";
 
 function Map({ onCircleClick }) {
+  const [isMapInit, setIsMapInit] = useState(false);
+  useEffect(() => {
+    setIsMapInit(true);
+  }, []);
+
   const bounds = [
     [0, 0],
     [10, 29],
@@ -48,39 +54,43 @@ function Map({ onCircleClick }) {
   }
 
   return (
-    <MapContainer
-      center={[5, 14.5]}
-      zoom={5}
-      style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
-      crs={L.CRS.Simple}
-    >
-      <ImageOverlay url={floorPlan} bounds={bounds} />
-
-      {coordinates.map((coordinate, index) => (
-        <Circle
-          key={index}
-          center={coordinate.position}
-          radius={0.1}
-          pathOptions={{
-            color: coordinate.color,
-            fillColor: coordinate.color,
-            fillOpacity: 0.2,
-            fill: true,
-          }}
-          eventHandlers={{
-            click: () => {
-              onCircleClick(coordinate);
-            },
-          }}
+    <Card>
+      {isMapInit && (
+        <MapContainer
+          center={[5, 14.5]}
+          zoom={5}
+          style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
+          crs={L.CRS.Simple}
         >
-          <Popup>
-            {coordinate.color === "red"
-              ? `Booked by ${coordinate.bookedBy}`
-              : coordinate.popup}
-          </Popup>
-        </Circle>
-      ))}
-    </MapContainer>
+          <ImageOverlay url={floorPlan} bounds={bounds} />
+
+          {coordinates.map((coordinate, index) => (
+            <Circle
+              key={index}
+              center={coordinate.position}
+              radius={0.1}
+              pathOptions={{
+                color: coordinate.color,
+                fillColor: coordinate.color,
+                fillOpacity: 0.2,
+                fill: true,
+              }}
+              eventHandlers={{
+                click: () => {
+                  onCircleClick(coordinate);
+                },
+              }}
+            >
+              <Popup>
+                {coordinate.color === "red"
+                  ? `Booked by ${coordinate.bookedBy}`
+                  : coordinate.popup}
+              </Popup>
+            </Circle>
+          ))}
+        </MapContainer>
+      )}
+    </Card>
   );
 }
 

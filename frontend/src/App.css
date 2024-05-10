@@ -38,3 +38,5 @@
 }
 
 iframe#webpack-dev-server-client-overlay{display:none!important}
+
+@import "leaflet/dist/leaflet.css";

@@ -10,8 +10,9 @@ function BookMeeting() {
       <div
         style={{
           display: "flex",
-          flexDirection: window.innerWidth <= 768 ? "column" : "row",
-          justifyContent: "space-around",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "100%",
           width: "100%",
         }}
       >
