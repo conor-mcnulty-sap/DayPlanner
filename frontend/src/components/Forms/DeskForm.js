@@ -24,13 +24,13 @@ function DeskForm({ selectedDesk }) {
 
   const handleSubmit = () => {
     const startDate = dateRange.split(" - ")[0];
-  
+
     const data = {
       user_id: userId,
       desk_id: deskId,
       date: startDate,
     };
-  
+
     fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk`, {
       method: "POST",
       headers: {
@@ -62,28 +62,35 @@ function DeskForm({ selectedDesk }) {
         }}
       >
         <FormGroup titleText="">
-          <FormItem label="Building">
-            <Input
-              type="Text"
-              value={selectedDesk ? selectedDesk.building : ""}
-            />
-          </FormItem>
-          <FormItem label="Floor">
-            <Input type="Text" value={selectedDesk ? selectedDesk.floor : ""} />
-          </FormItem>
-          <FormItem label="Desk">
-            <Input
-              type="Text"
-              value={deskId}
-              onChange={(event) => setDeskId(event.target.value)}
-            />
-          </FormItem>
           <FormItem>
             <DateRangePicker
               onChange={(event) => setDateRange(event.detail.value)}
               primaryCalendarType="Gregorian"
               valueState="None"
               defaultValue={defaultRange}
+              style={{ width: "100%" }}
+            />
+          </FormItem>
+          <FormItem label="Building">
+            <Input
+              type="Text"
+              value={selectedDesk ? selectedDesk.building : ""}
+              style={{ width: "100%" }}
+            />
+          </FormItem>
+          <FormItem label="Floor">
+            <Input
+              type="Text"
+              value={selectedDesk ? selectedDesk.floor : ""}
+              style={{ width: "100%" }}
+            />
+          </FormItem>
+          <FormItem label="Desk">
+            <Input
+              type="Text"
+              value={deskId}
+              onChange={(event) => setDeskId(event.target.value)}
+              style={{ width: "100%" }}
             />
           </FormItem>
         </FormGroup>
