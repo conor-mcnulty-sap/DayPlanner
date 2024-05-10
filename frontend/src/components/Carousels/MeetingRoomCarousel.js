@@ -2,9 +2,6 @@ import React from "react";
 import { Carousel, Card } from "@ui5/webcomponents-react";
 
 const MeetingRoomCarousel = () => {
-  // todo: Function to get list of all meeting rooms.
-  // const getMeetingRooms = () => {
-
   const sampleRooms = [
     { id: "R1", name: "Grafton St", img: "https://picsum.photos/300/100" },
     { id: "R2", name: "Thomas St", img: "https://picsum.photos/300/100" },
@@ -40,12 +37,12 @@ const MeetingRoomCarousel = () => {
               src={room.img}
               alt="Meeting Room"
               style={{
-                flex: "1 1 auto",
+                height: "80%", // Set a specific height for the image
                 width: "100%",
                 objectFit: "cover",
               }}
             />
-            <p style={{ color: "black", textAlign: "center", flex: "0 0 auto" }}>
+            <p style={{ color: "black", textAlign: "center", height: "20%" }}> 
               {room.name}
             </p>
           </div>

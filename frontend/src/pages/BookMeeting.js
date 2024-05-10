@@ -6,7 +6,12 @@ import Map from "../components/Maps/BookMeetingMap";
 
 function BookMeeting() {
   return (
-    <Grid defaultSpan="XL6 L12 M12 S12" vSpacing="1rem" hSpacing="1rem">
+    <Grid
+      defaultSpan="XL6 L12 M12 S12"
+      vSpacing="1rem"
+      hSpacing="1rem"
+      style={{ margin: "2rem" }}
+    >
       <div
         style={{
           display: "flex",
