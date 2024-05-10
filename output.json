@@ -1,6 +1,14 @@
 {
   "SAP News": [
     {
+      "title": "IBM and SAP Plan to Expand Collaboration to Help Clients Become Next-Generation Enterprises with Generative AI",
+      "link": "https://news.sap.com/2024/05/ibm-and-sap-generative-ai-new-value-generation-partnership/"
+    },
+    {
+      "title": "SAP Extends Contract with CEO Christian Klein",
+      "link": "https://news.sap.com/2024/05/sap-extends-contract-ceo-christian-klein/"
+    },
+    {
       "title": "DeLaval Selects SAP S/4HANA Cloud to Cultivate Cloud Benefits",
       "link": "https://news.sap.com/2024/04/delaval-selects-sap-s-4hana-cloud-to-cultivate-cloud-benefits/"
     },
@@ -15,54 +23,46 @@
     {
       "title": "SAP Unveils AI-Driven Supply-Chain Innovations to Transform Manufacturing",
       "link": "https://news.sap.com/2024/04/sap-hannover-messe-ai-supply-chain-innovations-transform-manufacturing/"
-    },
-    {
-      "title": "SAP to Release First Quarter 2024 Results",
-      "link": "https://news.sap.com/2024/04/sap-to-release-first-quarter-2024-results/"
-    },
-    {
-      "title": "Ericsson Chooses SAP Software to Connect Supply Chains",
-      "link": "https://news.sap.com/2024/04/ericsson-chooses-sap-integrated-business-planning-supply-chains/"
     }
   ],
   "Articles": [
     {
-      "title": "How Preh Eases Product Costing for Hundreds of Projects with SAP",
-      "link": "https://news.sap.com/2024/04/how-preh-eases-product-costing/",
-      "author": "Karin Fent",
-      "date": "April 30, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/10/296133_GettyImages-1396120348_uncropped_F-540x310.jpg"
+      "title": "Meeting Workout: A Game to Improve the Meeting Experience",
+      "link": "https://news.sap.com/2024/05/meeting-workout-game-to-improve-meeting-experience/",
+      "author": "Imke Vierjahn",
+      "date": "May 10, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/10/Meeting-Workout-Board-Game_uncropped_F-540x310-1715001163.jpg"
     },
     {
-      "title": "Private Equity and Renewable Energy: How Investors Can Set Themselves Up for Digital Transformation Success",
-      "link": "https://news.sap.com/2024/04/private-equity-renewable-energy-digital-transformation-success/",
-      "author": "Mark Hollis",
-      "date": "April 30, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/30/289132_GettyImages-1198660415_uncropped_F-540x310-1714393720.jpg"
+      "title": "SAP BTP Wins Multiple TrustRadius 2024 Top Rated Awards",
+      "link": "https://news.sap.com/2024/05/sap-btp-wins-trustradius-2024-top-rated-awards/",
+      "author": "JG Chirapurath",
+      "date": "May 9, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/06/296107_GettyImages-1383549690_medium_uncropped_F-540x310.jpg"
     },
     {
-      "title": "SAP Global Line of Business Partner Excellence Awards: 2024 Winners and Finalists",
-      "link": "https://news.sap.com/2024/04/sap-global-lob-partner-excellence-awards-2024-winners-finalists/",
-      "author": "Bernd-Uwe Pagel",
-      "date": "April 30, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/30/301452_GettyImages-1181852806_uncropped_F-540x310-1713896009.jpg"
+      "title": "Three Key Actions Procurement Can Take to Increase Supply Chain Visibility",
+      "link": "https://news.sap.com/2024/05/three-actions-procurement-increase-supply-chain-transparency/",
+      "author": "Baber Farooq",
+      "date": "May 9, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/09/284131_GettyImages-610219284_2600_uncropped_F-540x310.jpg"
     },
     {
-      "title": "SAP Ariba and SAP Business Network Seamlessly Integrated into SAP for Me",
-      "link": "https://news.sap.com/2024/04/sap-ariba-business-network-integrated-sap-for-me/",
-      "author": "Rohan Patel",
-      "date": "April 29, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/29/298696_GettyImages-1394379193_uncropped_F-540x310-1713981959.jpg"
+      "title": "SAP SuccessFactors Takes Home 12 Top Rated Awards from TrustRadius",
+      "link": "https://news.sap.com/2024/05/sap-successfactors-12-top-rated-awards-from-trustradius/",
+      "author": "Aaron Green",
+      "date": "May 8, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/296441_GettyImages-1373240838_uncropped_F-540x310-1714754591.jpg"
     }
   ],
   "BlogPosts": [
     {
-      "title": "SAP Announces Q1 2024 Results",
-      "link": "https://news.sap.com/2024/04/sap-announces-q1-2024-results/",
+      "title": "SAP Extends Contract with CEO Christian Klein",
+      "link": "https://news.sap.com/2024/05/sap-extends-contract-ceo-christian-klein/",
       "author": "SAP News",
-      "date": "April 22, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/SAP_Walldorf_006_F-1900x476.jpg",
-      "excerpt": "WALLDORF — SAP SE has announced financial results for the first quarter of 2024."
+      "date": "May 6, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/278115_278115_l_srgb_s_gl_uncropped-1920x600-1711628772.jpg",
+      "excerpt": "WALLDORF — Klein has also been made chairman of the Executive Board."
     },
     {
       "title": "SAP’s Adoption Revolution: When Expectations and Outcomes for Cloud Transformation Meet",

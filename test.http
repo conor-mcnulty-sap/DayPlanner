@@ -95,8 +95,8 @@ Host: localhost:5000
 Content-Type: application/json
 
 {
-    "user_id": "1",
-    "eircode": "D24 FKT9"
+    "user_id": "2",
+    "eircode": "D07 H6K8"
 }
 
 ### Add carpoolee
@@ -129,6 +129,10 @@ Content-Type: application/json
 
 ### Get distance between two eircodes
 GET /api/carpools/distance?eircode1=D24 FKT9&eircode2=D24 Y99R HTTP/1.1
+Host: localhost:5000
+
+### Get list of carpooler closest to you
+GET /api/carpools/closestcarpooler?user_id=3 HTTP/1.1
 Host: localhost:5000
 
 ### Get tasks

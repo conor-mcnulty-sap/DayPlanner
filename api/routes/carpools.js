@@ -154,9 +154,52 @@ router.get('/distance', async (req, res) => {
     console.log(traveldistance);
 });
 
-// Test 
-router.get('/test', async (req, res) => {
-    res.send('Test Successful');
+// List Carpooler closest to you
+router.get('/closestcarpooler', async (req, res) => {
+    let user_id = req.query.user_id;
+
+    //get all carpoolers
+    const {data: carpoolers, error} = await supabase
+    .from('carpooler')
+    .select('*');
+
+    //Get user eircode
+    const {data: user, error1} = await supabase
+    .from('carpoolee')
+    .select('eircode')
+    .eq('id', user_id);
+
+    let user_eircode = user[0].eircode;
+
+    //Get list of carpooler eircodes
+    let carpooler_eircodes = [];
+    for (let i = 0; i < carpoolers.length; i++) {
+        carpooler_eircodes.push(carpoolers[i].eircode);
+    }
+
+    //Get list of distances
+    let distances = [];
+    for (let i = 0; i < carpooler_eircodes.length; i++) {
+        let url = "http://dev.virtualearth.net/REST/v1/Routes?wp.0=" + user_eircode + "&wp.1=" + carpooler_eircodes[i] + "&key=" + BING_MAPS_KEY;
+        const {data, error} = await axios.get(url);
+        let traveldistance = data.resourceSets[0].resources[0].travelDistance;
+        distances.push(traveldistance);
+    }
+
+    //Combine carpooler and distance
+    let carpooler_distance = [];
+    for (let i = 0; i < carpoolers.length; i++) {
+        carpooler_distance.push({carpooler: carpoolers[i], distance: distances[i]});
+    }
+
+    //Sort by distance
+    carpooler_distance.sort(function(a, b) {
+        return a.distance - b.distance;
+    });
+
+    res.send(carpooler_distance);
+    console.log("Returned list of carpoolers closest to you");
+
 });
 
 module.exports = router;
