@@ -59,6 +59,7 @@ const GraphApiCaller = () => {
         },
       });
 
+      
       console.log(apiResponse.data);
     } catch (error) {
       console.error("Error calling Microsoft Graph API:", error);

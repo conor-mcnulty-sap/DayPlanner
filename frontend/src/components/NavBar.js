@@ -2,6 +2,7 @@ import React from "react";
 import { TabContainer, Tab } from "@ui5/webcomponents-react";
 import { useNavigate } from "react-router-dom";
 import SignIn from "./SignIn";
+import { Login } from '@microsoft/mgt-react';//sign in feature
 
 const TabRoutes = {
   Home: "/",
@@ -49,7 +50,7 @@ export function NavBar() {
           <Tab key={tabText} text={tabText} selected={route === currentRoute} />
         ))}
       </TabContainer>
-      <SignIn />
+      <Login />
     </div>
   );
 }
