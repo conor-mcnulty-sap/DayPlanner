@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Label,
@@ -11,17 +11,29 @@ import {
 } from "@ui5/webcomponents-react";
 
 const MeetingRoomForm = () => {
+  const [dateTime, setDateTime] = useState("");
+
   const openOutlook = () => {
-    window.open("https://outlook.live.com/", "_blank");
+    const startTime = encodeURIComponent(dateTime);
+    const endTime = encodeURIComponent(dateTime);
+    const subject = encodeURIComponent("Meeting");
+    const location = encodeURIComponent("Meeting Room");
+    const body = encodeURIComponent("Details of the meeting...");
+
+    const outlookURL = `https://outlook.live.com/owa/?path=/calendar/action/compose&startdt=${startTime}&enddt=${endTime}&subject=${subject}&location=${location}&body=${body}`;
+
+    window.open(outlookURL, "_blank");
   };
 
+  const handleDateTimeChange = (event) => {
+    setDateTime(event.target.value);
+  };
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        
       }}
     >
       <Form
@@ -42,8 +54,8 @@ const MeetingRoomForm = () => {
           <FormItem label={<Label>Date and Time</Label>}>
             <DateTimePicker
               formatPattern="yyyy-MM-dd HH:mm"
-              onChange={function _a() {}}
-              onInput={function _a() {}}
+              onChange={handleDateTimeChange}
+              onInput={handleDateTimeChange}
               valueState="None"
               style={{ width: "100%" }}
             />
@@ -69,7 +81,7 @@ const MeetingRoomForm = () => {
               <Option>Room 3</Option>
             </Select>
           </FormItem>
-        </FormGroup>
+          </FormGroup>
       </Form>
       <Button onClick={openOutlook} style={{ display: "flex", justifyContent: "center" }}>
         Open Outlook

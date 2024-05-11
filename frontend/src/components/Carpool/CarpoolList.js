@@ -10,7 +10,7 @@ function CarpoolList() {
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
-    fetch("/carpoolDistance.json")
+    fetch(`${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=3`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
