@@ -5,7 +5,7 @@ import FavouriteDesk from "../components/Cards/Desks/FavouriteDesk";
 import CurrentDesk from "../components/Cards/Desks/CurrentDesk";
 import WhosIn from "../components/Home/WhosIn";
 import NewsCard from "../components/Cards/NewsCard";
-import {Timeline} from "@ui5/webcomponents-react"
+import { MyTasks } from "../components/Tasks/MyTasks";
 
 function Home() {
   return (
@@ -18,6 +18,7 @@ function Home() {
         margin: "2rem auto 4rem auto", // Center the content
         width: "90%", // Adjust the width of the page
         alignItems: "start", // Align items to the start
+        height: "30vh",
       }}
     >
       <Card
@@ -59,7 +60,7 @@ function Home() {
           width: "100%",
         }}
       >
-        <Timeline />
+        <MyTasks />
       </Card>
     </div>
   );

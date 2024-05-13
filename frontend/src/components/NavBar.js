@@ -11,8 +11,9 @@ const TabRoutes = {
   "Team Booking": "/bookteam",
   "Book a Meeting Room": "/bookmeeting",
   "My Tasks": "/tasks",
-  Carpool: "/carpool",
-};
+  "Carpool": "/carpool",
+  "Sign in": "/"
+}; 
 
 export function NavBar() {
   const navigate = useNavigate();

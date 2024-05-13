@@ -1,4 +1,3 @@
-// BookDeskMap.js
 import React, { useState, useEffect } from "react";
 import {
   MapContainer,
@@ -10,7 +9,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import floorPlan from "../../assets/floor-plan-png-9.jpg";
-import { Card } from "@ui5/webcomponents-react";
+import { Card, Button } from "@ui5/webcomponents-react";
 
 function Map({ onCircleClick }) {
   const [isMapInit, setIsMapInit] = useState(false);
@@ -53,6 +52,38 @@ function Map({ onCircleClick }) {
     }
   }
 
+  const handleFavourite = (deskId, userId = 1) => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/desks/favouritedesk?desk_id=${deskId}&user_id=${userId}`,
+      {
+        method: "POST",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Desk ${deskId} added to favourites`);
+      })
+      .catch((error) => console.error(error));
+  };
+  
+  const handleUnfavourite = (deskId, userId = 1) => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Desk ${deskId} removed from favourites`);
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <Card>
       {isMapInit && (
@@ -85,6 +116,12 @@ function Map({ onCircleClick }) {
                 {coordinate.color === "red"
                   ? `Booked by ${coordinate.bookedBy}`
                   : coordinate.popup}
+                <Button onClick={() => handleFavourite(coordinate.popup)}>
+                  Add to Favourites
+                </Button>
+                <Button onClick={() => handleUnfavourite(coordinate.popup)}>
+                  Remove from Favourites
+                </Button>
               </Popup>
             </Circle>
           ))}

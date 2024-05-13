@@ -1,22 +1,38 @@
-import React from "react";
-import { Card, CardHeader, List, Button } from "@ui5/webcomponents-react";
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardHeader,
+  List,
+  Button,
+  StandardListItem,
+} from "@ui5/webcomponents-react";
 
-const LastBooked = () => {
-  const lastBooked = {
-    id: "DUB05-3-R",
-    date: "2021-09-01",
-  };
+const LastBooked = ({ userId = "1" }) => {
+  const [lastBooked, setLastBooked] = useState([]);
+  console.log(userId);
+  useEffect(() => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/bookings/lastbooked?user_id=${userId}`
+    )
+      .then((response) => response.json())
+      .then((data) => setLastBooked(data))
+      .catch((error) => console.error(error));
+  }, [userId]);
+
+  console.log(lastBooked);
 
   return (
-    <Card
-      header={<CardHeader titleText="Last Booked Desk" />}
-      
-    >
-      <List
-        headerText={`${lastBooked.id}`} // desk.id
-      >
-        <Button design="Positive">Book</Button>
-      </List>
+    <Card header={<CardHeader titleText="Last Booked Desk" />}>
+      {lastBooked && lastBooked.length > 0 ? (
+        <List
+          headerText={`${lastBooked[0].desk_id}`} // desk.id
+        >
+          <StandardListItem>{lastBooked[0].date}</StandardListItem>
+          <Button design="Positive">Book</Button>
+        </List>
+      ) : (
+        <List>No desk booked</List>
+      )}
     </Card>
   );
 };
