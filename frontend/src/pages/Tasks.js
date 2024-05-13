@@ -1,25 +1,26 @@
-import React from "react";
-import { TasksForm } from "../components/Tasks/TasksForm";
-import { MyTasks } from "../components/Tasks/MyTasks";
-import { Grid } from "@ui5/webcomponents-react";
-import Calendar from "../components/Tasks/Calendar/MyCalendar";
+import React from 'react';
+import Calendar from '../components/Tasks/Calendar/MyCalendar';
+import { MyTasks } from '../components/Tasks/MyTasks';
+import { TasksForm } from '../components/Tasks/TasksForm';
 
-function Tasks() {
+const Tasks = ({ isAuthenticated, user, logout, login }) => {
   return (
-    <React.StrictMode>
-      <Grid defaultSpan="XL6 L12 M12 S12" vSpacing="1rem" hSpacing="1rem">
-        <div style={{ marginRight: "20px" }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
+      <div style={{ flex: 1, marginRight: '20px' }}>
+        {isAuthenticated && <Calendar isAuthenticated={isAuthenticated} user={user} logout={logout} />}
+        
+        <div style={{ marginTop: '20px' }}>
           <MyTasks />
         </div>
-        <div style={{ marginLeft: "1rem" }}>
+      </div>
+
+      <div style={{ flex: 1, marginLeft: '20px' }}>
+        <div >
           <TasksForm />
         </div>
-        <div>
-          <Calendar />
-        </div>
-      </Grid>
-    </React.StrictMode>
+      </div>
+    </div>
   );
-}
+};
 
 export default Tasks;

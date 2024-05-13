@@ -1,92 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { MsalProvider, useMsal } from "@azure/msal-react";
-import { PublicClientApplication } from "@azure/msal-browser";
-import { Login } from "@microsoft/mgt-react";
-import { Button } from "@ui5/webcomponents-react";
-import axios from "axios";
+import React, { Component } from 'react';
+import { UserAgentApplication } from 'msal';
+import { Button } from '@ui5/webcomponents-react';
+import config from './Tasks/Calendar/Config';
 
-const config = {
-  auth: {
-    clientId: "f0ba26d6-c63f-494b-82a5-4c1ad00e8941",
-    redirectUri: "http://localhost:3000",
-    authority:
-      "https://login.microsoftonline.com/c7cf020e-7c7c-49a7-8215-6bbaea2029d5",
-  },
-  cache: {
-    cacheLocation: "localStorage",
-    storeAuthStateInCookie: true,
-  },
-};
+class SignIn extends Component {
+  constructor(props) {
+    super(props);
 
-const graphApiEndpoint = "https://graph.microsoft.com/v1.0/me";
+    this.userAgentApplication = new UserAgentApplication({
+      auth: {
+        clientId: config.appId,
+        redirectUri: 'http://localhost:3000'
+      },
+      cache: {
+        cacheLocation: 'localStorage',
+        storeAuthStateInCookie: true
+      }
+    });
+  }
 
-const GraphApiCaller = () => {
-  const { instance, accounts } = useMsal();
-  const [signedIn, setSignedIn] = useState(false);
-
-  useEffect(() => {
-    if (accounts.length > 0) {
-      setSignedIn(true);
-    } else {
-      setSignedIn(false);
-    }
-  }, [accounts]);
-
-  const handleSignIn = async () => {
+  handleLogin = async () => {
     try {
-      await instance.loginPopup();
-    } catch (error) {
-      console.error("Error signing in:", error);
-    }
-  };
-
-  const handleSignOut = () => {
-    instance.logout();
-  };
-
-  const callGraphApi = async () => {
-    try {
-      const response = await instance.acquireTokenSilent({
-        scopes: ["user.read"],
-        account: accounts[0],
+      await this.userAgentApplication.loginPopup({
+        scopes: config.scopes,
+        prompt: 'select_account'
       });
 
-      const accessToken = response.accessToken;
-
-      const apiResponse = await axios.get(graphApiEndpoint, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      
-      console.log(apiResponse.data);
-    } catch (error) {
-      console.error("Error calling Microsoft Graph API:", error);
+      const user = this.userAgentApplication.getAccount();
+      if (user) {
+        this.props.onLogin(user);
+      }
+    } catch (err) {
+      console.log('Login error:', err);
     }
   };
 
-  return (
-    <div>
-      {signedIn ? (
-        <div>
-          <Button onClick={handleSignOut}>Sign Out</Button>
-        </div>
-      ) : (
-        <Button onClick={handleSignIn}>Sign In</Button>
-      )}
-    </div>
-  );
-};
+  handleLogout = () => {
+    this.userAgentApplication.logout();
+    this.props.onLogout();
+  };
 
-const SignIn = () => {
-  const pca = new PublicClientApplication(config);
+  render() {
+    const { isAuthenticated } = this.props;
 
-  return (
-    <MsalProvider instance={pca}>
-      <GraphApiCaller />
-    </MsalProvider>
-  );
-};
+    return (
+      <div>
+        {!isAuthenticated ? (
+          <Button onClick={this.handleLogin}>Sign In</Button>
+        ) : (
+          <Button onClick={this.handleLogout}>Sign Out</Button>
+        )}
+      </div>
+    );
+  }
+}
 
 export default SignIn;

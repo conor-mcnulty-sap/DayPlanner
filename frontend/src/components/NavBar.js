@@ -50,7 +50,6 @@ export function NavBar() {
           <Tab key={tabText} text={tabText} selected={route === currentRoute} />
         ))}
       </TabContainer>
-      <SignIn />
     </div>
   );
 }
