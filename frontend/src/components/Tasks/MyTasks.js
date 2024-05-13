@@ -10,10 +10,7 @@ export function MyTasks() {
               titleText="My Tasks"
             />
           }
-          style={{
-            paddingLeft:"20px",
-            width: "500px"
-          }}
+          
         >
             <List>
             <StandardListItem style={{ borderBottom: '1px solid #ddd', marginBottom: '10px', position: 'relative' }}>

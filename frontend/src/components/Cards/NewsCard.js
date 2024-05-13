@@ -30,15 +30,19 @@ const NewsCard = () => {
           margin: "1rem",
         }}
       >
-        {newsData.map((news) => (
-          <a href={news.link} key={news.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div>
-              <img src={news.image} alt="News" style={{ width: "100%" }} />
-              <h2>{news.title}</h2>
-              <p>{news.author}</p>
-            </div>
-          </a>
-        ))}
+        {newsData.length > 0 ? (
+          newsData.map((news) => (
+            <a href={news.link} key={news.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div>
+                <img src={news.image} alt="News" style={{ width: "100%" }} />
+                <h2>{news.title}</h2>
+                <p>{news.author}</p>
+              </div>
+            </a>
+          ))
+        ) : (
+          <p>There is no news</p>
+        )}
       </div>
     </Card>
   );
