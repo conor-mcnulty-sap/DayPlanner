@@ -29,9 +29,9 @@ const FavouriteDesk = ({ userId = "1" }) => {
           style={{ width: "90%", margin: "1rem" }} // Adjusted margin
         >
           <Button design="Positive" style={{ marginRight: "20px" }}>
-            Book
+            Book a Desk
           </Button>
-          <Button design="Negative">Unfavourite</Button>
+          
         </Card>
       )}
     </Card>

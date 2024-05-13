@@ -24,9 +24,7 @@ const CurrentDesk = ({ userId = "1" }) => {
       });
   }, [userId, date]);
 
-  if (error) {
-    return <div>{error}</div>;
-  } else if (booking && booking.length > 0) {
+  if (booking && booking.length > 0) {
     return (
       <Card
         header={<CardHeader titleText="Current Desk" />}
@@ -47,7 +45,7 @@ const CurrentDesk = ({ userId = "1" }) => {
         }}
       >
         <List headerText="No desk booked">
-          <Button design="Positive">Book</Button>
+          <Button design="Positive">Book a Desk</Button>
         </List>
       </Card>
     );

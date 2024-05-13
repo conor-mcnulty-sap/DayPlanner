@@ -31,7 +31,9 @@ const LastBooked = ({ userId = "1" }) => {
           <Button design="Positive">Book</Button>
         </List>
       ) : (
-        <List>No desk booked</List>
+        <List headerText="No desk booked">
+          <Button design="Positive">Book a Desk</Button>
+        </List>
       )}
     </Card>
   );
