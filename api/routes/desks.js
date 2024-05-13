@@ -22,8 +22,8 @@ router.get('/favourites', async (req, res) => {
 
 // Favourite Desk
 router.post('/favouritedesk', async (req, res) => {
-    let in_deskid = req.body.desk_id;
-    let in_userid = req.body.user_id;
+    let in_deskid = req.query.desk_id;
+    let in_userid = req.query.user_id;
 
 
     // Check if desk is already in favourites
@@ -54,8 +54,8 @@ router.post('/favouritedesk', async (req, res) => {
 
 // Remove Favourite Desk
 router.delete('/removefavourite', async (req, res) => {
-    let in_deskid = req.body.desk_id;
-    let in_userid = req.body.user_id;
+    let in_deskid = req.query.desk_id;
+    let in_userid = req.query.user_id;
 
     // If desk is not in favourites
     const {data: favourites, error} = await supabase
@@ -89,6 +89,18 @@ router.get('/filterbyfloor', async (req, res) => {
     .select('*')
     .eq('floor', in_floor);
     res.send(data);
+});
+
+// Get favourite desk for certain user
+router.get('/favouritesbyuser', async (req, res) => {
+    let in_userid = req.query.user_id;
+
+    const {data, error} = await supabase
+    .from('favourites')
+    .select('*,desks(*)')
+    .eq('user_id', in_userid);
+    res.send(data);
+    console.log("Favourites by user sent")
 });
 
 

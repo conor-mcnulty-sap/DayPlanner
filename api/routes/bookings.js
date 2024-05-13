@@ -103,6 +103,7 @@ router.delete('/removebooking', async (req, res) => {
     }
 });
 
+// Filters
 // What users have booked desks at a certain date
 router.get('/bookingsbydate', async (req, res) => {
     let in_date = req.query.date;
@@ -125,6 +126,9 @@ router.get('/bookingsbyuser', async (req, res) => {
     res.send(data);
 });
 
+
+// End of filters
+
 // Last booked for a certain user
 router.get('/lastbooked', async (req, res) => {
     let in_userid = req.query.user_id;
@@ -136,6 +140,7 @@ router.get('/lastbooked', async (req, res) => {
     .order('date', {ascending: false})
     .limit(1);
     res.send(data);
+    console.log("Last booked desk for user: " + in_userid);
 });
 
 // Find desk by booking
@@ -149,6 +154,29 @@ router.get('/finddesk', async (req, res) => {
     .eq('user_id', in_userid)
     .eq('date', in_date);
     res.send(data);
+});
+
+// Get Booking for certain user and date
+router.get('/getbookinguserdate', async (req, res) => {
+    let in_userid = req.query.user_id;
+    let in_date = req.query.date;
+
+    const {data, error} = await supabase
+    .from('bookings')
+    .select('*,desks(*)')
+    .eq('user_id', in_userid)
+    .eq('date', in_date);
+
+    // If no booking found
+    if (data.length === 0) {
+        res.send('No booking found');
+        console.log('No booking found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Booking found');
+    }
 });
 
 // Test 
