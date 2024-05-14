@@ -28,8 +28,8 @@ router.get('/carpoolee', async (req, res) => {
 
 // Add Carpooler
 router.post('/addcarpooler', async (req, res) => {
-    let user_id = req.body.user_id;
-    let eircode = req.body.eircode;
+    let user_id = req.query.user_id;
+    let eircode = req.query.eircode;
 
     //if carpooler already exists
     const {data: carpoolers, error} = await supabase
@@ -58,8 +58,8 @@ router.post('/addcarpooler', async (req, res) => {
 
 // Add Carpoolee
 router.post('/addcarpoolee', async (req, res) => {
-    let user_id = req.body.user_id;
-    let eircode = req.body.eircode;
+    let user_id = req.query.user_id;
+    let eircode = req.query.eircode;
 
     //if carpoolee already exists
     const {data: carpoolees, error} = await supabase
@@ -88,7 +88,7 @@ router.post('/addcarpoolee', async (req, res) => {
 
 // Remove Carpooler
 router.delete('/removecarpooler', async (req, res) => {
-    let user_id = req.body.user_id;
+    let user_id = req.query.user_id;
 
     //if carpooler does not exist
     const {data: carpoolers, error} = await supabase
@@ -115,7 +115,7 @@ router.delete('/removecarpooler', async (req, res) => {
 
 // Remove Carpoolee
 router.delete('/removecarpoolee', async (req, res) => {
-    let user_id = req.body.user_id;
+    let user_id = req.query.user_id;
 
     //if carpoolee does not exist
     const {data: carpoolees, error} = await supabase

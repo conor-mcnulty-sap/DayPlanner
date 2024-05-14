@@ -24,12 +24,12 @@ router.get('/usertasks', async (req, res) => {
 
 // Add Task
 router.post('/addtask', async (req, res) => {
-    let in_userid = req.body.user_id;
-    let in_taskname = req.body.task_name;
-    let in_taskdescription = req.body.task_description;
-    let in_taskdate = req.body.task_date;
-    let in_tasktime = req.body.task_time;
-    let in_taskcolour = req.body.task_colour;
+    let in_userid = req.query.user_id;
+    let in_taskname = req.query.task_name;
+    let in_taskdescription = req.query.task_description;
+    let in_taskdate = req.query.task_date;
+    let in_tasktime = req.query.task_time;
+    let in_taskcolour = req.query.task_colour;
 
     const {data, error} = await supabase
     .from('tasks')
@@ -49,7 +49,7 @@ router.post('/addtask', async (req, res) => {
 
 // Remove Task
 router.delete('/removetask', async (req, res) => {
-    let in_taskid = req.body.id;
+    let in_taskid = req.query.id;
 
     const {data, error} = await supabase
     .from('tasks')

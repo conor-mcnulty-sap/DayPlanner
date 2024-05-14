@@ -13,9 +13,9 @@ router.get('/', async (req, res) => {
 
 //Booking Desk
 router.post('/bookdesk', async (req, res) => {
-    let in_deskid = req.body.desk_id;
-    let in_userid = req.body.user_id;
-    let in_date = req.body.date;
+    let in_deskid = req.query.desk_id;
+    let in_userid = req.query.user_id;
+    let in_date = req.query.date;
 
     //Split date
     var dates = in_date.split("-");
@@ -61,9 +61,9 @@ router.post('/bookdesk', async (req, res) => {
 
 // Remove Booking
 router.delete('/removebooking', async (req, res) => {
-    let in_deskid = req.body.desk_id;
-    let in_userid = req.body.user_id;
-    let in_date = req.body.date;
+    let in_deskid = req.query.desk_id;
+    let in_userid = req.query.user_id;
+    let in_date = req.query.date;
 
     //Split date
     var dates = in_date.split("-");

@@ -31,26 +31,12 @@ GET /api/bookings/finddesk?user_id=3&date=3123-12-23 HTTP/1.1
 Host: localhost:5000
 
 ### Add booking
-POST /api/bookings/bookdesk HTTP/1.1
+POST /api/bookings/bookdesk?user_id=1&desk_id=101&date=2024-05-13-2024-05-20 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1",
-    "desk_id": "101",
-    "date": "2024-05-13-2024-05-20"
-}
 
 ### Remove booking
-DELETE /api/bookings/removebooking HTTP/1.1
+DELETE /api/bookings/removebooking?user_id=1&desk_id=101&date=2024-05-13-2024-05-20 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1",
-    "desk_id": "101",
-    "date": "2025-10-20-2025-10-25"
-}
 
 ### Get Booking for certain user and date
 GET /api/bookings/getbookinguserdate?user_id=1&date=2025-10-18 HTTP/1.1
@@ -87,42 +73,21 @@ GET /api/carpools/carpoolee HTTP/1.1
 Host: localhost:5000
 
 ### Add carpooler
-POST /api/carpools/addcarpooler HTTP/1.1
+POST /api/carpools/addcarpooler?user_id=2&eircode=D07 H6K8 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "2",
-    "eircode": "D07 H6K8"
-}
 
 ### Add carpoolee
-POST /api/carpools/addcarpoolee HTTP/1.1
+POST /api/carpools/addcarpoolee?user_id=3&eircode=D24 Y99R HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
-
-{
-    "user_id": "3",
-    "eircode": "D24 Y99R"
-}
 
 ### Remove carpooler
-DELETE /api/carpools/removecarpooler HTTP/1.1
+DELETE /api/carpools/removecarpooler?user_id=2 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1"
-}
 
 ### Remove carpoolee
-DELETE /api/carpools/removecarpoolee HTTP/1.1
+DELETE /api/carpools/removecarpoolee?user_id=3 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "3"
-}
 
 ### Get distance between two eircodes
 GET /api/carpools/distance?eircode1=D24 FKT9&eircode2=D24 Y99R HTTP/1.1
@@ -141,27 +106,13 @@ GET /api/tasks/usertasks?user_id=1 HTTP/1.1
 Host: localhost:5000
 
 ### Add task
-POST /api/tasks/addtask HTTP/1.1
+POST /api/tasks/addtask?user_id=1&task_name=test&task_description=test description&task_date=2022-09-15&task_time=12:00:00&task_colour=red HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
-
-{
-    "user_id": "1",
-    "task_name": "Clean the kitchen",
-    "task_description": "Clean the kitchen and put away the dishes",
-    "task_date": "2022-09-15",
-    "task_time": "12:00:00",
-    "task_colour": "red"
-}
 
 ### Remove task
-DELETE /api/tasks/removetask HTTP/1.1
+DELETE /api/tasks/removetask?id=2 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
 
-{
-    "id": "2"
-}
 
 ### Get building
 GET /api/buildings HTTP/1.1
