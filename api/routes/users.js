@@ -13,8 +13,9 @@ router.get('/', async (req, res) => {
 
 // Create user
 router.post('/createuser', async (req, res) => {
-    let in_name = req.body.name;
-    let in_email = req.body.email;
+    let in_id = req.query.id;
+    let in_name = req.query.name;
+    let in_email = req.query.email;
 
     // Check if user already exists
     const {data: users, error} = await supabase
@@ -32,6 +33,7 @@ router.post('/createuser', async (req, res) => {
         .from('users')
         .insert(
             {
+                id: in_id,
                 name: in_name,
                 email: in_email
             }

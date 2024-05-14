@@ -62,7 +62,6 @@ Host: localhost:5000
 ### What users have booked desks at a certain date
 GET /api/bookings/bookingsbydate?date=3123-12-23 HTTP/1.1
 Host: localhost:5000
-Content-Type: application/json
 
 ### Get all carpooler
 GET /api/carpools/carpooler HTTP/1.1
@@ -120,6 +119,14 @@ Host: localhost:5000
 
 ### Get floor from building
 GET /api/buildings/floors?building=Building A HTTP/1.1
+Host: localhost:5000
+
+### Create user 
+POST /api/users/createuser?id=test&name=test&email=test
+Host: localhost:5000
+
+### Filter Desk
+GET /api/desks/filterbybuildingflooranddate?building=Building A&floor=1&date=2026-10-18 HTTP/1.1
 Host: localhost:5000
 
 ### test

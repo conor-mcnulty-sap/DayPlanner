@@ -169,6 +169,13 @@ router.get('/closestcarpooler', async (req, res) => {
     .select('eircode')
     .eq('id', user_id);
 
+    // If user does not exist
+    if (user.length == 0) {
+        res.send('User does not exist');
+        console.log('User does not exist');
+        return;
+    }
+
     let user_eircode = user[0].eircode;
 
     //Get list of carpooler eircodes

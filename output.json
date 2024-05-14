@@ -1,31 +1,47 @@
 {
-  "SAP News": [
-    {
-      "title": "IBM and SAP Plan to Expand Collaboration to Help Clients Become Next-Generation Enterprises with Generative AI",
-      "link": "https://news.sap.com/2024/05/ibm-and-sap-generative-ai-new-value-generation-partnership/"
-    },
-    {
-      "title": "SAP Extends Contract with CEO Christian Klein",
-      "link": "https://news.sap.com/2024/05/sap-extends-contract-ceo-christian-klein/"
-    },
-    {
-      "title": "DeLaval Selects SAP S/4HANA Cloud to Cultivate Cloud Benefits",
-      "link": "https://news.sap.com/2024/04/delaval-selects-sap-s-4hana-cloud-to-cultivate-cloud-benefits/"
-    },
-    {
-      "title": "Information About Upcoming Merger of Hybris Gesellschaft mit beschränkter Haftung into SAP SE",
-      "link": "https://news.sap.com/2024/04/information-about-upcoming-merger-of-hybris-gesellschaft-mit-beschraenkter-haftung-into-sap-se/"
-    },
-    {
-      "title": "SAP Announces Q1 2024 Results",
-      "link": "https://news.sap.com/2024/04/sap-announces-q1-2024-results/"
-    },
-    {
-      "title": "SAP Unveils AI-Driven Supply-Chain Innovations to Transform Manufacturing",
-      "link": "https://news.sap.com/2024/04/sap-hannover-messe-ai-supply-chain-innovations-transform-manufacturing/"
-    }
-  ],
   "Articles": [
+    {
+      "title": "Unleashing As-A-Service Growth: High-Tech Leaders Share Lessons Learned",
+      "link": "https://news.sap.com/2024/05/unleashing-xaas-growth-high-tech-leaders-share-lessons/",
+      "author": "Susan Galer",
+      "date": "May 14, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/14/287640_GettyImages-136847807_uncropped_F-1920x600.jpg"
+    },
+    {
+      "title": "The Power of the Consumer",
+      "link": "https://news.sap.com/2024/05/the-power-of-the-consumer/",
+      "author": "Stefanie Glenk",
+      "date": "May 14, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/14/283538_GettyImages-157308476_high_2600_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Ardent Partners Positions SAP Fieldglass as a Market Leader for Vendor Management Systems",
+      "link": "https://news.sap.com/2024/05/ardent-partners-sap-fieldglass-vms-market-leader/",
+      "author": "Vish Baliga",
+      "date": "May 14, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/09/288251_GettyImages-77930942_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "AI-Enabled Recruitment Is the Name of the Game for FC Bayern with SAP SuccessFactors",
+      "link": "https://news.sap.com/2024/05/fc-bayern-sap-successfactors-ai-enabled-recruitment/",
+      "author": "Maryann Abbajay",
+      "date": "May 14, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/25/FC-Bayern-SF1-540x310.jpg"
+    },
+    {
+      "title": "Growing Your Business Begins with Growing Your People",
+      "link": "https://news.sap.com/2024/05/growing-your-business-begins-with-growing-your-people/",
+      "author": "Margit Bauer",
+      "date": "May 13, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/13/286693_GettyImages-916867926_uncropped_F-540x310-1715009858.jpg"
+    },
+    {
+      "title": "The End of an Era: Hasso Plattner Steps Down",
+      "link": "https://news.sap.com/2024/05/the-end-of-an-era-hasso-plattner-steps-down/",
+      "author": "Michael Zipf",
+      "date": "May 13, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/13/Hasso-Plattner-Farewell_feature-540x310.jpg"
+    },
     {
       "title": "Meeting Workout: A Game to Improve the Meeting Experience",
       "link": "https://news.sap.com/2024/05/meeting-workout-game-to-improve-meeting-experience/",
@@ -53,24 +69,27 @@
       "author": "Aaron Green",
       "date": "May 8, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/296441_GettyImages-1373240838_uncropped_F-540x310-1714754591.jpg"
-    }
-  ],
-  "BlogPosts": [
-    {
-      "title": "SAP Extends Contract with CEO Christian Klein",
-      "link": "https://news.sap.com/2024/05/sap-extends-contract-ceo-christian-klein/",
-      "author": "SAP News",
-      "date": "May 6, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/278115_278115_l_srgb_s_gl_uncropped-1920x600-1711628772.jpg",
-      "excerpt": "WALLDORF — Klein has also been made chairman of the Executive Board."
     },
     {
-      "title": "SAP’s Adoption Revolution: When Expectations and Outcomes for Cloud Transformation Meet",
-      "link": "https://news.sap.com/2024/04/cloud-transformation-adoption-revolution-expectations-outcomes-meet/",
-      "author": "Thomas Saueressig",
-      "date": "April 2, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/02/286131_GettyImages-172532868_medium_uncropped-1920x600-1711652289.jpg",
-      "excerpt": "The new Customer Services & Delivery Board area makes it easier and faster for customers to adopt SAP solutions."
+      "title": "Insights from SAP MaxAttention Summit 2024",
+      "link": "https://news.sap.com/2024/05/sap-maxattention-summit-2024/",
+      "author": "Alexa MacDonald",
+      "date": "May 8, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/274615_274615_l_srgb_s_gl_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP Named a Leader in the Gartner® Magic Quadrant™ for Warehouse Management Systems for the 11th Consecutive Year",
+      "link": "https://news.sap.com/2024/05/sap-a-leader-2024-gartner-magic-quadrant-wms/",
+      "author": "Ganesh Wadawadigi",
+      "date": "May 7, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/07/298451_GettyImages-1362788786_large_uncropped-F-540x310.jpg"
+    },
+    {
+      "title": "Innovative Cloud ERP at Department of Defense Agencies with SAP S/4HANA Cloud Private Edition",
+      "link": "https://news.sap.com/2024/05/dod-agencies-sap-ns2-innovative-cloud-erp/",
+      "author": "Harish Luthra",
+      "date": "May 7, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/07/280622_GettyImages-76747676_medium_uncropped_F-540x310.jpg"
     }
   ]
 }

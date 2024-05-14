@@ -103,6 +103,55 @@ router.get('/favouritesbyuser', async (req, res) => {
     console.log("Favourites by user sent")
 });
 
+// Filter Desks that are available on a certain building, floor and date
+router.get('/filterbybuildingflooranddate', async (req, res) => {
+    let in_building = req.query.building;
+    let in_floor = req.query.floor;
+    let in_date = req.query.date;
+
+
+    // Get all desks in building and floor
+    const {data: desks, error} = await supabase
+    .from('desks')
+    .select('*')
+    .eq('building', in_building)
+    .eq('floor', in_floor);
+
+    // Get all bookings for that date
+    const {data: bookings, error1} = await supabase
+    .from('bookings')
+    .select('desk_id')
+    .eq('date', in_date);
+
+
+    // If no bookings, all desks are available
+    if (bookings === null || bookings.length === 0) {
+        res.send(desks);
+        console.log("All desks available");
+        return;
+    }
+    else
+    {
+        // Get all desks that are not booked on that date
+        var available_desks = [];
+        for (var i = 0; i < desks.length; i++) {
+            var booked = false;
+            for (var j = 0; j < bookings.length; j++) {
+                if (desks[i].id === bookings[j].desk_id) {
+                    booked = true;
+                    break;
+                }
+            }
+            if (!booked) {
+                available_desks.push(desks[i]);
+            }
+        }
+        res.send(available_desks);
+        console.log("Available desks sent");
+    }
+});
+
+
 
 
 
