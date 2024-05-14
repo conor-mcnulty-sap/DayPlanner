@@ -23,15 +23,20 @@ export async function getUserDetails(accessToken) {
 export async function getEvents(accessToken) {
   const client = getAuthenticatedClient(accessToken);
 
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const today = new Date().toISOString();
+  const tomorrow = new Date(now.getTime() + (24 * 60 * 60 * 1000)).toISOString();
+
   const events = await client
     .api('/me/events')
-    .select('subject,organizer,start,end')
+    .filter(`start/dateTime ge '${today}' and start/dateTime le '${tomorrow}'`)
+    .select('subject,organizer,start,end,location,')
     .orderby('createdDateTime DESC')
     .get();
 
   return events;
 }
-
 export async function createEvents(accessToken, event) {
   const client = getAuthenticatedClient(accessToken);
 
