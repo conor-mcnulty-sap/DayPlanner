@@ -40,9 +40,6 @@ const CurrentDesk = ({ userId = "1" }) => {
     return (
       <Card
         header={<CardHeader titleText="Current Desk" />}
-        style={{
-          width: "375px",
-        }}
       >
         <List headerText="No desk booked">
           <Button design="Positive">Book a Desk</Button>

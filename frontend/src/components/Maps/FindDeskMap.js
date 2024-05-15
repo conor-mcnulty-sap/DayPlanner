@@ -15,15 +15,27 @@ L.Icon.Default.mergeOptions({
 
 function Map() {
   const [isMapInit, setIsMapInit] = useState(false);
+  const [markerPosition, setMarkerPosition] = useState([5, 5]); // initial position
   const bounds = [
     [0, 0],
     [10, 29],
   ];
 
-  const markerPosition = [5, 5]; // adjust this to the desired position
-
   useEffect(() => {
     setIsMapInit(true);
+
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const userId = 1;
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/getbookinguserdate?user_id=${userId}&date=${date}`)
+      .then(response => response.json())
+      .then(data => {
+        // assuming the data contains the coordinates in a property named 'coordinates'
+        console.log(data);
+        setMarkerPosition(data.coordinates);
+      })
+      .catch(error => console.error('Error:', error));
   }, []);
 
   return (

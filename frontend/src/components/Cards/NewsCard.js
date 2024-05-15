@@ -28,6 +28,8 @@ const NewsCard = () => {
           gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
           gap: "1rem",
           margin: "1rem",
+          maxHeight: "40vh", // Adjust this value based on the height of two rows
+          overflowY: "auto",
         }}
       >
         {newsData.length > 0 ? (
