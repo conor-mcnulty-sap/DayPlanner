@@ -16,7 +16,7 @@ const MeetingRoomCarousel = () => {
   return (
     <Card>
       <Carousel
-        arrowsPlacement="Content"
+        arrowsPlacement="Navigation"
         hidePageIndicator
         style={carouselStyle}
         backgroundDesign="Transparent"

@@ -16,7 +16,7 @@ const FavouriteDesk = ({ userId = "1" }) => {
       {favouriteDesk && favouriteDesk.length > 0 ? (
         <Card
           header={<CardHeader titleText={favouriteDesk[0].desk_id} />}
-          style={{ width: "90%", margin: "1rem" }} // Adjusted margin
+          // Adjusted margin
         >
           <Button design="Positive" style={{ marginRight: "20px" }}>
             Book
@@ -26,7 +26,7 @@ const FavouriteDesk = ({ userId = "1" }) => {
       ) : (
         <Card
           header={<CardHeader titleText="No Favourite Chosen!" />}
-          style={{ width: "90%", margin: "1rem" }} // Adjusted margin
+           // Adjusted margin
         >
           <Button design="Positive" style={{ marginRight: "20px" }}>
             Book a Desk
