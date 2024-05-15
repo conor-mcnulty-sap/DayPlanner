@@ -25,9 +25,10 @@ export async function getEvents(accessToken) {
 
   const now = new Date();
   now.setHours(0,0,0,0);
-  const today = new Date().toISOString();
+  const today = new Date(now.getTime()).toISOString();
   const tomorrow = new Date(now.getTime() + (24 * 60 * 60 * 1000)).toISOString();
-
+console.log(today);
+console.log(tomorrow);
   const events = await client
     .api('/me/events')
     .filter(`start/dateTime ge '${today}' and start/dateTime le '${tomorrow}'`)

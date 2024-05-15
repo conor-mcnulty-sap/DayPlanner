@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from '../components/Tasks/Calendar/MyCalendar';
 import { MyTasks } from '../components/Tasks/MyTasks';
-import { TasksForm } from '../components/Tasks/TasksForm';
+import  TasksForm  from '../components/Tasks/TasksForm';
 
 const Tasks = ({ isAuthenticated, user, logout, login }) => {
   return (

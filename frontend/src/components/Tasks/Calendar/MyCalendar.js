@@ -7,7 +7,7 @@ import config from "./Config";
 
 
 function formatDateTime(dateTime) {
-  return moment.utc(dateTime).local().format('h:mm A');
+  return moment.utc(dateTime).local().format();
 }
 
 
@@ -42,10 +42,7 @@ export default class Calendar extends Component {
           titleText="My Calendar"
         />
       }
-      style={{
-        paddingLeft: "10x",
-        width: "500px"
-      }}
+ 
     >
  
         
