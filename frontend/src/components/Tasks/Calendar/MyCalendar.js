@@ -7,7 +7,7 @@ import config from "./Config";
 
 
 function formatDateTime(dateTime) {
-  return moment.utc(dateTime).local().format();
+  return moment.utc(dateTime).local().format('h:mm A');
 }
 
 

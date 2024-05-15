@@ -33,7 +33,7 @@ console.log(tomorrow);
     .api('/me/events')
     .filter(`start/dateTime ge '${today}' and start/dateTime le '${tomorrow}'`)
     .select('subject,organizer,start,end,location,')
-    .orderby('createdDateTime DESC')
+    .orderby('createdDateTime ASC')
     .get();
 
   return events;
