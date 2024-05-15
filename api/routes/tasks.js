@@ -19,6 +19,11 @@ router.get('/usertasks', async (req, res) => {
     .from('tasks')
     .select('*,users(*)')
     .eq('user', in_userid);
+    
+    // Sort task by the time
+    data.sort((a, b) => {
+        return a.time.localeCompare(b.time);
+    });
     res.send(data);
 });
 

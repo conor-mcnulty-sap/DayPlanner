@@ -72,7 +72,7 @@ GET /api/carpools/carpoolee HTTP/1.1
 Host: localhost:5000
 
 ### Add carpooler
-POST /api/carpools/addcarpooler?user_id=2&eircode=D07 H6K8 HTTP/1.1
+POST /api/carpools/addcarpooler?user_id=4&eircode=F42D540 HTTP/1.1
 Host: localhost:5000
 
 ### Add carpoolee
@@ -128,6 +128,16 @@ Host: localhost:5000
 ### Filter Desk
 GET /api/desks/filterbybuildingflooranddate?building=Building A&floor=1&date=2026-10-18 HTTP/1.1
 Host: localhost:5000
+
+### Get Meeting Rooms
+GET /api/meetingrooms HTTP/1.1
+Host: localhost:5000
+
+### Get Meeting Room from certain building and floor
+GET /api/meetingrooms/buildingfloor?building=DUB05&floor=2 HTTP/1.1
+Host: localhost:5000
+
+
 
 ### test
 GET /api/bookings/test HTTP/1.1

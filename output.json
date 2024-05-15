@@ -1,11 +1,25 @@
 {
   "Articles": [
     {
+      "title": "Kyndryl Adopts Next-Generation Tools for Sales Performance Management",
+      "link": "https://news.sap.com/2024/05/kyndryl-adopts-tools-for-sales-performance-management/",
+      "author": "Rahul Iyer",
+      "date": "May 15, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/282409_concur.office_2618_uncropped_F-1920x600-1715258828.jpg"
+    },
+    {
+      "title": "SAP Signavio Again Leads the 2024 SPARK Matrix™ for Digital Twin of an Organization",
+      "link": "https://news.sap.com/2024/05/sap-signavio-leads-2024-spark-matrix-digital-twin-organization/",
+      "author": "Dee Houchen",
+      "date": "May 15, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/295326_GettyImages-1387052544_uncropped_F-540x310.jpg"
+    },
+    {
       "title": "Unleashing As-A-Service Growth: High-Tech Leaders Share Lessons Learned",
       "link": "https://news.sap.com/2024/05/unleashing-xaas-growth-high-tech-leaders-share-lessons/",
       "author": "Susan Galer",
       "date": "May 14, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/14/287640_GettyImages-136847807_uncropped_F-1920x600.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/14/287640_GettyImages-136847807_uncropped_F-540x310.jpg"
     },
     {
       "title": "The Power of the Consumer",
@@ -76,20 +90,6 @@
       "author": "Alexa MacDonald",
       "date": "May 8, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/274615_274615_l_srgb_s_gl_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Named a Leader in the Gartner® Magic Quadrant™ for Warehouse Management Systems for the 11th Consecutive Year",
-      "link": "https://news.sap.com/2024/05/sap-a-leader-2024-gartner-magic-quadrant-wms/",
-      "author": "Ganesh Wadawadigi",
-      "date": "May 7, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/07/298451_GettyImages-1362788786_large_uncropped-F-540x310.jpg"
-    },
-    {
-      "title": "Innovative Cloud ERP at Department of Defense Agencies with SAP S/4HANA Cloud Private Edition",
-      "link": "https://news.sap.com/2024/05/dod-agencies-sap-ns2-innovative-cloud-erp/",
-      "author": "Harish Luthra",
-      "date": "May 7, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/07/280622_GettyImages-76747676_medium_uncropped_F-540x310.jpg"
     }
   ]
 }

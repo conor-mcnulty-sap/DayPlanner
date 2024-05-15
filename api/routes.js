@@ -6,6 +6,7 @@ const bookingsRoutes = require('./routes/bookings');
 const carpoolsRoutes = require('./routes/carpools');
 const tasksRoutes = require('./routes/tasks');
 const buildingsRoutes = require('./routes/buildings');
+const meetingroomsRoutes = require('./routes/meetingrooms');
 //const testRoutes = require('./routes/test');
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.use('/api/bookings', bookingsRoutes);
 router.use('/api/carpools', carpoolsRoutes);
 router.use('/api/tasks', tasksRoutes);
 router.use('/api/buildings', buildingsRoutes);
+router.use('/api/meetingrooms', meetingroomsRoutes);
 //router.use('/api/test', testRoutes);
 
 module.exports = router;
