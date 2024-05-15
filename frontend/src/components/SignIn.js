@@ -10,24 +10,38 @@ class SignIn extends Component {
     this.userAgentApplication = new UserAgentApplication({
       auth: {
         clientId: config.appId,
-        redirectUri: 'http://localhost:3000'
+        redirectUri: 'http://localhost:3000',
       },
       cache: {
         cacheLocation: 'localStorage',
-        storeAuthStateInCookie: true
-      }
+        storeAuthStateInCookie: true,
+      },
     });
+
+    this.state = {
+      isAuthenticated: false,
+      user: null,
+    };
+  }
+
+  componentDidMount() {
+    const user = this.userAgentApplication.getAccount();
+    if (user) {
+      this.setState({ isAuthenticated: true, user });
+      this.props.onLogin(user);
+    }
   }
 
   handleLogin = async () => {
     try {
       await this.userAgentApplication.loginPopup({
         scopes: config.scopes,
-        prompt: 'select_account'
+        prompt: 'select_account',
       });
 
       const user = this.userAgentApplication.getAccount();
       if (user) {
+        this.setState({ isAuthenticated: true, user });
         this.props.onLogin(user);
       }
     } catch (err) {
@@ -37,11 +51,12 @@ class SignIn extends Component {
 
   handleLogout = () => {
     this.userAgentApplication.logout();
+    this.setState({ isAuthenticated: false, user: null });
     this.props.onLogout();
   };
 
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated } = this.state;
 
     return (
       <div>
