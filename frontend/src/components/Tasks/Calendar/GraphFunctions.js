@@ -26,7 +26,7 @@ export async function getEvents(accessToken) {
   const now = new Date();
   now.setHours(0,0,0,0);
   const today = new Date().toISOString();
-  const tomorrow = new Date(now.getTime() + (24 * 60 * 60 * 1000)).toISOString();
+  const tomorrow = new Date(today + (24 * 60 * 60 * 1000)).toISOString();
 
   const events = await client
     .api('/me/events')
