@@ -13,19 +13,23 @@ const ColorPalettePopoverComponent = forwardRef((props, ref) => {
   };
 
   const onColorSelect = (e) => {
+    console.log('Color select event:', e);
     const selectedColorValue = e.detail.color;
     console.log('Color selected:', selectedColorValue);
     setSelectedColor(selectedColorValue);
   };
 
   useImperativeHandle(ref, () => ({
-    getColor: () => selectedColor
+    getColor: () => {
+      console.log('Getting color:', selectedColor);
+      return selectedColor;
+    }
   }));
 
   return (
     <>
       <Button onClick={onButtonClick}>Choose Colour</Button>
-      <ColorPalettePopover ref={popoverRef} onItemSelect={onColorSelect}>
+      <ColorPalettePopover ref={popoverRef} onItemClick={onColorSelect}>
         <ColorPaletteItem value="black" />
         <ColorPaletteItem value="darkblue" />
         <ColorPaletteItem value="#444444" />
