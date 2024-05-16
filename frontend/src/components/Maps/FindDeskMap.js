@@ -46,6 +46,7 @@ function Map() {
           zoom={5}
           style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
           crs={L.CRS.Simple}
+          attributionControl={false}
         >
           <ImageOverlay url={floorPlan} bounds={bounds} />
           <Marker position={markerPosition}>

@@ -12,10 +12,6 @@ const TabRoutes = {
   "Book a Meeting Room": "/bookmeeting",
   "My Tasks": "/tasks",
   "Carpool": "/carpool",
-  "": "/",
-  "                                                                                                ": "/",
-  
-
 }; 
 
 export function NavBar() {
@@ -40,6 +36,7 @@ export function NavBar() {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "0 20px",
+        width: "90%"
       }}
     >
       <TabContainer
