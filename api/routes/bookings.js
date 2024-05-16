@@ -112,7 +112,17 @@ router.get('/bookingsbydate', async (req, res) => {
     .from('bookings')
     .select('*,users(*)')
     .eq('date', in_date);
-    res.send(data);
+
+    // If no bookings found
+    if (data.length === 0) {
+        res.send('No bookings found');
+        console.log('No bookings found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Bookings found');
+    }
 });
 
 // What desks have been booked by a certain user
@@ -123,7 +133,17 @@ router.get('/bookingsbyuser', async (req, res) => {
     .from('bookings')
     .select('*,desks(*)')
     .eq('user_id', in_userid);
-    res.send(data);
+
+    // If no bookings found
+    if (data.length === 0) {
+        res.send('No bookings found');
+        console.log('No bookings found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Bookings found');
+    }
 });
 
 
@@ -139,8 +159,19 @@ router.get('/lastbooked', async (req, res) => {
     .eq('user_id', in_userid)
     .order('date', {ascending: false})
     .limit(1);
+
+    // If no bookings found
+    if (data.length === 0) {
+        res.send('Last bookings not found');
+        console.log('Last bookings not found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log("Last booked desk for user: " + in_userid);
+    }
     res.send(data);
-    console.log("Last booked desk for user: " + in_userid);
+
 });
 
 // Find desk by booking
@@ -153,7 +184,17 @@ router.get('/finddesk', async (req, res) => {
     .select('desks(*)')
     .eq('user_id', in_userid)
     .eq('date', in_date);
-    res.send(data);
+
+    // If no booking found
+    if (data.length === 0) {
+        res.send('No booking found');
+        console.log('No booking found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Desks found');
+    }
 });
 
 // Get Booking for certain user and date

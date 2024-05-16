@@ -99,8 +99,17 @@ router.get('/favouritesbyuser', async (req, res) => {
     .from('favourites')
     .select('*,desks(*)')
     .eq('user_id', in_userid);
-    res.send(data);
-    console.log("Favourites by user sent")
+
+    // If no favourites
+    if (data.length === 0) {
+        res.send('No favourites found');
+        console.log('No favourites found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log("Favourites by user sent")
+    }
 });
 
 // Filter Desks that are available on a certain building, floor and date

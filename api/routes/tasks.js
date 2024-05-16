@@ -19,12 +19,21 @@ router.get('/usertasks', async (req, res) => {
     .from('tasks')
     .select('*,users(*)')
     .eq('user', in_userid);
-    
-    // Sort task by the time
-    data.sort((a, b) => {
-        return a.time.localeCompare(b.time);
-    });
-    res.send(data);
+
+    // If user has no tasks
+    if (data.length == 0) {
+        res.send('No tasks found for user');
+        console.log('No tasks found for user');
+        return;
+    }
+    else {
+        // Sort task by the time
+        data.sort((a, b) => {
+            return a.time.localeCompare(b.time);
+        });
+        res.send(data);
+    }
+    console.log('Tasks retrieved successfully');
 });
 
 // Add Task
@@ -48,8 +57,17 @@ router.post('/addtask', async (req, res) => {
             colour: in_taskcolour
         }
     );
-    res.send(data);
-    console.log('Task added successfully');
+
+    // If task isnt added
+    if (error) {
+        res.send('Task not added');
+        console.log('Task not added');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Task added successfully');
+    }
 });
 
 // Remove Task
@@ -60,8 +78,17 @@ router.delete('/removetask', async (req, res) => {
     .from('tasks')
     .delete()
     .eq('id', in_taskid);
-    res.send(data);
-    console.log('Task removed successfully');
+    
+    // If task isnt removed
+    if (error) {
+        res.send('Task not removed');
+        console.log('Task not removed');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Task removed successfully');
+    }
 });
 
 

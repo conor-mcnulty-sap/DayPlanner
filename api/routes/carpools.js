@@ -31,6 +31,30 @@ router.post('/addcarpooler', async (req, res) => {
     let user_id = req.query.user_id;
     let eircode = req.query.eircode;
 
+    // Check input 
+    if (eircode == null) {
+        res.send('Invalid input');
+        console.log('Invalid input');
+        return;
+    }
+    // Check special characters
+    else if (!/^[a-zA-Z0-9 ]+$/.test(eircode)) {
+        res.send('Invalid input');
+        console.log('Invalid input');
+        return;
+    }
+    // Check if input is 7 characters
+    else if (eircode.length != 7) {
+        res.send('Invalid input');
+        console.log('Invalid input');
+        return;
+    }
+    // Check if there is a space
+    else if (eircode[3] ===  ' ' ) {
+        //Remove space
+        eircode = eircode.substring(0, 3) + eircode.substring(3);
+    }
+
     //if carpooler already exists
     const {data: carpoolers, error} = await supabase
     .from('carpooler')
@@ -60,6 +84,30 @@ router.post('/addcarpooler', async (req, res) => {
 router.post('/addcarpoolee', async (req, res) => {
     let user_id = req.query.user_id;
     let eircode = req.query.eircode;
+
+    // Check input 
+    if (eircode == null) {
+        res.send('Invalid input');
+        console.log('Invalid input');
+        return;
+    }
+    // Check special characters
+    else if (!/^[a-zA-Z0-9 ]+$/.test(eircode)) {
+        res.send('Invalid input');
+        console.log('Invalid input');
+        return;
+    }
+    // Check if input is 7 characters
+    else if (eircode.length != 7) {
+        res.send('Invalid input');
+        console.log('Invalid input');
+        return;
+    }
+    // Check if there is a space
+    else if (eircode[3] ===  ' ' ) {
+        //Remove space
+        eircode = eircode.substring(0, 3) + eircode.substring(3);
+    }
 
     //if carpoolee already exists
     const {data: carpoolees, error} = await supabase
@@ -109,8 +157,6 @@ router.delete('/removecarpooler', async (req, res) => {
         console.log('Carpooler removed successfully');
         res.send(data);
     }
-
-    
 });
 
 // Remove Carpoolee
@@ -146,12 +192,22 @@ router.get('/distance', async (req, res) => {
     let eircode1 = req.query.eircode1;
     let eircode2 = req.query.eircode2;
 
+
     let url = "http://dev.virtualearth.net/REST/v1/Routes?wp.0=" + eircode1 + "&wp.1=" + eircode2 + "&key=" + BING_MAPS_KEY;
     const {data, error} = await axios.get(url);
-    let traveldistance = data.resourceSets[0].resources[0].travelDistance;
-    traveldistance =  traveldistance + " km";
-    res.send(traveldistance);
-    console.log(traveldistance);
+
+    // If there is an error
+    if (error) {
+        res.send('Error');
+        console.log('Error');
+        return;
+    }
+    else{
+        let traveldistance = data.resourceSets[0].resources[0].travelDistance;
+        traveldistance =  traveldistance + " km";
+        res.send(traveldistance);
+        console.log(traveldistance);
+    }
 });
 
 // List Carpooler closest to you
@@ -161,7 +217,7 @@ router.get('/closestcarpooler', async (req, res) => {
     //get all carpoolers
     const {data: carpoolers, error} = await supabase
     .from('carpooler')
-    .select('*');
+    .select('*,users(*)');
 
     //Get user eircode
     const {data: user, error1} = await supabase

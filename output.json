@@ -1,11 +1,18 @@
 {
   "Articles": [
     {
+      "title": "Maximizing Efficiency: Integrating AI into Corporate Processes & Information Technology",
+      "link": "https://news.sap.com/2024/05/benjamin-blau-interview-ai-corporate-processes-information-technology/",
+      "author": "Marcus Kabat",
+      "date": "May 16, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/16/292815_GettyImages-130112784_medium_uncropped_F-1920x600-1715799211.jpg"
+    },
+    {
       "title": "Kyndryl Adopts Next-Generation Tools for Sales Performance Management",
       "link": "https://news.sap.com/2024/05/kyndryl-adopts-tools-for-sales-performance-management/",
       "author": "Rahul Iyer",
       "date": "May 15, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/282409_concur.office_2618_uncropped_F-1920x600-1715258828.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/282409_concur.office_2618_uncropped_F-540x310-1715258844.jpg"
     },
     {
       "title": "SAP Signavio Again Leads the 2024 SPARK Matrix™ for Digital Twin of an Organization",
@@ -83,13 +90,6 @@
       "author": "Aaron Green",
       "date": "May 8, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/296441_GettyImages-1373240838_uncropped_F-540x310-1714754591.jpg"
-    },
-    {
-      "title": "Insights from SAP MaxAttention Summit 2024",
-      "link": "https://news.sap.com/2024/05/sap-maxattention-summit-2024/",
-      "author": "Alexa MacDonald",
-      "date": "May 8, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/274615_274615_l_srgb_s_gl_uncropped_F-540x310.jpg"
     }
   ]
 }

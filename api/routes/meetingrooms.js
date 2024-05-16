@@ -22,8 +22,17 @@ router.get('/buildingfloor', async (req, res) => {
     .select('*')
     .eq('building', in_building)
     .eq('floor', in_floor);
-    res.send(data);
-    console.log('Meeting Rooms retrieved successfully');
+
+    // If no meeting rooms found
+    if (data.length == 0) {
+        res.send('No meeting rooms found');
+        console.log('No meeting rooms found');
+        return;
+    }
+    else {
+        res.send(data);
+        console.log('Meeting Rooms retrieved successfully');
+    }
 });
 
 module.exports = router;
