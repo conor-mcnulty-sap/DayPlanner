@@ -11,7 +11,7 @@ import {
 
 const CarpoolerForm = () => {
   const eircodeRef = useRef();
-  const userId = "1"; // Default user
+  const userId = "I744418"; // Default user
 
   const handleSubmit = async (event) => {
     event.preventDefault();

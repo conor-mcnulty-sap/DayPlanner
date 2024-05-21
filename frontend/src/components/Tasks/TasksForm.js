@@ -21,6 +21,15 @@ const TaskForm = () => {
   const descRef = useRef(null);
 
   const [today, setToday] = useState(new Date().toISOString().split('T')[0]);
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem('userDetails');
+    if (storedUserDetails) {
+      const userDetails = JSON.parse(storedUserDetails);
+      setUserId(userDetails.id); 
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,10 +45,11 @@ const TaskForm = () => {
     console.log('Date:', today);
     console.log('Time:', time);
     console.log('Description:', desc);
+    console.log('ID:', userId); 
 
-    // Construct the query parameters
+ 
     const params = new URLSearchParams({
-      user_id: '1',
+      user_id: userId,
       task_name: title,
       task_description: desc,
       task_date: today,
@@ -69,11 +79,10 @@ const TaskForm = () => {
       console.error('Network error:', error);
     }
 
-    // Reset form fields after submission
     if (titleRef.current) titleRef.current.value = '';
     if (timeRef.current) timeRef.current.value = '';
     if (descRef.current) descRef.current.value = '';
-    if (colourRef.current) colourRef.current.clearColor();
+    if (colourRef.current) colourRef.current.value = 'null';
   };
 
   return (
@@ -105,7 +114,9 @@ const TaskForm = () => {
             <ColorPalettePopoverComponent ref={colourRef} />
           </FormItem>
           <FormItem>
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
+            <Button type="submit" onClick={handleSubmit}>
+              Submit
+            </Button>
           </FormItem>
         </FormGroup>
       </Form>

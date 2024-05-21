@@ -8,10 +8,19 @@ import "@ui5/webcomponents-icons/dist/AllIcons.js";
       
 export function MyTasks() {
 
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem('userDetails');
+    if (storedUserDetails) {
+      const userDetails = JSON.parse(storedUserDetails);
+      setUserId(userDetails.id); 
+    }
+  }, []);
     const [tasksData, setTaskData] = useState([]);
 
     useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/api/tasks`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/tasks/usertasks?user_id=${userId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
