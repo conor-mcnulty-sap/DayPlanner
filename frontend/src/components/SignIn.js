@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { UserAgentApplication } from 'msal';
 import { Button } from '@ui5/webcomponents-react';
 import config from './Tasks/Calendar/Config';
+import axios from 'axios';
 import { getUserDetails } from './Tasks/Calendar/GraphFunctions'; // Assuming your file with graph functions is named GraphService.js
 
 class SignIn extends Component {
@@ -25,6 +26,7 @@ class SignIn extends Component {
     };
   }
 
+  
   componentDidMount() {
     const user = this.userAgentApplication.getAccount();
     if (user) {
@@ -32,6 +34,8 @@ class SignIn extends Component {
       this.props.onLogin(user);
     }
   }
+  
+  
 
   handleLogin = async () => {
     try {
@@ -49,22 +53,26 @@ class SignIn extends Component {
         const accessTokenResponse = await this.userAgentApplication.acquireTokenSilent({
           scopes: config.scopes,
         });
+        
+        
 
         // Fetch user details and store in localStorage
         if (accessTokenResponse.accessToken) {
           await getUserDetails({ accessToken: accessTokenResponse.accessToken });
         }
+
       }
     } catch (err) {
       console.log('Login error:', err);
     }
   };
+ 
 
   handleLogout = () => {
     this.userAgentApplication.logout();
     this.setState({ isAuthenticated: false, user: null });
     this.props.onLogout();
-    localStorage.removeItem('userDetails'); // Clear user details from localStorage on logout
+    localStorage.removeItem('userDetails'); 
   };
 
   render() {
