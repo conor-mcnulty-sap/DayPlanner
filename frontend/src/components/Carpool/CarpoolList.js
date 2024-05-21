@@ -10,7 +10,9 @@ function CarpoolList() {
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=3`)
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=3`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -56,8 +58,8 @@ function CarpoolList() {
           }}
         >
           {listData.map((item, index) => (
-            <StandardListItem key={index} additionalText={item.distance}>
-              {item.name}
+            <StandardListItem key={index} additionalText={`${item.distance} km`}>
+              {item.carpooler.users.name}
             </StandardListItem>
           ))}
         </List>
