@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { UserAgentApplication } from 'msal';
 import { Button } from '@ui5/webcomponents-react';
 import config from './Tasks/Calendar/Config';
-import axios from 'axios';
-import { getUserDetails } from './Tasks/Calendar/GraphFunctions'; // Assuming your file with graph functions is named GraphService.js
+import { getUserDetails } from './Tasks/Calendar/GraphFunctions'; 
 
 class SignIn extends Component {
   constructor(props) {
@@ -26,7 +25,6 @@ class SignIn extends Component {
     };
   }
 
-  
   componentDidMount() {
     const user = this.userAgentApplication.getAccount();
     if (user) {
@@ -34,8 +32,6 @@ class SignIn extends Component {
       this.props.onLogin(user);
     }
   }
-  
-  
 
   handleLogin = async () => {
     try {
@@ -43,30 +39,57 @@ class SignIn extends Component {
         scopes: config.scopes,
         prompt: 'select_account',
       });
-
+  
       const user = this.userAgentApplication.getAccount();
       if (user) {
         this.setState({ isAuthenticated: true, user });
         this.props.onLogin(user);
-
+  
         // Get the access token
         const accessTokenResponse = await this.userAgentApplication.acquireTokenSilent({
           scopes: config.scopes,
         });
-        
-        
-
+  
         // Fetch user details and store in localStorage
         if (accessTokenResponse.accessToken) {
           await getUserDetails({ accessToken: accessTokenResponse.accessToken });
+  
+          // Construct params for the POST request
+          const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+          const params = new URLSearchParams({
+            id: userDetails.id,
+            name: userDetails.displayName,
+            email: userDetails.mail,
+          });
+  
+          // Make POST request to the endpoint
+          try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/createuser?${params.toString()}`, {
+              method: 'POST',
+            });
+  
+            if (!response.ok) {
+              console.error('Server error:', response.status, response.statusText);
+              return;
+            }
+  
+            const text = await response.text();
+            const data = text ? JSON.parse(text) : {};
+  
+            if (data) {
+              console.log('Response from server:', data);
+            } else {
+              console.error('No data received from server');
+            }
+          } catch (error) {
+            console.error('Network error:', error);
+          }
         }
-
       }
     } catch (err) {
       console.log('Login error:', err);
     }
   };
- 
 
   handleLogout = () => {
     this.userAgentApplication.logout();

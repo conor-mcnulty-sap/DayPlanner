@@ -86,7 +86,8 @@ const TaskForm = () => {
   };
 
   return (
-    <Card header={<CardHeader titleText="Create A Task" />}>
+    <Card header={<CardHeader titleText="Create A Task" />}
+    style={{}}>
       <Form
         backgroundDesign="Transparent"
         columnsL={1}
@@ -114,7 +115,8 @@ const TaskForm = () => {
             <ColorPalettePopoverComponent ref={colourRef} />
           </FormItem>
           <FormItem>
-            <Button type="submit" onClick={handleSubmit}>
+            <Button type="submit" onClick={handleSubmit}
+            style={{}}>
               Submit
             </Button>
           </FormItem>

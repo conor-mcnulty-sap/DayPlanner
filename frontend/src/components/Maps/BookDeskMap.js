@@ -13,7 +13,22 @@ import { Card, Button } from "@ui5/webcomponents-react";
 
 function Map({ onCircleClick }) {
   const [isMapInit, setIsMapInit] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [favouritedDesks, setFavouritedDesks] = useState([]);
+
   useEffect(() => {
+    const storedUserDetails = localStorage.getItem("userDetails");
+    if (storedUserDetails) {
+      const userDetails = JSON.parse(storedUserDetails);
+      setUserId(userDetails.id);
+
+      fetch(`${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userDetails.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setFavouritedDesks(data.map(desk => desk.desk_id));
+        })
+        .catch((error) => console.error(error));
+    }
     setIsMapInit(true);
   }, []);
 
@@ -41,18 +56,7 @@ function Map({ onCircleClick }) {
       .catch((error) => console.log("Fetching coordinates failed: ", error));
   }, []);
 
-  // Create an array of rectangles for the grid
-  const rectangles = [];
-  for (let i = 0; i < 10; i += 0.5) {
-    for (let j = 0; j < 29; j += 0.5) {
-      rectangles.push([
-        [i, j],
-        [i + 0.5, j + 0.5],
-      ]);
-    }
-  }
-
-  const handleFavourite = (deskId, userId = 1) => {
+  const handleFavourite = (deskId) => {
     fetch(
       `${process.env.REACT_APP_API_URL}/api/desks/favouritedesk?desk_id=${deskId}&user_id=${userId}`,
       {
@@ -64,11 +68,12 @@ function Map({ onCircleClick }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         console.log(`Desk ${deskId} added to favourites`);
+        setFavouritedDesks([...favouritedDesks, deskId]);
       })
       .catch((error) => console.error(error));
   };
-  
-  const handleUnfavourite = (deskId, userId = 1) => {
+
+  const handleUnfavourite = (deskId) => {
     fetch(
       `${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`,
       {
@@ -80,6 +85,7 @@ function Map({ onCircleClick }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         console.log(`Desk ${deskId} removed from favourites`);
+        setFavouritedDesks(favouritedDesks.filter(id => id !== deskId));
       })
       .catch((error) => console.error(error));
   };
@@ -117,12 +123,15 @@ function Map({ onCircleClick }) {
                 {coordinate.color === "red"
                   ? `Booked by ${coordinate.bookedBy}`
                   : coordinate.popup}
-                <Button onClick={() => handleFavourite(coordinate.popup)}>
-                  Add to Favourites
-                </Button>
-                <Button onClick={() => handleUnfavourite(coordinate.popup)}>
-                  Remove from Favourites
-                </Button>
+                {favouritedDesks.includes(coordinate.popup) ? (
+                  <Button design="Negative" onClick={() => handleUnfavourite(coordinate.popup)}>
+                    Unfavourite
+                  </Button>
+                ) : (
+                  <Button design="Positive" onClick={() => handleFavourite(coordinate.popup)}>
+                    Favourite
+                  </Button>
+                )}
               </Popup>
             </Circle>
           ))}

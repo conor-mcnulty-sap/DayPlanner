@@ -18,40 +18,64 @@ const CarpoolerForm = () => {
 
     const eircode = eircodeRef.current.value;
     console.log(eircode);
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/carpools/addcarpooler`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          eircode: eircode,
-        }),
-      }
-    );
 
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/carpools/addcarpooler`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            eircode: eircode,
+            
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        // Handle non-OK responses
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
   };
 
   const handleDeregister = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/carpools/removecarpooler`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId,
-        }),
-      }
-    );
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/carpools/removecarpooler`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: userId,
+          }),
+        }
+      );
 
-    const data = await response.json();
-    console.log(data);
+      if (!response.ok) {
+        // Handle non-OK responses
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
   };
 
   return (
@@ -93,7 +117,7 @@ const CarpoolerForm = () => {
             <Button
               type="submit"
               onClick={handleSubmit}
-              style={{ marginRight: "20px" }} // Add this line
+              style={{ marginRight: "20px" }}
             >
               Submit
             </Button>

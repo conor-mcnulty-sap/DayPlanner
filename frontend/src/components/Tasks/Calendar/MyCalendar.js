@@ -40,9 +40,9 @@ export default class Calendar extends Component {
       <Card header={
         <CardHeader
           titleText="My Calendar"
-        />
-      }
- 
+        />}
+      
+      style={{ width: '200%' }}
     >
  
         

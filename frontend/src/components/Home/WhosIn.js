@@ -26,6 +26,7 @@ const WhosIn = () => {
       .then((data) => {
         setUsers(data);
         setFoundUsers(data);
+        console.log("Who's in:", data)
       })
       .catch((error) => console.log("Fetching failed: ", error));
   }, []);
@@ -71,7 +72,7 @@ const WhosIn = () => {
         >
           {foundUsers.map((user) => (
             <StandardListItem key={user.id}>
-              {user.user_id} - {user.users.name}
+              {user.desk_id} - {user.users.name}
               <br />
               {user.desk}
             </StandardListItem>
