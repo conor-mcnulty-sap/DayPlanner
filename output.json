@@ -1,11 +1,53 @@
 {
   "Articles": [
     {
+      "title": "“Source from Ukraine” Initiative: The S Stands for Solidarity",
+      "link": "https://news.sap.com/2024/05/source-from-ukraine-initiative-s-for-solidarity/",
+      "author": "Elena Parker",
+      "date": "May 23, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/23/276354_276354_l_srgb_s_gl_uncropped_F-1920x600-1716301675.jpg"
+    },
+    {
+      "title": "Retaining Customers Through Support Experience and Efficiency",
+      "link": "https://news.sap.com/2024/05/retaining-customers-through-support-experience-and-efficiency/",
+      "author": "Renuka Abraham",
+      "date": "May 21, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/21/291897_GettyImages-1335045501_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Olaf Scholz Leads Farewell Tributes to Hasso Plattner",
+      "link": "https://news.sap.com/2024/05/hasso-plattner-olaf-scholz-farewell-tributes/",
+      "author": "Andrea Diederichs",
+      "date": "May 17, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/1004-Hasso-Plattner-Farewell-540x310-1715957788.jpg"
+    },
+    {
+      "title": "Customer Support at SAP: Where Artificial Intelligence Meets Application Integration",
+      "link": "https://news.sap.com/2024/05/customer-support-ai-meets-application-integration/",
+      "author": "Renuka Abraham",
+      "date": "May 17, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/297034_GettyImages-1307905761_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP SuccessFactors Partners Recognized for Outstanding Achievements",
+      "link": "https://news.sap.com/2024/05/sap-successfactors-partners-recognized-for-achievements/",
+      "author": "Aaron Green",
+      "date": "May 17, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/290997_GettyImages-605374893_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "How SAP BTP Becomes the Trusted Platform for Business AI",
+      "link": "https://news.sap.com/2024/05/sap-btp-strategy-paper-trusted-platform-business-ai/",
+      "author": "Michael Ameling",
+      "date": "May 17, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/278045_278045_l_srgb_s_gl_uncropped_F-540x310.jpg"
+    },
+    {
       "title": "Maximizing Efficiency: Integrating AI into Corporate Processes & Information Technology",
       "link": "https://news.sap.com/2024/05/benjamin-blau-interview-ai-corporate-processes-information-technology/",
       "author": "Marcus Kabat",
       "date": "May 16, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/16/292815_GettyImages-130112784_medium_uncropped_F-1920x600-1715799211.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/16/292815_GettyImages-130112784_medium_uncropped_F-540x310.jpg"
     },
     {
       "title": "Kyndryl Adopts Next-Generation Tools for Sales Performance Management",
@@ -48,48 +90,6 @@
       "author": "Maryann Abbajay",
       "date": "May 14, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/25/FC-Bayern-SF1-540x310.jpg"
-    },
-    {
-      "title": "Growing Your Business Begins with Growing Your People",
-      "link": "https://news.sap.com/2024/05/growing-your-business-begins-with-growing-your-people/",
-      "author": "Margit Bauer",
-      "date": "May 13, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/13/286693_GettyImages-916867926_uncropped_F-540x310-1715009858.jpg"
-    },
-    {
-      "title": "The End of an Era: Hasso Plattner Steps Down",
-      "link": "https://news.sap.com/2024/05/the-end-of-an-era-hasso-plattner-steps-down/",
-      "author": "Michael Zipf",
-      "date": "May 13, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/13/Hasso-Plattner-Farewell_feature-540x310.jpg"
-    },
-    {
-      "title": "Meeting Workout: A Game to Improve the Meeting Experience",
-      "link": "https://news.sap.com/2024/05/meeting-workout-game-to-improve-meeting-experience/",
-      "author": "Imke Vierjahn",
-      "date": "May 10, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/10/Meeting-Workout-Board-Game_uncropped_F-540x310-1715001163.jpg"
-    },
-    {
-      "title": "SAP BTP Wins Multiple TrustRadius 2024 Top Rated Awards",
-      "link": "https://news.sap.com/2024/05/sap-btp-wins-trustradius-2024-top-rated-awards/",
-      "author": "JG Chirapurath",
-      "date": "May 9, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/06/296107_GettyImages-1383549690_medium_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Three Key Actions Procurement Can Take to Increase Supply Chain Visibility",
-      "link": "https://news.sap.com/2024/05/three-actions-procurement-increase-supply-chain-transparency/",
-      "author": "Baber Farooq",
-      "date": "May 9, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/09/284131_GettyImages-610219284_2600_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP SuccessFactors Takes Home 12 Top Rated Awards from TrustRadius",
-      "link": "https://news.sap.com/2024/05/sap-successfactors-12-top-rated-awards-from-trustradius/",
-      "author": "Aaron Green",
-      "date": "May 8, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/296441_GettyImages-1373240838_uncropped_F-540x310-1714754591.jpg"
     }
   ]
 }

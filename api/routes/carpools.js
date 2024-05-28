@@ -34,19 +34,20 @@ router.post('/addcarpooler', async (req, res) => {
     // Check input 
     if (eircode == null) {
         res.send('Invalid input');
-        console.log('Invalid input');
+        console.log(eircode);
+        console.log('Invalid input (Null)');
         return;
     }
     // Check special characters
     else if (!/^[a-zA-Z0-9 ]+$/.test(eircode)) {
         res.send('Invalid input');
-        console.log('Invalid input');
+        console.log('Invalid input (Special Character)');
         return;
     }
     // Check if input is 7 characters
     else if (eircode.length != 7) {
         res.send('Invalid input');
-        console.log('Invalid input');
+        console.log('Invalid input (Length)');
         return;
     }
     // Check if there is a space

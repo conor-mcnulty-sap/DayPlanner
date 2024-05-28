@@ -19,11 +19,11 @@ GET /api/bookings HTTP/1.1
 Host: localhost:5000
 
 ### Get bookings by user
-GET /api/bookings/bookingsbyuser?user_id=1 HTTP/1.1
+GET /api/bookings/bookingsbyuser?user_id=I744462 HTTP/1.1
 Host: localhost:5000
 
 ### Get last booked
-GET /api/bookings/lastbooked?user_id=1 HTTP/1.1
+GET /api/bookings/lastbooked?user_id=ef933ddfd84db7e6 HTTP/1.1
 Host: localhost:5000
 
 ### Find desk by booking
@@ -31,15 +31,15 @@ GET /api/bookings/finddesk?user_id=3&date=3123-12-23 HTTP/1.1
 Host: localhost:5000
 
 ### Add booking
-POST /api/bookings/bookdesk?user_id=I744106&desk_id=DUB05-2-L-17&date=2024-05-13-2024-06-30 HTTP/1.1
+POST /api/bookings/bookdesk?user_id=I744418&desk_id=DUB05-2-L-22&date=2024-05-24-2024-05-24 HTTP/1.1
 Host: localhost:5000
 
 ### Remove booking
-DELETE /api/bookings/removebooking?user_id=1&desk_id=101&date=2024-05-13-2024-05-20 HTTP/1.1
+DELETE /api/bookings/removebooking?user_id=I744418&desk_id=DUB05-2-L-13&date=2024-05-24-2024-05-24 HTTP/1.1
 Host: localhost:5000
 
 ### Get Booking for certain user and date
-GET /api/bookings/getbookinguserdate?user_id=I744418&date=2024-06-03 HTTP/1.1
+GET /api/bookings/getbookinguserdate?user_id=I744462&date=2024-06-03 HTTP/1.1
 Host: localhost:5000
 
 ### Favourite desks
@@ -60,7 +60,7 @@ GET /api/desks/filterbyfloor?floor=1 HTTP/1.1
 Host: localhost:5000
 
 ### What users have booked desks at a certain date
-GET /api/bookings/bookingsbydate?date=3123-12-23 HTTP/1.1
+GET /api/bookings/bookingsbydate?date=2024-05-24 HTTP/1.1
 Host: localhost:5000
 
 ### Get all carpooler

@@ -135,8 +135,8 @@ router.get('/filterbybuildingflooranddate', async (req, res) => {
 
     // If no bookings, all desks are available
     if (bookings === null || bookings.length === 0) {
-        res.send(desks);
         console.log("All desks available");
+        res.send(desks);
         return;
     }
     else
@@ -155,8 +155,8 @@ router.get('/filterbybuildingflooranddate', async (req, res) => {
                 available_desks.push(desks[i]);
             }
         }
-        res.send(available_desks);
         console.log("Available desks sent");
+        res.send(available_desks);
     }
 });
 

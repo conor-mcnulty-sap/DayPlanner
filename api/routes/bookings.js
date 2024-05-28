@@ -17,11 +17,32 @@ router.post('/bookdesk', async (req, res) => {
     let in_userid = req.query.user_id;
     let in_date = req.query.date;
 
+    // Check if input is empty
+    if (in_deskid == "" || in_userid == "" || in_date == "") {
+        res.send('Invalid input');
+        console.log('Invalid input (Null)');
+        return;
+    }
+    
     //Split date
     var dates = in_date.split("-");
 
     var date1 = dates[0] + "-" + dates[1] + "-" + dates[2];
     var date2 = dates[3] + "-" + dates[4] + "-" + dates[5];
+
+    // Check if user has already booked desk for that date
+    const {data: user_bookings, error2} = await supabase
+    .from('bookings')
+    .select('desk_id')
+    .eq('user_id', in_userid)
+    .gte('date', date1)
+    .lte('date', date2);
+
+    if (user_bookings.length > 0) {
+        res.send('User already booked desk for that date');
+        console.log('User already booked desk for that date');
+        return;
+    }
 
     // Check if desk is already booked from date 1 to date 2
     const {data: bookings, error} = await supabase
@@ -36,6 +57,7 @@ router.post('/bookdesk', async (req, res) => {
         console.log('Desk already booked for that date');
         return;
     }
+    
     else {
         // Make a booking from date 1 to date 2 (including dates inbetween)
         var date1 = new Date(date1);
@@ -52,6 +74,21 @@ router.post('/bookdesk', async (req, res) => {
                     date: date1_str
                 }
             );
+            const {data2, error2} = await supabase
+            .from('last_booked')
+            .insert(
+                {
+                    desk_id: in_deskid,
+                    user_id: in_userid,
+                    date: date1_str
+                }
+            );
+            if (error) {
+                res.send('Error booking desk');
+                console.log('Error booking desk');
+                console.log(error);
+                return;
+            }
             date1.setDate(date1.getDate() + 1);
         }
         res.send("Desk booked successfully");
@@ -64,6 +101,51 @@ router.delete('/removebooking', async (req, res) => {
     let in_deskid = req.query.desk_id;
     let in_userid = req.query.user_id;
     let in_date = req.query.date;
+
+    // Check if input is empty
+    if (in_deskid == "" || in_userid == "" || in_date == "") {
+        res.send('Invalid input');
+        console.log('Invalid input (Null)');
+        return;
+    }
+
+    // Remove booking for single date
+    if (in_date.length == 10) {
+        // if desk is not booked for that date
+        const {data: bookings2, error} = await supabase
+        .from('bookings')
+        .select('desk_id')
+        .eq('desk_id', in_deskid)
+        .eq('user_id', in_userid)
+        .eq('date', in_date);
+
+        if (bookings2.length === 0) {
+            res.send('Desk is not booked for that date');
+            console.log('Desk is not booked for that date');
+            return;
+        }
+        else {
+            const {data, error} = await supabase
+            .from('bookings')
+            .delete()
+            .eq('desk_id', in_deskid)
+            .eq('user_id', in_userid)
+            .eq('date', in_date);
+
+            // If error
+            if (error) {
+                res.send('Error removing booking');
+                console.log('Error removing booking');
+                console.log(error);
+                return;
+            }
+            else {
+                res.send("Booking removed successfully");
+                console.log('Booking removed successfully');
+                return;
+            }
+        }
+    }
 
     //Split date
     var dates = in_date.split("-");
@@ -120,7 +202,16 @@ router.get('/bookingsbydate', async (req, res) => {
         return;
     }
     else {
-        res.send(data);
+        // If user has booked multiple desks, only show one user
+        var users = [];
+        var user_ids = [];
+        for (var i = 0; i < data.length; i++) {
+            if (!user_ids.includes(data[i].user_id)) {
+                users.push(data[i]);
+                user_ids.push(data[i].user_id);
+            }
+        }
+        res.send(users);
         console.log('Bookings found');
     }
 });
@@ -154,25 +245,26 @@ router.get('/lastbooked', async (req, res) => {
     let in_userid = req.query.user_id;
 
     const {data, error} = await supabase
-    .from('bookings')
-    .select('*')
+    .from('last_booked')
+    .select('*,desks(*)')
     .eq('user_id', in_userid)
-    .order('date', {ascending: false})
+    .order('id', {ascending: false})
     .limit(1);
+    
 
-    // If no bookings found
+    // If no booking found
     if (data.length === 0) {
-        res.send('Last bookings not found');
-        console.log('Last bookings not found');
+        res.send('No last booking found');
+        console.log('No last booking found');
         return;
     }
     else {
         res.send(data);
-        console.log("Last booked desk for user: " + in_userid);
+        console.log('Last booking found');
     }
-    res.send(data);
-
 });
+
+
 
 // Find desk by booking
 router.get('/finddesk', async (req, res) => {
