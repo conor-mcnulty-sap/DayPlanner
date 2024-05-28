@@ -6,18 +6,8 @@ import {
   CardHeader,
 } from "@ui5/webcomponents-react";
 
-function CarpoolList() {
+function CarpooleeList() {
   const [listData, setListData] = useState([]);
-  const [userId, setUserId] = useState('');
-  
-
-  useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
-    if (storedUserDetails) {
-      const userDetails = JSON.parse(storedUserDetails);
-      setUserId(userDetails.id);
-    }
-  }, []);
 
   useEffect(() => {
     fetch(
@@ -39,7 +29,7 @@ function CarpoolList() {
 
   return (
     <Card
-      header={<CardHeader titleText="Nearest Lifts" />}
+      header={<CardHeader titleText="Looking for" />}
       style={{ width: "100%" }}
     >
       <div
@@ -78,4 +68,4 @@ function CarpoolList() {
   );
 }
 
-export default CarpoolList;
+export default CarpooleeList;

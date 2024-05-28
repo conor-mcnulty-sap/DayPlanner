@@ -2,6 +2,7 @@ import React from "react";
 import CarpooleeForm from "../components/Forms/CarpooleeForm";
 import CarpoolerForm from "../components/Forms/CarpoolerForm";
 import CarpoolList from "../components/Carpool/CarpoolList";
+import CarpooleeList from "../components/Carpool/CarpooleeList";
 import { Grid } from "@ui5/webcomponents-react";
 import CarpoolMap from "../components/Carpool/CarpoolMap";
 
@@ -22,6 +23,7 @@ function Carpool() {
       >
         <CarpooleeForm />
         <CarpoolerForm />
+        <CarpooleeList/>
         <CarpoolList />
         <CarpoolMap />
       </Grid>

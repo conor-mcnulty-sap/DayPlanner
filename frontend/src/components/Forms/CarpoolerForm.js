@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   Form,
   FormGroup,
@@ -11,14 +11,33 @@ import {
 
 const CarpoolerForm = () => {
   const eircodeRef = useRef();
-  const userId = "I744418"; // Default user
+  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
 
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem('userDetails');
+    if (storedUserDetails) {
+      const userDetails = JSON.parse(storedUserDetails);
+      setUserId(userDetails.id);
+      setDisplayName(userDetails.displayName);
+      setEmail(userDetails.email); 
+  
+      console.log("User ID:", userDetails.id);
+      console.log("Email:", userDetails.mail);
+      console.log("Display Name:", userDetails.displayName);
+    }
+  }, []);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const eircode = eircodeRef.current.value;
-    console.log(eircode);
-
+    console.log("User ID:", userId);
+    console.log("Email:", email);
+    console.log("Display Name:", displayName);
+    console.log("Eircode:", eircode);
+  
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/carpools/addcarpooler`,
@@ -30,25 +49,24 @@ const CarpoolerForm = () => {
           body: JSON.stringify({
             user_id: userId,
             eircode: eircode,
-            
           }),
         }
       );
-
+  
       if (!response.ok) {
-        // Handle non-OK responses
+
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`Error: ${response.statusText}`);
       }
-
+  
       const data = await response.json();
       console.log(data);
     } catch (error) {
       console.error("Error during fetch:", error);
     }
   };
-
+  
   const handleDeregister = async () => {
     try {
       const response = await fetch(
@@ -65,7 +83,7 @@ const CarpoolerForm = () => {
       );
 
       if (!response.ok) {
-        // Handle non-OK responses
+        console.log(email,userId,displayName);
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`Error: ${response.statusText}`);
@@ -79,6 +97,7 @@ const CarpoolerForm = () => {
   };
 
   return (
+  
     <Card
       header={<CardHeader titleText="Give a Lift" />}
       style={{
