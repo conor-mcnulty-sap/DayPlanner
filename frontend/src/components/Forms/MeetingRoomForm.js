@@ -1,40 +1,65 @@
 import React, { useState } from "react";
 import {
   Form,
-  Label,
   FormGroup,
   FormItem,
-  DateTimePicker,
-  TimePicker,
   Select,
   Option,
   Button,
 } from "@ui5/webcomponents-react";
+import { createEvents } from "../../assets/GraphFunctions";
+import { UserAgentApplication } from 'msal';
+import config from "../Tasks/Calendar/Config";
+
+
+const userAgentApplication = this.userAgentApplication.getAccount();
 
 const MeetingRoomForm = () => {
-  const [dateTime, setDateTime] = useState("");
-  const [duration, setDuration] = useState("");
+  const [building, setBuilding] = useState("");
+  const [floor, setFloor] = useState("");
+  const [room, setRoom] = useState("");
 
-  const openOutlook = () => {
-    const startTimeDate = new Date(dateTime);
-    const startTime = encodeURIComponent(startTimeDate.toISOString());
-    const durationInMs = duration.split(':').reduce((acc,time) => (60 * acc) + +time) * 60000;
-    const endTime = encodeURIComponent(new Date(startTimeDate.getTime() + durationInMs).toISOString());
-    const subject = encodeURIComponent("Meeting");
-    const location = encodeURIComponent("Meeting Room");
-    const body = encodeURIComponent("Details of the meeting...");
-
-    const outlookURL = `https://outlook.live.com/owa/?path=/calendar/action/compose&startdt=${startTime}&enddt=${endTime}&subject=${subject}&location=${location}&body=${body}`;
-
-    window.open(outlookURL, "_blank");
+  const handleBuildingChange = (event) => {
+    setBuilding(event.detail.selectedOption.innerText);
   };
 
-  const handleDateTimeChange = (event) => {
-    setDateTime(event.target.value);
+  const handleFloorChange = (event) => {
+    setFloor(event.detail.selectedOption.innerText);
   };
 
-  const handleDurationChange = (event) => {
-    setDuration(event.target.value);
+  const handleRoomChange = (event) => {
+    setRoom(event.detail.selectedOption.innerText);
+  };
+
+  const createOutlookEvent = async () => {
+    try {
+      const accessToken = await userAgentApplication.acquireTokenSilent({
+        scopes: config.scopes,
+      });
+      const event = {
+        start: {
+          dateTime: new Date().toISOString(), // Change this as needed
+          timeZone: "UTC",
+        },
+        end: {
+          dateTime: new Date().toISOString(), // Change this as needed
+          timeZone: "UTC",
+        },
+        subject: "Meeting",
+        location: {
+          displayName: `${building}${floor}${room}`,
+        },
+        body: {
+          content: "Details of the meeting...",
+          contentType: "Text",
+        },
+      };
+      await createEvents(accessToken, event);
+      alert("Event created successfully!");
+    } catch (error) {
+      console.error("Error creating event:", error);
+      alert("Failed to create event. Please try again.");
+    }
   };
 
   return (
@@ -45,55 +70,33 @@ const MeetingRoomForm = () => {
         alignItems: "center",
       }}
     >
-      <Form
-        backgroundDesign="Transparent"
-        columnsL={1}
-        columnsM={1}
-        columnsS={1}
-        columnsXL={1}
-        labelSpanL={4}
-        labelSpanM={2}
-        labelSpanS={12}
-        labelSpanXL={4}
-        style={{
-          alignItems: "center",
-        }}
-      >
+      <Form>
         <FormGroup titleText="">
-          <FormItem label={<Label>Date and Time</Label>}>
-            <DateTimePicker
-              formatPattern="yyyy-MM-dd HH:mm"
-              onChange={handleDateTimeChange}
-              onInput={handleDateTimeChange}
-              valueState="None"
+          <FormItem label="Building">
+            <Select
+              onChange={handleBuildingChange}
               style={{ width: "100%" }}
-            />
-          </FormItem>
-          <FormItem label={<Label>Duration</Label>}>
-            <TimePicker
-              formatPattern="HH:mm"
-              onChange={handleDurationChange}
-              onInput={handleDurationChange}
-              valueState="None"
-              style={{ width: "100%" }}
-            />
-          </FormItem>
-          <FormItem label={<Label>Building</Label>}>
-            <Select style={{ width: "100%" }}>
+            >
               <Option>DUB02</Option>
               <Option>DUB05</Option>
               <Option>GAL</Option>
             </Select>
           </FormItem>
-          <FormItem label={<Label>Floor</Label>}>
-            <Select style={{ width: "100%" }}>
+          <FormItem label="Floor">
+            <Select
+              onChange={handleFloorChange}
+              style={{ width: "100%" }}
+            >
               <Option>Floor 1</Option>
               <Option>Floor 2</Option>
               <Option>Floor 3</Option>
             </Select>
           </FormItem>
-          <FormItem label={<Label>Room</Label>}>
-            <Select style={{ width: "100%" }}>
+          <FormItem label="Room">
+            <Select
+              onChange={handleRoomChange}
+              style={{ width: "100%" }}
+            >
               <Option>Room 1</Option>
               <Option>Room 2</Option>
               <Option>Room 3</Option>
@@ -101,9 +104,7 @@ const MeetingRoomForm = () => {
           </FormItem>
         </FormGroup>
       </Form>
-      <Button onClick={openOutlook} style={{ display: "flex", justifyContent: "center" }}>
-        Open Outlook
-      </Button>
+      <Button onClick={createOutlookEvent}>Create Event</Button>
     </div>
   );
 };

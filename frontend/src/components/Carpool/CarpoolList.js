@@ -5,41 +5,46 @@ import {
   StandardListItem,
   CardHeader,
 } from "@ui5/webcomponents-react";
-
+ 
 function CarpoolList() {
   const [listData, setListData] = useState([]);
   const [userId, setUserId] = useState('');
-  
+
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem('userDetails');
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
+      console.log("User ID:", userDetails.id);
     }
   }, []);
 
+ 
   useEffect(() => {
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=3`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Fetched Distance: ", data);
-        data.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
-        setListData(data);
-      })
-      .catch((error) => console.log("Fetching Distance failed: ", error));
-  }, []);
-
+    if (userId) {
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=${userId}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Fetched Distance: ", data);
+          data.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
+          setListData(data);
+        })
+        .catch((error) => console.log("Fetching Distance failed: ", error));
+    }
+  }, [userId]);
+  
+ 
   return (
     <Card
-      header={<CardHeader titleText="Nearest Lifts" />}
+      header={<CardHeader titleText="Giving Lift" />}
       style={{ width: "100%" }}
     >
       <div
@@ -69,7 +74,7 @@ function CarpoolList() {
         >
           {listData.map((item, index) => (
             <StandardListItem key={index} additionalText={`${item.distance} km`}>
-              {item.carpooler.users.name}
+              {item.carpooler.users.name} - {item.carpooler.users.email}
             </StandardListItem>
           ))}
         </List>
@@ -77,5 +82,6 @@ function CarpoolList() {
     </Card>
   );
 }
-
+ 
 export default CarpoolList;
+ 

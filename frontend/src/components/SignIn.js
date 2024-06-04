@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { UserAgentApplication } from 'msal';
 import { Button } from '@ui5/webcomponents-react';
 import config from './Tasks/Calendar/Config';
-import { getUserDetails } from './Tasks/Calendar/GraphFunctions'; 
+import { getUserDetails } from '../assets/GraphFunctions'; 
 
 class SignIn extends Component {
   constructor(props) {

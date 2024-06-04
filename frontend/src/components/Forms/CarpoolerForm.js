@@ -33,35 +33,32 @@ const CarpoolerForm = () => {
     event.preventDefault();
   
     const eircode = eircodeRef.current.value;
-    console.log("User ID:", userId);
-    console.log("Email:", email);
-    console.log("Display Name:", displayName);
-    console.log("Eircode:", eircode);
   
     try {
+      const queryParams = new URLSearchParams({
+        user_id: userId,
+        eircode: eircode,
+      });
+  
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/carpools/addcarpooler`,
+        `${process.env.REACT_APP_API_URL}/api/carpools/addcarpooler?${queryParams}`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded", // Set the content type to form-urlencoded
           },
-          body: JSON.stringify({
-            user_id: userId,
-            eircode: eircode,
-          }),
         }
       );
   
       if (!response.ok) {
-
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`Error: ${response.statusText}`);
       }
   
-      const data = await response.json();
-      console.log(data);
+      const data = await response.text(); // Read response as text
+      console.log("Response data:", data); // Log response data
+  
     } catch (error) {
       console.error("Error during fetch:", error);
     }
@@ -69,33 +66,34 @@ const CarpoolerForm = () => {
   
   const handleDeregister = async () => {
     try {
+      const queryParams = new URLSearchParams({
+        user_id: userId,
+      });
+  
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/carpools/removecarpooler`,
+        `${process.env.REACT_APP_API_URL}/api/carpools/removecarpooler?${queryParams}`,
         {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded", // Set the content type to form-urlencoded
           },
-          body: JSON.stringify({
-            user_id: userId,
-          }),
         }
       );
-
+  
       if (!response.ok) {
-        console.log(email,userId,displayName);
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`Error: ${response.statusText}`);
       }
-
-      const data = await response.json();
-      console.log(data);
+  
+      const data = await response.text(); // Read response as text
+      console.log("Response data:", data); // Log response data
+  
     } catch (error) {
       console.error("Error during fetch:", error);
     }
   };
-
+  
   return (
   
     <Card

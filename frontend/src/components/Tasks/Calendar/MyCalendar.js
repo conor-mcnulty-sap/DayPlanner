@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Icon,Table, Card, CardHeader,StandardListItem,List } from "@ui5/webcomponents-react";
 import moment from 'moment';
-import { getEvents } from "./GraphFunctions";
+import { getEvents } from "../../../assets/GraphFunctions";
 import config from "./Config";
 
 
