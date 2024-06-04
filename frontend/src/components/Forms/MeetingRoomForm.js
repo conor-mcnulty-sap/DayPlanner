@@ -7,14 +7,11 @@ import {
   Option,
   Button,
 } from "@ui5/webcomponents-react";
-import { createEvents } from "../../assets/GraphFunctions";
-import { UserAgentApplication } from 'msal';
-import config from "../Tasks/Calendar/Config";
 
 
-const userAgentApplication = this.userAgentApplication.getAccount();
 
 const MeetingRoomForm = () => {
+  /*
   const [building, setBuilding] = useState("");
   const [floor, setFloor] = useState("");
   const [room, setRoom] = useState("");
@@ -61,7 +58,7 @@ const MeetingRoomForm = () => {
       alert("Failed to create event. Please try again.");
     }
   };
-
+*/
   return (
     <div
       style={{
@@ -74,7 +71,7 @@ const MeetingRoomForm = () => {
         <FormGroup titleText="">
           <FormItem label="Building">
             <Select
-              onChange={handleBuildingChange}
+        
               style={{ width: "100%" }}
             >
               <Option>DUB02</Option>
@@ -84,7 +81,7 @@ const MeetingRoomForm = () => {
           </FormItem>
           <FormItem label="Floor">
             <Select
-              onChange={handleFloorChange}
+      
               style={{ width: "100%" }}
             >
               <Option>Floor 1</Option>
@@ -94,7 +91,7 @@ const MeetingRoomForm = () => {
           </FormItem>
           <FormItem label="Room">
             <Select
-              onChange={handleRoomChange}
+              
               style={{ width: "100%" }}
             >
               <Option>Room 1</Option>
@@ -104,7 +101,7 @@ const MeetingRoomForm = () => {
           </FormItem>
         </FormGroup>
       </Form>
-      <Button onClick={createOutlookEvent}>Create Event</Button>
+      <Button>Create Event</Button>
     </div>
   );
 };
