@@ -1,11 +1,39 @@
 {
   "Articles": [
     {
-      "title": "“Source from Ukraine” Initiative: The S Stands for Solidarity",
+      "title": "SAP and Accenture Collaborate on Getting to Value Faster with SAP Business AI",
+      "link": "https://news.sap.com/2024/06/accenture-sap-sapphire-business-ai/",
+      "author": "Stephanie Guimbellot",
+      "date": "June 4, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/293449_GettyImages-675395498_uncropped_F-1920x600.jpg"
+    },
+    {
+      "title": "SAP Expands Business AI Portfolio with Meta Open-Source Models",
+      "link": "https://news.sap.com/2024/06/sap-business-ai-meta-open-source-models/",
+      "author": "Walter Sun",
+      "date": "June 4, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/289135_GettyImages-1214827275_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Joule to Integrate with Microsoft Copilot for a Unified Work Experience",
+      "link": "https://news.sap.com/2024/06/joule-microsoft-copilot-unified-work-experience/",
+      "author": "Philipp Herzig",
+      "date": "June 4, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/291763_GettyImages-1317408128_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP’s Partnership with Mistral AI, One of the Leading LLM Makers",
+      "link": "https://news.sap.com/2024/06/sap-mistral-ai-leading-llm-maker-partnership/",
+      "author": "Walter Sun",
+      "date": "June 4, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/04/293949_GettyImages-868434080_medium_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP’s “Source from Ukraine” Initiative Boosts Business and Social Responsibility",
       "link": "https://news.sap.com/2024/05/source-from-ukraine-initiative-s-for-solidarity/",
       "author": "Elena Parker",
       "date": "May 23, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/23/276354_276354_l_srgb_s_gl_uncropped_F-1920x600-1716301675.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/23/276354_276354_l_srgb_s_gl_uncropped_F-540x310-1716472437.jpg"
     },
     {
       "title": "Retaining Customers Through Support Experience and Efficiency",
@@ -62,34 +90,6 @@
       "author": "Dee Houchen",
       "date": "May 15, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/295326_GettyImages-1387052544_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Unleashing As-A-Service Growth: High-Tech Leaders Share Lessons Learned",
-      "link": "https://news.sap.com/2024/05/unleashing-xaas-growth-high-tech-leaders-share-lessons/",
-      "author": "Susan Galer",
-      "date": "May 14, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/14/287640_GettyImages-136847807_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "The Power of the Consumer",
-      "link": "https://news.sap.com/2024/05/the-power-of-the-consumer/",
-      "author": "Stefanie Glenk",
-      "date": "May 14, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/14/283538_GettyImages-157308476_high_2600_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Ardent Partners Positions SAP Fieldglass as a Market Leader for Vendor Management Systems",
-      "link": "https://news.sap.com/2024/05/ardent-partners-sap-fieldglass-vms-market-leader/",
-      "author": "Vish Baliga",
-      "date": "May 14, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/09/288251_GettyImages-77930942_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "AI-Enabled Recruitment Is the Name of the Game for FC Bayern with SAP SuccessFactors",
-      "link": "https://news.sap.com/2024/05/fc-bayern-sap-successfactors-ai-enabled-recruitment/",
-      "author": "Maryann Abbajay",
-      "date": "May 14, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/25/FC-Bayern-SF1-540x310.jpg"
     }
   ]
 }

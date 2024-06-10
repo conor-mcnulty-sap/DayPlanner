@@ -215,6 +215,31 @@ router.get('/distance', async (req, res) => {
 router.get('/closestcarpooler', async (req, res) => {
     let user_id = req.query.user_id;
 
+    console.log(user_id);
+
+    // If user is carpooler 
+    const {data: carpooler, error2} = await supabase
+    .from('carpooler')
+    .select('user_id')
+    .eq('user_id', user_id);
+
+    if (carpooler.length > 0) {
+        console.log('You are a carpooler');
+
+        // If carpooler also exists as carpoolee
+        const {data: carpoolee, error3} = await supabase
+        .from('carpoolee')
+        .select('user_id')
+        .eq('user_id', user_id);
+
+        if (carpoolee.length > 0) {
+            console.log('You are also a carpoolee');
+        }
+        else {
+            return;
+        }
+    }
+
     //get all carpoolers
     const {data: carpoolers, error} = await supabase
     .from('carpooler')
@@ -224,7 +249,7 @@ router.get('/closestcarpooler', async (req, res) => {
     const {data: user, error1} = await supabase
     .from('carpoolee')
     .select('eircode')
-    .eq('id', user_id);
+    .eq('user_id', user_id);
 
     // If user does not exist
     if (user.length == 0) {
@@ -263,6 +288,84 @@ router.get('/closestcarpooler', async (req, res) => {
 
     res.send(carpooler_distance);
     console.log("Returned list of carpoolers closest to you");
+
+});
+
+// List Carpoolee closest to you
+router.get('/closestcarpoolee', async (req, res) => {
+    let user_id = req.query.user_id;
+
+    // If user is carpoolee 
+    const {data: carpoolee, error2} = await supabase
+    .from('carpoolee')
+    .select('user_id')
+    .eq('user_id', user_id);
+
+    if (carpoolee.length > 0) {
+        console.log('You are a carpoolee');
+
+        // If carpoolee also exists as carpooler
+        const {data: carpooler, error3} = await supabase
+        .from('carpooler')
+        .select('user_id')
+        .eq('user_id', user_id);
+
+        if (carpooler.length > 0) {
+            console.log('You are also a carpooler');
+        }
+        else {
+            return;
+        }
+    }
+
+    //get all carpoolee
+    const {data: carpoolees, error} = await supabase
+    .from('carpoolee')
+    .select('*,users(*)');
+
+    //Get user eircode
+    const {data: user, error1} = await supabase
+    .from('carpooler')
+    .select('eircode')
+    .eq('user_id', user_id);
+
+    // If user does not exist
+    if (user.length == 0) {
+        res.send('User does not exist');
+        console.log('User does not exist');
+        return;
+    }
+
+    let user_eircode = user[0].eircode;
+
+    //Get list of carpoolee eircodes
+    let carpoolee_eircodes = [];
+    for (let i = 0; i < carpoolees.length; i++) {
+        carpoolee_eircodes.push(carpoolees[i].eircode);
+    }
+
+    //Get list of distances
+    let distances = [];
+    for (let i = 0; i < carpoolee_eircodes.length; i++) {
+        let url = "http://dev.virtualearth.net/REST/v1/Routes?wp.0=" + user_eircode + "&wp.1=" + carpoolee_eircodes[i] + "&key=" + BING_MAPS_KEY;
+        const {data, error} = await axios.get(url);
+        let traveldistance = data.resourceSets[0].resources[0].travelDistance;
+        distances.push(traveldistance);
+    }
+
+    //Combine carpooler and distance
+    let carpoolee_distance = [];
+    for (let i = 0; i < carpoolees.length; i++) {
+        carpoolee_distance.push({carpoolee: carpoolees[i], distance: distances[i]});
+    }
+
+    //Sort by distance
+    carpoolee_distance.sort(function(a, b) {
+        return a.distance - b.distance;
+    });
+
+    res.send(carpoolee_distance);
+    console.log("Returned list of carpoolee closest to you");
 
 });
 

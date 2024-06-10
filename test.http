@@ -93,7 +93,11 @@ GET /api/carpools/distance?eircode1=D24FKT9&eircode2=D24Y99R HTTP/1.1
 Host: localhost:5000
 
 ### Get list of carpooler closest to you
-GET /api/carpools/closestcarpooler?user_id=3 HTTP/1.1
+GET /api/carpools/closestcarpooler?user_id=ef933ddfd84db7e6 HTTP/1.1
+Host: localhost:5000
+
+### Get list of carpoolee closest to you
+GET /api/carpools/closestcarpoolee?user_id=ef933ddfd84db7e6 HTTP/1.1
 Host: localhost:5000
 
 ### Get tasks
