@@ -8,13 +8,30 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import floorPlan from "../../assets/floor-plan-png-9.jpg";
+import floorPlan21 from "../../assets/DUB/2-1.png";
+import floorPlan22 from "../../assets/DUB/2-2.png";
+import floorPlan23 from "../../assets/DUB/2-3.png";
+import floorPlan31 from "../../assets/DUB/3-1.png";
+import floorPlan33 from "../../assets/DUB/3-3.png";
 import { Card, Button } from "@ui5/webcomponents-react";
 
-function Map({ onCircleClick }) {
+// Create an object to map floor plans to their respective keys
+const floorPlans = {
+  '2-1': floorPlan21,
+  '2-2': floorPlan22,
+  '2-3': floorPlan23,
+  '3-1': floorPlan31,
+  '3-3': floorPlan33,
+  // Add more floor plans here
+};
+
+function Map({ onCircleClick, selectedBuilding, selectedFloor }) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
+
+  // Add a new state variable for the selected floor plan
+const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -31,6 +48,18 @@ function Map({ onCircleClick }) {
     }
     setIsMapInit(true);
   }, []);
+
+  // Add a useEffect to update the selected floor plan when the selected building or floor changes
+  useEffect(() => {
+    const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
+    if (floorPlans[floorPlanKey]) {
+      setSelectedFloorPlan(floorPlans[floorPlanKey]);
+    } else {
+      console.warn(`Floor plan ${floorPlanKey} does not exist. Defaulting to '2-1'.`);
+      setSelectedFloorPlan(floorPlans['2-1']);
+    }
+  }, [selectedBuilding, selectedFloor]);
+  console.log(selectedBuilding + "-" + selectedFloor);
 
   const bounds = [
     [0, 0],
@@ -100,7 +129,7 @@ function Map({ onCircleClick }) {
           crs={L.CRS.Simple}
           attributionControl={false}
         >
-          <ImageOverlay url={floorPlan} bounds={bounds} />
+          <ImageOverlay key={selectedFloorPlan} url={selectedFloorPlan} bounds={bounds} />
 
           {coordinates.map((coordinate, index) => (
             <Circle
