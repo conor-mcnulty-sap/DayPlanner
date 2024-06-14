@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createEvents, getEvents, getSchedule } from '../../assets/GraphFunctions';
+import { createEvents, getEvents } from '../../assets/GraphFunctions';
 import {
   Form,
   FormGroup,
@@ -61,65 +61,112 @@ export default class BookMeetingRoom extends Component {
     }
   }
 
-  async onClick() {
-    try {
+  async checkRoomAvailability() {
+    const { room, startDateTime, duration } = this.state;
+    const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
+    const [hours, minutes] = duration.split(':').map(Number);
+    const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+
+    const queryParams = new URLSearchParams({
+        meeting_room: room,
+        user: 1,
+        start_date_time: formattedStartDateTime,
+        end_date_time: endDateTime
+    });
+
+    const url = `${process.env.REACT_APP_API_URL}/api/meetingrooms/bookmeetingroom?${queryParams.toString()}`;
+    console.log("URL being sent to the backend:", url);
+
+    const response = await fetch(url, {
+        method: 'POST',
+    });
+
+    console.log("Request URL:", url);
+
+    if (!response.ok) {
+        console.error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type');
+    let result;
+
+    if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+    } else {
+        result = await response.text();
+    }
+
+    console.log("Response from the backend:", result);
+    return result;
+}
+
+
+async onClick() {
+  try {
+      const { building, floor, room, subject, startDateTime, duration, email } = this.state;
+
+      // Check room availability
+      const availability = await this.checkRoomAvailability();
+      if (availability === "Meeting Room already booked for that date and time") {
+          alert("Meeting room already booked.");
+          return;
+      }
+
       console.log("Button clicked, attempting to acquire token silently for event creation");
       var accessToken = await window.msal.acquireTokenSilent({
-        scopes: config.scopes
+          scopes: config.scopes
       });
       console.log("Access token acquired for event creation", accessToken);
 
-      const { building, floor, room, subject, startDateTime, duration, email } = this.state;
-
-      // Calculate endDateTime based on startDateTime and duration
+ 
+      const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
       const [hours, minutes] = duration.split(':').map(Number);
-      const endDateTime = moment(startDateTime).add(hours, 'hours').add(minutes, 'minutes').toISOString();
+      const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').toISOString();
 
-      // Log the current state values
-      console.log("Current state values:", { building, floor, room, subject, startDateTime, endDateTime, email });
+      console.log("Current state values:", { building, floor, room, subject, formattedStartDateTime, endDateTime, email });
 
-    
       const event = {
-        subject: subject,
-        body: {
-          contentType: 'HTML',
-        },
-        start: {
-          dateTime: moment(startDateTime).toISOString(),
-          timeZone: 'Europe/Dublin'
-        },
-        end: {
-          dateTime: endDateTime,
-          timeZone: 'Europe/Dublin'
-        },
-        attendees: [
-          {
-            emailAddress: {
-              address: email,
-              name: room
-            },
-            type: 'Required'
-          }
-        ],
-        location: {
-          displayName: `${building} - ${floor} - ${room}`,
-          locationType: 'Default'
-        },
+          subject: subject,
+          body: {
+              contentType: 'HTML',
+          },
+          start: {
+              dateTime: moment(startDateTime).toISOString(),
+              timeZone: 'Europe/Dublin'
+          },
+          end: {
+              dateTime: endDateTime,
+              timeZone: 'Europe/Dublin'
+          },
+          attendees: [
+              {
+                  emailAddress: {
+                      address: email,
+                      name: room
+                  },
+                  type: 'Required'
+              }
+          ],
+          location: {
+              displayName: `${building} - ${floor} - ${room}`,
+              locationType: 'Default'
+          },
       };
 
       this.setState({ event: event });
+ 
       console.log('Event to be created', event);
-    
+
       await createEvents(accessToken, event);
       console.log('Event created successfully');
-    } catch (err) {
+  } catch (err) {
       console.error("Error creating event", err);
       if (this.props.showError) {
-        this.props.showError('ERROR', JSON.stringify(err));
+          this.props.showError('ERROR', JSON.stringify(err));
       }
-    }
   }
-
+}
   setBuilding(event) {
     const building = event.detail.selectedOption.innerText;
     console.log(`Setting state: building = ${building}`);
@@ -153,6 +200,7 @@ export default class BookMeetingRoom extends Component {
 
     this.setState({ [name]: value });
   }
+
 
   render() {
     const { building, floor, room, subject, startDateTime, duration } = this.state;
@@ -234,7 +282,7 @@ export default class BookMeetingRoom extends Component {
                 style={{ width: "100%" }}
               >
                 <Option>Grafton Street</Option>
-                <Option>St.Stephens Green</Option>
+                <Option>Stephens Green</Option>
                 <Option>O'Connell Street</Option>
               </Select>
             </FormItem>
