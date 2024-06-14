@@ -13,12 +13,11 @@ function getAuthenticatedClient(accessToken) {
 }
 
 function cache(user) {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('userDetails', JSON.stringify(user));
-      console.log('User details stored in localStorage:', JSON.stringify(user)); // Debugging log
-    }
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('userDetails', JSON.stringify(user));
+    console.log('User details stored in localStorage:', JSON.stringify(user)); // Debugging log
   }
-  
+}
 
 export async function getUserDetails(accessToken) {
   const client = getAuthenticatedClient(accessToken);
@@ -55,6 +54,15 @@ export async function createEvents(accessToken, event) {
   const client = getAuthenticatedClient(accessToken);
 
   let res = await client.api('/me/events').post(event);
+  console.log('Created RDV...');
+  return res;
+}
+
+
+export async function getSchedule(accessToken, details) {
+  const client = getAuthenticatedClient(accessToken);
+
+  let res = await client.api('/me/calendar/getschedule').post(details);
   console.log('Created RDV...');
   return res;
 }

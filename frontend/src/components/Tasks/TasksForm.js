@@ -78,6 +78,8 @@ const TaskForm = () => {
     } catch (error) {
       console.error('Network error:', error);
     }
+    
+
 
     if (titleRef.current) titleRef.current.value = '';
     if (timeRef.current) timeRef.current.value = '';

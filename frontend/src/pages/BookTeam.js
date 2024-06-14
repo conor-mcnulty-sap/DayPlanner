@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Map from "../components/Maps/BookDeskMap";
-import DeskForm from "../components/Forms/DeskForm";
+import TeamBooking from "../components/Forms/TeamBooking";
 import { Grid } from "@ui5/webcomponents-react";
 
 function BookTeam() {
@@ -26,7 +26,7 @@ function BookTeam() {
           height: "100%",
         }}
       >
-        <DeskForm selectedDesk={selectedDesk} />
+        <TeamBooking selectedDesk={selectedDesk} />
       </div>
       <Map onCircleClick={handleCircleClick} />
     </Grid>

@@ -4,7 +4,7 @@ import MeetingRoomForm from "../components/Forms/MeetingRoomForm";
 import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
 
-function BookMeeting() {
+const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
   return (
     <Grid
       defaultSpan="XL6 L12 M12 S12"
