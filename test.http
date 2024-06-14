@@ -76,7 +76,7 @@ POST /api/carpools/addcarpooler?user_id=1&eircode=F42 D540 HTTP/1.1
 Host: localhost:5000
 
 ### Add carpoolee
-POST /api/carpools/addcarpoolee?user_id=3&eircode=D24Y99R HTTP/1.1
+POST /api/carpools/addcarpoolee?user_id=3&eircode=D24 Y99R HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
 
@@ -139,6 +139,18 @@ Host: localhost:5000
 
 ### Get Meeting Room from certain building and floor
 GET /api/meetingrooms/buildingfloor?building=DUB05&floor=2 HTTP/1.1
+Host: localhost:5000
+
+### Get All Booked Meeting Room
+GET /api/meetingrooms/bookings HTTP/1.1
+Host: localhost:5000
+
+### Book meeting room
+POST /api/meetingrooms/bookmeetingroom?meeting_room=Pearse Street&start_date_time=2024-06-13 14:14&end_date_time=2024-06-13 18:14 HTTP/1.1
+Host: localhost:5000
+
+### Checking availablity of meeting room
+GET /api/meetingrooms/checkavailability?start_date_time=2024-06-13 14:14 HTTP/1.1
 Host: localhost:5000
 
 

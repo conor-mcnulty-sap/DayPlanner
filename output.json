@@ -1,18 +1,88 @@
 {
   "Articles": [
     {
-      "title": "SAP and Accenture Collaborate on Getting to Value Faster with SAP Business AI",
-      "link": "https://news.sap.com/2024/06/accenture-sap-sapphire-business-ai/",
-      "author": "Stephanie Guimbellot",
-      "date": "June 4, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/293449_GettyImages-675395498_uncropped_F-1920x600.jpg"
+      "title": "German National Team Relies on SAP Technology at the European Championship",
+      "link": "https://news.sap.com/2024/06/german-national-team-dfb-sap-technology-european-championship/",
+      "author": "Stefanie Glenk",
+      "date": "June 13, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/13/DFB-6-1-1920x600.png"
     },
     {
-      "title": "SAP Expands Business AI Portfolio with Meta Open-Source Models",
-      "link": "https://news.sap.com/2024/06/sap-business-ai-meta-open-source-models/",
-      "author": "Walter Sun",
-      "date": "June 4, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/289135_GettyImages-1214827275_uncropped_F-540x310.jpg"
+      "title": "Game On: Business Builders Prepares Future Business Leaders for a Data-Driven World",
+      "link": "https://news.sap.com/2024/06/business-builders-sap-university-alliances/",
+      "author": "Thorsten Haas",
+      "date": "June 12, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/12/287654_GettyImages-1200911371_medium_uncropped-F-540x310.jpg"
+    },
+    {
+      "title": "New Supply Chain and External Workforce Innovations Reduce Organizational Inefficiencies",
+      "link": "https://news.sap.com/2024/06/supply-chain-external-workforce-innovations/",
+      "author": "Manoj Swaminathan",
+      "date": "June 11, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/11/287747_GettyImages-1160700188_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Powering the AI Revolution with New Learning, Certifications, and Simplified Access to Talent",
+      "link": "https://news.sap.com/2024/06/powering-ai-revolution-learning-certifications-talent/",
+      "author": "Andre Bechtold",
+      "date": "June 11, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/11/286451_shutterstock_1074998285_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP SuccessFactors Accelerates AI Capabilities in HR to Make Every Employee a Success Story",
+      "link": "https://news.sap.com/2024/06/sap-successfactors-accelerates-ai-capabilities/",
+      "author": "Jacqueline Prause",
+      "date": "June 10, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/10/SAP_SAPPHIRE24_15600_uncropped_F-540x310-1717785609.jpg"
+    },
+    {
+      "title": "SAP Introduces a New Validation Recognition for Service Partners",
+      "link": "https://news.sap.com/2024/06/new-rise-with-sap-validated-partner-recognition/",
+      "author": "Eric van Rossum",
+      "date": "June 10, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/08/296441_GettyImages-1373240838_uncropped_F-540x310-1714754591.jpg"
+    },
+    {
+      "title": "Data-Driven Decision-Making with Connected Financial and Carbon Information",
+      "link": "https://news.sap.com/2024/06/data-driven-connected-financial-carbon-information/",
+      "author": "Stephan Mueller",
+      "date": "June 10, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/10/TUM-SAP-agency-visual_6220679_City_Buildings_Usa_Hyperlapse_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "How Four SAP Customers Are Successfully Driving Transformation in Their Businesses",
+      "link": "https://news.sap.com/2024/06/sap-sapphire-sap-customers-drive-business-transformation/",
+      "author": "Brian Wasson",
+      "date": "June 7, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/07/775773-pic-2000y2000_Customer-Keynote_SR-540x310.jpg"
+    },
+    {
+      "title": "End-to-End Innovation Is Key to Bringing Out Your Best",
+      "link": "https://news.sap.com/2024/06/sap-sapphire-innovation-key-to-bring-out-your-best/",
+      "author": "Gillian Hixson",
+      "date": "June 6, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/06/SAP_SAPPHIRE24_18925_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Generative AI Innovations Take Center Stage at SAP Sapphire in 2024",
+      "link": "https://news.sap.com/2024/06/sap-sapphire-generative-ai-center-stage/",
+      "author": "Paul Taylor",
+      "date": "June 5, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/05/SAP_SAPPHIRE24_11106_NC-F-540x310-1717592137.jpg"
+    },
+    {
+      "title": "SAP’s New AI Innovations and Partnerships Deliver Real-World Results",
+      "link": "https://news.sap.com/2024/06/ai-innovations-partnerships-sap-sapphire/",
+      "author": "Philipp Herzig",
+      "date": "June 5, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/04/30/301452_GettyImages-1181852806_uncropped_F-540x310-1713896009.jpg"
+    },
+    {
+      "title": "Putting Sustainability at the Heart of ERP",
+      "link": "https://news.sap.com/2024/06/sustainability-erp-sap-business-ai-sap-sapphire/",
+      "author": "Sophia Mendelsohn",
+      "date": "June 5, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/05/294400_GettyImages-1091918678_medium_uncropped_F-540x310.jpg"
     },
     {
       "title": "Joule to Integrate with Microsoft Copilot for a Unified Work Experience",
@@ -20,76 +90,6 @@
       "author": "Philipp Herzig",
       "date": "June 4, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/03/28/291763_GettyImages-1317408128_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP’s Partnership with Mistral AI, One of the Leading LLM Makers",
-      "link": "https://news.sap.com/2024/06/sap-mistral-ai-leading-llm-maker-partnership/",
-      "author": "Walter Sun",
-      "date": "June 4, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/04/293949_GettyImages-868434080_medium_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP’s “Source from Ukraine” Initiative Boosts Business and Social Responsibility",
-      "link": "https://news.sap.com/2024/05/source-from-ukraine-initiative-s-for-solidarity/",
-      "author": "Elena Parker",
-      "date": "May 23, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/23/276354_276354_l_srgb_s_gl_uncropped_F-540x310-1716472437.jpg"
-    },
-    {
-      "title": "Retaining Customers Through Support Experience and Efficiency",
-      "link": "https://news.sap.com/2024/05/retaining-customers-through-support-experience-and-efficiency/",
-      "author": "Renuka Abraham",
-      "date": "May 21, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/21/291897_GettyImages-1335045501_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Olaf Scholz Leads Farewell Tributes to Hasso Plattner",
-      "link": "https://news.sap.com/2024/05/hasso-plattner-olaf-scholz-farewell-tributes/",
-      "author": "Andrea Diederichs",
-      "date": "May 17, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/1004-Hasso-Plattner-Farewell-540x310-1715957788.jpg"
-    },
-    {
-      "title": "Customer Support at SAP: Where Artificial Intelligence Meets Application Integration",
-      "link": "https://news.sap.com/2024/05/customer-support-ai-meets-application-integration/",
-      "author": "Renuka Abraham",
-      "date": "May 17, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/297034_GettyImages-1307905761_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP SuccessFactors Partners Recognized for Outstanding Achievements",
-      "link": "https://news.sap.com/2024/05/sap-successfactors-partners-recognized-for-achievements/",
-      "author": "Aaron Green",
-      "date": "May 17, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/290997_GettyImages-605374893_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "How SAP BTP Becomes the Trusted Platform for Business AI",
-      "link": "https://news.sap.com/2024/05/sap-btp-strategy-paper-trusted-platform-business-ai/",
-      "author": "Michael Ameling",
-      "date": "May 17, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/17/278045_278045_l_srgb_s_gl_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Maximizing Efficiency: Integrating AI into Corporate Processes & Information Technology",
-      "link": "https://news.sap.com/2024/05/benjamin-blau-interview-ai-corporate-processes-information-technology/",
-      "author": "Marcus Kabat",
-      "date": "May 16, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/16/292815_GettyImages-130112784_medium_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Kyndryl Adopts Next-Generation Tools for Sales Performance Management",
-      "link": "https://news.sap.com/2024/05/kyndryl-adopts-tools-for-sales-performance-management/",
-      "author": "Rahul Iyer",
-      "date": "May 15, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/282409_concur.office_2618_uncropped_F-540x310-1715258844.jpg"
-    },
-    {
-      "title": "SAP Signavio Again Leads the 2024 SPARK Matrix™ for Digital Twin of an Organization",
-      "link": "https://news.sap.com/2024/05/sap-signavio-leads-2024-spark-matrix-digital-twin-organization/",
-      "author": "Dee Houchen",
-      "date": "May 15, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/05/15/295326_GettyImages-1387052544_uncropped_F-540x310.jpg"
     }
   ]
 }
