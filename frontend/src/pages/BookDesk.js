@@ -5,9 +5,20 @@ import { Grid } from "@ui5/webcomponents-react";
 
 function BookDesk() {
   const [selectedDesk, setSelectedDesk] = useState(null);
+  const [selectedBuilding, setSelectedBuilding] = useState('2');
+  const [selectedFloor, setSelectedFloor] = useState('1');
 
   const handleCircleClick = (coordinate) => {
     setSelectedDesk(coordinate);
+  };
+
+
+  const handleBuildingChange = (newBuilding) => {
+    setSelectedBuilding(newBuilding);
+  };
+
+  const handleFloorChange = (newFloor) => {
+    setSelectedFloor(newFloor);
   };
 
   return (
@@ -25,9 +36,17 @@ function BookDesk() {
           height: "100%",
         }}
       >
-        <DeskForm selectedDesk={selectedDesk} />
+        <DeskForm
+  selectedDesk={selectedDesk}
+  onBuildingChange={handleBuildingChange}
+  onFloorChange={handleFloorChange} // Make sure handleFloorChange is a function
+/>
       </div>
-      <Map onCircleClick={handleCircleClick} />
+      <Map 
+        onCircleClick={handleCircleClick} 
+        selectedBuilding={selectedBuilding}
+        selectedFloor={selectedFloor}
+      />
     </Grid>
   );
 }
