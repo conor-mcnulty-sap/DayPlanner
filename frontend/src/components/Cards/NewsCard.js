@@ -28,17 +28,23 @@ const NewsCard = () => {
           gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
           gap: "1rem",
           margin: "1rem",
+          maxHeight: "40vh", // Adjust this value based on the height of two rows
+          overflowY: "auto",
         }}
       >
-        {newsData.map((news) => (
-          <a href={news.link} key={news.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div>
-              <img src={news.image} alt="News" style={{ width: "100%" }} />
-              <h2>{news.title}</h2>
-              <p>{news.author}</p>
-            </div>
-          </a>
-        ))}
+        {newsData.length > 0 ? (
+          newsData.map((news) => (
+            <a href={news.link} key={news.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div>
+                <img src={news.image} alt="News" style={{ width: "100%" }} />
+                <h2>{news.title}</h2>
+                <p>{news.author}</p>
+              </div>
+            </a>
+          ))
+        ) : (
+          <p>There is no news</p>
+        )}
       </div>
     </Card>
   );

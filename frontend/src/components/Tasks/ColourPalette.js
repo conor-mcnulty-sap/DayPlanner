@@ -1,18 +1,35 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { ColorPalettePopover, ColorPaletteItem } from '@ui5/webcomponents-react';
 import { Button } from '@ui5/webcomponents-react/dist/Button';
 
-export function ColorPalettePopoverComponent() {
+const ColorPalettePopoverComponent = forwardRef((props, ref) => {
   const popoverRef = useRef();
+  const [selectedColor, setSelectedColor] = useState(null);
 
   const onButtonClick = (e) => {
-    popoverRef.current.showAt(e.target);
+    if (popoverRef.current) {
+      popoverRef.current.showAt(e.target);
+    }
   };
+
+  const onColorSelect = (e) => {
+    console.log('Color select event:', e);
+    const selectedColorValue = e.detail.color;
+    console.log('Color selected:', selectedColorValue);
+    setSelectedColor(selectedColorValue);
+  };
+
+  useImperativeHandle(ref, () => ({
+    getColor: () => {
+      console.log('Getting color:', selectedColor);
+      return selectedColor;
+    }
+  }));
 
   return (
     <>
-      <Button onClick={onButtonClick}>Colour</Button>
-      <ColorPalettePopover ref={popoverRef}>
+      <Button onClick={onButtonClick}>Choose Colour</Button>
+      <ColorPalettePopover ref={popoverRef} onItemClick={onColorSelect}>
         <ColorPaletteItem value="black" />
         <ColorPaletteItem value="darkblue" />
         <ColorPaletteItem value="#444444" />
@@ -28,4 +45,6 @@ export function ColorPalettePopoverComponent() {
       </ColorPalettePopover>
     </>
   );
-}
+});
+
+export default ColorPalettePopoverComponent;

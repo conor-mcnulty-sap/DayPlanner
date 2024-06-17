@@ -7,10 +7,11 @@ import {
   Button,
   DateRangePicker,
   Select,
+  MultiInput,
   Option,
 } from "@ui5/webcomponents-react";
 
-function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
+function TeamBooking({ selectedDesk }) {
   const [userId, setUserId] = useState('');
   const [building, setBuilding] = useState(
     selectedDesk ? selectedDesk.building : ""
@@ -22,7 +23,7 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
 
   const today = new Date();
   const endDate = new Date();
-  endDate.setDate(today.getDate() + 7);
+  endDate.setDate(today.getDate() + 7); // set the end date to 7 days from today
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -35,18 +36,6 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
   const endString = formatDate(endDate);
 
   const defaultRange = `${startString} - ${endString}`;
-
-  useEffect(() => {
-    if (building) {
-      onBuildingChange(building);
-    }
-  }, [building]);
-
-  useEffect(() => {
-    if (floor) {
-      onFloorChange(floor);
-    }
-  }, [floor]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem('userDetails');
@@ -67,16 +56,17 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
           console.log("Desks data:", data);
         })
         .catch((error) => console.error("Error fetching desks:", error));
+
+      // Update desk options based on selected floor
+      if (floor === "Floor 1") {
+        setDeskOptions(["101", "102", "103"]);
+      } else if (floor === "Floor 2") {
+        setDeskOptions(["DUB05-2-L-12","DUB05-2-L-13","DUB05-2-L-14","DUB05-2-L-15","DUB05-2-L-16","DUB05-2-L-17","DUB05-2-L-18"]);
+      } else if (floor === "Floor 3") {
+        setDeskOptions(["301", "302", "303"]);
+      }
     }
   }, [floor]);
-
-  const handleFloorChange = (event) => {
-    const selectedFloor = event.detail.selectedOption.innerText;
-    setFloor(selectedFloor);
-    if (onFloorChange) {
-      onFloorChange(selectedFloor);
-    }
-  };
 
   const handleDateRangeChange = (event) => {
     const [startDate, endDate] = event.detail.value.split(" - ");
@@ -89,7 +79,7 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
     const data = {
       user_id: userId,
       desk_id: deskId,
-      date: dateRange,
+      date: dateRange, // send the entire date range
     };
   
     console.log("Submitting data:", data);
@@ -105,11 +95,11 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text();
+        return response.text(); // Using response.text() to handle non-JSON responses
       })
       .then((text) => {
         try {
-          const data = JSON.parse(text);
+          const data = JSON.parse(text); // Try to parse as JSON
           console.log("Response:", data);
         } catch (error) {
           console.log("Response is not valid JSON:", text);
@@ -147,29 +137,52 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
             />
           </FormItem>
           <FormItem label="Building">
-      <Select
-        onChange={(event) => {
-          const selectedBuilding = event.detail.selectedOption.innerText;
-          setBuilding(selectedBuilding);
-        }}
-        selectedKey={building}
-        style={{ width: "100%" }}
-      >
-        <Option>2</Option>
-        <Option>3</Option>
-      </Select>
-    </FormItem>
-    <FormItem label="Floor">
-    <Select
-        onChange={handleFloorChange} // Use the new function here
-        selectedKey={floor}
-        style={{ width: "100%" }}
-      >
-        <Option>1</Option>
-        <Option>2</Option>
-        <Option>3</Option>
-      </Select>
-    </FormItem>
+            <Select
+              onChange={(event) =>
+                setBuilding(event.detail.selectedOption.innerText)
+              }
+              selectedKey={building}
+              style={{ width: "100%" }}
+            >
+              {/* Replace with your actual building options */}
+              <Option>DUB 02</Option>
+              <Option>DUB 05</Option>
+              <Option>GAL</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="Floor">
+            <Select
+              onChange={(event) =>
+                setFloor(event.detail.selectedOption.innerText)
+              }
+              selectedKey={floor}
+              style={{ width: "100%" }}
+            >
+              {/* Replace with your actual floor options */}
+              <Option>Floor 1</Option>
+              <Option>Floor 2</Option>
+              <Option>Floor 3</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="Desk">
+            <Select
+              onChange={(event) =>
+                setDeskId(event.detail.selectedOption.innerText)
+              }
+              selectedKey={deskId}
+              style={{ width: "100%" }}
+            >
+              {deskOptions.map((desk) => (
+                <Option key={desk}>{desk}</Option>
+              ))}
+            </Select>
+          </FormItem>
+          <FormItem label= "Emails">
+            <MultiInput
+            type="Email"
+            />
+
+          </FormItem>
         </FormGroup>
       </Form>
       <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
@@ -179,4 +192,4 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
   );
 }
 
-export default DeskForm;
+export default TeamBooking;

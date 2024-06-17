@@ -67,7 +67,12 @@ class App extends Component {
           <Route path="/" element={<Home />} />
           <Route path="/carpool" element={<Carpool />} />
           <Route path="/bookdesk" element={<BookDesk />} />
-          <Route path="/bookmeeting" element={<BookMeeting />} />
+          {isAuthenticated && (
+            <Route
+              path="/bookmeeting"
+              element={<BookMeeting isAuthenticated={isAuthenticated} user={user} />}
+            />
+          )}
           <Route path="/finddesk" element={<FindDesk />} />
           <Route path="/bookteam" element={<BookTeam />} />
           {isAuthenticated && (

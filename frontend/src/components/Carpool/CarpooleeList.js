@@ -6,7 +6,7 @@ import {
   CardHeader,
 } from "@ui5/webcomponents-react";
  
-function CarpoolList() {
+function CarpooleeList() {
   const [listData, setListData] = useState([]);
   const [userId, setUserId] = useState('');
 
@@ -24,7 +24,7 @@ function CarpoolList() {
   useEffect(() => {
     if (userId) {
       fetch(
-        `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=${userId}`
+        `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpoolee?user_id=${userId}`
       )
         .then((response) => {
           if (!response.ok) {
@@ -44,7 +44,7 @@ function CarpoolList() {
  
   return (
     <Card
-      header={<CardHeader titleText="Giving Lift" />}
+      header={<CardHeader titleText="Looking for" />}
       style={{ width: "100%" }}
     >
       <div
@@ -74,7 +74,7 @@ function CarpoolList() {
         >
           {listData.map((item, index) => (
             <StandardListItem key={index} additionalText={`${item.distance} km`}>
-              {item.carpooler.users.name} - {item.carpooler.users.email}
+              {item.carpoolee.users.name} - {item.carpoolee.users.email}
             </StandardListItem>
           ))}
         </List>
@@ -83,5 +83,5 @@ function CarpoolList() {
   );
 }
  
-export default CarpoolList;
+export default CarpooleeList;
  

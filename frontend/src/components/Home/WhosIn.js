@@ -13,7 +13,10 @@ const WhosIn = () => {
   const [foundUsers, setFoundUsers] = useState([]);
 
   useEffect(() => {
-    fetch("/whosin.json")
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${date}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -23,16 +26,17 @@ const WhosIn = () => {
       .then((data) => {
         setUsers(data);
         setFoundUsers(data);
+        console.log("Who's in:", data)
       })
       .catch((error) => console.log("Fetching failed: ", error));
   }, []);
 
   const filter = (e) => {
     const keyword = e.target.value;
-
+  
     if (keyword !== "") {
       const results = users.filter((user) => {
-        return user.name.toLowerCase().startsWith(keyword.toLowerCase());
+        return user.users.name.toLowerCase().startsWith(keyword.toLowerCase());
       });
       setFoundUsers(results);
     } else {
@@ -68,7 +72,7 @@ const WhosIn = () => {
         >
           {foundUsers.map((user) => (
             <StandardListItem key={user.id}>
-              {user.id} - {user.name}
+              {user.desk_id} - {user.users.name}
               <br />
               {user.desk}
             </StandardListItem>
