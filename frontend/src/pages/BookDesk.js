@@ -5,13 +5,13 @@ import { Grid } from "@ui5/webcomponents-react";
 
 function BookDesk() {
   const [selectedDesk, setSelectedDesk] = useState(null);
-  const [selectedBuilding, setSelectedBuilding] = useState('2');
-  const [selectedFloor, setSelectedFloor] = useState('1');
+  const [selectedBuilding, setSelectedBuilding] = useState("2");
+  const [selectedFloor, setSelectedFloor] = useState("1");
+  const [dateRange, setDateRange] = useState("");
 
   const handleCircleClick = (coordinate) => {
     setSelectedDesk(coordinate);
   };
-
 
   const handleBuildingChange = (newBuilding) => {
     setSelectedBuilding(newBuilding);
@@ -19,6 +19,10 @@ function BookDesk() {
 
   const handleFloorChange = (newFloor) => {
     setSelectedFloor(newFloor);
+  };
+
+  const handleDateRangeChange = (newDateRange) => {
+    setDateRange(newDateRange);
   };
 
   return (
@@ -37,15 +41,17 @@ function BookDesk() {
         }}
       >
         <DeskForm
-  selectedDesk={selectedDesk}
-  onBuildingChange={handleBuildingChange}
-  onFloorChange={handleFloorChange} // Make sure handleFloorChange is a function
-/>
+          selectedDesk={selectedDesk}
+          onBuildingChange={handleBuildingChange}
+          onFloorChange={handleFloorChange}
+          onDateRangeChange={handleDateRangeChange}
+        />
       </div>
-      <Map 
-        onCircleClick={handleCircleClick} 
+      <Map
+        onCircleClick={handleCircleClick}
         selectedBuilding={selectedBuilding}
         selectedFloor={selectedFloor}
+        dateRange={dateRange}
       />
     </Grid>
   );

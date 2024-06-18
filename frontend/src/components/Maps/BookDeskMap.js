@@ -17,21 +17,21 @@ import { Card, Button } from "@ui5/webcomponents-react";
 
 // Create an object to map floor plans to their respective keys
 const floorPlans = {
-  '2-1': floorPlan21,
-  '2-2': floorPlan22,
-  '2-3': floorPlan23,
-  '3-1': floorPlan31,
-  '3-3': floorPlan33,
+  "2-1": floorPlan21,
+  "2-2": floorPlan22,
+  "2-3": floorPlan23,
+  "3-1": floorPlan31,
+  "3-3": floorPlan33,
   // Add more floor plans here
 };
 
-function Map({ onCircleClick, selectedBuilding, selectedFloor }) {
+function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
   // Add a new state variable for the selected floor plan
-const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -39,10 +39,12 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
 
-      fetch(`${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userDetails.id}`)
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userDetails.id}`
+      )
         .then((response) => response.json())
         .then((data) => {
-          setFavouritedDesks(data.map(desk => desk.desk_id));
+          setFavouritedDesks(data.map((desk) => desk.desk_id));
         })
         .catch((error) => console.error(error));
     }
@@ -55,8 +57,10 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
     if (floorPlans[floorPlanKey]) {
       setSelectedFloorPlan(floorPlans[floorPlanKey]);
     } else {
-      console.warn(`Floor plan ${floorPlanKey} does not exist. Defaulting to '2-1'.`);
-      setSelectedFloorPlan(floorPlans['2-1']);
+      console.warn(
+        `Floor plan ${floorPlanKey} does not exist. Defaulting to '2-1'.`
+      );
+      setSelectedFloorPlan(floorPlans["2-1"]);
     }
   }, [selectedBuilding, selectedFloor]);
   console.log(selectedBuilding + "-" + selectedFloor);
@@ -70,8 +74,10 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
   const [coordinates, setCoordinates] = useState([]);
 
   // Fetch the coordinates from the JSON file when the component mounts
+  // Fetch the coordinates from the JSON file when the component mounts
   useEffect(() => {
-    fetch("/coordinates.json")
+    const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`; // Modify this line to use the selected floor
+    fetch(coordinatesFile)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -83,7 +89,7 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
         setCoordinates(data);
       })
       .catch((error) => console.log("Fetching coordinates failed: ", error));
-  }, []);
+  }, [selectedFloor, selectedBuilding]); // Add selectedFloor as a dependency
 
   const handleFavourite = (deskId) => {
     fetch(
@@ -114,7 +120,23 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         console.log(`Desk ${deskId} removed from favourites`);
-        setFavouritedDesks(favouritedDesks.filter(id => id !== deskId));
+        setFavouritedDesks(favouritedDesks.filter((id) => id !== deskId));
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleBook = (deskId) => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
+      {
+        method: "POST",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Desk ${deskId} booked`);
       })
       .catch((error) => console.error(error));
   };
@@ -129,7 +151,11 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
           crs={L.CRS.Simple}
           attributionControl={false}
         >
-          <ImageOverlay key={selectedFloorPlan} url={selectedFloorPlan} bounds={bounds} />
+          <ImageOverlay
+            key={selectedFloorPlan}
+            url={selectedFloorPlan}
+            bounds={bounds}
+          />
 
           {coordinates.map((coordinate, index) => (
             <Circle
@@ -153,14 +179,26 @@ const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans['2-1']);
                   ? `Booked by ${coordinate.bookedBy}`
                   : coordinate.popup}
                 {favouritedDesks.includes(coordinate.popup) ? (
-                  <Button design="Negative" onClick={() => handleUnfavourite(coordinate.popup)}>
+                  <Button
+                    design="Negative"
+                    onClick={() => handleUnfavourite(coordinate.popup)}
+                  >
                     Unfavourite
                   </Button>
                 ) : (
-                  <Button design="Positive" onClick={() => handleFavourite(coordinate.popup)}>
+                  <Button
+                    design="Positive"
+                    onClick={() => handleFavourite(coordinate.popup)}
+                  >
                     Favourite
                   </Button>
                 )}
+                <Button
+                  design="Emphasized"
+                  onClick={() => handleBook(coordinate.popup)}
+                >
+                  Book
+                </Button>
               </Popup>
             </Circle>
           ))}
