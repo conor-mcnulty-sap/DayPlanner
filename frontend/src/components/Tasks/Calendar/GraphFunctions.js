@@ -39,3 +39,11 @@ export async function createEvents(accessToken, event) {
   console.log('Created RDV...');
   return res;
 }
+
+export async function sendEmail(accessToken, event) {
+  const client = getAuthenticatedClient(accessToken);
+
+  let res = await client.api('/me/sendMail').post(event);
+  console.log('Sending Email...');
+  return res;
+}

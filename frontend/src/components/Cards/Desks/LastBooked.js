@@ -58,9 +58,7 @@ const LastBooked = () => {
     const deskId = lastBooked[0].desk_id;
     const today = moment().format("YYYY-MM-DD");
     const dateRange = `${today}-${today}`;
-    console.log("deskID check:",deskId);
-    console.log("dateRange check:",dateRange);
-    console.log("useridcheck,",userId);
+  
     fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`, {
       method: "POST",
       headers: {
@@ -72,16 +70,20 @@ const LastBooked = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text(); 
+        return response.text();
       })
       .then((text) => {
         try {
           const data = JSON.parse(text); // Try to parse as JSON
           console.log("Response (parsed as JSON):", data);
           alert("Desk Booked Successfully.");
+          // Reload the page to reflect changes
+          window.location.reload();
         } catch (error) {
           console.log("Response (raw text):", text);
           alert("Desk Booked Successfully.");
+          // Reload the page to reflect changes
+          window.location.reload();
         }
       })
       .catch((error) => console.error("Error:", error));

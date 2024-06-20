@@ -24,9 +24,10 @@ function BookTeam() {
           justifyContent: "center",
           alignItems: "center",
           height: "100%",
+          
         }}
       >
-        <TeamBooking selectedDesk={selectedDesk} />
+        <TeamBooking />
       </div>
       <Map onCircleClick={handleCircleClick} />
     </Grid>

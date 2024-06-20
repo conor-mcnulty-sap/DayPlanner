@@ -1,195 +1,177 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
+import { sendEmail, getEvents } from "../Tasks/Calendar/GraphFunctions";
 import {
   Form,
   FormGroup,
   FormItem,
   Input,
-  Button,
-  DateRangePicker,
+  DatePicker,
   Select,
-  MultiInput,
   Option,
+  Button
 } from "@ui5/webcomponents-react";
+import config from "../Tasks/Calendar/Config";
 
-function TeamBooking({ selectedDesk }) {
-  const [userId, setUserId] = useState('');
-  const [building, setBuilding] = useState(
-    selectedDesk ? selectedDesk.building : ""
-  );
-  const [floor, setFloor] = useState(selectedDesk ? selectedDesk.floor : "");
-  const [deskId, setDeskId] = useState(selectedDesk ? selectedDesk.deskId : "");
-  const [dateRange, setDateRange] = useState("");
-  const [deskOptions, setDeskOptions] = useState([]);
+export default class TeamBooking extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      emailAddresses: "",
+      subject: "",
+      body: "",
+      events: [],
+      date: "",
+      building: "",
+      floor: "",
+      room: "",
+      displayName: ""
+    };
+  }
 
-  const today = new Date();
-  const endDate = new Date();
-  endDate.setDate(today.getDate() + 7); // set the end date to 7 days from today
+  async componentDidMount() {
+    try {
+      // Fetch display name from local storage
+      const storedUserDetails = localStorage.getItem("userDetails");
+      if (storedUserDetails) {
+        const userDetails = JSON.parse(storedUserDetails);
+        this.setState({ displayName: userDetails.displayName });
+      }
 
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
+      console.log("Attempting to acquire token silently");
+      const accessToken = await window.msal.acquireTokenSilent({
+        scopes: config.scopes
+      });
+      console.log("Access token acquired", accessToken);
 
-  const startString = formatDate(today);
-  const endString = formatDate(endDate);
+      const events = await getEvents(accessToken);
+      console.log("Fetched events", events);
 
-  const defaultRange = `${startString} - ${endString}`;
-
-  useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
-    if (storedUserDetails) {
-      const userDetails = JSON.parse(storedUserDetails);
-      setUserId(userDetails.id);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (floor) {
-      const floorNumber = floor.replace("Floor ", "");
-      fetch(
-        `${process.env.REACT_APP_API_URL}/api/desks/filterbyfloor?floor=${floorNumber}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Desks data:", data);
-        })
-        .catch((error) => console.error("Error fetching desks:", error));
-
-      // Update desk options based on selected floor
-      if (floor === "Floor 1") {
-        setDeskOptions(["101", "102", "103"]);
-      } else if (floor === "Floor 2") {
-        setDeskOptions(["DUB05-2-L-12","DUB05-2-L-13","DUB05-2-L-14","DUB05-2-L-15","DUB05-2-L-16","DUB05-2-L-17","DUB05-2-L-18"]);
-      } else if (floor === "Floor 3") {
-        setDeskOptions(["301", "302", "303"]);
+      this.setState({ accessToken, events: events.value });
+    } catch (err) {
+      console.error("Error fetching events", err);
+      if (this.props.showError) {
+        this.props.showError('ERROR', JSON.stringify(err));
       }
     }
-  }, [floor]);
+  }
 
-  const handleDateRangeChange = (event) => {
-    const [startDate, endDate] = event.detail.value.split(" - ");
-    const formattedStartDate = formatDate(new Date(startDate));
-    const formattedEndDate = formatDate(new Date(endDate));
-    setDateRange(`${formattedStartDate}-${formattedEndDate}`);
-  };
+  handleSendEmail = async () => {
+    const { accessToken, emailAddresses, body, displayName, date } = this.state;
 
-  const handleSubmit = () => {
-    const data = {
-      user_id: userId,
-      desk_id: deskId,
-      date: dateRange, // send the entire date range
-    };
-  
-    console.log("Submitting data:", data);
-  
-    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    if (!accessToken) {
+      console.error("Access token is not available");
+      return;
+    }
+
+    const emailList = emailAddresses.split(',').map(email => email.trim());
+
+    const message = {
+      message: {
+        subject: `Desk Booked For You by ${displayName}`,
+        body: {
+          contentType: "Text",
+          content: `${displayName} booked a desk for you for ${date}. Please follow this link to verify the booking: http://localhost:3000/verifydesk`
+        },
+        toRecipients: emailList.map(email => ({ emailAddress: { address: email } }))
       },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text(); // Using response.text() to handle non-JSON responses
-      })
-      .then((text) => {
-        try {
-          const data = JSON.parse(text); // Try to parse as JSON
-          console.log("Response:", data);
-        } catch (error) {
-          console.log("Response is not valid JSON:", text);
-        }
-      })
-      .catch((error) => console.error("Error:", error));
+      saveToSentItems: "true"
+    };
+
+    try {
+      const response = await sendEmail(accessToken, message);
+      console.log('Email sent successfully', response);
+    } catch (error) {
+      console.error('Error sending email', error);
+    }
   };
 
-  return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <Form
-        backgroundDesign="Transparent"
-        columnsL={1}
-        columnsM={1}
-        columnsS={1}
-        columnsXL={1}
-        labelSpanL={4}
-        labelSpanM={2}
-        labelSpanS={12}
-        labelSpanXL={4}
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  setBuilding = (event) => {
+    this.setState({ building: event.target.value });
+  };
+
+  setFloor = (event) => {
+    this.setState({ floor: event.target.value });
+  };
+
+  setRoom = (event) => {
+    this.setState({ room: event.target.value });
+  };
+
+  render() {
+    const { emailAddresses, date, building, floor, room } = this.state;
+    return (
+      <div
         style={{
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
+          width:"50%"
         }}
       >
-        <FormGroup titleText="">
-          <FormItem>
-            <DateRangePicker
-              onChange={handleDateRangeChange}
-              primaryCalendarType="Gregorian"
-              valueState="None"
-              defaultValue={defaultRange}
-              style={{ width: "100%" }}
-            />
-          </FormItem>
-          <FormItem label="Building">
-            <Select
-              onChange={(event) =>
-                setBuilding(event.detail.selectedOption.innerText)
-              }
-              selectedKey={building}
-              style={{ width: "100%" }}
-            >
-              {/* Replace with your actual building options */}
-              <Option>DUB 02</Option>
-              <Option>DUB 05</Option>
-              <Option>GAL</Option>
-            </Select>
-          </FormItem>
-          <FormItem label="Floor">
-            <Select
-              onChange={(event) =>
-                setFloor(event.detail.selectedOption.innerText)
-              }
-              selectedKey={floor}
-              style={{ width: "100%" }}
-            >
-              {/* Replace with your actual floor options */}
-              <Option>Floor 1</Option>
-              <Option>Floor 2</Option>
-              <Option>Floor 3</Option>
-            </Select>
-          </FormItem>
-          <FormItem label="Desk">
-            <Select
-              onChange={(event) =>
-                setDeskId(event.detail.selectedOption.innerText)
-              }
-              selectedKey={deskId}
-              style={{ width: "100%" }}
-            >
-              {deskOptions.map((desk) => (
-                <Option key={desk}>{desk}</Option>
-              ))}
-            </Select>
-          </FormItem>
-          <FormItem label= "Emails">
-            <MultiInput
-            type="Email"
-            />
-
-          </FormItem>
-        </FormGroup>
-      </Form>
-      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Form
+          backgroundDesign="Transparent"
+          columnsL={1}
+          columnsM={1}
+          columnsS={1}
+          columnsXL={1}
+       
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <FormGroup titleText="">
+            <FormItem label="Email Addresses (comma separated)">
+              <Input
+                type="text"
+                name="emailAddresses"
+                value={emailAddresses}
+                onChange={this.handleChange}
+                style={{ width: "100%" }}
+              />
+            </FormItem>
+         
+            <FormItem label="Date">
+              <DatePicker
+                value={date}
+                onChange={(event) => this.setState({ date: event.detail.value })}
+                style={{ width: "100%" }}
+                formatPattern="yyyy-MM-dd"
+              />
+            </FormItem>
+           
+            <FormItem label="Building">
+              <Select
+                onChange={this.setBuilding}
+                selectedKey={building}
+                style={{ width: "100%" }}
+              >
+                <Option>DUB 02</Option>
+                <Option>DUB 05</Option>
+                <Option>GAL</Option>
+              </Select>
+            </FormItem>
+            <FormItem label="Floor">
+              <Select
+                onChange={this.setFloor}
+                selectedKey={floor}
+                style={{ width: "100%" }}
+              >
+                <Option>Floor 1</Option>
+                <Option>Floor 2</Option>
+                <Option>Floor 3</Option>
+              </Select>
+            </FormItem>
+          </FormGroup>
+        </Form>
+        <Button color='primary' onClick={this.handleSendEmail}>
+          Send Email
+        </Button>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-export default TeamBooking;

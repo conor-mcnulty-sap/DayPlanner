@@ -10,6 +10,7 @@ import BookMeeting from './pages/BookMeeting';
 import FindDesk from './pages/FindDesk';
 import BookTeam from './pages/BookTeam';
 import SignIn from './components/SignIn';
+import VerifyDesk from './pages/VerifyDesk';
 
 import './App.css';
 
@@ -66,6 +67,7 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/carpool" element={<Carpool />} />
+          <Route path="/verifydesk" element={<VerifyDesk/>}/>
           <Route path="/bookdesk" element={<BookDesk />} />
           {isAuthenticated && (
             <Route

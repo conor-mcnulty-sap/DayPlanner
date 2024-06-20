@@ -8,24 +8,18 @@ const FavouriteDesk = () => {
   const [bookingsToday, setBookingsToday] = useState([]);
   const [userHasBookingToday, setUserHasBookingToday] = useState(false);
 
-  useEffect(() => {
-    const storedUserDetails = localStorage.getItem("userDetails");
-    if (storedUserDetails) {
-      const userDetails = JSON.parse(storedUserDetails);
-      setUserId(userDetails.id);
-    }
-  }, []);
-
-  useEffect(() => {
+  // Function to fetch favourite desks
+  const fetchFavouriteDesks = () => {
     if (userId) {
       fetch(`${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userId}`)
         .then((response) => response.json())
         .then((data) => setFavouriteDesks(data))
         .catch((error) => console.error(error));
     }
-  }, [userId]);
+  };
 
-  useEffect(() => {
+  // Function to fetch bookings for today
+  const fetchBookingsToday = () => {
     const today = moment().format("YYYY-MM-DD");
     if (userId) {
       fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${today}`)
@@ -37,6 +31,22 @@ const FavouriteDesk = () => {
         })
         .catch((error) => console.error(error));
     }
+  };
+
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem("userDetails");
+    if (storedUserDetails) {
+      const userDetails = JSON.parse(storedUserDetails);
+      setUserId(userDetails.id);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchFavouriteDesks(); // Fetch favourite desks on mount or when userId changes
+  }, [userId]);
+
+  useEffect(() => {
+    fetchBookingsToday(); // Fetch bookings today on mount or when userId changes
   }, [userId]);
 
   const bookDesk = (deskId) => {
@@ -62,15 +72,25 @@ const FavouriteDesk = () => {
           // Update the state after booking
           setBookingsToday((prevBookings) => [...prevBookings, { desk_id: deskId, user_id: userId }]);
           setUserHasBookingToday(true);
-   
+          // Refresh favourite desks after booking
+          fetchFavouriteDesks();
+          alert("Desk Booked Successfully.");
+          // Reload the page to reflect changes
+          window.location.reload();
         } catch (error) {
           console.log("Response (raw text):", text);
+          setBookingsToday((prevBookings) => [...prevBookings, { desk_id: deskId, user_id: userId }]);
+          setUserHasBookingToday(true);
+          // Refresh favourite desks after booking
+          fetchFavouriteDesks();
           alert("Desk Booked Successfully.");
+          // Reload the page to reflect changes
+          window.location.reload();
         }
       })
       .catch((error) => console.error("Error:", error));
-     
   };
+  
 
   const handleUnfavouriteDesk = (deskId) => {
     fetch(`${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`, {
@@ -82,6 +102,8 @@ const FavouriteDesk = () => {
         }
         setFavouriteDesks(favouriteDesks.filter((desk) => desk.desk_id !== deskId));
         console.log(`Desk ${deskId} removed from favourites`);
+        // Refresh favourite desks after unfavouriting
+        fetchFavouriteDesks();
       })
       .catch((error) => console.error(error));
   };

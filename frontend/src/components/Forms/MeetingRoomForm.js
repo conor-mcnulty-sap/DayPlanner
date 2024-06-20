@@ -10,7 +10,7 @@ import {
   DateTimePicker,
   Input,
   TimePicker,
-  Toast
+ 
 } from "@ui5/webcomponents-react";
 import moment from 'moment';
 import config from "../Tasks/Calendar/Config";
@@ -70,7 +70,7 @@ export default class BookMeetingRoom extends Component {
 
     const queryParams = new URLSearchParams({
         meeting_room: room,
-        user: 1,
+
         start_date_time: formattedStartDateTime,
         end_date_time: endDateTime
     });
