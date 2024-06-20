@@ -10,8 +10,13 @@ import {
   Option,
 } from "@ui5/webcomponents-react";
 
-function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
-  const [userId, setUserId] = useState('');
+function DeskForm({
+  selectedDesk,
+  onBuildingChange,
+  onFloorChange,
+  onDateRangeChange,
+}) {
+  const [userId, setUserId] = useState("");
   const [building, setBuilding] = useState(
     selectedDesk ? selectedDesk.building : ""
   );
@@ -26,8 +31,8 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
 
   const formatDate = (date) => {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
@@ -49,7 +54,7 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
   }, [floor]);
 
   useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
+    const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
@@ -82,40 +87,11 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
     const [startDate, endDate] = event.detail.value.split(" - ");
     const formattedStartDate = formatDate(new Date(startDate));
     const formattedEndDate = formatDate(new Date(endDate));
-    setDateRange(`${formattedStartDate}-${formattedEndDate}`);
-  };
-
-  const handleSubmit = () => {
-    const data = {
-      user_id: userId,
-      desk_id: deskId,
-      date: dateRange,
-    };
-  
-    console.log("Submitting data:", data);
-  
-    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then((text) => {
-        try {
-          const data = JSON.parse(text);
-          console.log("Response:", data);
-        } catch (error) {
-          console.log("Response is not valid JSON:", text);
-        }
-      })
-      .catch((error) => console.error("Error:", error));
+    const newDateRange = `${formattedStartDate}-${formattedEndDate}`;
+    setDateRange(newDateRange);
+    if (onDateRangeChange) {
+      onDateRangeChange(newDateRange);
+    }
   };
 
   return (
@@ -147,34 +123,32 @@ function DeskForm({ selectedDesk, onBuildingChange, onFloorChange }) {
             />
           </FormItem>
           <FormItem label="Building">
-      <Select
-        onChange={(event) => {
-          const selectedBuilding = event.detail.selectedOption.innerText;
-          setBuilding(selectedBuilding);
-        }}
-        selectedKey={building}
-        style={{ width: "100%" }}
-      >
-        <Option>2</Option>
-        <Option>3</Option>
-      </Select>
-    </FormItem>
-    <FormItem label="Floor">
-    <Select
-        onChange={handleFloorChange} // Use the new function here
-        selectedKey={floor}
-        style={{ width: "100%" }}
-      >
-        <Option>1</Option>
-        <Option>2</Option>
-        <Option>3</Option>
-      </Select>
-    </FormItem>
+            <Select
+              onChange={(event) => {
+                const selectedBuilding =
+                  event.detail.selectedOption.dataset.value;
+                setBuilding(selectedBuilding);
+              }}
+              selectedKey={building}
+              style={{ width: "100%" }}
+            >
+              <Option data-value="2">DUB03</Option>
+              <Option data-value="3">DUB05</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="Floor">
+            <Select
+              onChange={handleFloorChange} // Use the new function here
+              selectedKey={floor}
+              style={{ width: "100%" }}
+            >
+              <Option>1</Option>
+              <Option>2</Option>
+              <Option>3</Option>
+            </Select>
+          </FormItem>
         </FormGroup>
       </Form>
-      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <Button onClick={handleSubmit}>Submit</Button>
-      </div>
     </div>
   );
 }

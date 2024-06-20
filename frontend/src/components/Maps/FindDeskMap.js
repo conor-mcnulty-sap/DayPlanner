@@ -33,6 +33,7 @@ function Map() {
       .then(data => {
         // assuming the data contains the coordinates in a property named 'coordinates'
         console.log(data);
+        console.log(data);
         setMarkerPosition(data.coordinates);
       })
       .catch(error => console.error('Error:', error));
