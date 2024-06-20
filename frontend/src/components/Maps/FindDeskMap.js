@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-function Map() {
+function Map({ deskId }) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [markerPosition, setMarkerPosition] = useState([5, 5]); // initial position
   const bounds = [
@@ -24,20 +24,20 @@ function Map() {
   useEffect(() => {
     setIsMapInit(true);
 
-    const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    const userId = 1;
-
-    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/getbookinguserdate?user_id=${userId}&date=${date}`)
+    // Fetch the JSON file from the public folder
+    fetch(`${process.env.PUBLIC_URL}/coordinates-3-2.json`) //-${deskId}
       .then(response => response.json())
-      .then(data => {
-        // assuming the data contains the coordinates in a property named 'coordinates'
-        console.log(data);
-        console.log(data);
-        setMarkerPosition(data.coordinates);
+      .then(deskCoordinates => {
+        // Find the desk with the matching deskId
+        const desk = deskCoordinates.find(d => d.popup === deskId);
+
+        if (desk) {
+          // Set the marker position to the coordinates of the desk
+          setMarkerPosition(desk.position);
+        }
       })
       .catch(error => console.error('Error:', error));
-  }, []);
+  }, [deskId]); // Re-run the effect when `deskId` changes
 
   return (
     <Card style={{ width: "100%", height: "100%" }}>

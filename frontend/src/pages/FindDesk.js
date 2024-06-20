@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/FindDeskMap";
 import SingleSelectCalendar from "../components/FindDesk/Calendar";
 
 function FindDesk() {
+  const [deskId, setDeskId] = useState(null);
+
   return (
     <Grid
       defaultSpan="XL6 L12 M12 S12"
@@ -20,9 +22,14 @@ function FindDesk() {
           height: "100%",
         }}
       >
-        <SingleSelectCalendar />
+        <SingleSelectCalendar
+          onDeskIdFetched={(fetchedDeskId) => {
+            console.log("Fetched desk id:", fetchedDeskId);
+            setDeskId(fetchedDeskId);
+          }}
+        />
       </div>
-      <Map />
+      <Map deskId={deskId} />
     </Grid>
   );
 }
