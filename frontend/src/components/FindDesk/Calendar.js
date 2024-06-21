@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Calendar } from "@ui5/webcomponents-react";
 
-const SingleSelectCalendar = () => {
+const SingleSelectCalendar = ({ onDeskIdFetched }) => {
   useEffect(() => {
     // Get userId from local storage
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -34,8 +34,8 @@ const SingleSelectCalendar = () => {
             return response.json(); // Parse response as JSON
           })
           .then((data) => {
-            console.log("Data:", data);
-            // Handle data accordingly
+            // Call the callback function with the fetched desk id
+            onDeskIdFetched(data[0].desk_id);
           })
           .catch((error) => console.error("Error:", error));
       };
@@ -49,7 +49,7 @@ const SingleSelectCalendar = () => {
         calendar.removeEventListener("selected-dates-change", handleDateChange);
       };
     }
-  }, []);
+  }, [onDeskIdFetched]);
 
   return (
     <Calendar
