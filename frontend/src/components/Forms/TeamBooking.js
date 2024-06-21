@@ -110,7 +110,8 @@ export default class TeamBooking extends Component {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width:"50%"
+          paddingLeft:"15rem",
+          width:"50%",
         }}
       >
         <Form
@@ -119,7 +120,10 @@ export default class TeamBooking extends Component {
           columnsM={1}
           columnsS={1}
           columnsXL={1}
-       
+          labelSpanL={4}
+          labelSpanM={2}
+          labelSpanS={12}
+          labelSpanXL={4}
           style={{
             alignItems: "center",
           }}

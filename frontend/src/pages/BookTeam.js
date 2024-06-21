@@ -24,7 +24,8 @@ function BookTeam() {
           justifyContent: "center",
           alignItems: "center",
           height: "100%",
-          
+          width:"60%",
+          paddingLeft:"15rem"
         }}
       >
         <TeamBooking />

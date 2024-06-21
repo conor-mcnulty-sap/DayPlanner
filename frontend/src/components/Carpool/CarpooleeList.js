@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Card,
   List,
   StandardListItem,
   CardHeader,
+  Popover,
+  Label,
+  Icon
 } from "@ui5/webcomponents-react";
- 
+import "@ui5/webcomponents-icons/dist/AllIcons.js";
+
 function CarpooleeList() {
   const [listData, setListData] = useState([]);
   const [userId, setUserId] = useState('');
-
+  const [selectedEmail, setSelectedEmail] = useState('');
+  const popoverRef = useRef();
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem('userDetails');
@@ -20,7 +25,6 @@ function CarpooleeList() {
     }
   }, []);
 
- 
   useEffect(() => {
     if (userId) {
       fetch(
@@ -40,8 +44,20 @@ function CarpooleeList() {
         .catch((error) => console.log("Fetching Distance failed: ", error));
     }
   }, [userId]);
-  
- 
+
+  const handleItemClick = (event, email) => {
+    setSelectedEmail(email);
+    popoverRef.current.showAt(event.target);
+  };
+
+  const handleClosePopover = () => {
+    popoverRef.current.close();
+  };
+
+  const handleTeamsChatClick = () => {
+    window.open(`msteams:/l/chat/0/0?users=${selectedEmail}`, '_blank');
+  };
+
   return (
     <Card
       header={<CardHeader titleText="Looking for" />}
@@ -58,12 +74,6 @@ function CarpooleeList() {
         <List
           growing="None"
           mode="None"
-          onItemClick={function _a() {}}
-          onItemClose={function _a() {}}
-          onItemDelete={function _a() {}}
-          onItemToggle={function _a() {}}
-          onLoadMore={function _a() {}}
-          onSelectionChange={function _a() {}}
           separators="All"
           style={{
             width: "100%",
@@ -73,15 +83,40 @@ function CarpooleeList() {
           }}
         >
           {listData.map((item, index) => (
-            <StandardListItem key={index} additionalText={`${item.distance} km`}>
-              {item.carpoolee.users.name} - {item.carpoolee.users.email}
+            <StandardListItem
+              key={index}
+              additionalText={`${item.distance} km`}
+              onClick={(event) => handleItemClick(event, item.carpoolee.users.email)}
+            >
+              {item.carpoolee.users.name}
             </StandardListItem>
           ))}
         </List>
       </div>
+      <Popover
+        ref={popoverRef}
+        headerText="Contact"
+        horizontalAlign="Center"
+        verticalAlign="Center"
+        placementType="Bottom"
+        onAfterClose={handleClosePopover}
+      >
+        <Label>
+          <a href={`mailto:${selectedEmail}`}>{selectedEmail}</a>
+        </Label>
+        <Icon
+          name="sap-icon://message-popup"
+          style={{
+            position: "absolute",
+            right: "10px",
+            top: "15%",
+            cursor: "pointer",
+          }}
+          onClick={handleTeamsChatClick}
+        />
+      </Popover>
     </Card>
   );
 }
- 
+
 export default CarpooleeList;
- 

@@ -98,8 +98,9 @@ const CarpoolerForm = () => {
   
     <Card
       header={<CardHeader titleText="Give a Lift" />}
-      style={{
-        width: "100%",
+      style={{ 
+        width: "50%",
+        height:"18rem",
         maxHeight: "50vh",
       }}
     >

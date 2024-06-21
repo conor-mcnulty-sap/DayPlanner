@@ -9,23 +9,27 @@ import CarpoolMap from "../components/Carpool/CarpoolMap";
 function Carpool() {
   return (
     <div
-    style={{
-      margin: "2rem auto 4rem auto", // Center the content
-      width: "90%", // Adjust the width of the page
-      alignItems: "start", // Align items to the start
-    }}
-  >
+      style={{
+        margin: "1rem auto 4rem auto", // Center the content
+        width: "90%", 
+        alignItems: "start",
+        minHeight: "60vh", // Adjust the minimum height here
+      }}
+    >
       <Grid
         defaultSpan="xl6 l6 m6 s12"
-        vSpacing={"2rem"}
+        
         hSpacing={"2rem"}
+        vSpacing={"2rem"}
         style={{ margin: "2rem" }}
       >
-        <CarpooleeForm />
-        <CarpoolerForm />
-        <CarpooleeList/>
-        <CarpoolList />
+        <div style={{ display: "flex", gap: "2rem" }}>
+          <CarpooleeForm />
+          <CarpoolerForm />
+        </div>
         <CarpoolMap />
+        <CarpooleeList />
+        <CarpoolList />
       </Grid>
     </div>
   );

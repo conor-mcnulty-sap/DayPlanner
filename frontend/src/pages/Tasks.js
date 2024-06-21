@@ -19,21 +19,16 @@ const Tasks = ({ isAuthenticated, user, logout, login }) => {
         hSpacing={"2rem"}
         style={{ margin: "2rem" }}
       >
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
-      <div style={{ }}>
-        {isAuthenticated && <Calendar isAuthenticated={isAuthenticated} user={user} logout={logout} />}
-        
-        <div style={{ width: "200%" }}>
-          <MyTasks />
+   
+   <div style={{width:"100%"}} >
+    {isAuthenticated && <Calendar isAuthenticated={isAuthenticated} user={user} logout={logout} />}
+    <MyTasks />
         </div>
-      </div>
+  
+         
 
-      <div style={{ flex: 1, marginLeft: '20px' }}>
-        <div style={{ width: "150%", marginLeft:"23rem" }}>
           <TasksForm />
-        </div>
-      </div>
-    </div>
+        
     </Grid>
     </div>
   );

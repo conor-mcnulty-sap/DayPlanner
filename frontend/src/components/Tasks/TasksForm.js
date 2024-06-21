@@ -164,7 +164,7 @@ export default class TaskForm extends Component {
     const { today } = this.state;
 
     return (
-      <Card header={<CardHeader titleText="Create A Task" />} style={{}}>
+      <Card header={<CardHeader titleText="Create A Task" />} style={{width:"100%"}}>
         <Form
           backgroundDesign="Transparent"
           columnsL={1}
@@ -191,11 +191,11 @@ export default class TaskForm extends Component {
             <FormItem label={<Label>Colour</Label>}>
               <ColorPalettePopoverComponent ref={this.colourRef} />
             </FormItem>
-            <FormItem>
-              <Button type="submit" onClick={this.handleSubmit} style={{}}>
+            <FormItem style={{paddingLeft:"50%"}}>
+              <Button type="submit" onClick={this.handleSubmit} >
                 Submit
               </Button>
-            </FormItem>
+              </FormItem>
           </FormGroup>
         </Form>
       </Card>

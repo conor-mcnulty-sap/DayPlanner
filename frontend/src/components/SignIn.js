@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { UserAgentApplication } from 'msal';
 import { Button } from '@ui5/webcomponents-react';
 import config from './Tasks/Calendar/Config';
-import { getUserDetails } from '../assets/GraphFunctions'; 
+import { getUserDetails } from '../assets/GraphFunctions';
 
 class SignIn extends Component {
   constructor(props) {
@@ -25,11 +25,59 @@ class SignIn extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const user = this.userAgentApplication.getAccount();
     if (user) {
       this.setState({ isAuthenticated: true, user });
       this.props.onLogin(user);
+    } else {
+      try {
+        // Check if the redirect response contains authentication result
+        const authResult = await this.userAgentApplication.handleRedirectCallback();
+        if (authResult) {
+          this.setState({ isAuthenticated: true, user: authResult.account });
+          this.props.onLogin(authResult.account);
+
+          const accessTokenResponse = await this.userAgentApplication.acquireTokenSilent({
+            scopes: config.scopes,
+          });
+
+          if (accessTokenResponse.accessToken) {
+            await getUserDetails({ accessToken: accessTokenResponse.accessToken });
+
+            const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+            const params = new URLSearchParams({
+              id: userDetails.id,
+              name: userDetails.displayName,
+              email: userDetails.mail,
+            });
+
+            try {
+              const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/createuser?${params.toString()}`, {
+                method: 'POST',
+              });
+
+              if (!response.ok) {
+                console.error('Server error:', response.status, response.statusText);
+                return;
+              }
+
+              const text = await response.text();
+              const data = text ? JSON.parse(text) : {};
+
+              if (data) {
+                console.log('Response from server:', data);
+              } else {
+                console.error('No data received from server');
+              }
+            } catch (error) {
+              console.error('Network error:', error);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error handling redirect:', error);
+      }
     }
   }
 
@@ -39,43 +87,39 @@ class SignIn extends Component {
         scopes: config.scopes,
         prompt: 'select_account',
       });
-  
+
       const user = this.userAgentApplication.getAccount();
       if (user) {
         this.setState({ isAuthenticated: true, user });
         this.props.onLogin(user);
-  
-        // Get the access token
+
         const accessTokenResponse = await this.userAgentApplication.acquireTokenSilent({
           scopes: config.scopes,
         });
-  
-        // Fetch user details and store in localStorage
+
         if (accessTokenResponse.accessToken) {
           await getUserDetails({ accessToken: accessTokenResponse.accessToken });
-  
-          // Construct params for the POST request
+
           const userDetails = JSON.parse(localStorage.getItem('userDetails'));
           const params = new URLSearchParams({
             id: userDetails.id,
             name: userDetails.displayName,
             email: userDetails.mail,
           });
-  
-          // Make POST request to the endpoint
+
           try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/createuser?${params.toString()}`, {
               method: 'POST',
             });
-  
+
             if (!response.ok) {
               console.error('Server error:', response.status, response.statusText);
               return;
             }
-  
+
             const text = await response.text();
             const data = text ? JSON.parse(text) : {};
-  
+
             if (data) {
               console.log('Response from server:', data);
             } else {
@@ -95,7 +139,7 @@ class SignIn extends Component {
     this.userAgentApplication.logout();
     this.setState({ isAuthenticated: false, user: null });
     this.props.onLogout();
-    localStorage.removeItem('userDetails'); 
+    localStorage.removeItem('userDetails');
   };
 
   render() {

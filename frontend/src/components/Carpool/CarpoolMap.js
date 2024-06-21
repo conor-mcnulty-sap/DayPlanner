@@ -22,7 +22,8 @@ function CarpoolMap() {
   }
 
   return (
-    <Card heading="Carpool Map" style={{ width: "100%", maxHeight: "50vh" }}>
+    <Card heading="Carpool Map" style={{ width: "100%",  height:"18rem",
+      maxHeight: "50vh", }}>
       <MapContainer
         center={position}
         zoom={13}

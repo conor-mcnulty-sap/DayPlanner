@@ -39,7 +39,7 @@ export default class Calendar extends Component {
         <CardHeader
           titleText="My Calendar"
         />}
-        style={{ width: '200%' }}
+        style={{ width: '100%' }}
       >
         {this.state.events.map(event => (
           <List key={event.id}>
