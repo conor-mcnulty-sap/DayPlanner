@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardHeader, Button, List } from "@ui5/webcomponents-react";
+import { Card, CardHeader, Button, List, Dialog, Bar } from "@ui5/webcomponents-react";
 import moment from "moment";
 
 const FavouriteDesk = () => {
@@ -7,8 +7,9 @@ const FavouriteDesk = () => {
   const [favouriteDesks, setFavouriteDesks] = useState([]);
   const [bookingsToday, setBookingsToday] = useState([]);
   const [userHasBookingToday, setUserHasBookingToday] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
-  // Function to fetch favourite desks
   const fetchFavouriteDesks = () => {
     if (userId) {
       fetch(`${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userId}`)
@@ -18,7 +19,6 @@ const FavouriteDesk = () => {
     }
   };
 
-  // Function to fetch bookings for today
   const fetchBookingsToday = () => {
     const today = moment().format("YYYY-MM-DD");
     if (userId) {
@@ -42,11 +42,11 @@ const FavouriteDesk = () => {
   }, []);
 
   useEffect(() => {
-    fetchFavouriteDesks(); // Fetch favourite desks on mount or when userId changes
+    fetchFavouriteDesks();
   }, [userId]);
 
   useEffect(() => {
-    fetchBookingsToday(); // Fetch bookings today on mount or when userId changes
+    fetchBookingsToday();
   }, [userId]);
 
   const bookDesk = (deskId) => {
@@ -68,29 +68,24 @@ const FavouriteDesk = () => {
       .then((text) => {
         try {
           const data = JSON.parse(text);
-          console.log("Response (parsed as JSON):", data);
-          // Update the state after booking
           setBookingsToday((prevBookings) => [...prevBookings, { desk_id: deskId, user_id: userId }]);
           setUserHasBookingToday(true);
-          // Refresh favourite desks after booking
           fetchFavouriteDesks();
-          alert("Desk Booked Successfully.");
-          // Reload the page to reflect changes
-          window.location.reload();
+          setDialogMessage("Desk Booked Successfully.");
         } catch (error) {
-          console.log("Response (raw text):", text);
           setBookingsToday((prevBookings) => [...prevBookings, { desk_id: deskId, user_id: userId }]);
           setUserHasBookingToday(true);
-          // Refresh favourite desks after booking
           fetchFavouriteDesks();
-          alert("Desk Booked Successfully.");
-          // Reload the page to reflect changes
-          window.location.reload();
+          setDialogMessage("Desk Booked Successfully.");
         }
+        setDialogOpen(true);
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        console.error("Error:", error);
+        setDialogMessage("Error booking the desk.");
+        setDialogOpen(true);
+      });
   };
-  
 
   const handleUnfavouriteDesk = (deskId) => {
     fetch(`${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`, {
@@ -101,11 +96,20 @@ const FavouriteDesk = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         setFavouriteDesks(favouriteDesks.filter((desk) => desk.desk_id !== deskId));
-        console.log(`Desk ${deskId} removed from favourites`);
-        // Refresh favourite desks after unfavouriting
         fetchFavouriteDesks();
+        setDialogMessage(`Desk ${deskId} removed from favourites`);
+        setDialogOpen(true);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setDialogMessage("Error removing the desk from favourites.");
+        setDialogOpen(true);
+      });
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+    window.location.reload();
   };
 
   return (
@@ -160,6 +164,19 @@ const FavouriteDesk = () => {
           </Card>
         )}
       </List>
+
+      <Dialog
+        headerText="Book A Desk"
+        footer={
+          <Bar
+            endContent={<Button design="Emphasized" onClick={closeDialog}>OK</Button>}
+          />
+        }
+        open={dialogOpen}
+        onAfterClose={closeDialog}
+      >
+        <p>{dialogMessage}</p>
+      </Dialog>
     </Card>
   );
 };

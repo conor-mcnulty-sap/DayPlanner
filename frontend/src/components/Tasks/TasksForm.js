@@ -10,11 +10,13 @@ import {
   Button,
   Card,
   CardHeader,
+  Dialog,
+  Bar
 } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-localization/dist/Assets.js';
 import ColorPalettePopoverComponent from './ColourPalette';
 import config from "./Calendar/Config";
-import { createEvents, getEvents } from '../../assets/GraphFunctions';
+import { createEvents } from '../../assets/GraphFunctions';
 import moment from 'moment';
 
 export default class TaskForm extends Component {
@@ -29,7 +31,8 @@ export default class TaskForm extends Component {
     this.state = {
       today: new Date().toISOString().split('T')[0],
       userId: '',
-      email:'',
+      email: '',
+      dialogOpen: false
     };
   }
 
@@ -133,7 +136,7 @@ export default class TaskForm extends Component {
         location: {
           displayName: `Task`,
           locationType: 'Default'
-      },
+        },
       };
 
       this.setState({ event: event });
@@ -142,10 +145,9 @@ export default class TaskForm extends Component {
 
       await createEvents(accessToken, event);
       console.log('Event created successfully');
-      alert("Task Added.");
-      
-      // Reload the page after the event is successfully created
-      window.location.reload();
+
+      // Open dialog after the event is successfully created
+      this.setState({ dialogOpen: true });
     } catch (err) {
       console.error("Error creating event", err);
       if (this.props.showError) {
@@ -160,11 +162,17 @@ export default class TaskForm extends Component {
     if (this.colourRef.current) this.colourRef.current.value = 'null';
   };
 
+  closeDialog = () => {
+    this.setState({ dialogOpen: false });
+    // Reload the page after closing the dialog
+    window.location.reload();
+  };
+
   render() {
-    const { today } = this.state;
+    const { today, dialogOpen } = this.state;
 
     return (
-      <Card header={<CardHeader titleText="Create A Task" />} style={{width:"100%"}}>
+      <Card header={<CardHeader titleText="Create A Task" />} style={{ width: "100%" }}>
         <Form
           backgroundDesign="Transparent"
           columnsL={1}
@@ -191,13 +199,22 @@ export default class TaskForm extends Component {
             <FormItem label={<Label>Colour</Label>}>
               <ColorPalettePopoverComponent ref={this.colourRef} />
             </FormItem>
-            <FormItem style={{paddingLeft:"50%"}}>
-              <Button type="submit" onClick={this.handleSubmit} >
+            <FormItem style={{ paddingLeft: "50%" }}>
+              <Button type="submit" onClick={this.handleSubmit}>
                 Submit
               </Button>
-              </FormItem>
+            </FormItem>
           </FormGroup>
         </Form>
+        <Dialog
+          headerText="Task Added"
+          open={dialogOpen}
+          footer={
+            <Bar design="Footer" endContent={<Button onClick={this.closeDialog}>Close</Button>} />
+          }
+        >
+          Task Added Successfully.
+        </Dialog>
       </Card>
     );
   }

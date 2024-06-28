@@ -31,7 +31,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
   // Add a new state variable for the selected floor plan
-  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-1"]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");

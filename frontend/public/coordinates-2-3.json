@@ -1,43 +1,80 @@
 [
-    { "position": [6.65, 3.35], "popup": "DUB05-2-L-12", "building": "DUB05", "floor": "2" ,"color": "green" },
-    { "position": [6.2, 3.9], "popup": "DUB05-2-L-13", "building": "DUB05", "floor": "2","color": "green"  },
-    { "position": [6, 3.25], "popup": "DUB05-2-L-14" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [5.4, 3.45], "popup": "DUB05-2-L-15" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [5.6, 4.15], "popup": "DUB05-2-L-16" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [4.95, 3.95], "popup": "DUB05-2-L-17" , "building": "DUB05", "floor": "2","color": "green" },
 
-    { "position": [4.35, 3.75], "popup": "DUB05-2-L-18", "building": "DUB05", "floor": "2","color": "green"  },
-    { "position": [3.65, 3.95], "popup": "DUB05-2-L-19" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [4.15, 4.5], "popup": "DUB05-2-L-20" , "building": "DUB05", "floor": "2","color": "green" },
+    { "position": [7.7, 20.6], "popup": "DUB03-3-R-01", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [6.8, 20.4], "popup": "DUB03-3-R-02" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [7.7, 21.4], "popup": "DUB03-3-R-03" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.85, 21.3], "popup": "DUB03-3-R-04" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.1, 21], "popup": "DUB03-3-R-05" , "building": "DUB03", "floor": "3","color": "green" },
 
-    { "position": [3.7, 4.9], "popup": "DUB05-2-L-27" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [3.05, 4.8], "popup": "DUB05-2-L-28" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [3.25, 5.5], "popup": "DUB05-2-L-29" , "building": "DUB05", "floor": "2","color": "green" },
-
-    
-    { "position": [6.95, 4.3], "popup": "DUB05-2-L-21" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [6.5, 4.95], "popup": "DUB05-2-L-22" , "building": "DUB05", "floor": "2","color": "red" },
-    { "position": [6.15, 5.4], "popup": "DUB05-2-L-23", "building": "DUB05", "floor": "2","color": "red"  },
-    { "position": [6.05, 6.1], "popup": "DUB05-2-L-24" , "building": "DUB05", "floor": "2","color": "red" },
-    { "position": [6.65, 5.85], "popup": "DUB05-2-L-25", "building": "DUB05", "floor": "2","color": "red"  },
-    { "position": [6.9, 5.05], "popup": "DUB05-2-L-26", "building": "DUB05", "floor": "2","color": "green"  },
-
-    
+    { "position": [7.45, 23.1], "popup": "DUB03-3-R-08", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [6.7, 23.05], "popup": "DUB03-3-R-09" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6, 22.85], "popup": "DUB03-3-R-10" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.65, 22.25], "popup": "DUB03-3-R-07" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [7.55, 22.40], "popup": "DUB03-3-R-06" , "building": "DUB03", "floor": "3","color": "green" },
 
 
-    
-    { "position": [7.9, 7.7], "popup": "DUB05-2-L-30" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [7.25, 7.9], "popup": "DUB05-2-L-31", "building": "DUB05", "floor": "2","color": "green"  },
-    { "position": [6.85, 8.35], "popup": "DUB05-2-L-32" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [6.75, 9.05], "popup": "DUB05-2-L-33" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [7.35, 8.85], "popup": "DUB05-2-L-34" , "building": "DUB05", "floor": "2","color": "green" },
-    { "position": [7.8, 8.35], "popup": "DUB05-2-L-35" , "building": "DUB05", "floor": "2","color": "green" },
+    { "position": [6.1, 24.4], "popup": "DUB03-3-R-11", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [7.15, 24.4], "popup": "DUB03-3-R-12" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.9, 25.15], "popup": "DUB03-3-R-13" , "building": "DUB03", "floor": "3","color": "green" },
 
-    { "position": [3.1, 3.84], "popup": "DUB05-2-L-12", "building": "DUB05", "floor": "2","color": "red"  },
-    { "position": [3, 4.5], "popup": "DUB05-2-L-13", "building": "DUB05", "floor": "2" ,"color": "red" },
-    { "position": [2.5, 4.05], "popup": "DUB05-2-L-14" , "building": "DUB05", "floor": "2","color": "red" },
-    { "position": [2.15, 4.5], "popup": "DUB05-2-L-15" , "building": "DUB05", "floor": "2","color": "red" },
-    { "position": [2.05, 5.15], "popup": "DUB05-2-L-16" , "building": "DUB05", "floor": "2","color": "red" },
-    { "position": [2.6, 4.95], "popup": "DUB05-2-L-17" , "building": "DUB05", "floor": "2","color": "red" }
+    { "position": [4.7, 19.8], "popup": "DUB03-3-R-14", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [3.8, 19.7], "popup": "DUB03-3-R-15" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4.8, 20.7], "popup": "DUB03-3-R-16" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4, 20.6], "popup": "DUB03-3-R-17" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.4, 20.2], "popup": "DUB03-3-R-18" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [4.5, 21.8], "popup": "DUB03-3-R-19", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [3.35, 21.55], "popup": "DUB03-3-R-20" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4.55, 22.65], "popup": "DUB03-3-R-21" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.85, 22.65], "popup": "DUB03-3-R-22" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.2, 22.2], "popup": "DUB03-3-R-23" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [3.5, 23.8], "popup": "DUB03-3-R-24", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [2.55, 23.25], "popup": "DUB03-3-R-25" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.65, 24.55], "popup": "DUB03-3-R-26" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [2.85, 24.45], "popup": "DUB03-3-R-27" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [2.2, 24.2], "popup": "DUB03-3-R-28" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [7.7, 10.9], "popup": "DUB03-3-L-01", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [6.9, 10.9], "popup": "DUB03-3-L-02" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.1, 11], "popup": "DUB03-3-L-03" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [7.7, 10], "popup": "DUB03-3-L-04" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.8, 10.2], "popup": "DUB03-3-L-05" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [7.5, 8.7], "popup": "DUB03-3-L-06", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [6.7, 9], "popup": "DUB03-3-L-07" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6, 9.2], "popup": "DUB03-3-L-08" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [7.3, 7.9], "popup": "DUB03-3-L-09" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.4, 8.2], "popup": "DUB03-3-L-10" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [6.8, 6.45], "popup": "DUB03-3-L-11", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [6.1, 6.9], "popup": "DUB03-3-L-12" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [5.3, 7.1], "popup": "DUB03-3-L-13" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [6.5, 5.7], "popup": "DUB03-3-L-14" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [5.7, 6], "popup": "DUB03-3-L-15" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [4.8, 11], "popup": "DUB03-3-L-16", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [4.1, 11.05], "popup": "DUB03-3-L-17" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.3, 11.05], "popup": "DUB03-3-L-18" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4.8, 10.2], "popup": "DUB03-3-L-19" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4, 10.25], "popup": "DUB03-3-L-20" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [4.75, 9.2], "popup": "DUB03-3-L-21", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [4, 9.3], "popup": "DUB03-3-L-22" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.2, 9.35], "popup": "DUB03-3-L-23" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4.7, 8.4], "popup": "DUB03-3-L-24" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.9, 8.5], "popup": "DUB03-3-L-25" , "building": "DUB03", "floor": "3","color": "green" },
+
+    { "position": [4.3, 7.25], "popup": "DUB03-3-L-26", "building": "DUB03", "floor": "3","color": "green"  },
+    { "position": [3.55, 7.5], "popup": "DUB03-3-L-27" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [2.6, 7.6], "popup": "DUB03-3-L-28" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [4, 6.55], "popup": "DUB03-3-L-29" , "building": "DUB03", "floor": "3","color": "green" },
+    { "position": [3.2, 6.8], "popup": "DUB03-3-L-30" , "building": "DUB03", "floor": "3","color": "green" }
+
+
+
+
+
+
   
 ]
