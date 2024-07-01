@@ -10,7 +10,8 @@ import {
   DateTimePicker,
   Input,
   TimePicker,
- 
+  Dialog,
+  Bar
 } from "@ui5/webcomponents-react";
 import moment from 'moment';
 import config from "../Tasks/Calendar/Config";
@@ -32,7 +33,9 @@ export default class BookMeetingRoom extends Component {
       subject: '',
       startDateTime: '',
       duration: '',
-      email: ''
+      email: '',
+      dialogOpen: false,
+      dialogMessage: ''
     };
 
     this.onClick = this.onClick.bind(this);
@@ -40,6 +43,7 @@ export default class BookMeetingRoom extends Component {
     this.setFloor = this.setFloor.bind(this);
     this.setRoom = this.setRoom.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   async componentDidMount() {
@@ -70,7 +74,6 @@ export default class BookMeetingRoom extends Component {
 
     const queryParams = new URLSearchParams({
         meeting_room: room,
-
         start_date_time: formattedStartDateTime,
         end_date_time: endDateTime
     });
@@ -102,7 +105,6 @@ export default class BookMeetingRoom extends Component {
     return result;
 }
 
-
 async onClick() {
   try {
       const { building, floor, room, subject, startDateTime, duration, email } = this.state;
@@ -110,7 +112,7 @@ async onClick() {
       // Check room availability
       const availability = await this.checkRoomAvailability();
       if (availability === "Meeting Room already booked for that date and time") {
-          alert("Meeting room already booked.");
+          this.setState({ dialogOpen: true, dialogMessage: "Meeting room already booked." });
           return;
       }
     
@@ -120,7 +122,6 @@ async onClick() {
       });
       console.log("Access token acquired for event creation", accessToken);
 
- 
       const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
       const [hours, minutes] = duration.split(':').map(Number);
       const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').toISOString();
@@ -161,139 +162,159 @@ async onClick() {
 
       await createEvents(accessToken, event);
       console.log('Event created successfully');
-      alert("Meeting Room Booked.");
+      this.setState({ dialogOpen: true, dialogMessage: "Meeting Room Booked successfully." });
   } catch (err) {
       console.error("Error creating event", err);
+      this.setState({ dialogOpen: true, dialogMessage: "Error booking the meeting room." });
       if (this.props.showError) {
           this.props.showError('ERROR', JSON.stringify(err));
       }
   }
 }
-  setBuilding(event) {
-    const building = event.detail.selectedOption.innerText;
-    console.log(`Setting state: building = ${building}`);
-    this.setState({ building });
+
+setBuilding(event) {
+  const building = event.detail.selectedOption.innerText;
+  console.log(`Setting state: building = ${building}`);
+  this.setState({ building });
+}
+
+setFloor(event) {
+  const floor = event.detail.selectedOption.innerText;
+  console.log(`Setting state: floor = ${floor}`);
+  this.setState({ floor });
+}
+
+setRoom(event) {
+  const room = event.detail.selectedOption.innerText;
+  console.log(`Setting state: room = ${room}`);
+  let email = '';
+  if (room === "Grafton Street") {
+    email = 'graftonstreet-dayplanner@outlook.com';
+
+  } else if (room === "St.Stephens Green") {
+    email = 'st.stephensgreen-dayplanner@outlook.com'
+  } else if (room === "O'Connell Street") {
+    email = 'o.connellstreet-dayplanner@outlook.com';
   }
 
-  setFloor(event) {
-    const floor = event.detail.selectedOption.innerText;
-    console.log(`Setting state: floor = ${floor}`);
-    this.setState({ floor });
-  }
+  this.setState({ room, email });
+}
 
-  setRoom(event) {
-    const room = event.detail.selectedOption.innerText;
-    console.log(`Setting state: room = ${room}`);
-    let email = '';
-    if (room === "Grafton Street") {
-      email = 'graftonstreet-dayplanner@outlook.com';
+handleChange(event) {
+  const { name, value } = event.target;
 
-    } else if (room === "St.Stephens Green") {
-      email = 'st.stephensgreen-dayplanner@outlook.com'
-    } else if (room === "O'Connell Street") {
-      email = 'o.connellstreet-dayplanner@outlook.com';
-    }
+  this.setState({ [name]: value });
+}
 
-    this.setState({ room, email });
-  }
+closeDialog() {
+  this.setState({ dialogOpen: false });
+  // Optionally reload the page or handle additional logic
+  window.location.reload();
+}
 
-  handleChange(event) {
-    const { name, value } = event.target;
+render() {
+  const { building, floor, room, subject, startDateTime, duration, dialogOpen, dialogMessage } = this.state;
 
-    this.setState({ [name]: value });
-  }
-
-
-  render() {
-    const { building, floor, room, subject, startDateTime, duration } = this.state;
-
-    return (
-      <div
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Form
+        backgroundDesign="Transparent"
+        columnsL={1}
+        columnsM={1}
+        columnsS={1}
+        columnsXL={1}
+        labelSpanL={4}
+        labelSpanM={2}
+        labelSpanS={12}
+        labelSpanXL={4}
         style={{
-          display: "flex",
-          flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Form
-          backgroundDesign="Transparent"
-          columnsL={1}
-          columnsM={1}
-          columnsS={1}
-          columnsXL={1}
-          labelSpanL={4}
-          labelSpanM={2}
-          labelSpanS={12}
-          labelSpanXL={4}
-          style={{
-            alignItems: "center",
-          }}
-        >
-          <FormGroup titleText="">
-            <FormItem label="Subject">
-              <Input
-                type="text"
-                name="subject"
-                value={subject}
-                onChange={this.handleChange}
-                style={{ width: "100%" }}
-              />
-            </FormItem>
-            <FormItem label="Start Date & Time">
-              <DateTimePicker
-                value={startDateTime}
-                onChange={(event) => this.setState({ startDateTime: event.detail.value })}
-                style={{ width: "100%" }}
-                formatPattern="yyyy-MM-dd'T'HH:mm"
-              />
-            </FormItem>
-            <FormItem label="Duration">
-              <TimePicker
-                value={duration}
-                onChange={(event) => this.setState({ duration: event.detail.value })}
-                style={{ width: "100%" }}
-                formatPattern="HH:mm"
-              />
-            </FormItem>
-            <FormItem label="Building">
-              <Select
-                onChange={this.setBuilding}
-                selectedKey={building}
-                style={{ width: "100%" }}
-              >
-                <Option>DUB 02</Option>
-                <Option>DUB 05</Option>
-                <Option>GAL</Option>
-              </Select>
-            </FormItem>
-            <FormItem label="Floor">
-              <Select
-                onChange={this.setFloor}
-                selectedKey={floor}
-                style={{ width: "100%" }}
-              >
-                <Option>Floor 1</Option>
-                <Option>Floor 2</Option>
-                <Option>Floor 3</Option>
-              </Select>
-            </FormItem>
-            <FormItem label="Room">
-              <Select
-                onChange={this.setRoom}
-                selectedKey={room}
-                style={{ width: "100%" }}
-              >
-                <Option>Grafton Street</Option>
-                <Option>Stephens Green</Option>
-                <Option>O'Connell Street</Option>
-              </Select>
-            </FormItem>
-          </FormGroup>
-        </Form>
-        <Button color='primary' onClick={this.onClick}>
-          Create Event
-        </Button>
-      </div>
-    );
-  }
+        <FormGroup titleText="">
+          <FormItem label="Subject">
+            <Input
+              type="text"
+              name="subject"
+              value={subject}
+              onChange={this.handleChange}
+              style={{ width: "100%" }}
+            />
+          </FormItem>
+          <FormItem label="Start Date & Time">
+            <DateTimePicker
+              value={startDateTime}
+              onChange={(event) => this.setState({ startDateTime: event.detail.value })}
+              style={{ width: "100%" }}
+              formatPattern="yyyy-MM-dd'T'HH:mm"
+            />
+          </FormItem>
+          <FormItem label="Duration">
+            <TimePicker
+              value={duration}
+              onChange={(event) => this.setState({ duration: event.detail.value })}
+              style={{ width: "100%" }}
+              formatPattern="HH:mm"
+            />
+          </FormItem>
+          <FormItem label="Building">
+            <Select
+              onChange={this.setBuilding}
+              selectedKey={building}
+              style={{ width: "100%" }}
+            >
+              <Option>DUB 02</Option>
+              <Option>DUB 05</Option>
+              <Option>GAL</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="Floor">
+            <Select
+              onChange={this.setFloor}
+              selectedKey={floor}
+              style={{ width: "100%" }}
+            >
+              <Option>Floor 1</Option>
+              <Option>Floor 2</Option>
+              <Option>Floor 3</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="Room">
+            <Select
+              onChange={this.setRoom}
+              selectedKey={room}
+              style={{ width: "100%" }}
+            >
+              <Option>Grafton Street</Option>
+              <Option>Stephens Green</Option>
+              <Option>O'Connell Street</Option>
+            </Select>
+          </FormItem>
+        </FormGroup>
+      </Form>
+      <Button color='primary' onClick={this.onClick}>
+        Create Event
+      </Button>
+
+      <Dialog
+        headerText="Booking Status"
+        footer={
+          <Bar
+            endContent={<Button design="Emphasized" onClick={this.closeDialog}>OK</Button>}
+          />
+        }
+        open={dialogOpen}
+        onAfterClose={this.closeDialog}
+      >
+        <p>{dialogMessage}</p>
+      </Dialog>
+    </div>
+  );
+}
 }

@@ -31,7 +31,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
   // Add a new state variable for the selected floor plan
-  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-1"]);
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -126,7 +126,6 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   };
 
   const handleBook = (deskId) => {
-    console.log(`user_id=${userId}&desk_id=${deskId}&date=${dateRange}`);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
       {

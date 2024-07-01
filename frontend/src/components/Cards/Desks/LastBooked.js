@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  List,
-  Button,
-  StandardListItem,
-} from "@ui5/webcomponents-react";
+import { Card, CardHeader, List, Button, Dialog, Bar } from "@ui5/webcomponents-react";
 import moment from "moment";
 
 const LastBooked = () => {
@@ -13,6 +7,8 @@ const LastBooked = () => {
   const [lastBooked, setLastBooked] = useState([]);
   const [isBookedByCurrentUserToday, setIsBookedByCurrentUserToday] = useState(false);
   const [isDeskBooked, setIsDeskBooked] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -29,7 +25,7 @@ const LastBooked = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log("Last booked desk:", data); 
+          console.log("Last booked desk:", data);
           setLastBooked(data);
         })
         .catch((error) => console.error(error));
@@ -44,7 +40,7 @@ const LastBooked = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log("Desks booked today:", data); 
+          console.log("Desks booked today:", data);
           const deskBookedToday = data.find(booking => booking.desk_id === lastBooked[0].desk_id);
           console.log("deskbookedToday:", deskBookedToday);
           setIsDeskBooked(!!deskBookedToday);
@@ -76,28 +72,56 @@ const LastBooked = () => {
         try {
           const data = JSON.parse(text); // Try to parse as JSON
           console.log("Response (parsed as JSON):", data);
-          alert("Desk Booked Successfully.");
-          // Reload the page to reflect changes
-          window.location.reload();
+          setLastBooked(data); // Update lastBooked state after booking
+          // Modify dialog message based on booking status
+          if (isBookedByCurrentUserToday) {
+            setDialogMessage("Desk already booked by you today.");
+          } else {
+            setDialogMessage("Desk booked successfully.");
+          }
         } catch (error) {
           console.log("Response (raw text):", text);
-          alert("Desk Booked Successfully.");
-          // Reload the page to reflect changes
-          window.location.reload();
+          // Modify dialog message based on booking status
+          if (isBookedByCurrentUserToday) {
+            setDialogMessage("Desk already booked by you today.");
+          } else {
+            setDialogMessage("Desk booked successfully.");
+          }
         }
+        setDialogOpen(true); // Open the dialog
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        console.error("Error:", error);
+        setDialogMessage("Error booking the desk.");
+        setDialogOpen(true);
+      });
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+    window.location.reload(); // Reload the page to reflect changes
   };
 
   return (
     <Card header={<CardHeader titleText="Last Booked Desk" />}>
-      <List headerText={`${lastBooked.length > 0 ? lastBooked[0].desk_id : "No desk booked"}`}>
+      <List headerText={`${lastBooked.length > 0 ? `Desk ID: ${lastBooked[0].desk_id}` : "No desk booked"}`}>
         {lastBooked.length > 0 && isDeskBooked ? (
-          <Button design="Negative">{isBookedByCurrentUserToday ? "Booked by You" : "Currently Unavailable"}</Button>
+          <Button design="Negative" disabled={isBookedByCurrentUserToday}>Booked by You</Button>
         ) : (
           <Button design="Positive" onClick={bookDesk}>Book a Desk</Button>
         )}
       </List>
+
+      <Dialog
+        headerText="Book A Desk"
+        footer={
+          <Bar endContent={<Button design="Emphasized" onClick={closeDialog}>OK</Button>} />
+        }
+        open={dialogOpen}
+        onAfterClose={closeDialog}
+      >
+        <p>{dialogMessage}</p>
+      </Dialog>
     </Card>
   );
 };

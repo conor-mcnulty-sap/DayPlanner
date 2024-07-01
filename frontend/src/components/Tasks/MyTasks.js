@@ -12,6 +12,7 @@ import moment from "moment";
 export function MyTasks() {
   const [userId, setUserId] = useState("");
   const [tasksData, setTaskData] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState({});
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -65,6 +66,13 @@ export function MyTasks() {
       .catch((error) => console.error("Error deleting task:", error));
   };
 
+  const handleToggleTaskCompletion = (taskId) => {
+    setCompletedTasks((prevCompletedTasks) => ({
+      ...prevCompletedTasks,
+      [taskId]: !prevCompletedTasks[taskId],
+    }));
+  };
+
   return (
     <Card header={<CardHeader titleText="My Tasks" />} style={{}}>
       {filteredTasks.map((task) => (
@@ -76,7 +84,9 @@ export function MyTasks() {
             paddingBottom: "5px",
             position: "relative",
             paddingTop: "5px",
+            cursor: "pointer",
           }}
+          onClick={() => handleToggleTaskCompletion(task.id)}
         >
           <div style={{ display: "flex", left: "10px", alignItems: "left" }}>
             <div
@@ -96,6 +106,7 @@ export function MyTasks() {
                   textAlign: "left",
                   color: "#666",
                   fontWeight: "normal",
+                  textDecoration: completedTasks[task.id] ? "line-through" : "none",
                 }}
               >
                 {" "}
@@ -107,6 +118,7 @@ export function MyTasks() {
                   textAlign: "left",
                   color: "#666",
                   fontWeight: "normal",
+                  textDecoration: completedTasks[task.id] ? "line-through" : "none",
                 }}
               >
                 {" "}
@@ -122,7 +134,10 @@ export function MyTasks() {
               top: "25%",
               cursor: "pointer",
             }}
-            onClick={() => handleDeleteTask(task.id)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent the click event from propagating to the parent div
+              handleDeleteTask(task.id);
+            }}
           />
         </div>
       ))}
