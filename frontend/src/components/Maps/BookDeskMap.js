@@ -126,6 +126,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   };
 
   const handleBook = (deskId) => {
+    console.log(`user_id=${userId}&desk_id=${deskId}&date=${dateRange}`);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
       {
