@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "@ui5/webcomponents-react";
-import { MapContainer, ImageOverlay, Polygon } from "react-leaflet"; // Import Polygon
+import { MapContainer, ImageOverlay, Polygon, Popup } from "react-leaflet"; // Import Popup along with Polygon
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import floorPlan33 from "../../assets/DUB/3-3.png";
 
 function Map() {
   const [isMapInit, setIsMapInit] = useState(false);
-  const [polygons, setPolygons] = useState([]); // Renamed to polygons for clarity
+  const [polygons, setPolygons] = useState([]);
+
   const bounds = [
     [0, 0],
     [10, 29],
@@ -20,7 +21,6 @@ function Map() {
     fetch(`/coordinates.json`)
       .then((response) => response.json())
       .then((data) => {
-        // Assuming the data structure is updated for polygons
         setPolygons(data.polygons);
       })
       .catch((error) => console.error("Failed to load coordinates:", error));
@@ -37,13 +37,17 @@ function Map() {
           attributionControl={false}
         >
           <ImageOverlay url={floorPlan33} bounds={bounds} />
-          {/* Use polygons */}
           {polygons.map((polygon, index) => (
             <Polygon
               key={index}
-              positions={polygon.positions} // Use positions for Polygon
+              positions={polygon.positions}
               pathOptions={{ color: polygon.color }}
-            />
+            >
+              <Popup>
+                {/* Example dynamic content: "Area #" + index */}
+                Area #{index + 1} - {polygon.description || "No description"}
+              </Popup>
+            </Polygon>
           ))}
         </MapContainer>
       )}

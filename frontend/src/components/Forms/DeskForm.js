@@ -15,13 +15,11 @@ function DeskForm({
   onDateRangeChange,
 }) {
   const [userId, setUserId] = useState("");
-  const [building, setBuilding] = useState(
-    selectedDesk ? selectedDesk.building : ""
-  );
-  const [floor, setFloor] = useState(selectedDesk ? selectedDesk.floor : "");
+  const [building, setBuilding] = useState("3");
+  const [floor, setFloor] = useState("3");
   const [dateRange, setDateRange] = useState("");
   const [deskOptions, setDeskOptions] = useState([]);
-
+console.log(building + " " + floor)
   const today = new Date();
   const endDate = new Date();
   endDate.setDate(today.getDate() + 7);
@@ -90,7 +88,7 @@ function DeskForm({
       onDateRangeChange(newDateRange);
     }
   };
-
+console.log(building + " " + floor)
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -130,9 +128,8 @@ function DeskForm({
               style={{ width: "100%" }}
             >
               <Option data-value="2">DUB03</Option>
-              
+
               <Option data-value="3">DUB05</Option>
-        
             </Select>
           </FormItem>
           <FormItem label="Floor">
