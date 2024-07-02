@@ -8,7 +8,7 @@ const NewsCard = () => {
     fetch(`${process.env.REACT_APP_API_URL}/api/news`)
       .then((response) => response.json())
       .then((data) => {
-        const articles = data["Articles"];
+        const articles = data["Articles"].slice(0,12);
         setNewsData(articles);
       })
       .catch((error) => console.error("Error:", error));

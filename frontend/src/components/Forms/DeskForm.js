@@ -3,8 +3,6 @@ import {
   Form,
   FormGroup,
   FormItem,
-  Input,
-  Button,
   DateRangePicker,
   Select,
   Option,
@@ -21,7 +19,6 @@ function DeskForm({
     selectedDesk ? selectedDesk.building : ""
   );
   const [floor, setFloor] = useState(selectedDesk ? selectedDesk.floor : "");
-  const [deskId, setDeskId] = useState(selectedDesk ? selectedDesk.deskId : "");
   const [dateRange, setDateRange] = useState("");
   const [deskOptions, setDeskOptions] = useState([]);
 

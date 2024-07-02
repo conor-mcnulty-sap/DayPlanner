@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardHeader } from "@ui5/webcomponents-react";
-import { MapContainer, ImageOverlay } from "react-leaflet";
+import { Card } from "@ui5/webcomponents-react";
+import { MapContainer, ImageOverlay, Polygon } from "react-leaflet"; // Import Polygon
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import floorPlan from "../../assets/floor-plan-png-9.jpg";
+import floorPlan33 from "../../assets/DUB/3-3.png";
 
 function Map() {
   const [isMapInit, setIsMapInit] = useState(false);
+  const [polygons, setPolygons] = useState([]); // Renamed to polygons for clarity
   const bounds = [
     [0, 0],
     [10, 29],
@@ -14,6 +15,15 @@ function Map() {
 
   useEffect(() => {
     setIsMapInit(true);
+
+    // Fetch polygon coordinates
+    fetch(`/coordinates.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the data structure is updated for polygons
+        setPolygons(data.polygons);
+      })
+      .catch((error) => console.error("Failed to load coordinates:", error));
   }, []);
 
   return (
@@ -26,7 +36,15 @@ function Map() {
           crs={L.CRS.Simple}
           attributionControl={false}
         >
-          <ImageOverlay url={floorPlan} bounds={bounds} />
+          <ImageOverlay url={floorPlan33} bounds={bounds} />
+          {/* Use polygons */}
+          {polygons.map((polygon, index) => (
+            <Polygon
+              key={index}
+              positions={polygon.positions} // Use positions for Polygon
+              pathOptions={{ color: polygon.color }}
+            />
+          ))}
         </MapContainer>
       )}
     </Card>
