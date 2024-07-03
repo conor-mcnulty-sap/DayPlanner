@@ -45,7 +45,7 @@ function Map() {
             >
               <Popup>
                 {/* Example dynamic content: "Area #" + index */}
-                Area #{index + 1} - {polygon.description || "No description"}
+                {polygon.name} - {polygon.description || "No description"}
               </Popup>
             </Polygon>
           ))}
