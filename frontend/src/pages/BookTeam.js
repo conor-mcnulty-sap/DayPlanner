@@ -27,7 +27,7 @@ function BookTeam() {
 
   return (
     <Grid
-      defaultSpan="XL6 L12 M12 S12"
+      defaultSpan="XL4 L12 M12 S12"
       vSpacing="1rem"
       hSpacing="1rem"
       style={{ margin: "2rem" }}
