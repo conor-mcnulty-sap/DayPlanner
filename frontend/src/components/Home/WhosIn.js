@@ -11,10 +11,25 @@ import {
 const WhosIn = () => {
   const [users, setUsers] = useState([]);
   const [foundUsers, setFoundUsers] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
+    /**
+     * Retrieves the floor number from the localStorage deskId.
+     * @returns {string|null} The floor number or null if deskId is not found in localStorage.
+     */
+    const getFloor = () => {
+      if(localStorage.getItem('deskId') !== null) {
+        return localStorage.getItem('deskId').slice(0, 9);
+      }
+      return null;
+    }
+
+    const floor = getFloor();
 
     fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${date}`)
       .then((response) => {
@@ -24,13 +39,24 @@ const WhosIn = () => {
         return response.json();
       })
       .then((data) => {
-        setUsers(data);
-        setFoundUsers(data);
-        console.log("Who's in:", data)
+        let filteredData;
+        if (floor) {
+          filteredData = data.filter(user => user.desk_id.startsWith(floor));
+        } else {
+          // If floor is null, don't apply the filter and use all data
+          filteredData = data;
+        }
+        setUsers(filteredData);
+        setFoundUsers(filteredData);
+        console.log("Who's in:", filteredData);
       })
       .catch((error) => console.log("Fetching failed: ", error));
   }, []);
 
+  /**
+   * Filters the users based on the provided keyword and updates the foundUsers state.
+   * @param {Event} e - The event object triggered by the input change.
+   */
   const filter = (e) => {
     const keyword = e.target.value;
   
