@@ -127,9 +127,9 @@ console.log(building + " " + floor)
               selectedKey={building}
               style={{ width: "100%" }}
             >
-              <Option data-value="2">DUB03</Option>
-
               <Option data-value="3">DUB05</Option>
+
+              <Option data-value="2">DUB03</Option>
             </Select>
           </FormItem>
           <FormItem label="Floor">
@@ -138,9 +138,9 @@ console.log(building + " " + floor)
               selectedKey={floor}
               style={{ width: "100%" }}
             >
-              <Option>1</Option>
-              <Option>2</Option>
               <Option>3</Option>
+              <Option>2</Option>
+              <Option>1</Option>
             </Select>
           </FormItem>
         </FormGroup>
