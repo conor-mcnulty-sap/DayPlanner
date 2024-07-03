@@ -304,6 +304,7 @@ render() {
 
       <Dialog
         headerText="Booking Status"
+        autoFocus={true}
         footer={
           <Bar
             endContent={<Button design="Emphasized" onClick={this.closeDialog}>OK</Button>}
