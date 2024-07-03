@@ -1,31 +1,15 @@
-import React, { useState } from "react";
-import { MultiInput, Token } from "@ui5/webcomponents-react";
+import React from "react";
+import { Button } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents/dist/features/InputSuggestions.js"; // Ensure InputSuggestions feature is imported
 
 function VerifyDesk() {
-    const [emails, setEmails] = useState([]);
-  
-    const handleEmailChange = (event) => {
-      setEmails(event.detail.tokens.map(token => token.text));
-    };
-  
-    return (
-        <MultiInput
-        onChange={function _a(){}}
-        onInput={function _a(){}}
-        onSuggestionItemPreview={function _a(){}}
-        onSuggestionItemSelect={function _a(){}}
-        onTokenDelete={function _a(){}}
-        onValueHelpTrigger={function _a(){}}
-        style={{
-          width: '400px'
-        }}
-        tokens={<><Token onInput={handleEmailChange} /></>}
-        slot="tokens"
-        type="Text"
-        valueState="None"
-      />
-    );
-  }
-  
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+      <Button style={{ fontSize: '20px', padding: '20px 20px', width: '16rem', height: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} type="submit">
+        Verify Desk
+      </Button>
+    </div>
+  );
+}
+
 export default VerifyDesk;

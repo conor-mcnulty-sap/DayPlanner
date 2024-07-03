@@ -154,7 +154,7 @@ function TeamBooking({
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center", width:"50%",  }}
     >
       <Form
         backgroundDesign="Transparent"
