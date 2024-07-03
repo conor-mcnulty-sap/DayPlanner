@@ -5,8 +5,8 @@ import { Grid } from "@ui5/webcomponents-react";
 
 function BookDesk() {
   const [selectedDesk, setSelectedDesk] = useState(null);
-  const [selectedBuilding, setSelectedBuilding] = useState("2");
-  const [selectedFloor, setSelectedFloor] = useState("1");
+  const [selectedBuilding, setSelectedBuilding] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
   const [dateRange, setDateRange] = useState("");
 
   const handleCircleClick = (coordinate) => {

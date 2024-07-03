@@ -3,8 +3,6 @@ import {
   Form,
   FormGroup,
   FormItem,
-  Input,
-  Button,
   DateRangePicker,
   Select,
   Option,
@@ -17,14 +15,11 @@ function DeskForm({
   onDateRangeChange,
 }) {
   const [userId, setUserId] = useState("");
-  const [building, setBuilding] = useState(
-    selectedDesk ? selectedDesk.building : ""
-  );
-  const [floor, setFloor] = useState(selectedDesk ? selectedDesk.floor : "");
-  const [deskId, setDeskId] = useState(selectedDesk ? selectedDesk.deskId : "");
+  const [building, setBuilding] = useState("3");
+  const [floor, setFloor] = useState("3");
   const [dateRange, setDateRange] = useState("");
   const [deskOptions, setDeskOptions] = useState([]);
-
+console.log(building + " " + floor)
   const today = new Date();
   const endDate = new Date();
   endDate.setDate(today.getDate() + 7);
@@ -93,7 +88,7 @@ function DeskForm({
       onDateRangeChange(newDateRange);
     }
   };
-
+console.log(building + " " + floor)
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -132,10 +127,9 @@ function DeskForm({
               selectedKey={building}
               style={{ width: "100%" }}
             >
-              <Option data-value="2">DUB03</Option>
-              
               <Option data-value="3">DUB05</Option>
-        
+
+              <Option data-value="2">DUB03</Option>
             </Select>
           </FormItem>
           <FormItem label="Floor">
@@ -144,9 +138,9 @@ function DeskForm({
               selectedKey={floor}
               style={{ width: "100%" }}
             >
-              <Option>1</Option>
-              <Option>2</Option>
               <Option>3</Option>
+              <Option>2</Option>
+              <Option>1</Option>
             </Select>
           </FormItem>
         </FormGroup>

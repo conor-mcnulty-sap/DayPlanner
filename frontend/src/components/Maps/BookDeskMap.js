@@ -3,8 +3,7 @@ import {
   MapContainer,
   ImageOverlay,
   Circle,
-  Popup,
-  Rectangle,
+  Popup
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -15,14 +14,12 @@ import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
 import { Card, Button } from "@ui5/webcomponents-react";
 
-// Create an object to map floor plans to their respective keys
 const floorPlans = {
   "2-1": floorPlan21,
   "2-2": floorPlan22,
   "2-3": floorPlan23,
   "3-1": floorPlan31,
   "3-3": floorPlan33,
-  // Add more floor plans here
 };
 
 function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
@@ -31,7 +28,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
   // Add a new state variable for the selected floor plan
-  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-1"]);
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-3"]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -126,6 +123,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   };
 
   const handleBook = (deskId) => {
+    console.log(dateRange);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
       {
