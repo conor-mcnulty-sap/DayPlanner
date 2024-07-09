@@ -26,6 +26,7 @@ export default class TaskForm extends Component {
     this.titleRef = React.createRef();
     this.colourRef = React.createRef();
     this.timeRef = React.createRef();
+    this.durationRef = React.createRef();
     this.descRef = React.createRef();
 
     this.state = {
@@ -63,48 +64,24 @@ export default class TaskForm extends Component {
     const title = this.titleRef.current ? this.titleRef.current.value : '';
     const colour = this.colourRef.current ? this.colourRef.current.getColor() : '';
     const time = this.timeRef.current ? this.timeRef.current.value : '';
+    const duration = this.durationRef.current ? this.durationRef.current.value : '';
     const desc = this.descRef.current ? this.descRef.current.value : '';
 
     console.log('Title:', title);
     console.log('Colour:', colour);
     console.log('Date:', today);
     console.log('Time:', time);
+    console.log('Duration:', duration);
     console.log('Description:', desc);
     console.log('ID:', userId);
     console.log('Email:', email);
 
-    const params = new URLSearchParams({
-      user_id: userId,
-      task_name: title,
-      task_description: desc,
-      task_date: today,
-      task_time: time,
-      task_colour: colour,
-    });
+    // Construct the start and end dateTime strings
+    const startDateTime = moment(`${today}T${time}`).toISOString();
+    const [hours, minutes] = duration.split(':').map(Number);
+    const endDateTime = moment(startDateTime).add(hours, 'hours').add(minutes, 'minutes').toISOString();
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/addtask?${params.toString()}`, {
-        method: 'POST',
-      });
-
-      if (!response.ok) {
-        console.error('Server error:', response.status, response.statusText);
-        return;
-      }
-
-      const text = await response.text();
-      const data = text ? JSON.parse(text) : {};
-
-      if (data) {
-        console.log('Response from server:', data);
-      } else {
-        console.error('No data received from server');
-      }
-
-      // Construct the start and end dateTime strings
-      const startDateTime = moment(`${today}T${time}`).toISOString();
-      const endDateTime = moment(startDateTime).add(1, 'hours').toISOString();
-
       console.log("Button clicked, attempting to acquire token silently for event creation");
       var accessToken = await window.msal.acquireTokenSilent({
         scopes: config.scopes
@@ -143,10 +120,43 @@ export default class TaskForm extends Component {
 
       console.log('Event to be created', event);
 
-      await createEvents(accessToken, event);
-      console.log('Event created successfully');
+      const eventResponse = await createEvents(accessToken, event);
+      console.log('Event created successfully:', eventResponse);
 
-      // Open dialog after the event is successfully created
+      const eventId = eventResponse.id;
+      console.log('Event ID:', eventId);
+
+      // Proceed with server request after the event is successfully created
+      const params = new URLSearchParams({
+        user_id: userId,
+        task_name: title,
+        task_description: desc,
+        task_date: today,
+        task_time: time,
+        task_duration: duration,
+        task_colour: colour,
+        event_id: eventId // Include the event ID in the parameters
+      });
+
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/addtask?${params.toString()}`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        console.error('Server error:', response.status, response.statusText);
+        return;
+      }
+
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : {};
+
+      if (data) {
+        console.log('Response from server:', data);
+      } else {
+        console.error('No data received from server');
+      }
+
+      // Open dialog after the event is successfully created and the server request is successful
       this.setState({ dialogOpen: true });
     } catch (err) {
       console.error("Error creating event", err);
@@ -158,6 +168,7 @@ export default class TaskForm extends Component {
     // Clear input fields
     if (this.titleRef.current) this.titleRef.current.value = '';
     if (this.timeRef.current) this.timeRef.current.value = '';
+    if (this.durationRef.current) this.durationRef.current.value = '';
     if (this.descRef.current) this.descRef.current.value = '';
     if (this.colourRef.current) this.colourRef.current.value = 'null';
   };
@@ -192,6 +203,9 @@ export default class TaskForm extends Component {
             </FormItem>
             <FormItem label={<Label>Time</Label>}>
               <TimePicker ref={this.timeRef} formatPattern="HH:mm" placeholder="Enter Time" />
+            </FormItem>
+            <FormItem label={<Label>Duration</Label>}>
+              <TimePicker ref={this.durationRef} formatPattern="HH:mm" placeholder="Enter Duration" />
             </FormItem>
             <FormItem label={<Label>Description</Label>}>
               <TextArea placeholder="Description" rows={5} ref={this.descRef} />

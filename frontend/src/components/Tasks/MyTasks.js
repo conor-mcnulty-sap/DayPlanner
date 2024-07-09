@@ -47,6 +47,7 @@ export function MyTasks() {
   );
 
   const handleDeleteTask = (taskId) => {
+    console.log("ID of task to be deleted", taskId)
     fetch(
       `${process.env.REACT_APP_API_URL}/api/tasks/removetask?id=${taskId}`,
       {
@@ -57,6 +58,7 @@ export function MyTasks() {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
         console.log("Task deleted successfully");
         // Remove the task from the UI
         setTaskData((prevTasks) =>

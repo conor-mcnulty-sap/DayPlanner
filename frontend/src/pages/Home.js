@@ -14,38 +14,31 @@ function Home() {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        margin: "2rem auto 4rem auto", // Center the content
-        width: "90%", // Adjust the width of the page
-        height: "30vh",
+        margin: "2rem auto", // Center horizontally with auto margins
+        width: "90%", // Adjust the width of the content
       }}
     >
-      <div style={{ width: "48%", margin: "1rem" }}>
+      <div style={{ width: "48%", marginRight: "1rem" }}>
         <Card header={<CardHeader titleText="My Desks" />}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ flex: 1, margin: "1rem" }}>
-                <CurrentDesk />
-              </div>
-              <div style={{ flex: 1, margin: "1rem" }}>
-                <LastBooked />
-              </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <CurrentDesk />
+              <LastBooked />
             </div>
-            <div style={{ margin: "1rem" }}>
+            <div style={{ margin: "1rem 0" }}>
               <FavouriteDesk />
             </div>
           </div>
         </Card>
 
-        <div style={{ margin: "2rem 0" }}>
-          <MyTasks style={{ width: "100%" }} />
+        <div style={{ marginTop: "2rem" }}>
+          <MyTasks />
         </div>
       </div>
 
-      <div style={{ width: "48%", margin: "1rem" }}>
-        <div>
-          <WhosIn />
-        </div>
-        <div style={{ margin: "2rem 0" }}>
+      <div style={{ width: "48%", marginLeft: "1rem" }}>
+        <WhosIn />
+        <div style={{ marginTop: "2rem" }}>
           <NewsCard />
         </div>
       </div>

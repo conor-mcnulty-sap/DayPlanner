@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  MapContainer,
-  ImageOverlay,
-  Circle,
-  Popup,
-  Rectangle,
-} from "react-leaflet";
+import { MapContainer, ImageOverlay, Circle, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import floorPlan21 from "../../assets/DUB/2-1.png";
@@ -25,7 +19,7 @@ const floorPlans = {
   // Add more floor plans here
 };
 
-function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
+function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange, selectedDesks, setSelectedDesks }) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
@@ -73,7 +67,6 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
   // State to store the coordinates
   const [coordinates, setCoordinates] = useState([]);
 
-  // Fetch the coordinates from the JSON file when the component mounts
   // Fetch the coordinates from the JSON file when the component mounts
   useEffect(() => {
     const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`; // Modify this line to use the selected floor
@@ -125,20 +118,35 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
       .catch((error) => console.error(error));
   };
 
-  const handleBook = (deskId) => {
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
-      {
-        method: "POST",
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+  const handleBook = () => {
+    selectedDesks.forEach((deskId) => {
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
+        {
+          method: "POST",
         }
-        console.log(`Desk ${deskId} booked`);
-      })
-      .catch((error) => console.error(error));
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          console.log(`Desk ${deskId} booked`);
+        })
+        .catch((error) => console.error(error));
+    });
+    // Clear selected desks after booking
+    setSelectedDesks([]);
+  };
+
+  const toggleSelectDesk = (deskId) => {
+    setSelectedDesks((prevSelectedDesks) => {
+      const isSelected = prevSelectedDesks.includes(deskId);
+      const newSelectedDesks = isSelected
+        ? prevSelectedDesks.filter((id) => id !== deskId)
+        : [...prevSelectedDesks, deskId];
+      console.log("Selected desks: ", newSelectedDesks);
+      return newSelectedDesks;
+    });
   };
 
   return (
@@ -168,11 +176,6 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
                 fillOpacity: 0.2,
                 fill: true,
               }}
-              eventHandlers={{
-                click: () => {
-                  onCircleClick(coordinate);
-                },
-              }}
             >
               <Popup>
                 {coordinate.color === "red"
@@ -193,16 +196,30 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange }) {
                     Favourite
                   </Button>
                 )}
-                <Button
-                  design="Emphasized"
-                  onClick={() => handleBook(coordinate.popup)}
-                >
-                  Book
-                </Button>
+                {selectedDesks.includes(coordinate.popup) ? (
+                  <Button
+                    design="Negative"
+                    onClick={() => toggleSelectDesk(coordinate.popup)}
+                  >
+                    Deselect
+                  </Button>
+                ) : (
+                  <Button
+                    design="Emphasized"
+                    onClick={() => toggleSelectDesk(coordinate.popup)}
+                  >
+                    Select
+                  </Button>
+                )}
               </Popup>
             </Circle>
           ))}
         </MapContainer>
+      )}
+      {selectedDesks.length > 0 && (
+        <Button design="Emphasized" onClick={handleBook}>
+          Book Selected Desks
+        </Button>
       )}
     </Card>
   );

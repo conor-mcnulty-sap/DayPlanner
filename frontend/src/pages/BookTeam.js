@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import Map from "../components/Maps/TeamBookingMap";
+import TeamMap from "../components/Maps/TeamBookingMap";
 import TeamBooking from "../components/Forms/TeamBooking";
 import { Grid } from "@ui5/webcomponents-react";
 
 function BookTeam() {
-  const [selectedDesk, setSelectedDesk] = useState(null);
-  const [selectedBuilding, setSelectedBuilding] = useState("2");
-  const [selectedFloor, setSelectedFloor] = useState("1");
+  const [selectedDesks, setSelectedDesks] = useState([]);
+  const [selectedBuilding, setSelectedBuilding] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
   const [dateRange, setDateRange] = useState("");
-
-  const handleCircleClick = (coordinate) => {
-    setSelectedDesk(coordinate);
-  };
 
   const handleBuildingChange = (newBuilding) => {
     setSelectedBuilding(newBuilding);
@@ -27,10 +23,10 @@ function BookTeam() {
 
   return (
     <Grid
-    defaultSpan="XL6 L12 M12 S12"
-    vSpacing={"1rem"}
-    hSpacing={"1rem"}
-    style={{ margin: "4rem" }}
+      defaultSpan="XL6 L12 M12 S12"
+      vSpacing={"1rem"}
+      hSpacing={"1rem"}
+      style={{ margin: "4rem" }}
     >
       <div
         style={{
@@ -41,21 +37,22 @@ function BookTeam() {
         }}
       >
         <TeamBooking
-          selectedDesk={selectedDesk}
+          selectedDesks={selectedDesks}
           onBuildingChange={handleBuildingChange}
           onFloorChange={handleFloorChange}
           onDateRangeChange={handleDateRangeChange}
         />
       </div>
-      <Map
-        onCircleClick={handleCircleClick}
+      <TeamMap
+        onCircleClick={() => {}} // Keep as a placeholder if needed
         selectedBuilding={selectedBuilding}
         selectedFloor={selectedFloor}
         dateRange={dateRange}
+        selectedDesks={selectedDesks}
+        setSelectedDesks={setSelectedDesks}
       />
     </Grid>
   );
 }
-
 
 export default BookTeam;

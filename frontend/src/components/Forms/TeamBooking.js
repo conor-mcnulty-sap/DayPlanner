@@ -8,27 +8,29 @@ import {
   DateRangePicker,
   Select,
   Option,
+  Dialog,
+  Bar,
 } from "@ui5/webcomponents-react";
 import { sendEmail, getEvents } from "../Tasks/Calendar/GraphFunctions";
 import config from "../Tasks/Calendar/Config";
 
 function TeamBooking({
-  selectedDesk,
+  selectedDesks,
   onBuildingChange,
   onFloorChange,
   onDateRangeChange,
 }) {
   const [userId, setUserId] = useState("");
-  const [building, setBuilding] = useState(
-    selectedDesk ? selectedDesk.building : ""
-  );
-  const [floor, setFloor] = useState(selectedDesk ? selectedDesk.floor : "");
-  const [deskId, setDeskId] = useState(selectedDesk ? selectedDesk.deskId : "");
+  const [building, setBuilding] = useState("3");
+  const [floor, setFloor] = useState("3");
   const [dateRange, setDateRange] = useState("");
   const [deskOptions, setDeskOptions] = useState([]);
   const [emailAddresses, setEmailAddresses] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [accessToken, setAccessToken] = useState("");
+  const [error, setError] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogContent, setDialogContent] = useState("");
 
   const today = new Date();
   const endDate = new Date();
@@ -101,11 +103,25 @@ function TeamBooking({
     }
   }, [floor]);
 
+  useEffect(() => {
+    console.log("Selected desks:", selectedDesks);
+  }, [selectedDesks]);
+
+  const handleBuildingChange = (event) => {
+    const selectedBuilding = event.detail.selectedOption.innerText;
+    setBuilding(selectedBuilding);
+    if (onBuildingChange) {
+      onBuildingChange(selectedBuilding);
+      console.log("Selected building",selectedBuilding)
+    }
+  };
+
   const handleFloorChange = (event) => {
     const selectedFloor = event.detail.selectedOption.innerText;
     setFloor(selectedFloor);
     if (onFloorChange) {
       onFloorChange(selectedFloor);
+      console.log("Selected floor",selectedFloor)
     }
   };
 
@@ -128,33 +144,89 @@ function TeamBooking({
 
     const emailList = emailAddresses.split(",").map((email) => email.trim());
 
-    const message = {
-      message: {
-        subject: `Desk Booked For You by ${displayName}`,
-        body: {
-          contentType: "Text",
-          content: `${displayName} booked a desk for you for ${dateRange}. Please follow this link to verify the booking: http://localhost:3000/verifydesk`,
-        },
-        toRecipients: emailList.map((email) => ({
-          emailAddress: { address: email },
-        })),
-      },
-      saveToSentItems: "true",
-    };
+    if (emailList.length !== selectedDesks.length) {
+      setDialogOpen(true);
+      setDialogContent("The number of emails does not match the number of selected desks.");
 
-    console.log("Email message to be sent:", message);
+      return;
+    }
+
+    const messages = emailList.map((email, index) => ({
+      subject: `Desk Booked For You by ${displayName}`,
+      body: {
+        contentType: "Text",
+        content: `${displayName} booked desk ${selectedDesks[index]} for you for ${dateRange}. Please follow this link to verify the booking: http://localhost:3000/verifydesk`,
+      },
+      toRecipients: [{ emailAddress: { address: email } }],
+    }));
+
+    console.log("Email messages to be sent:", messages);
 
     try {
-      const response = await sendEmail(accessToken, message);
-      console.log("Email sent successfully", response);
+      for (const message of messages) {
+        await sendEmail(accessToken, { message, saveToSentItems: "true" });
+      }
+      setDialogOpen(true);
+      setDialogContent("Emails sent successfully");
+      console.log("Emails sent successfully");
     } catch (error) {
-      console.error("Error sending email", error);
+      console.error("Error sending emails", error);
+      setError("Failed to send emails. Please try again.");
     }
+  };
+
+  const handleBookDesks = () => {
+    const emailList = emailAddresses.split(",").map((email) => email.trim());
+
+    if (emailList.length !== selectedDesks.length) {
+
+      return;
+    }
+
+    selectedDesks.forEach((deskId, index) => {
+      const bookingDetails = {
+        deskId: deskId,
+        dateRange: dateRange,
+        email: emailList[index],
+      };
+      console.log("Booking details:", bookingDetails);
+
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/teambooking/bookdesk?user_email=${emailList[index]}&desk_id=${deskId}&date=${dateRange}`,
+        {
+          method: "POST",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          console.log(`Desk ${deskId} booked`);
+        })
+        .catch((error) => {
+          console.error(error);
+          console.log("Booking details:", bookingDetails);
+        });
+    });
+
+    setError(""); // Clear the error message on successful booking
+    setDialogOpen(true);
+    setDialogContent("Desks booked successfully");
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+    setDialogContent("");
   };
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center", width:"50%",  }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "50%",
+      }}
     >
       <Form
         backgroundDesign="Transparent"
@@ -190,7 +262,7 @@ function TeamBooking({
             />
           </FormItem>
           <FormItem label="Building">
-            <Select
+          <Select
               onChange={(event) => {
                 const selectedBuilding =
                   event.detail.selectedOption.dataset.value;
@@ -199,14 +271,15 @@ function TeamBooking({
               selectedKey={building}
               style={{ width: "100%" }}
             >
-              <Option data-value="2">DUB03</Option>
               <Option data-value="3">DUB05</Option>
-            </Select>
+
+              <Option data-value="2">DUB03</Option>
+              </Select>
           </FormItem>
           <FormItem label="Floor">
             <Select
+              value={floor}
               onChange={handleFloorChange}
-              selectedKey={floor}
               style={{ width: "100%" }}
             >
               <Option>1</Option>
@@ -216,9 +289,20 @@ function TeamBooking({
           </FormItem>
         </FormGroup>
       </Form>
-      <Button color="primary" onClick={handleSendEmail}>
-        Send Email
-      </Button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+   
+      <Button onClick={() => { handleSendEmail(); handleBookDesks(); }}>Book Desks</Button>
+
+      <Dialog
+        headerText="Booking Status"
+        open={dialogOpen}
+        onClose={closeDialog}
+        footer={
+          <Bar design="Footer" endContent={<Button onClick={closeDialog}>Close</Button>} />
+        }
+      >
+        {dialogContent}
+      </Dialog>
     </div>
   );
 }
