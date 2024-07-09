@@ -5,7 +5,7 @@ import {
   List,
   StandardListItem,
   Input,
-  Title,
+  CheckBox
 } from "@ui5/webcomponents-react";
 
 const WhosIn = () => {
@@ -75,6 +75,9 @@ const WhosIn = () => {
       header={<CardHeader titleText="Who's In?" />}
       style={{ width: "100%", maxHeight: "50vh"}}
     >
+      <div>
+        <CheckBox></CheckBox>
+      </div>
       <div
         style={{
           display: "flex",

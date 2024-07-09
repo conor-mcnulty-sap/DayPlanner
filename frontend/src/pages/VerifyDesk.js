@@ -10,6 +10,7 @@ function VerifyDesk() {
     const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
+      //console.log(userDetails.mail);
       setUserEmail(userDetails.mail);
       console.log("User email retrieved:", userDetails.mail); 
     }
@@ -17,7 +18,7 @@ function VerifyDesk() {
 
   const handleVerifyClick = () => {
   
-    fetch(`/api/teambooking/verify?user_email=${userEmail}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/teambooking/verify?user_email=${userEmail}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
