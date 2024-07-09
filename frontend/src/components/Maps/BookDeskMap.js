@@ -18,9 +18,9 @@ const floorPlans = {
   "3-3": floorPlan33,
 };
 
-function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDate() }) {
-  selectedBuilding = "3";
-  selectedFloor = "3";
+function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDate() }) { 
+  const sleep = ms => new Promise(r => setTimeout(r,ms)); 
+
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
@@ -80,7 +80,6 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDa
 
   // Add a useEffect to update the selected floor plan when the selected building or floor changes
   useEffect(() => {
-    const sleep = ms => new Promise(r => setTimeout(r,ms));
     sleep(1000);
     const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
     if (floorPlans[floorPlanKey]) {
@@ -166,6 +165,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDa
         console.log(`Desk ${deskId} booked`);
       })
       .catch((error) => console.error(error));
+      window.location.reload();
   };
 
   return (

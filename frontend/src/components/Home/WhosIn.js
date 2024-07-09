@@ -7,17 +7,18 @@ import {
   Input,
   CheckBox
 } from "@ui5/webcomponents-react";
-
+ 
 const WhosIn = () => {
   const [users, setUsers] = useState([]);
   const [foundUsers, setFoundUsers] = useState([]);
+  const [isCheckboxTicked, setIsCheckboxTicked] = useState(false);
   const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
-
+ 
   useEffect(() => {
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-
+ 
     /**
      * Retrieves the floor number from the localStorage deskId.
      * @returns {string|null} The floor number or null if deskId is not found in localStorage.
@@ -28,9 +29,9 @@ const WhosIn = () => {
       }
       return null;
     }
-
+ 
     const floor = getFloor();
-
+ 
     fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${date}`)
       .then((response) => {
         if (!response.ok) {
@@ -52,31 +53,34 @@ const WhosIn = () => {
       })
       .catch((error) => console.log("Fetching failed: ", error));
   }, []);
-
+ 
   /**
    * Filters the users based on the provided keyword and updates the foundUsers state.
    * @param {Event} e - The event object triggered by the input change.
    */
-  const filter = (e) => {
-    const keyword = e.target.value;
-  
-    if (keyword !== "") {
-      const results = users.filter((user) => {
-        return user.users.name.toLowerCase().startsWith(keyword.toLowerCase());
-      });
-      setFoundUsers(results);
+  const filter = (event) => {
+    const keyword = event.target.value;
+    if (!isCheckboxTicked) { // Only filter if checkbox is not ticked
+      if (keyword !== "") {
+        const results = users.filter((user) => {
+          return user.users.name.toLowerCase().startsWith(keyword.toLowerCase());
+        });
+        setFoundUsers(results);
+      } else {
+        setFoundUsers(users);
+      }
     } else {
       setFoundUsers(users);
     }
   };
-
+ 
   return (
     <Card
       header={<CardHeader titleText="Who's In?" />}
       style={{ width: "100%", maxHeight: "50vh"}}
     >
       <div>
-        <CheckBox></CheckBox>
+        <CheckBox onChange={(e) => setIsCheckboxTicked(e.target.checked)}></CheckBox>
       </div>
       <div
         style={{
@@ -91,7 +95,7 @@ const WhosIn = () => {
           onChange={filter}
           style={{ marginBottom: "1rem", marginTop: "1rem" }}
         />
-
+ 
         <List
           style={{
             width: "100%",
