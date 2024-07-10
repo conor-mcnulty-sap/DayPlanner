@@ -10,6 +10,7 @@ function VerifyDesk() {
     const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
+      //console.log(userDetails.mail);
       setUserEmail(userDetails.mail);
       console.log("User email retrieved:", userDetails.mail); 
     }

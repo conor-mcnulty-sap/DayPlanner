@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import Map from "../components/Maps/BookDeskMap";
 import DeskForm from "../components/Forms/DeskForm";
 import { Grid } from "@ui5/webcomponents-react";
+import { getDate } from "../util/getDate";
 
 function BookDesk() {
   const [selectedDesk, setSelectedDesk] = useState(null);
   const [selectedBuilding, setSelectedBuilding] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
-  const [dateRange, setDateRange] = useState("");
+  const [dateRange, setDateRange] = useState(getDate());
 
   const handleCircleClick = (coordinate) => {
     setSelectedDesk(coordinate);

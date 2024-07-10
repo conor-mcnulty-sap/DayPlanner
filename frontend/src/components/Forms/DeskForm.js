@@ -19,7 +19,7 @@ function DeskForm({
   const [floor, setFloor] = useState("3");
   const [dateRange, setDateRange] = useState("");
   const [deskOptions, setDeskOptions] = useState([]);
-console.log(building + " " + floor)
+//console.log(building + " " + floor)
   const today = new Date();
   const endDate = new Date();
   endDate.setDate(today.getDate() + 7);
@@ -64,7 +64,7 @@ console.log(building + " " + floor)
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log("Desks data:", data);
+          //console.log("Desks data:", data);
         })
         .catch((error) => console.error("Error fetching desks:", error));
     }
@@ -88,7 +88,7 @@ console.log(building + " " + floor)
       onDateRangeChange(newDateRange);
     }
   };
-console.log(building + " " + floor)
+//console.log(building + " " + floor)
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
