@@ -43,4 +43,16 @@ router.post('/createuser', async (req, res) => {
     }
 });
 
+// Get user name
+router.get('/name', async (req, res) => {
+    let in_id = req.query.id;
+
+    const {data, error} = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', in_id);
+    res.send(data);
+});
+
+
 module.exports = router;

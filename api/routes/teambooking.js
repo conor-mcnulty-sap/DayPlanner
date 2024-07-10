@@ -3,14 +3,16 @@ const express = require('express');
 
 const router = express.Router();
 
-//Booking Desks For Multiple Users
+//Booking Desk
 router.post('/bookdesk', async (req, res) => {
     let in_deskid = req.query.desk_id;
-    let in_userid = req.query.user_id;
+    let in_useremail = req.query.user_email;
     let in_date = req.query.date;
+    let auth = false;
+    let time = new Date();
 
     // Check if input is empty
-    if (in_deskid == "" || in_userid == "" || in_date == "") {
+    if (in_deskid == "" || in_useremail == "" || in_date == "") {
         res.send('Invalid input');
         console.log('Invalid input (Null)');
         return;
@@ -21,6 +23,14 @@ router.post('/bookdesk', async (req, res) => {
 
     var date1 = dates[0] + "-" + dates[1] + "-" + dates[2];
     var date2 = dates[3] + "-" + dates[4] + "-" + dates[5];
+
+    //Get user id
+    const {data , error3} = await supabase
+    .from('users')
+    .select('id')
+    .eq('email', in_useremail);
+
+    in_userid = data[0].id;
 
     // Check if user has already booked desk for that date
     const {data: user_bookings, error2} = await supabase
@@ -63,7 +73,9 @@ router.post('/bookdesk', async (req, res) => {
                 {
                     desk_id: in_deskid,
                     user_id: in_userid,
-                    date: date1_str
+                    date: date1_str,
+                    authorisation: auth,
+                    time: time
                 }
             );
             const {data2, error2} = await supabase
@@ -72,7 +84,9 @@ router.post('/bookdesk', async (req, res) => {
                 {
                     desk_id: in_deskid,
                     user_id: in_userid,
-                    date: date1_str
+                    date: date1_str,
+                    authorisation: auth,
+                    time: time
                 }
             );
             if (error) {
@@ -86,6 +100,45 @@ router.post('/bookdesk', async (req, res) => {
         res.send("Desk booked successfully");
         console.log('Desk booked successfully');
     }
+});
+
+// Verify Authorisation
+router.put('/verify', async (req, res) => {
+    let in_useremail = req.query.user_email;
+
+    //Get user id
+    const {data , error3} = await supabase
+    .from('users')
+    .select('id')
+    .eq('email', in_useremail);
+
+    in_userid = data[0].id;
+
+    // Get the current date
+    const now = new Date();
+
+    // Extract the year, month, and day
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(now.getDate()).padStart(2, '0');
+
+    // Format the date as YYYY-MM-DD
+    const currentDate = `${year}-${month}-${day}`;
+
+    const {data1, error} = await supabase
+    .from('bookings')
+    .update({ authorisation: true})
+    .eq('user_id', in_userid)
+    .eq('date', currentDate);
+
+    if (error) {
+        console.log("error not verified");
+        return;
+    }
+
+    console.log("Verified");
+    res.send("Verified");
+
 });
 
 module.exports = router;

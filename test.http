@@ -35,7 +35,7 @@ POST /api/bookings/bookdesk?user_id=I744418&desk_id=DUB05-2-L-22&date=2024-05-24
 Host: localhost:5000
 
 ### Remove booking
-DELETE /api/bookings/removebooking?user_id=I744418&desk_id=DUB05-2-L-13&date=2024-05-24-2024-05-24 HTTP/1.1
+DELETE /api/bookings/removebooking?user_id=I744418&desk_id=DUB05-2-L-22&date=2024-05-24-2024-05-24 HTTP/1.1
 Host: localhost:5000
 
 ### Get Booking for certain user and date
@@ -61,6 +61,10 @@ Host: localhost:5000
 
 ### What users have booked desks at a certain date
 GET /api/bookings/bookingsbydate?date=2024-05-24 HTTP/1.1
+Host: localhost:5000
+
+### Get desks that are booked in a certain date range and floor
+GET /api/bookings/bookingsbydatefloor?date=2024-07-19-2024-07-22&building=DUB05&floor=3 HTTP/1.1
 Host: localhost:5000
 
 ### Get all carpooler
@@ -109,7 +113,7 @@ GET /api/tasks/usertasks?user_id=112 HTTP/1.1
 Host: localhost:5000
 
 ### Add task
-POST /api/tasks/addtask?user_id=1&task_name=test&task_description=test description&task_date=2022-09-15&task_time=12:00:00&task_colour=red HTTP/1.1
+POST /api/tasks/addtask?event_id=123&user_id=1&task_name=test&task_description=test description&task_date=2022-09-15&task_time=12:00:00&duration=1:00&task_colour=red HTTP/1.1
 Host: localhost:5000
 
 ### Remove task
@@ -153,7 +157,17 @@ Host: localhost:5000
 GET /api/meetingrooms/checkavailability?start_date_time=2024-06-13 14:14 HTTP/1.1
 Host: localhost:5000
 
+### Add teambooking
+POST /api/teambooking/bookdesk?user_email=graftonstreet-dayplanner@outlook.com&desk_id=DUB05-2-L-32&date=2024-07-05-2024-07-05 HTTP/1.1
+Host: localhost:5000
 
+### Verify Teambooking
+PUT /api/teambooking/verify?user_email=graftonstreet-dayplanner@outlook.com HTTP/1.1
+Host: localhost:5000
+
+### Get user name
+GET /api/users/name?id=ef933ddfd84db7e6 HTTP/1.1
+Host: localhost:5000
 
 ### test
 GET /api/bookings/test HTTP/1.1
