@@ -43,7 +43,9 @@ router.post('/addtask', async (req, res) => {
     let in_taskdescription = req.query.task_description;
     let in_taskdate = req.query.task_date;
     let in_tasktime = req.query.task_time;
+    let in_taskduration = req.query.task_duration;
     let in_taskcolour = req.query.task_colour;
+    let in_event_id = req.query.event_id;
 
     const {data, error} = await supabase
     .from('tasks')
@@ -54,7 +56,9 @@ router.post('/addtask', async (req, res) => {
             description: in_taskdescription,
             date: in_taskdate,
             time: in_tasktime,
-            colour: in_taskcolour
+            duration: in_taskduration,
+            colour: in_taskcolour,
+            event_id: in_event_id
         }
     );
 
@@ -77,7 +81,7 @@ router.delete('/removetask', async (req, res) => {
     const {data, error} = await supabase
     .from('tasks')
     .delete()
-    .eq('id', in_taskid);
+    .eq('event_id', in_taskid);
     
     // If task isnt removed
     if (error) {

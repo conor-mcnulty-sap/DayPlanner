@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { supabase } = require('./supabaseClient.js');
 
 const routes = require('./api/routes');
 

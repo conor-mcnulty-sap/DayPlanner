@@ -44,17 +44,18 @@ router.post('/addcarpooler', async (req, res) => {
         console.log('Invalid input (Special Character)');
         return;
     }
+    // Check if there is a space
+    else if (eircode[3] ===  ' ' ) {
+        //Remove space
+        eircode = eircode.substring(0, 3) + eircode.substring(3);
+    }
     // Check if input is 7 characters
     else if (eircode.length != 7) {
         res.send('Invalid input');
         console.log('Invalid input (Length)');
         return;
     }
-    // Check if there is a space
-    else if (eircode[3] ===  ' ' ) {
-        //Remove space
-        eircode = eircode.substring(0, 3) + eircode.substring(3);
-    }
+
 
     //if carpooler already exists
     const {data: carpoolers, error} = await supabase
@@ -98,17 +99,18 @@ router.post('/addcarpoolee', async (req, res) => {
         console.log('Invalid input');
         return;
     }
+    // Check if there is a space
+    else if (eircode[3] ===  ' ' ) {
+        //Remove space
+        eircode = eircode.substring(0, 3) + eircode.substring(3);
+    }
     // Check if input is 7 characters
     else if (eircode.length != 7) {
         res.send('Invalid input');
         console.log('Invalid input');
         return;
     }
-    // Check if there is a space
-    else if (eircode[3] ===  ' ' ) {
-        //Remove space
-        eircode = eircode.substring(0, 3) + eircode.substring(3);
-    }
+
 
     //if carpoolee already exists
     const {data: carpoolees, error} = await supabase
@@ -232,6 +234,8 @@ router.get('/closestcarpooler', async (req, res) => {
         .select('user_id')
         .eq('user_id', user_id);
 
+        console.log(carpoolee);
+
         if (carpoolee.length > 0) {
             console.log('You are also a carpoolee');
         }
@@ -239,6 +243,8 @@ router.get('/closestcarpooler', async (req, res) => {
             return;
         }
     }
+
+    console.log("test2");
 
     //get all carpoolers
     const {data: carpoolers, error} = await supabase

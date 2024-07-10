@@ -16,6 +16,7 @@ router.post('/bookdesk', async (req, res) => {
     let in_deskid = req.query.desk_id;
     let in_userid = req.query.user_id;
     let in_date = req.query.date;
+    let auth = true;
 
     // Check if input is empty
     if (in_deskid == "" || in_userid == "" || in_date == "") {
@@ -71,7 +72,8 @@ router.post('/bookdesk', async (req, res) => {
                 {
                     desk_id: in_deskid,
                     user_id: in_userid,
-                    date: date1_str
+                    date: date1_str,
+                    authorisation: auth
                 }
             );
             const {data2, error2} = await supabase
@@ -80,7 +82,8 @@ router.post('/bookdesk', async (req, res) => {
                 {
                     desk_id: in_deskid,
                     user_id: in_userid,
-                    date: date1_str
+                    date: date1_str,
+                    authorisation: auth
                 }
             );
             if (error) {
@@ -326,7 +329,50 @@ router.get('/test', async (req, res) => {
     res.send('Test');
 });
 
-// test 2
+// Get desks that are booked in a certain date range and floor
+router.get('/bookingsbydatefloor', async (req, res) => {
+    let in_date = req.query.date;
+    let in_building = req.query.building;
+    let in_floor = req.query.floor;
 
+    //Split date
+    var dates = in_date.split("-");
+
+    var date1 = dates[0] + "-" + dates[1] + "-" + dates[2];
+    var date2 = dates[3] + "-" + dates[4] + "-" + dates[5];
+
+    const {data, error} = await supabase
+    .from('bookings')
+    .select('*,users(*),desks!inner(*)')
+    .gte('date', date1)
+    .lte('date', date2)
+    .eq('desks.building',in_building)
+    .eq('desks.floor', in_floor);
+
+    if (data == null){
+        console.log("null bookingsbydatefloor");
+        return;
+    }
+
+    //If no bookings found
+    if (data.length === 0) {
+        res.send('No bookings found');
+        console.log('No bookings found');
+        return;
+    }
+    else {
+        // If user has booked multiple desks, only show one user
+        var users = [];
+        var user_ids = [];
+        for (var i = 0; i < data.length; i++) {
+            if (!user_ids.includes(data[i].user_id)) {
+                users.push(data[i]);
+                user_ids.push(data[i].user_id);
+            }
+        }
+        res.send(users);
+        console.log('Bookings found');
+    }
+});
 
 module.exports = router;
