@@ -40,14 +40,12 @@ export async function createEvents(accessToken, event) {
   return res;
 }
 
-export async function deleteEvents(accessToken, event) {
+export async function deleteEvents(accessToken, eventId) {
   const client = getAuthenticatedClient(accessToken);
-
-  let res = await client.api('/me/events').delete(event);
+  let res = await client.api(`/me/events/${eventId}`).delete();
   console.log('Deleting Event...');
   return res;
 }
-
 export async function sendEmail(accessToken, event) {
   const client = getAuthenticatedClient(accessToken);
 

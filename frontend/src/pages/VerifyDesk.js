@@ -17,7 +17,7 @@ function VerifyDesk() {
 
   const handleVerifyClick = () => {
   
-    fetch(`/api/teambooking/verify?user_email=${userEmail}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/teambooking/verify?user_email=${userEmail}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function VerifyDesk() {
       <Button
         style={{ fontSize: '20px', padding: '20px 20px', width: '16rem', height: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         type="submit"
-        onClick={handleVerifyClick} // Attach click handler
+        onClick={handleVerifyClick} 
       >
         Verify Desk
       </Button>

@@ -5,7 +5,7 @@ import FavouriteDesk from "../components/Cards/Desks/FavouriteDesk";
 import CurrentDesk from "../components/Cards/Desks/CurrentDesk";
 import WhosIn from "../components/Home/WhosIn";
 import NewsCard from "../components/Cards/NewsCard";
-import { MyTasks } from "../components/Tasks/MyTasks";
+import  MyTasks  from "../components/Tasks/MyTasks";
 
 function Home() {
   return (

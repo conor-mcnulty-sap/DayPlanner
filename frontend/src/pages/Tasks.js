@@ -1,6 +1,6 @@
 import React from 'react';
 import Calendar from '../components/Tasks/Calendar/MyCalendar';
-import { MyTasks } from '../components/Tasks/MyTasks';
+import  MyTasks  from '../components/Tasks/MyTasks';
 import  TasksForm  from '../components/Tasks/TasksForm';
 import { Grid } from "@ui5/webcomponents-react";
 
