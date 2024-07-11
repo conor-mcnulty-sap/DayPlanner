@@ -141,6 +141,63 @@ router.get("/checkavailability", async (req, res) => {
     }
 });
 
+//Check availability of Meeting Room at certain date and time and building and floor
+router.get("/checkavailabilitybuildingfloor", async (req, res) => {
+    let in_start_date_time = req.query.start_date_time;
+    let in_building = req.query.building;
+    let in_floor = req.query.floor;
+    let in_end_date_time = req.query.end_date_time;
+
+
+    // Check if input is empty
+    if (in_start_date_time == "" && in_building == "" && in_floor == "" && in_end_time == "") {
+        res.send('Invalid input');
+        console.log('Invalid input (Null)');
+        return;
+    }
+
+    //Get all meeting rooms
+    const {data: meeting_rooms, error} = await supabase
+    .from('meeting_rooms')
+    .select('*')
+    .eq('building',in_building)
+    .eq('floor',in_floor);
+
+    //Get all bookings for meeting rooms during start_date_time and end_date_time
+    const {data: bookings, error2} = await supabase
+    .from('bookings_meeting_rooms')
+    .select('meeting_room')
+    .lte('start_date_time', in_start_date_time)
+    .gte('end_date_time', in_end_date_time);
+
+    //If no bookings found
+    if (bookings.length == 0) {
+        res.send(meeting_rooms);
+        console.log('All meeting rooms available');
+        return;
+    }
+    else 
+    {
+        //Get all meeting rooms that are not booked during start_date_time
+        var available_meeting_rooms = [];
+        for (var i = 0; i < meeting_rooms.length; i++) {
+            var booked = false;
+            for (var j = 0; j < bookings.length; j++) {
+                if (meeting_rooms[i].meeting_room == bookings[j].meeting_room) {
+                    console.log(meeting_rooms[i].meeting_room + " Booked");
+                    booked = true;
+                    break;
+                }
+            }
+            if (!booked) {
+                available_meeting_rooms.push(meeting_rooms[i]);
+            }
+        }
+        res.send(available_meeting_rooms);
+        console.log('Available meeting rooms sent');
+    }
+});
+
 
     
 

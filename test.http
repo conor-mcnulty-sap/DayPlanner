@@ -157,6 +157,10 @@ Host: localhost:5000
 GET /api/meetingrooms/checkavailability?start_date_time=2024-06-13 14:14 HTTP/1.1
 Host: localhost:5000
 
+### Checking availablity of meeting room building and floor
+GET /api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=2024-06-13 14:14&building=DUB05&floor=2&end_date_time=2024-06-13 17:14 HTTP/1.1
+Host: localhost:5000
+
 ### Add teambooking
 POST /api/teambooking/bookdesk?user_email=graftonstreet-dayplanner@outlook.com&desk_id=DUB05-2-L-32&date=2024-07-05-2024-07-05 HTTP/1.1
 Host: localhost:5000
