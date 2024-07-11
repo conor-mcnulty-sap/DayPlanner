@@ -36,8 +36,8 @@ export default class BookMeetingRoom extends Component {
       email: '',
       dialogOpen: false,
       dialogMessage: '',
-      meetingRooms: [],  // New state variable to store meeting rooms
-      filteredRooms: []  // New state variable to store filtered rooms
+      meetingRooms: [],  
+      filteredRooms: [] 
     };
 
     this.onClick = this.onClick.bind(this);

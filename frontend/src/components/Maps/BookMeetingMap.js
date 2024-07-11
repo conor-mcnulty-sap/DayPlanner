@@ -3,7 +3,13 @@ import { Card } from "@ui5/webcomponents-react";
 import { MapContainer, ImageOverlay, Polygon, Popup } from "react-leaflet"; // Import Popup along with Polygon
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import floorPlan21 from "../../assets/DUB/2-1.png";
+import floorPlan22 from "../../assets/DUB/2-2.png";
+import floorPlan23 from "../../assets/DUB/2-3.png";
+import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
+
+
 
 function Map(selectedBuilding, selectedFloor) {
   const [isMapInit, setIsMapInit] = useState(false);
@@ -18,7 +24,7 @@ function Map(selectedBuilding, selectedFloor) {
     setIsMapInit(true);
 
     // Fetch polygon coordinates
-    fetch(`/coordinates.json`)
+    fetch(`/MeetingCoordinates-2-1.json`)
       .then((response) => response.json())
       .then((data) => {
         setPolygons(data.polygons);
@@ -36,7 +42,7 @@ function Map(selectedBuilding, selectedFloor) {
           crs={L.CRS.Simple}
           attributionControl={false}
         >
-          <ImageOverlay url={floorPlan33} bounds={bounds} />
+          <ImageOverlay url={floorPlan21} bounds={bounds} />
           {polygons.map((polygon, index) => (
             <Polygon
               key={index}
