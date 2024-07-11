@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, ImageOverlay, Circle, Popup } from "react-leaflet";
+import { useGetBookings } from "../../hooks/useGetBookings";
 import { getDate } from "../../util/getDate";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -18,9 +19,15 @@ const floorPlans = {
   "3-3": floorPlan33,
 };
 
-function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDate() }) { 
-  const sleep = ms => new Promise(r => setTimeout(r,ms)); 
-
+function Map({
+  onCircleClick,
+  selectedBuilding,
+  selectedFloor,
+  dateRange = getDate(),
+}) {
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  selectedBuilding = "3";
+  selectedFloor = "3";
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
@@ -29,36 +36,11 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDa
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-3"]);
   //console.log(selectedBuilding);
 
-  const [bookedDesks, setBookedDesks] = useState([]);
-
-  const getBookings = (dateRange, selectedBuilding, selectedFloor) => {
-    const sleep = ms => new Promise(r => setTimeout(r,ms));
-    sleep(100);
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydatefloor?date=${dateRange}&building=${selectedBuilding}&floor=${selectedFloor}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error fetching bookings: " + response.status);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Assuming data is an array of bookings, extract desk IDs
-        const bookedDeskIds = data.map((booking) => booking.desk_id);
-        //console.log(bookedDeskIds);
-        setBookedDesks(bookedDeskIds);
-      })
-      .catch((error) => {
-        console.error(`Error fetching bookings: ${error}`);
-      });
-  };
-
-  useEffect(() => {
-    let building = (selectedBuilding === 3) ? "DUB02" : "DUB05";
-    //console.log(`test: ${dateRange} | ${building} | ${selectedFloor}`);
-    getBookings(dateRange, building, selectedFloor);
-  }, [dateRange, selectedBuilding, selectedFloor]);
+  const bookedDesks = useGetBookings(
+    dateRange,
+    selectedBuilding,
+    selectedFloor
+  );
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -165,7 +147,7 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange = getDa
         console.log(`Desk ${deskId} booked`);
       })
       .catch((error) => console.error(error));
-      window.location.reload();
+    window.location.reload();
   };
 
   return (

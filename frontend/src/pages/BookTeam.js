@@ -7,7 +7,7 @@ function BookTeam() {
   const [selectedDesks, setSelectedDesks] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
-  const [dateRange, setDateRange] = useState("");
+  const [dateRange, setDateRange] = useState();
 
   const handleBuildingChange = (newBuilding) => {
     setSelectedBuilding(newBuilding);

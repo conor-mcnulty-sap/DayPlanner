@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, ImageOverlay, Circle, Popup } from "react-leaflet";
+import { useGetBookings } from "../../hooks/useGetBookings";
+import { getDate } from "../../util/getDate";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import floorPlan21 from "../../assets/DUB/2-1.png";
@@ -9,23 +11,54 @@ import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
 import { Card, Button } from "@ui5/webcomponents-react";
 
-// Create an object to map floor plans to their respective keys
 const floorPlans = {
   "2-1": floorPlan21,
   "2-2": floorPlan22,
   "2-3": floorPlan23,
   "3-1": floorPlan31,
   "3-3": floorPlan33,
-  // Add more floor plans here
 };
 
-function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange, selectedDesks, setSelectedDesks }) {
+function Map({
+  onCircleClick,
+  selectedBuilding,
+  selectedFloor,
+  dateRange = getDate(),
+  selectedDesks,
+  setSelectedDesks,
+}) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
   // Add a new state variable for the selected floor plan
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
+  console.log("a"+dateRange);
+  const bookedDesks = useGetBookings(
+    dateRange,
+    selectedBuilding,
+    selectedFloor
+  );
+
+  
+  const [coordinates, setCoordinates] = useState([]);
+
+  // Fetch the coordinates from the JSON file when the component mounts
+  useEffect(() => {
+    const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`;
+    fetch(coordinatesFile)
+      .then((response) => response.json())
+      .then((data) => {
+        // Update each coordinate's color based on whether it's booked
+        const updatedCoordinates = data.map((coordinate) => ({
+          ...coordinate,
+          color: bookedDesks.includes(coordinate.popup) ? "red" : "green", // Assuming 'popup' contains the desk ID
+        }));
+        setCoordinates(updatedCoordinates);
+      })
+      .catch((error) => console.error(error));
+      console.log(dateRange)
+  }, [selectedFloor, selectedBuilding, bookedDesks]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -64,25 +97,21 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange, select
     [10, 29],
   ];
 
-  // State to store the coordinates
-  const [coordinates, setCoordinates] = useState([]);
-
   // Fetch the coordinates from the JSON file when the component mounts
   useEffect(() => {
-    const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`; // Modify this line to use the selected floor
+    const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`;
     fetch(coordinatesFile)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched coordinates: ", data);
-        setCoordinates(data);
+        // Update each coordinate's color based on whether it's booked
+        const updatedCoordinates = data.map((coordinate) => ({
+          ...coordinate,
+          color: bookedDesks.includes(coordinate.popup) ? "red" : "green", // Assuming 'popup' contains the desk ID
+        }));
+        setCoordinates(updatedCoordinates);
       })
-      .catch((error) => console.log("Fetching coordinates failed: ", error));
-  }, [selectedFloor, selectedBuilding]); // Add selectedFloor as a dependency
+      .catch((error) => console.error(error));
+  }, [selectedFloor, selectedBuilding, bookedDesks]); // Add selectedFloor as a dependency
 
   const handleFavourite = (deskId) => {
     fetch(
@@ -175,6 +204,11 @@ function Map({ onCircleClick, selectedBuilding, selectedFloor, dateRange, select
                 fillColor: coordinate.color,
                 fillOpacity: 0.2,
                 fill: true,
+              }}
+              eventHandlers={{
+                click: () => {
+                  onCircleClick(coordinate);
+                },
               }}
             >
               <Popup>
