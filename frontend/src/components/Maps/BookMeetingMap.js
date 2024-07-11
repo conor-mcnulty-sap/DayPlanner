@@ -18,8 +18,6 @@ const floorPlans = {
 };
 
 function Map(selectedBuilding, selectedFloor) {
-  selectedBuilding = "3";
-  selectedFloor = "3";
 
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-3"]);
   const [isMapInit, setIsMapInit] = useState(false);
@@ -64,7 +62,11 @@ function Map(selectedBuilding, selectedFloor) {
           crs={L.CRS.Simple}
           attributionControl={false}
         >
-          <ImageOverlay url={floorPlan21} bounds={bounds} />
+          <ImageOverlay
+            key={selectedFloorPlan}
+            url={selectedFloorPlan}
+            bounds={bounds}
+          />
           {polygons.map((polygon, index) => (
             <Polygon
               key={index}
