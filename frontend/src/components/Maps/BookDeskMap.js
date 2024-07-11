@@ -58,7 +58,7 @@ function Map({
         .catch((error) => console.error(error));
     }
     setIsMapInit(true);
-  }, []);
+  }, [setUserId, setFavouritedDesks, setIsMapInit]);
 
   // Add a useEffect to update the selected floor plan when the selected building or floor changes
   useEffect(() => {

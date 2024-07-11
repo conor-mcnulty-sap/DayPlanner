@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import MeetingRoomCarousel from "../components/Carousels/MeetingRoomCarousel";
 import MeetingRoomForm from "../components/Forms/MeetingRoomForm";
 import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
 
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
+  const [selectedBuilding, setSelectedBuilding] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
+
+  const handleBuildingChange = (newBuilding) => {
+    setSelectedBuilding(newBuilding);
+  };
+
+  const handleFloorChange = (newFloor) => {
+    setSelectedFloor(newFloor);
+  };
+
   return (
     <Grid
       defaultSpan="XL6 L12 M12 S12"
@@ -21,12 +32,18 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
           width: "100%",
         }}
       >
-        <MeetingRoomForm />
-        <MeetingRoomCarousel />
+        <MeetingRoomForm
+          onBuildingChange={handleBuildingChange}
+          onFloorChange={handleFloorChange}
+        />
+        <MeetingRoomCarousel
+          selectedBuilding={selectedBuilding}
+          selectedFloor={selectedFloor}
+        />
       </div>
       <Map />
     </Grid>
   );
-}
+};
 
 export default BookMeeting;

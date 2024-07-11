@@ -9,9 +9,19 @@ import floorPlan23 from "../../assets/DUB/2-3.png";
 import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
 
-
+const floorPlans = {
+  "2-1": floorPlan21,
+  "2-2": floorPlan22,
+  "2-3": floorPlan23,
+  "3-1": floorPlan31,
+  "3-3": floorPlan33,
+};
 
 function Map(selectedBuilding, selectedFloor) {
+  selectedBuilding = "3";
+  selectedFloor = "3";
+
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-3"]);
   const [isMapInit, setIsMapInit] = useState(false);
   const [polygons, setPolygons] = useState([]);
 
@@ -31,6 +41,18 @@ function Map(selectedBuilding, selectedFloor) {
       })
       .catch((error) => console.error("Failed to load coordinates:", error));
   }, []);
+
+  useEffect(() => {
+    const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
+    if (floorPlans[floorPlanKey]) {
+      setSelectedFloorPlan(floorPlans[floorPlanKey]);
+    } else {
+      console.warn(
+        `Floor plan ${floorPlanKey} does not exist. Defaulting to '3-3'.`
+      );
+      setSelectedFloorPlan(floorPlans["3-3"]);
+    }
+  }, [selectedBuilding, selectedFloor]);
 
   return (
     <Card style={{ width: "100%", height: "100%" }}>
