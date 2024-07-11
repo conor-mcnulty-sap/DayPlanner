@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import floorPlan33 from "../../assets/DUB/3-3.png";
 
-function Map() {
+function Map(selectedBuilding, selectedFloor) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [polygons, setPolygons] = useState([]);
 
