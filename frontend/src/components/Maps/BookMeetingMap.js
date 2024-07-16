@@ -32,7 +32,7 @@ function Map(selectedBuilding, selectedFloor) {
     setIsMapInit(true);
 
     // Fetch polygon coordinates
-    fetch(`/MeetingCoordinates-2-1.json`)
+    fetch(`/MeetingCoordinates-3-1.json`)
       .then((response) => response.json())
       .then((data) => {
         setPolygons(data.polygons);
@@ -48,7 +48,7 @@ function Map(selectedBuilding, selectedFloor) {
       console.warn(
         `Floor plan ${floorPlanKey} does not exist. Defaulting to '3-3'.`
       );
-      setSelectedFloorPlan(floorPlans["3-3"]);
+      setSelectedFloorPlan(floorPlans["3-1"]);
     }
   }, [selectedBuilding, selectedFloor]);
 
