@@ -16,10 +16,6 @@ import {
 import moment from 'moment';
 import config from "../Tasks/Calendar/Config";
 
-function formatDateTime(dateTime) {
-  return moment.utc(dateTime).local().format('D/M/YY h:mm A');
-}
-
 export default class BookMeetingRoom extends Component {
   constructor(props) {
     super(props);
@@ -186,16 +182,24 @@ export default class BookMeetingRoom extends Component {
   }
 
   setBuilding(event) {
-    const displayBuilding = event.detail.selectedOption.innerText;
-    const building = displayBuilding === "DUB03" ? "DUB02" : displayBuilding;
+    
+    const building =  event.detail.selectedOption.innerText;
     console.log(`Setting state: building = ${building}`);
-    this.setState({ building }, this.filterRooms);
+    this.setState({ building }, () => {
+      this.filterRooms();
+      // Call the parent's callback function
+      this.props.onBuildingChange(building);
+    });
   }
 
   setFloor(event) {
     const floor = event.detail.selectedOption.innerText;
     console.log(`Setting state: floor = ${floor}`);
-    this.setState({ floor }, this.filterRooms);
+    this.setState({ floor }, () => {
+      this.filterRooms();
+      // Call the parent's callback function
+      this.props.onFloorChange(floor);
+    });
   }
 
   setRoom(event) {

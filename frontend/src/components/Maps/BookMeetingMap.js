@@ -8,7 +8,7 @@ import floorPlan22 from "../../assets/DUB/2-2.png";
 import floorPlan23 from "../../assets/DUB/2-3.png";
 import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
-
+import { useGetMeetingRooms } from "../../hooks/useGetMeetingRooms";
 const floorPlans = {
   "2-1": floorPlan21,
   "2-2": floorPlan22,
@@ -17,9 +17,9 @@ const floorPlans = {
   "3-3": floorPlan33,
 };
 
-function Map(selectedBuilding, selectedFloor) {
-
-  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-3"]);
+function Map(props) {
+  const { selectedBuilding, selectedFloor } = props;
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState("");
   const [isMapInit, setIsMapInit] = useState(false);
   const [polygons, setPolygons] = useState([]);
 
@@ -27,6 +27,10 @@ function Map(selectedBuilding, selectedFloor) {
     [0, 0],
     [10, 29],
   ];
+
+  
+
+  console.log("abc" + useGetMeetingRooms("2024-07-23 14:14", "DUB05", "2", "2024-06-13 17:14"));
 
   useEffect(() => {
     setIsMapInit(true);
@@ -41,14 +45,20 @@ function Map(selectedBuilding, selectedFloor) {
   }, []);
 
   useEffect(() => {
-    const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
+    let adjustedBuilding = selectedBuilding;
+    if (selectedBuilding === "DUB03") {
+      adjustedBuilding = "2";
+    } else if (selectedBuilding === "DUB05") {
+      adjustedBuilding = "3";
+    }
+    const floorPlanKey = `${adjustedBuilding}-${selectedFloor}`;
     if (floorPlans[floorPlanKey]) {
       setSelectedFloorPlan(floorPlans[floorPlanKey]);
     } else {
       console.warn(
         `Floor plan ${floorPlanKey} does not exist. Defaulting to '3-3'.`
       );
-      setSelectedFloorPlan(floorPlans["3-1"]);
+      setSelectedFloorPlan(floorPlans["3-3"]);
     }
   }, [selectedBuilding, selectedFloor]);
 

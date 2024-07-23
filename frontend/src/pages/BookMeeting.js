@@ -5,15 +5,17 @@ import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
 
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
-  const [selectedBuilding, setSelectedBuilding] = useState("");
-  const [selectedFloor, setSelectedFloor] = useState("");
+  const [building, setBuilding] = useState('');
+  const [floor, setFloor] = useState('');
 
-  const setBuilding = (newBuilding) => {
-    setSelectedBuilding(newBuilding);
+  const handleBuildingChange = (newBuilding) => {
+    console.log("Selected Building:", newBuilding);
+    setBuilding(newBuilding);
   };
 
-  const setFloor = (newFloor) => {
-    setSelectedFloor(newFloor);
+  const handleFloorChange = (newFloor) => {
+    console.log("Selected Floor:", newFloor);
+    setFloor(newFloor);
   };
 
   return (
@@ -33,12 +35,12 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
         }}
       >
         <MeetingRoomForm
-          onBuildingChange={setBuilding}
-          onFloorChange={setFloor}
+          onBuildingChange={handleBuildingChange}
+          onFloorChange={handleFloorChange}
         />
         <MeetingRoomCarousel />
       </div>
-      <Map selectedBuilding={selectedBuilding} selectedFloor={selectedFloor} />
+      <Map selectedBuilding={building} selectedFloor={floor} />
     </Grid>
   );
 };
