@@ -6,6 +6,7 @@ import {
   List,
   Dialog,
   Bar,
+  Icon
 } from "@ui5/webcomponents-react";
 import moment from "moment";
 

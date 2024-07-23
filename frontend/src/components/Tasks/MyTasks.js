@@ -174,8 +174,8 @@ export default class MyTasks extends Component {
                 cursor: "pointer",
               }}
               onClick={(e) => {
-                e.stopPropagation(); // Prevent the click event from propagating to the parent div
-                this.handleDeleteTask(task.event_id); // Use task.event_id here
+                e.stopPropagation();
+                this.handleDeleteTask(task.event_id); 
               }}
             />
           </div>

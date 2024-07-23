@@ -10,6 +10,7 @@ import {
   Option,
   Dialog,
   Bar,
+  TextArea
 } from "@ui5/webcomponents-react";
 import { sendEmail, getEvents } from "../Tasks/Calendar/GraphFunctions";
 import config from "../Tasks/Calendar/Config";
@@ -244,7 +245,7 @@ function TeamBooking({
       >
         <FormGroup titleText="">
           <FormItem label="Email Addresses (comma separated)">
-            <Input
+            <TextArea
               type="text"
               name="emailAddresses"
               value={emailAddresses}
