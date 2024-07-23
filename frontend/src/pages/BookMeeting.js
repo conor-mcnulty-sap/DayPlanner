@@ -8,11 +8,11 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
   const [selectedBuilding, setSelectedBuilding] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
 
-  const handleBuildingChange = (newBuilding) => {
+  const setBuilding = (newBuilding) => {
     setSelectedBuilding(newBuilding);
   };
 
-  const handleFloorChange = (newFloor) => {
+  const setFloor = (newFloor) => {
     setSelectedFloor(newFloor);
   };
 
@@ -33,15 +33,12 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
         }}
       >
         <MeetingRoomForm
-          onBuildingChange={handleBuildingChange}
-          onFloorChange={handleFloorChange}
+          onBuildingChange={setBuilding}
+          onFloorChange={setFloor}
         />
-        <MeetingRoomCarousel
-          selectedBuilding={selectedBuilding}
-          selectedFloor={selectedFloor}
-        />
+        <MeetingRoomCarousel />
       </div>
-      <Map />
+      <Map selectedBuilding={selectedBuilding} selectedFloor={selectedFloor} />
     </Grid>
   );
 };

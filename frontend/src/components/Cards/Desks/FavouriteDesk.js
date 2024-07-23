@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardHeader, Button, List, Dialog, Bar } from "@ui5/webcomponents-react";
+import {
+  Card,
+  CardHeader,
+  Button,
+  List,
+  Dialog,
+  Bar,
+} from "@ui5/webcomponents-react";
 import moment from "moment";
 
 const FavouriteDesk = () => {
@@ -12,7 +19,9 @@ const FavouriteDesk = () => {
 
   const fetchFavouriteDesks = () => {
     if (userId) {
-      fetch(`${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userId}`)
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/desks/favouritesbyuser?user_id=${userId}`
+      )
         .then((response) => response.json())
         .then((data) => setFavouriteDesks(data))
         .catch((error) => console.error(error));
@@ -22,11 +31,15 @@ const FavouriteDesk = () => {
   const fetchBookingsToday = () => {
     const today = moment().format("YYYY-MM-DD");
     if (userId) {
-      fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${today}`)
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${today}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setBookingsToday(data);
-          const userBooking = data.find((booking) => booking.user_id === userId);
+          const userBooking = data.find(
+            (booking) => booking.user_id === userId
+          );
           setUserHasBookingToday(!!userBooking);
         })
         .catch((error) => console.error(error));
@@ -52,13 +65,20 @@ const FavouriteDesk = () => {
   const bookDesk = (deskId) => {
     const today = moment().format("YYYY-MM-DD");
     const dateRange = `${today}-${today}`;
-    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user_id: userId, desk_id: deskId, date: dateRange }),
-    })
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          desk_id: deskId,
+          date: dateRange,
+        }),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -68,12 +88,18 @@ const FavouriteDesk = () => {
       .then((text) => {
         try {
           const data = JSON.parse(text);
-          setBookingsToday((prevBookings) => [...prevBookings, { desk_id: deskId, user_id: userId }]);
+          setBookingsToday((prevBookings) => [
+            ...prevBookings,
+            { desk_id: deskId, user_id: userId },
+          ]);
           setUserHasBookingToday(true);
           fetchFavouriteDesks();
           setDialogMessage("Desk Booked Successfully.");
         } catch (error) {
-          setBookingsToday((prevBookings) => [...prevBookings, { desk_id: deskId, user_id: userId }]);
+          setBookingsToday((prevBookings) => [
+            ...prevBookings,
+            { desk_id: deskId, user_id: userId },
+          ]);
           setUserHasBookingToday(true);
           fetchFavouriteDesks();
           setDialogMessage("Desk Booked Successfully.");
@@ -88,14 +114,19 @@ const FavouriteDesk = () => {
   };
 
   const handleUnfavouriteDesk = (deskId) => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        setFavouriteDesks(favouriteDesks.filter((desk) => desk.desk_id !== deskId));
+        setFavouriteDesks(
+          favouriteDesks.filter((desk) => desk.desk_id !== deskId)
+        );
         fetchFavouriteDesks();
         setDialogMessage(`Desk ${deskId} removed from favourites`);
         setDialogOpen(true);
@@ -114,69 +145,85 @@ const FavouriteDesk = () => {
 
   return (
     <Card header={<CardHeader titleText="Favourite Desks" />}>
-      <List>
-        {favouriteDesks && favouriteDesks.length > 0 ? (
-          favouriteDesks.map((desk) => {
-            const booking = bookingsToday.find((b) => b.desk_id === desk.desk_id);
-            const isBookedByCurrentUser = booking && booking.user_id === userId;
-            let buttonDesign;
-            let buttonText;
+      <div style={{ margin: "0.5rem" }}>
+        <List>
+          {favouriteDesks && favouriteDesks.length > 0 ? (
+            favouriteDesks.map((desk) => {
+              const booking = bookingsToday.find(
+                (b) => b.desk_id === desk.desk_id
+              );
+              const isBookedByCurrentUser =
+                booking && booking.user_id === userId;
+              let buttonDesign;
+              let buttonText;
 
-            if (userHasBookingToday) {
-              if (isBookedByCurrentUser) {
-                buttonDesign = "Negative";
-                buttonText = "Booked by You";
-              } else {
+              if (userHasBookingToday) {
+                if (isBookedByCurrentUser) {
+                  buttonDesign = "Negative";
+                  buttonText = "Booked by You";
+                } else {
+                  buttonDesign = "Negative";
+                  buttonText = "Booking Unavailable";
+                }
+              } else if (booking) {
                 buttonDesign = "Negative";
                 buttonText = "Booking Unavailable";
+              } else {
+                buttonDesign = "Positive";
+                buttonText = "Book Desk";
               }
-            } else if (booking) {
-              buttonDesign = "Negative";
-              buttonText = "Booking Unavailable";
-            } else {
-              buttonDesign = "Positive";
-              buttonText = "Book Desk";
-            }
 
-            return (
-              <Card key={desk.desk_id} header={<CardHeader titleText={`Desk ID: ${desk.desk_id}`} />}>
-                <Button
-                  design={buttonDesign}
-                  onClick={() => {
-                    if (!userHasBookingToday && !booking) bookDesk(desk.desk_id);
-                  }}
-                  style={{ marginRight: "20px" }}
-                  disabled={userHasBookingToday}
+              return (
+                <Card
+                  key={desk.desk_id}
+                  header={<CardHeader titleText={`Desk ID: ${desk.desk_id}`} />}
                 >
-                  {buttonText}
-                </Button>
-                <Button design="Negative" onClick={() => handleUnfavouriteDesk(desk.desk_id)}>
-                  Unfavourite
-                </Button>
-              </Card>
-            );
-          })
-        ) : (
-          <Card header={<CardHeader titleText="No Favourite Desks!" />}>
-            <Button design="Positive" style={{ marginRight: "20px" }}>
-              Book a Desk
-            </Button>
-          </Card>
-        )}
-      </List>
+                  <Button
+                    design={buttonDesign}
+                    onClick={() => {
+                      if (!userHasBookingToday && !booking)
+                        bookDesk(desk.desk_id);
+                    }}
+                    style={{ marginRight: "20px" }}
+                    disabled={userHasBookingToday}
+                  >
+                    {buttonText}
+                  </Button>
+                  <Button
+                    design="Negative"
+                    onClick={() => handleUnfavouriteDesk(desk.desk_id)}
+                  >
+                    Unfavourite
+                  </Button>
+                </Card>
+              );
+            })
+          ) : (
+            <Card header={<CardHeader titleText="No Favourite Desks!" />}>
+              <Button design="Positive" style={{ marginRight: "20px" }}>
+                Book a Desk
+              </Button>
+            </Card>
+          )}
+        </List>
 
-      <Dialog
-        headerText="Book A Desk"
-        footer={
-          <Bar
-            endContent={<Button design="Emphasized" onClick={closeDialog}>OK</Button>}
-          />
-        }
-        open={dialogOpen}
-        onAfterClose={closeDialog}
-      >
-        <p>{dialogMessage}</p>
-      </Dialog>
+        <Dialog
+          headerText="Book A Desk"
+          footer={
+            <Bar
+              endContent={
+                <Button design="Emphasized" onClick={closeDialog}>
+                  OK
+                </Button>
+              }
+            />
+          }
+          open={dialogOpen}
+          onAfterClose={closeDialog}
+        >
+          <p>{dialogMessage}</p>
+        </Dialog>
+      </div>
     </Card>
   );
 };

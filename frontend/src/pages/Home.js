@@ -5,7 +5,7 @@ import FavouriteDesk from "../components/Cards/Desks/FavouriteDesk";
 import CurrentDesk from "../components/Cards/Desks/CurrentDesk";
 import WhosIn from "../components/Home/WhosIn";
 import NewsCard from "../components/Cards/NewsCard";
-import  MyTasks  from "../components/Tasks/MyTasks";
+import MyTasks from "../components/Tasks/MyTasks";
 
 function Home() {
   return (
@@ -21,11 +21,20 @@ function Home() {
       <div style={{ width: "48%", marginRight: "1rem" }}>
         <Card header={<CardHeader titleText="My Desks" />}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <CurrentDesk />
-              <LastBooked />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around", // Changed from space-between to space-around for equal spacing around items
+              }}
+            >
+              <div style={{ flex: "1", margin: "0.5rem" }}> {/* Added marginRight to CurrentDesk */}
+                <CurrentDesk />
+              </div>
+              <div style={{ flex: "1", margin: "0.5rem" }}> {/* Added marginLeft to LastBooked */}
+                <LastBooked />
+              </div>
             </div>
-            <div style={{ margin: "1rem 0" }}>
+            <div style={{ margin: "0.5rem" }}>
               <FavouriteDesk />
             </div>
           </div>
