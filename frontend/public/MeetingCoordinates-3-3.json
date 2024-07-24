@@ -3,45 +3,48 @@
       {
         "positions": [[0.65, 2.4], [1.85, 2], [2.25, 3.15], [1.05, 3.5]],
         "color": "red",
-        "name": "Dame Street"
+        "name": "Dame Street",
+        "description":"",
+        "id":"3301"
       },
-      {
-        "positions": [[2.7, 12.45], [2.6, 11], [4.3, 10.9], [4.4, 12.35]],
-        "color": "red",
-        "name": "Unconfirmed"
-      },
+    
       {
         "positions": [[2.55, 12.65], [2.6, 13.5], [2.4, 13.5], [2.4, 14.1], [1.3, 13.9], [1.3, 12.7]],
         "color": "red",
-        "name": "O'Connell Street"
+        "name": "O'Connell Street",
+        "description":"A screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite."  ,
+        "id":"3302"
       },
-      {
-        "positions": [[2.3, 14.2], [2.2, 16.45], [1.3, 16.4], [1.3, 14]],
-        "color": "red",
-        "name": "Unconfirmed"
-      },
+
       {
         "positions": [[7.9, 10.6], [7.95, 11.6], [7.15, 11.65], [7.1, 10.7]],
         "color": "red",
         "name": "College Green",
-        "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite."
+        "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite.",
+        "id":"3303"
         
       },
       {
         "positions": [[9.9, 12.8], [9.9, 14.5], [7.25, 14.5], [7.2, 12.85]],
         "color": "red",
-        "name": "Stephen's Green"
+        "name": "Stephen's Green",
+        "description":"A screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite.",
+        "id":"3304"
 
       },
       {
         "positions": [[9.8, 17.45], [9.9, 14.55], [7.25, 14.55], [7.15, 17.3]],
         "color": "red",
-        "name": "Grafton Street"
+        "name": "Grafton Street",
+        "description":"A dual screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite.",
+        "id":"3305"
       },
       {
         "positions": [[7.7, 28], [7.45, 28.8], [6.3, 28.4], [6.6, 27.6]],
         "color": "red",
-        "name": "Baggot Street"
+        "name": "Baggot Street",
+        "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite.",
+        "id":"3306"
       }
     ]
   }
