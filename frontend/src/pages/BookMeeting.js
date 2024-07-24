@@ -5,8 +5,8 @@ import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
 
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
-  const [building, setBuilding] = useState('');
-  const [floor, setFloor] = useState('');
+  const [building, setBuilding] = useState('3');
+  const [floor, setFloor] = useState('1');
 
   const handleBuildingChange = (newBuilding) => {
     console.log("Selected Building:", newBuilding);
