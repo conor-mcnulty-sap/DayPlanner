@@ -26,14 +26,12 @@ function Map({
   dateRange = getDate(),
 }) {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  selectedBuilding = "3";
-  selectedFloor = "3";
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
   // Add a new state variable for the selected floor plan
-  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-3"]);
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
   //console.log(selectedBuilding);
 
   const bookedDesks = useGetBookings(
@@ -62,15 +60,14 @@ function Map({
 
   // Add a useEffect to update the selected floor plan when the selected building or floor changes
   useEffect(() => {
-    sleep(1000);
     const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
     if (floorPlans[floorPlanKey]) {
       setSelectedFloorPlan(floorPlans[floorPlanKey]);
     } else {
       console.warn(
-        `Floor plan ${floorPlanKey} does not exist. Defaulting to '3-3'.`
+        `Floor plan ${floorPlanKey} does not exist. Defaulting to '2-1'.`
       );
-      setSelectedFloorPlan(floorPlans["3-3"]);
+      setSelectedFloorPlan(floorPlans["2-1"]);
     }
   }, [selectedBuilding, selectedFloor]);
 
