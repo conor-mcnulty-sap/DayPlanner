@@ -38,7 +38,7 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
           onBuildingChange={handleBuildingChange}
           onFloorChange={handleFloorChange}
         />
-        <MeetingRoomCarousel />
+   
       </div>
       <Map selectedBuilding={building} selectedFloor={floor} />
     </Grid>

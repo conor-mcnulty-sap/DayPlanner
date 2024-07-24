@@ -23,8 +23,8 @@ export default class BookMeetingRoom extends Component {
     this.state = {
       events: [],
       event: {},
-      building: '',
-      floor: '',
+      building: 'DUB03', // Default building
+      floor: '1', // Default floor
       room: '',
       subject: '',
       startDateTime: '',
@@ -63,7 +63,9 @@ export default class BookMeetingRoom extends Component {
       if (response.ok) {
         const meetingRooms = await response.json();
         console.log("Fetched meeting rooms", meetingRooms); // Log fetched meeting rooms here
-        this.setState({ meetingRooms });
+        this.setState({ meetingRooms }, () => {
+          this.filterRooms(); // Filter rooms after fetching
+        });
       } else {
         console.error("Error fetching meeting rooms", response.status);
       }
@@ -213,7 +215,6 @@ export default class BookMeetingRoom extends Component {
 
   filterRooms() {
     const { building, floor, meetingRooms } = this.state;
-
 
     const filteredRooms = meetingRooms.filter(meetingRoom => {
       const matchBuilding = meetingRoom.building === building;
