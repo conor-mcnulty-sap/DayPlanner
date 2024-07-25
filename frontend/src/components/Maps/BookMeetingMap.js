@@ -20,12 +20,10 @@ const floorPlans = {
 };
 
 const getMeetingRoomImageUrl = (meetingRoomName) => {
-  const sanitizedMeetingRoomName = meetingRoomName.replace(/\s+/g, "");
-  const url = `https://podlhgkfubcuxuryqobo.supabase.co/storage/v1/object/public/Meeting%20room%20images/${sanitizedMeetingRoomName}.jpg`;
-  console.log("Generated URL:", url); // Log the URL
+  const newMeetingRoom = meetingRoomName.replace(/\s+/g, "").replace(/'/g, "");
+  const url = `https://podlhgkfubcuxuryqobo.supabase.co/storage/v1/object/public/Meeting%20room%20images/${newMeetingRoom}.jpg`;
   return url;
 };
-
 function Map(props) {
   const { selectedBuilding, selectedFloor, startTime, endTime } = props;
   const [selectedFloorPlan, setSelectedFloorPlan] = useState("");

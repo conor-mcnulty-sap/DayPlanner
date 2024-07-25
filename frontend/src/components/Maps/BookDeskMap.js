@@ -88,52 +88,63 @@ function Map({
   }, [selectedFloor, selectedBuilding, bookedDesks]);
 
   const handleFavourite = (deskId) => {
+    console.log("Favouriting desk:", deskId, "for user:", userId);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/desks/favouritedesk?desk_id=${deskId}&user_id=${userId}`,
       {
         method: "POST",
       }
     )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+      .then((response) => response.json().catch(() => response.text()))
+      .then((data) => {
+        console.log("Favourite response:", data);
         setFavouritedDesks([...favouritedDesks, deskId]);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Favourite error:", error));
   };
 
   const handleUnfavourite = (deskId) => {
+    console.log("Unfavouriting desk:", deskId, "for user:", userId);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/desks/removefavourite?desk_id=${deskId}&user_id=${userId}`,
       {
         method: "DELETE",
       }
     )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        console.log(`Desk ${deskId} removed from favourites`);
+      .then((response) => response.json().catch(() => response.text()))
+      .then((data) => {
+        console.log("Unfavourite response:", data);
         setFavouritedDesks(favouritedDesks.filter((id) => id !== deskId));
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Unfavourite error:", error));
   };
 
   const handleBook = (deskId, dateRange) => {
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
-      {
-        method: "POST",
-      }
-    )
+    console.log("Booking desk:", deskId, "for user:", userId, "on dates:", dateRange);
+
+    const params = new URLSearchParams({
+      user_id: userId,
+      desk_id: deskId,
+      date: dateRange,
+    });
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?${params.toString()}`, {
+      method: "POST",
+    })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {
+          return response.json().catch(() => response.text());
         }
+        throw new Error(`HTTP error! status: ${response.status}`);
       })
-      .catch((error) => console.error(error));
-    window.location.reload();
+      .then((data) => {
+        console.log("Booking response:", data);
+        window.location.reload(); // Add page refresh here
+      })
+      .catch((error) => {
+        console.error("Booking error:", error);
+        window.location.reload(); // Add page refresh here even in case of error
+      });
   };
 
   return (
