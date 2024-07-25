@@ -20,6 +20,10 @@ router.get('/usertasks', async (req, res) => {
     .select('*,users(*)')
     .eq('user', in_userid);
 
+    if (error){
+        return error;
+    }
+
     // If user has no tasks
     if (data.length == 0) {
         res.send('No tasks found for user');

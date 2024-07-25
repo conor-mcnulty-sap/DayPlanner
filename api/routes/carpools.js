@@ -375,4 +375,55 @@ router.get('/closestcarpoolee', async (req, res) => {
 
 });
 
+// Arrival
+router.get('/arrival', async (req, res) => {
+    let sap = "D24 Y99R"
+    let carpooler = req.query.carpooler;
+    let carpoolee = req.query.carpoolee;
+
+    //Get carpooler eircode
+    const {data: user, error} = await supabase
+    .from('carpooler')
+    .select('eircode')
+    .eq('user_id', carpooler);
+
+    //Get carpoolee eircode
+    const {data: user2, error2} = await supabase
+    .from('carpoolee')
+    .select('eircode')
+    .eq('user_id', carpoolee);
+
+    let home = user[0].eircode;
+    let otherhome = user2[0].eircode;
+
+
+    // Home to other person home to sap
+    let url = "http://dev.virtualearth.net/REST/v1/Routes?wp.0=" + home + "&wp.1=" + otherhome + "&wp.2=" + sap +  "&key=" + BING_MAPS_KEY;
+    let response = await axios.get(url);
+    let travelTime = response.data.resourceSets[0].resources[0].travelDurationTraffic;
+    
+    travelTime = travelTime/60;
+    travelTime = travelTime.toFixed(2)
+    let travelTimeDetour = String(travelTime);
+
+    url = "http://dev.virtualearth.net/REST/v1/Routes?wp.0=" + home + "&wp.1=" + sap + "&key=" + BING_MAPS_KEY;
+    response = await axios.get(url);
+    
+    let travelTime2 = response.data.resourceSets[0].resources[0].travelDurationTraffic;
+    travelTime2 = travelTime2/60;
+    travelTime2 = travelTime2.toFixed(2)
+    let travelTimeHome = String(travelTime2);
+
+    let difference = travelTime-travelTime2
+    difference = difference.toFixed(2)
+    difference = String(difference);
+
+    let finalMessage = "The detour will take "+ travelTimeDetour + " minutes and normally it takes " + travelTimeHome + " minutes straight to SAP";
+
+    res.send(travelTimeDetour +" "+ travelTimeHome+" "+ difference);
+    console.log(finalMessage);
+
+});
+
+
 module.exports = router;

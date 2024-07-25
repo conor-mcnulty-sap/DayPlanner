@@ -1,95 +1,95 @@
 {
   "Articles": [
     {
-      "title": "No Thirsty Fans at the European Championship Thanks to SAP Customer Checkout",
-      "link": "https://news.sap.com/2024/07/european-championship-fans-sap-customer-checkout/",
-      "author": "Elena Vavitsa",
-      "date": "July 4, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/04/298436_GettyImages-1184613122_uncropped_F-1920x600-1719508187.jpg"
-    },
-    {
-      "title": "Iren Group Improves IT Service Desk Processes with SAP Build Apps",
-      "link": "https://news.sap.com/2024/07/iren-group-improves-it-service-desk-processes/",
-      "author": "Imke Vierjahn",
-      "date": "July 3, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/03/282757_GettyImages-647084398_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Business AI: Q2 2024 Release Highlights",
-      "link": "https://news.sap.com/2024/07/sap-business-ai-q2-release/",
-      "author": "Philipp Herzig",
-      "date": "July 2, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/02/295819_GettyImages-1168019993_medium_uncropped-f-540x310.jpg"
-    },
-    {
-      "title": "How AI Is Helping Defeat Infant Blindness in India",
-      "link": "https://news.sap.com/2024/07/cleavision-ai-defeat-infant-blindness-india/",
-      "author": "Brian Wasson",
-      "date": "July 1, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/01/Eye_AI_Blindness_Screengrab1_47-540x310.jpg"
-    },
-    {
-      "title": "Elevating Diversity & Inclusion: Key Tactics for Success",
-      "link": "https://news.sap.com/2024/06/elevating-diversity-inclusion-bwn-key-tactics/",
-      "author": "Mayara Tabone",
-      "date": "June 27, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/27/291709_GettyImages-1184334685_uncropped_F-540x310-1719407132.jpg"
-    },
-    {
-      "title": "Expansion of SAP Preferred Success Clears the Way to Smart Supply Chains",
-      "link": "https://news.sap.com/2024/06/sap-preferred-success-for-sap-ibp-smart-supply-chains/",
-      "author": "Kiron Satyavarapu",
-      "date": "June 27, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/01/16/296523_GettyImages-840412560_medium_F-540x310.jpg"
-    },
-    {
-      "title": "Collaborating Across Generations: Problems That Span Generations Require Leadership That Does Too",
-      "link": "https://news.sap.com/2024/06/collaborating-across-generations-waff-global-study/",
-      "author": "Jennifer Beason",
-      "date": "June 26, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/24/299787_GettyImages-1348298982_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Commits to Expanding Open Source Innovation with New Open Source Manifesto",
-      "link": "https://news.sap.com/2024/06/sap-commits-open-source-manifesto/",
-      "author": "Michael Ameling",
-      "date": "June 26, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/26/277483_277483_l_srgb_s_gl_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "How Mindsprint Uses High Tech to Help the World Grow and Eat Better Food",
-      "link": "https://news.sap.com/2024/06/mindsprint-high-tech-help-grow-eat-better-food/",
-      "author": "Derek Klobucher",
-      "date": "June 25, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/18/288230_GettyImages-1217813819_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "New SAP Concur Research Reveals Five Challenges for Business Travel in 2024",
-      "link": "https://news.sap.com/2024/06/sap-concur-research-business-travel-challenges/",
-      "author": "Charlie Sultan",
-      "date": "June 25, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/20/300666_GettyImages-157399542_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Named a Leader in B2B and B2C IDC Digital Commerce Reports",
-      "link": "https://news.sap.com/2024/06/sap-leader-idc-digital-commerce-reports/",
-      "author": "Riad Hijal",
-      "date": "June 24, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/24/279197_GettyImages-573103283_low_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "IDC MarketScape Names SAP a Leader in Worldwide Carbon Accounting & Management Applications",
-      "link": "https://news.sap.com/2024/06/sap-leader-idc-marketscape-carbon-accounting-management/",
-      "author": "Alicia Lenze",
-      "date": "June 24, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2023/11/20/297319_GettyImages-1468396766_medium_uncropped_f-540x310.jpg"
-    },
-    {
-      "title": "Unlock Tomorrow’s Potential with SAP S/4HANA Cloud Public Edition",
-      "link": "https://news.sap.com/2024/06/unlock-ai-potential-sap-s4hana-cloud-public-edition/",
+      "title": "Unlocking the Potential of Intelligent ERP: SAP S/4HANA Cloud Public Edition 2408 Update",
+      "link": "https://news.sap.com/2024/07/sap-s-4hana-cloud-public-edition-2408-update/",
       "author": "Arpan Shah",
-      "date": "June 21, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/18/301505_GettyImages-1314627518_uncropped_F-540x310.jpg"
+      "date": "July 24, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/24/296267_GettyImages-507896609_medium_uncropped_F-1920x600-1721659894.jpg"
+    },
+    {
+      "title": "Serving Customers Better with Lean Selective Data Transition",
+      "link": "https://news.sap.com/2024/07/serving-customers-better-lean-selective-data-transition/",
+      "author": "Karin Baeumler",
+      "date": "July 22, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/22/287639_GettyImages-932631926_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Revolutionizing Proactive Risk Management to Accelerate Business Process Transformation",
+      "link": "https://news.sap.com/2024/07/revolutionizing-proactive-risk-management-datricks-sap-signavio/",
+      "author": "Mani Pirouz",
+      "date": "July 22, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/17/291697_GettyImages-831909044_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP Is Leading the AI Revolution in Spend Management and Business Network Software",
+      "link": "https://news.sap.com/2024/07/sap-ai-spend-management-business-network/",
+      "author": "Jeff Collier",
+      "date": "July 19, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/19/302074_GettyImages-679772514_uncropped_F-540x310-1721307554.jpg"
+    },
+    {
+      "title": "Hornbach’s Platform for Growth",
+      "link": "https://news.sap.com/2024/07/hornbach-platform-for-growth/",
+      "author": "Stefanie Glenk",
+      "date": "July 18, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/296157_GettyImages-722222785_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Sustainable Impact Through Cross-Sector Partnership",
+      "link": "https://news.sap.com/2024/07/sustainable-impact-through-cross-sector-partnership/",
+      "author": "Hemang Desai",
+      "date": "July 18, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/285691_GettyImages-646457692_2600_uncropped_F-540x310-1721222657.jpg"
+    },
+    {
+      "title": "The Evolving Influence of Procurement in Organizations",
+      "link": "https://news.sap.com/2024/07/economist-impact-report-evolving-influence-of-procurement/",
+      "author": "Baber Farooq",
+      "date": "July 17, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/17/295101_GettyImages-916875274_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "SAP Recognized by Chartis Research as a Leader in Governance, Risk, and Compliance",
+      "link": "https://news.sap.com/2024/07/chartis-research-sap-a-leader-in-grc/",
+      "author": "Vishal Verma",
+      "date": "July 17, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/01/09/299930_GettyImages-1306394663_medium_F-540x310.jpg"
+    },
+    {
+      "title": "SAP Makes AI Available to All RISE with SAP Customers with Improved Commercial Packages",
+      "link": "https://news.sap.com/2024/07/ai-available-rise-with-sap-commercial-packages/",
+      "author": "Maura Hameroff",
+      "date": "July 16, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2023/11/08/287964_GettyImages-1219158877_medium_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "WEConnect and SAP BTP Help Women-Owned Businesses Level Up in the Global Marketplace",
+      "link": "https://news.sap.com/2024/07/weconnect-sap-btp-help-women-owned-businesses/",
+      "author": "Timo Elliott",
+      "date": "July 16, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/16/287077_GettyImages-758280391_uncropped_F-540x310-1721057244.jpg"
+    },
+    {
+      "title": "Sun Life Spotlights the Incredible Market Growth Power of Digital Modernization",
+      "link": "https://news.sap.com/2024/07/sun-life-spotlights-digital-modernization/",
+      "author": "Susan Galer",
+      "date": "July 16, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/10/276350_276350_l_srgb_s_gl_uncropped_F-540x310-1720552471.jpg"
+    },
+    {
+      "title": "GROW with SAP: Expanding the Value of Cloud ERP with SAP Sales Cloud and Concur Expense ",
+      "link": "https://news.sap.com/2024/07/grow-with-sap-sap-sales-cloud-concur-expense/",
+      "author": "Jonathan Rhodes",
+      "date": "July 15, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/15/283656_shutterstock_307287704_2600_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Support Accreditation Updates Highlight SAP’s AI Support Offerings",
+      "link": "https://news.sap.com/2024/07/support-accreditation-updates-highlight-ai/",
+      "author": "Leonardo Mauhs",
+      "date": "July 11, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/11/300985_GettyImages-1253370535_uncropped_F-540x310.jpg"
     }
   ]
 }

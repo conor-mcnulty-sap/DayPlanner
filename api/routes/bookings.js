@@ -198,8 +198,13 @@ router.get('/bookingsbydate', async (req, res) => {
     .select('*,users(*)')
     .eq('date', in_date);
 
+    if (error){
+        return error;
+    }
+
     // If no bookings found
     if (data.length === 0) {
+        console.log(data);
         res.send('No bookings found');
         console.log('No bookings found');
         return;
@@ -228,6 +233,10 @@ router.get('/bookingsbyuser', async (req, res) => {
     .select('*,desks(*)')
     .eq('user_id', in_userid);
 
+    if (error){
+        return error;
+    }
+
     // If no bookings found
     if (data.length === 0) {
         res.send('No bookings found');
@@ -253,8 +262,11 @@ router.get('/lastbooked', async (req, res) => {
     .eq('user_id', in_userid)
     .order('id', {ascending: false})
     .limit(1);
-    
 
+    if (error){
+        return error;
+    }
+    
     // If no booking found
     if (data.length === 0) {
         res.send('No last booking found');
@@ -279,6 +291,10 @@ router.get('/finddesk', async (req, res) => {
     .select('desks(*)')
     .eq('user_id', in_userid)
     .eq('date', in_date);
+
+    if (error){
+        return error;
+    }
 
     // If no booking found
     if (data.length === 0) {
@@ -352,6 +368,10 @@ router.get('/bookingsbydatefloor', async (req, res) => {
     if (data == null){
         console.log("null bookingsbydatefloor");
         return;
+    }
+
+    if (error){
+        return error;
     }
 
     //If no bookings found

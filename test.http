@@ -104,6 +104,10 @@ Host: localhost:5000
 GET /api/carpools/closestcarpoolee?user_id=ef933ddfd84db7e6 HTTP/1.1
 Host: localhost:5000
 
+### Get Arrival time
+GET /api/carpools/arrival?carpooler=f05a1ff8024542ea&carpoolee=ef933ddfd84db7e6 HTTP/1.1
+Host: localhost:5000
+
 ### Get tasks
 GET /api/tasks HTTP/1.1
 Host: localhost:5000

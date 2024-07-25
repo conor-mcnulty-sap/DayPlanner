@@ -100,7 +100,16 @@ router.get('/favouritesbyuser', async (req, res) => {
     .select('*,desks(*)')
     .eq('user_id', in_userid);
 
+    if (error){
+        return error;
+    }
+
     // If no favourites
+    if (data == ""){
+        console.log("error no favourites");
+        return;
+    }
+
     if (data.length === 0) {
         res.send('No favourites found');
         console.log('No favourites found');

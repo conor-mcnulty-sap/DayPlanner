@@ -23,6 +23,12 @@ router.get('/buildingfloor', async (req, res) => {
     .eq('building', in_building)
     .eq('floor', in_floor);
 
+    if (data == null)
+        {
+            console.log("meeting room null");
+            return;
+        }
+
     // If no meeting rooms found
     if (data.length == 0) {
         res.send('No meeting rooms found');
@@ -70,6 +76,12 @@ router.post('/bookmeetingroom', async (req, res) => {
     .gte('start_date_time', in_start_date_time)
     .lte('end_date_time', in_end_date_time);
 
+    if (bookings == null)
+        {
+            console.log("booking meeting room null");
+            return;
+        }
+
     if (bookings.length > 0) {
         res.send('Meeting Room already booked for that date and time');
         console.log('Meeting Room already booked for that date and time');
@@ -114,6 +126,12 @@ router.get("/checkavailability", async (req, res) => {
     .select('meeting_room')
     .gte('start_date_time', in_start_date_time);
 
+    if (bookings == null)
+        {
+            console.log("booking meeting room null");
+            return;
+        }
+
     //If no bookings found
     if (bookings.length == 0) {
         res.send(meeting_rooms);
@@ -148,7 +166,6 @@ router.get("/checkavailabilitybuildingfloor", async (req, res) => {
     let in_floor = req.query.floor;
     let in_end_date_time = req.query.end_date_time;
 
-
     // Check if input is empty
     if (in_start_date_time == "" && in_building == "" && in_floor == "" && in_end_time == "") {
         res.send('Invalid input');
@@ -169,6 +186,12 @@ router.get("/checkavailabilitybuildingfloor", async (req, res) => {
     .select('meeting_room')
     .lte('start_date_time', in_start_date_time)
     .gte('end_date_time', in_end_date_time);
+
+    if (bookings == null)
+    {
+        console.log("booking meeting room null");
+        return;
+    }
 
     //If no bookings found
     if (bookings.length == 0) {
