@@ -5,14 +5,14 @@
         "color": "red",
         "name": "Killiney Hill",
         "description":"A screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite.",
-        "id":"3101"
+        "id":"1.01"
       },
       {
         "positions": [[2.6, 1.8], [1.9, 2.05], [2.3, 3.15], [3, 2.9]],
         "color": "red",
         "name": "Hill Of Allen",
         "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite.",
-        "id":"3102"
+        "id":"1.06"
       },
    
    
@@ -21,14 +21,14 @@
         "color": "red",
         "name": "Kippure Hill",
         "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite.",
-        "id":"3103"
+        "id":"1.03"
       },
       {
         "positions": [[9.9, 12.8], [9.9, 14.5], [7.25, 14.5], [7.2, 12.85]],
         "color": "red",
         "name": "Slieve Bloom",
         "description":"A screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite.",
-        "id":"3104"
+        "id":"1.06"
 
       },
       {
@@ -36,14 +36,14 @@
         "color": "red",
         "name": "Sugar Loaf",
         "description":"A dual screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite.",
-        "id":"3105"
+        "id":"1.02"
       },
       {
         "positions": [[7.7, 28], [7.45, 28.8], [6.3, 28.4], [6.6, 27.6]],
         "color": "red",
         "name": "Hill Of Tara",
         "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite.",
-        "id":"3106"
+        "id":"1.05"
       }
     ]
   }

@@ -12,21 +12,21 @@
         "color": "red",
         "name": "Lagan",
         "description":"A dual screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite."  ,
-        "id":"2102"
+        "id":"01.02"
       },
       {
         "positions": [[8.25, 18.15], [8.15, 19.15],   [7.45, 19.1], [7.5, 18.1]],
         "color": "red",
         "name": "Moy",
         "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite."  ,
-        "id":"2103"
+        "id":"01.06"
       },
       {
         "positions": [[8.7, 3.05], [7.45, 3.45], [7.7, 4.25], [8.95, 3.85]],
         "color": "red",
         "name": "Dodder",
         "description":"A screen and a PolySync40 speakerphone. This room is perfect for meeting with colleagues remotely and onsite."  ,
-        "id":"2104"
+        "id":"1"
       },
       {
         "positions": [[7.45, 1.2], [7.8, 2.15], [7.1, 2.4], [6.75, 1.5]],
@@ -40,7 +40,7 @@
         "color": "red",
         "name": "Lee",
         "description":"A screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite."  ,
-        "id":"2106"
+        "id":"01.04"
 
       },
       {
@@ -48,14 +48,14 @@
         "color": "red",
         "name": "Liffey",
         "description":"A dual screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite."  ,
-        "id":"2107"
+        "id":"01.05"
       },
       {
         "positions": [[3.8, 26.2], [3.55, 27.05], [2.15, 26.6], [2.4, 25.8]],
         "color": "red",
         "name": "Poddle",
         "description":"A screen setup equipped with a Microsoft Team's Room conferencing device. This room is perfect for meeting with colleagues remotely and onsite."  ,
-        "id":"2108"
+        "id":"01.07"
       }
     ]
   }
