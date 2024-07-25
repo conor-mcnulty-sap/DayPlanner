@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createEvents, getEvents } from '../../assets/GraphFunctions';
+import { createEvents, getEvents } from "../../assets/GraphFunctions";
 import {
   Form,
   FormGroup,
@@ -11,9 +11,9 @@ import {
   Input,
   TimePicker,
   Dialog,
-  Bar
+  Bar,
 } from "@ui5/webcomponents-react";
-import moment from 'moment';
+import moment from "moment";
 import config from "../Tasks/Calendar/Config";
 
 export default class BookMeetingRoom extends Component {
@@ -23,17 +23,17 @@ export default class BookMeetingRoom extends Component {
     this.state = {
       events: [],
       event: {},
-      building: 'DUB03', // Default building
-      floor: '1', // Default floor
-      room: '',
-      subject: '',
-      startDateTime: '',
-      duration: '',
-      email: '',
+      building: "DUB03", // Default building
+      floor: "1", // Default floor
+      room: "",
+      subject: "",
+      startDateTime: "",
+      duration: "",
+      email: "",
       dialogOpen: false,
-      dialogMessage: '',
-      meetingRooms: [],  
-      filteredRooms: [] 
+      dialogMessage: "",
+      meetingRooms: [],
+      filteredRooms: [],
     };
 
     this.onClick = this.onClick.bind(this);
@@ -49,17 +49,19 @@ export default class BookMeetingRoom extends Component {
     try {
       console.log("Attempting to acquire token silently");
       var accessToken = await window.msal.acquireTokenSilent({
-        scopes: config.scopes
+        scopes: config.scopes,
       });
       console.log("Access token acquired", accessToken);
-  
+
       var events = await getEvents(accessToken);
       console.log("Fetched events", events);
-  
+
       this.setState({ events: events.value });
-  
+
       // Fetch the list of meeting rooms from the API
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/meetingrooms`);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/meetingrooms`
+      );
       if (response.ok) {
         const meetingRooms = await response.json();
         console.log("Fetched meeting rooms", meetingRooms); // Log fetched meeting rooms here
@@ -72,28 +74,35 @@ export default class BookMeetingRoom extends Component {
     } catch (err) {
       console.error("Error fetching events", err);
       if (this.props.showError) {
-        this.props.showError('ERROR', JSON.stringify(err));
+        this.props.showError("ERROR", JSON.stringify(err));
       }
     }
   }
 
   async checkRoomAvailability() {
     const { room, startDateTime, duration } = this.state;
-    const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
-    const [hours, minutes] = duration.split(':').map(Number);
-    const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+    const formattedStartDateTime = moment(startDateTime).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
+    const [hours, minutes] = duration.split(":").map(Number);
+    const endDateTime = moment(formattedStartDateTime)
+      .add(hours, "hours")
+      .add(minutes, "minutes")
+      .format("YYYY-MM-DD HH:mm:ss");
 
     const queryParams = new URLSearchParams({
       meeting_room: room,
       start_date_time: formattedStartDateTime,
-      end_date_time: endDateTime
+      end_date_time: endDateTime,
     });
 
-    const url = `${process.env.REACT_APP_API_URL}/api/meetingrooms/bookmeetingroom?${queryParams.toString()}`;
+    const url = `${
+      process.env.REACT_APP_API_URL
+    }/api/meetingrooms/bookmeetingroom?${queryParams.toString()}`;
     console.log("URL being sent to the backend:", url);
 
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
     });
 
     console.log("Request URL:", url);
@@ -103,10 +112,10 @@ export default class BookMeetingRoom extends Component {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const contentType = response.headers.get('content-type');
+    const contentType = response.headers.get("content-type");
     let result;
 
-    if (contentType && contentType.includes('application/json')) {
+    if (contentType && contentType.includes("application/json")) {
       result = await response.json();
     } else {
       result = await response.text();
@@ -118,74 +127,100 @@ export default class BookMeetingRoom extends Component {
 
   async onClick() {
     try {
-      const { building, floor, room, subject, startDateTime, duration, email } = this.state;
+      const { building, floor, room, subject, startDateTime, duration, email } =
+        this.state;
 
       // Check room availability
       const availability = await this.checkRoomAvailability();
-      if (availability === "Meeting Room already booked for that date and time") {
-        this.setState({ dialogOpen: true, dialogMessage: "Meeting room already booked." });
+      if (
+        availability === "Meeting Room already booked for that date and time"
+      ) {
+        this.setState({
+          dialogOpen: true,
+          dialogMessage: "Meeting room already booked.",
+        });
         return;
       }
 
-      console.log("Button clicked, attempting to acquire token silently for event creation");
+      console.log(
+        "Button clicked, attempting to acquire token silently for event creation"
+      );
       var accessToken = await window.msal.acquireTokenSilent({
-        scopes: config.scopes
+        scopes: config.scopes,
       });
       console.log("Access token acquired for event creation", accessToken);
 
-      const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
-      const [hours, minutes] = duration.split(':').map(Number);
-      const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').toISOString();
+      const formattedStartDateTime = moment(startDateTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      const [hours, minutes] = duration.split(":").map(Number);
+      const endDateTime = moment(formattedStartDateTime)
+        .add(hours, "hours")
+        .add(minutes, "minutes")
+        .toISOString();
 
-      console.log("Current state values:", { building, floor, room, subject, formattedStartDateTime, endDateTime, email });
+      console.log("Current state values:", {
+        building,
+        floor,
+        room,
+        subject,
+        formattedStartDateTime,
+        endDateTime,
+        email,
+      });
 
       const event = {
         subject: subject,
         body: {
-          contentType: 'HTML',
+          contentType: "HTML",
         },
         start: {
           dateTime: moment(startDateTime).toISOString(),
-          timeZone: 'Europe/Dublin'
+          timeZone: "Europe/Dublin",
         },
         end: {
           dateTime: endDateTime,
-          timeZone: 'Europe/Dublin'
+          timeZone: "Europe/Dublin",
         },
         attendees: [
           {
             emailAddress: {
               address: email,
-              name: room
+              name: room,
             },
-            type: 'Required'
-          }
+            type: "Required",
+          },
         ],
         location: {
           displayName: `${building} - ${floor} - ${room}`,
-          locationType: 'Default'
+          locationType: "Default",
         },
       };
 
       this.setState({ event: event });
 
-      console.log('Event to be created', event);
+      console.log("Event to be created", event);
 
       await createEvents(accessToken, event);
-      console.log('Event created successfully');
-      this.setState({ dialogOpen: true, dialogMessage: "Meeting Room Booked successfully." });
+      console.log("Event created successfully");
+      this.setState({
+        dialogOpen: true,
+        dialogMessage: "Meeting Room Booked successfully.",
+      });
     } catch (err) {
       console.error("Error creating event", err);
-      this.setState({ dialogOpen: true, dialogMessage: "Error booking the meeting room." });
+      this.setState({
+        dialogOpen: true,
+        dialogMessage: "Error booking the meeting room.",
+      });
       if (this.props.showError) {
-        this.props.showError('ERROR', JSON.stringify(err));
+        this.props.showError("ERROR", JSON.stringify(err));
       }
     }
   }
 
   setBuilding(event) {
-    
-    const building =  event.detail.selectedOption.innerText;
+    const building = event.detail.selectedOption.innerText;
     console.log(`Setting state: building = ${building}`);
     this.setState({ building }, () => {
       this.filterRooms();
@@ -206,48 +241,62 @@ export default class BookMeetingRoom extends Component {
 
   setRoom(event) {
     const selectedRoom = event.detail.selectedOption.innerText;
-    const selectedMeetingRoom = this.state.meetingRooms.find(room => room.meeting_room === selectedRoom);
+    const selectedMeetingRoom = this.state.meetingRooms.find(
+      (room) => room.meeting_room === selectedRoom
+    );
     if (selectedMeetingRoom) {
       this.setState({ room: selectedRoom, email: selectedMeetingRoom.email });
-      console.log("Room set:", selectedRoom, "Email set:", selectedMeetingRoom.email);
+      console.log(
+        "Room set:",
+        selectedRoom,
+        "Email set:",
+        selectedMeetingRoom.email
+      );
     }
   }
 
   filterRooms() {
     const { building, floor, meetingRooms } = this.state;
 
-    const filteredRooms = meetingRooms.filter(meetingRoom => {
+    const filteredRooms = meetingRooms.filter((meetingRoom) => {
       const matchBuilding = meetingRoom.building === building;
       const matchFloor = String(meetingRoom.floor) === String(floor);
-      
+
       return matchBuilding && matchFloor;
     });
 
-    console.log(`Filtered rooms for building ${building} and floor ${floor}:`, filteredRooms);
+    console.log(
+      `Filtered rooms for building ${building} and floor ${floor}:`,
+      filteredRooms
+    );
     this.setState({ filteredRooms });
   }
 
   updateEndDateTime() {
     const { startDateTime, duration } = this.state;
-    const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
-    const [hours, minutes] = duration.split(':').map(Number);
-    const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').format('YYYY-MM-DD HH:mm:ss');
-  
+    const formattedStartDateTime = moment(startDateTime).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
+    const [hours, minutes] = duration.split(":").map(Number);
+    const endDateTime = moment(formattedStartDateTime)
+      .add(hours, "hours")
+      .add(minutes, "minutes")
+      .format("YYYY-MM-DD HH:mm:ss");
+
     this.props.onDateTimeChange(formattedStartDateTime, endDateTime);
   }
-  
+
   // Modify the onChange handlers for startDateTime and duration
   handleChange(event) {
     const { name, value } = event.target;
-  
+
     this.setState({ [name]: value }, () => {
       // Call updateEndDateTime only if the changed state is either startDateTime or duration
-      if (name === 'startDateTime' || name === 'duration') {
+      if (name === "startDateTime" || name === "duration") {
         this.updateEndDateTime();
       }
     });
   }
-  
 
   handleChange(event) {
     const { name, value } = event.target;
@@ -262,7 +311,17 @@ export default class BookMeetingRoom extends Component {
   }
 
   render() {
-    const { building, floor, room, subject, startDateTime, duration, dialogOpen, dialogMessage, filteredRooms } = this.state;
+    const {
+      building,
+      floor,
+      room,
+      subject,
+      startDateTime,
+      duration,
+      dialogOpen,
+      dialogMessage,
+      filteredRooms,
+    } = this.state;
 
     return (
       <div
@@ -299,7 +358,12 @@ export default class BookMeetingRoom extends Component {
             <FormItem label="Start Date & Time">
               <DateTimePicker
                 value={startDateTime}
-                onChange={(event) => this.setState({ startDateTime: event.detail.value }, this.updateEndDateTime)}
+                onChange={(event) =>
+                  this.setState(
+                    { startDateTime: event.detail.value },
+                    this.updateEndDateTime
+                  )
+                }
                 style={{ width: "100%" }}
                 formatPattern="yyyy-MM-dd'T'HH:mm"
               />
@@ -307,7 +371,12 @@ export default class BookMeetingRoom extends Component {
             <FormItem label="Duration">
               <TimePicker
                 value={duration}
-                onChange={(event) => this.setState({ duration: event.detail.value }, this.updateEndDateTime) }
+                onChange={(event) =>
+                  this.setState(
+                    { duration: event.detail.value },
+                    this.updateEndDateTime
+                  )
+                }
                 style={{ width: "100%" }}
                 formatPattern="HH:mm"
               />
@@ -340,26 +409,33 @@ export default class BookMeetingRoom extends Component {
                 style={{ width: "100%" }}
               >
                 {filteredRooms.map((meetingRoom) => (
-                  <Option key={meetingRoom.id}>{meetingRoom.meeting_room}</Option>
+                  <Option key={meetingRoom.id}>
+                    {meetingRoom.meeting_room}
+                  </Option>
                 ))}
               </Select>
             </FormItem>
           </FormGroup>
         </Form>
-        <Button color='primary' onClick={this.onClick}>
+        <Button color="primary" onClick={this.onClick}>
           Create Event
         </Button>
-  
+
         <Dialog
           headerText="Booking Status"
           autoFocus={true}
           footer={
             <Bar
-              endContent={<Button design="Emphasized" onClick={this.closeDialog}>OK</Button>}
+              endContent={
+                <Button design="Emphasized" onClick={this.closeDialog}>
+                  OK
+                </Button>
+              }
             />
           }
           open={dialogOpen}
           onAfterClose={this.closeDialog}
+          style={{ zIndex: 1000}} // Inline style added here
         >
           <p>{dialogMessage}</p>
         </Dialog>

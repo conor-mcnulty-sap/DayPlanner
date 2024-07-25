@@ -66,31 +66,33 @@ function Map(props) {
       );
       setSelectedFloorPlan(floorPlans["3-3"]);
     }
-      if (!availableRooms) {
-        console.log("Waiting for available rooms...");
-        return;
-      }
-    
-      console.log("available rooms: " + availableRooms);
-    
-      // Building adjustment logic remains the same...
-    
-      fetch(`/MeetingCoordinates-${adjustedBuilding}-${selectedFloor}.json`)
-        .then((response) => response.json())
-        .then((data) => {
-          const updatedCoordinates = data.polygons.map((polygon) => {
-            const polygonIdStr = polygon.id.toString().trim();
-            const isAvailable = availableRooms.includes(polygonIdStr); // Assuming availableRooms is already an array of trimmed strings
-            console.log(`Checking availability for: ${polygonIdStr}, Available: ${isAvailable}`);
-            return {
-              ...polygon,
-              color: isAvailable ? "green" : "red",
-            };
-          });
-          setPolygons(updatedCoordinates);
-        })
-        .catch((error) => console.error("Failed to load coordinates:", error));
-    }, [selectedBuilding, selectedFloor, availableRooms]);
+    if (!availableRooms) {
+      console.log("Waiting for available rooms...");
+      return;
+    }
+
+    console.log("available rooms: " + availableRooms);
+
+    // Building adjustment logic remains the same...
+
+    fetch(`/MeetingCoordinates-${adjustedBuilding}-${selectedFloor}.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedCoordinates = data.polygons.map((polygon) => {
+          const polygonIdStr = polygon.id.toString().trim();
+          const isAvailable = availableRooms.includes(polygonIdStr); // Assuming availableRooms is already an array of trimmed strings
+          console.log(
+            `Checking availability for: ${polygonIdStr}, Available: ${isAvailable}`
+          );
+          return {
+            ...polygon,
+            color: isAvailable ? "green" : "red",
+          };
+        });
+        setPolygons(updatedCoordinates);
+      })
+      .catch((error) => console.error("Failed to load coordinates:", error));
+  }, [selectedBuilding, selectedFloor, availableRooms]);
 
   return (
     <Card style={{ width: "100%", height: "100%" }}>
@@ -98,11 +100,12 @@ function Map(props) {
         <MapContainer
           center={[5, 14.5]}
           zoom={5}
-          style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
+          style={{ height: "90vh", width: "100%", backgroundColor: "white",zIndex: 100, position: "relative"  }}
           crs={L.CRS.Simple}
           attributionControl={false}
         >
           <ImageOverlay
+            style={{ zIndex: 100, position: "relative" }}
             key={selectedFloorPlan}
             url={selectedFloorPlan}
             bounds={bounds}
