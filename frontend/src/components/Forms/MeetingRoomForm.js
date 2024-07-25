@@ -227,6 +227,28 @@ export default class BookMeetingRoom extends Component {
     this.setState({ filteredRooms });
   }
 
+  updateEndDateTime() {
+    const { startDateTime, duration } = this.state;
+    const formattedStartDateTime = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
+    const [hours, minutes] = duration.split(':').map(Number);
+    const endDateTime = moment(formattedStartDateTime).add(hours, 'hours').add(minutes, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+  
+    this.props.onDateTimeChange(formattedStartDateTime, endDateTime);
+  }
+  
+  // Modify the onChange handlers for startDateTime and duration
+  handleChange(event) {
+    const { name, value } = event.target;
+  
+    this.setState({ [name]: value }, () => {
+      // Call updateEndDateTime only if the changed state is either startDateTime or duration
+      if (name === 'startDateTime' || name === 'duration') {
+        this.updateEndDateTime();
+      }
+    });
+  }
+  
+
   handleChange(event) {
     const { name, value } = event.target;
 
@@ -277,7 +299,7 @@ export default class BookMeetingRoom extends Component {
             <FormItem label="Start Date & Time">
               <DateTimePicker
                 value={startDateTime}
-                onChange={(event) => this.setState({ startDateTime: event.detail.value })}
+                onChange={(event) => this.setState({ startDateTime: event.detail.value }, this.updateEndDateTime)}
                 style={{ width: "100%" }}
                 formatPattern="yyyy-MM-dd'T'HH:mm"
               />
@@ -285,7 +307,7 @@ export default class BookMeetingRoom extends Component {
             <FormItem label="Duration">
               <TimePicker
                 value={duration}
-                onChange={(event) => this.setState({ duration: event.detail.value })}
+                onChange={(event) => this.setState({ duration: event.detail.value }, this.updateEndDateTime) }
                 style={{ width: "100%" }}
                 formatPattern="HH:mm"
               />

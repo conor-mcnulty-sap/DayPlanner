@@ -5,8 +5,11 @@ import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
 
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
-  const [building, setBuilding] = useState('2');
-  const [floor, setFloor] = useState('1');
+  const [building, setBuilding] = useState("2");
+  const [floor, setFloor] = useState("1");
+  // Replace datetime and time with startTime and endTime
+  const [startTime, setStartTime] = useState(new Date()); // This will handle start date and time
+  const [endTime, setEndTime] = useState(new Date()); // This will handle end date and time
 
   const handleBuildingChange = (newBuilding) => {
     console.log("Selected Building:", newBuilding);
@@ -16,6 +19,18 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
   const handleFloorChange = (newFloor) => {
     console.log("Selected Floor:", newFloor);
     setFloor(newFloor);
+  };
+
+
+  const onDateTimeChange = (newStartTime, newEndTime) => {
+    console.log(
+      "Selected Start Time:",
+      newStartTime,
+      "Selected End Time:",
+      newEndTime
+    );
+    setStartTime(newStartTime);
+    setEndTime(newEndTime);
   };
 
   return (
@@ -37,10 +52,16 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
         <MeetingRoomForm
           onBuildingChange={handleBuildingChange}
           onFloorChange={handleFloorChange}
+          onDateTimeChange={onDateTimeChange}
+
         />
-   
       </div>
-      <Map selectedBuilding={building} selectedFloor={floor} />
+      <Map
+        selectedBuilding={building}
+        selectedFloor={floor}
+        startTime={startTime}
+        endTime={endTime}
+      />
     </Grid>
   );
 };
