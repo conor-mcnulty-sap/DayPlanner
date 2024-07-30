@@ -35,13 +35,13 @@ function Map(props) {
     [10, 29],
   ];
 
-  const availableRooms = useGetMeetingRooms(
+  const bookedRooms = useGetMeetingRooms(
     startTime,
     selectedBuilding,
     selectedFloor,
     endTime
   );
-  console.log("available rooms: " + availableRooms);
+  console.log("booked rooms: " + bookedRooms);
   console.log(startTime + endTime);
 
   useEffect(() => {
@@ -64,21 +64,19 @@ function Map(props) {
       );
       setSelectedFloorPlan(floorPlans["3-3"]);
     }
-    if (!availableRooms) {
+    if (!bookedRooms) {
       console.log("Waiting for available rooms...");
       return;
     }
 
-    console.log("available rooms: " + availableRooms);
-
-    // Building adjustment logic remains the same...
+    console.log("booked rooms: " + bookedRooms);
 
     fetch(`/MeetingCoordinates-${adjustedBuilding}-${selectedFloor}.json`)
       .then((response) => response.json())
       .then((data) => {
         const updatedCoordinates = data.polygons.map((polygon) => {
           const polygonIdStr = polygon.id.toString().trim();
-          const isAvailable = availableRooms.includes(polygonIdStr); // Assuming availableRooms is already an array of trimmed strings
+          const isAvailable = bookedRooms.includes(polygonIdStr);
           console.log(
             `Checking availability for: ${polygonIdStr}, Available: ${isAvailable}`
           );
@@ -90,7 +88,7 @@ function Map(props) {
         setPolygons(updatedCoordinates);
       })
       .catch((error) => console.error("Failed to load coordinates:", error));
-  }, [selectedBuilding, selectedFloor, availableRooms]);
+  }, [selectedBuilding, selectedFloor, bookedRooms]);
 
   return (
     <Card style={{ width: "100%", height: "100%" }}>
@@ -98,7 +96,13 @@ function Map(props) {
         <MapContainer
           center={[5, 14.5]}
           zoom={5}
-          style={{ height: "90vh", width: "100%", backgroundColor: "white",zIndex: 100, position: "relative"  }}
+          style={{
+            height: "90vh",
+            width: "100%",
+            backgroundColor: "white",
+            zIndex: 100,
+            position: "relative",
+          }}
           crs={L.CRS.Simple}
           attributionControl={false}
         >
