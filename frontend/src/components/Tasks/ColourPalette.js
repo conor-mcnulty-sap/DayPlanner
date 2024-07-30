@@ -17,6 +17,9 @@ const ColorPalettePopoverComponent = forwardRef((props, ref) => {
     const selectedColorValue = e.detail.color;
     console.log('Color selected:', selectedColorValue);
     setSelectedColor(selectedColorValue);
+    if (props.onColorSelect) {
+      props.onColorSelect(selectedColorValue);
+    }
   };
 
   useImperativeHandle(ref, () => ({
@@ -30,18 +33,18 @@ const ColorPalettePopoverComponent = forwardRef((props, ref) => {
     <>
       <Button onClick={onButtonClick}>Choose Colour</Button>
       <ColorPalettePopover ref={popoverRef} onItemClick={onColorSelect}>
-        <ColorPaletteItem value="black" />
-        <ColorPaletteItem value="darkblue" />
-        <ColorPaletteItem value="#444444" />
-        <ColorPaletteItem value="rgb(0,200,0)" />
-        <ColorPaletteItem value="green" />
-        <ColorPaletteItem value="darkred" />
-        <ColorPaletteItem value="yellow" />
-        <ColorPaletteItem value="blue" />
-        <ColorPaletteItem value="cyan" />
-        <ColorPaletteItem value="orange" />
-        <ColorPaletteItem value="#5480e7" />
-        <ColorPaletteItem value="#ff6699" />
+        <ColorPaletteItem value="#1B90FF" />
+        <ColorPaletteItem value="#0070F2" />
+        <ColorPaletteItem value="#5B738B" />
+        <ColorPaletteItem value="#049F9A" />
+        <ColorPaletteItem value="#36A41D" />
+        <ColorPaletteItem value="#FFC933" />
+        <ColorPaletteItem value="#E76500" />
+        <ColorPaletteItem value="#D20A0A" />
+        <ColorPaletteItem value="#DF1278" />
+        <ColorPaletteItem value="#FF8AF0" />
+        <ColorPaletteItem value="#7858FF" />
+        <ColorPaletteItem value="#12171C" />
       </ColorPalettePopover>
     </>
   );

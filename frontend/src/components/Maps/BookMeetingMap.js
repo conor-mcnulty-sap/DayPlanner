@@ -84,7 +84,7 @@ function Map(props) {
           );
           return {
             ...polygon,
-            color: isAvailable ? "green" : "red",
+            color: isAvailable ? "red" : "green",
           };
         });
         setPolygons(updatedCoordinates);

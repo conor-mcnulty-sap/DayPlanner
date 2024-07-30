@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {
   Form,
   Input,
@@ -23,17 +23,18 @@ export default class TaskForm extends Component {
   constructor(props) {
     super(props);
 
-    this.titleRef = React.createRef();
-    this.colourRef = React.createRef();
-    this.timeRef = React.createRef();
-    this.durationRef = React.createRef();
-    this.descRef = React.createRef();
+    this.titleRef = createRef();
+    this.colourRef = createRef();
+    this.timeRef = createRef();
+    this.durationRef = createRef();
+    this.descRef = createRef();
 
     this.state = {
       today: new Date().toISOString().split('T')[0],
       userId: '',
       email: '',
-      dialogOpen: false
+      dialogOpen: false,
+      selectedColor: '#DF1278' // Set default color
     };
   }
 
@@ -55,14 +56,18 @@ export default class TaskForm extends Component {
     }
   }
 
+  handleColorChange = (color) => {
+    this.setState({ selectedColor: color });
+  };
+
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { today, userId, email } = this.state;
+    const { today, userId, email, selectedColor } = this.state;
 
     // Get values from refs
     const title = this.titleRef.current ? this.titleRef.current.value : '';
-    const colour = this.colourRef.current ? this.colourRef.current.getColor() : '';
+    const colour = selectedColor;
     const time = this.timeRef.current ? this.timeRef.current.value : '';
     const duration = this.durationRef.current ? this.durationRef.current.value : '';
     const desc = this.descRef.current ? this.descRef.current.value : '';
@@ -180,7 +185,7 @@ export default class TaskForm extends Component {
   };
 
   render() {
-    const { today, dialogOpen } = this.state;
+    const { today, dialogOpen, selectedColor } = this.state;
 
     return (
       <Card header={<CardHeader titleText="Create A Task" />} style={{ width: "100%" }}>
@@ -211,7 +216,17 @@ export default class TaskForm extends Component {
               <TextArea placeholder="Description" rows={5} ref={this.descRef} />
             </FormItem>
             <FormItem label={<Label>Colour</Label>}>
-              <ColorPalettePopoverComponent ref={this.colourRef} />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <ColorPalettePopoverComponent ref={this.colourRef} onColorSelect={this.handleColorChange} />
+                <div style={{
+                  width: '30px',
+                  height: '30px',
+                  backgroundColor: selectedColor,
+                  border: '1px solid #000',
+                  marginLeft: '10px',
+                  borderRadius: '5px' // Rounded corners
+                }} />
+              </div>
             </FormItem>
             <FormItem style={{ paddingLeft: "50%" }}>
               <Button type="submit" onClick={this.handleSubmit}>
