@@ -15,8 +15,7 @@ function CarpooleeList() {
   const [userId, setUserId] = useState("");
   const [selectedEmail, setSelectedEmail] = useState("");
   const [selectedName, setSelectedName] = useState("");
-  const [distanceToYou, setDistanceToYou] = useState("");
-  const [distanceToOffice, setDistanceToOffice] = useState("");
+  const [distanceToYou, setDistanceToYou] = useState("");  const [distanceToOffice, setDistanceToOffice] = useState("");
   const [timeAdded, setTimeAdded] = useState("");
   const popoverRef = useRef();
 
