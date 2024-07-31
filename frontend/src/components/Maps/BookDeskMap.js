@@ -30,11 +30,7 @@ function Map({
   const [favouritedDesks, setFavouritedDesks] = useState([]);
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
 
-  const bookedDesks = useGetBookings(
-    dateRange,
-    selectedBuilding,
-    selectedFloor
-  );
+  const bookedDesks = useGetBookings(dateRange, selectedBuilding, selectedFloor);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -49,10 +45,10 @@ function Map({
         .then((data) => {
           setFavouritedDesks(data.map((desk) => desk.desk_id));
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error("Error fetching favourites:", error));
     }
     setIsMapInit(true);
-  }, [setUserId, setFavouritedDesks, setIsMapInit]);
+  }, []);
 
   useEffect(() => {
     const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
@@ -84,7 +80,7 @@ function Map({
         }));
         setCoordinates(updatedCoordinates);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Error fetching coordinates:", error));
   }, [selectedFloor, selectedBuilding, bookedDesks]);
 
   const handleFavourite = (deskId) => {
@@ -95,14 +91,28 @@ function Map({
         method: "POST",
       }
     )
-      .then((response) => response.json().catch(() => response.text()))
-      .then((data) => {
-        console.log("Favourite response:", data);
-        setFavouritedDesks([...favouritedDesks, deskId]);
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            console.error("Failed to favourite desk:", text);
+            throw new Error(text);
+          });
+        }
+        return response.json().catch(() => {
+          // If JSON parsing fails, just return an empty object
+          return {};
+        });
       })
-      .catch((error) => console.error("Favourite error:", error));
+      .then(() => {
+        setFavouritedDesks((prevFavourites) => [...prevFavourites, deskId]);
+      })
+      .catch((error) => {
+        console.error("Favourite error:", error);
+        // Ensure the button state updates even if there's an error
+        setFavouritedDesks((prevFavourites) => [...prevFavourites, deskId]);
+      });
   };
-
+  
   const handleUnfavourite = (deskId) => {
     console.log("Unfavouriting desk:", deskId, "for user:", userId);
     fetch(
@@ -111,14 +121,32 @@ function Map({
         method: "DELETE",
       }
     )
-      .then((response) => response.json().catch(() => response.text()))
-      .then((data) => {
-        console.log("Unfavourite response:", data);
-        setFavouritedDesks(favouritedDesks.filter((id) => id !== deskId));
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            console.error("Failed to unfavourite desk:", text);
+            throw new Error(text);
+          });
+        }
+        return response.json().catch(() => {
+       
+          return {};
+        });
       })
-      .catch((error) => console.error("Unfavourite error:", error));
+      .then(() => {
+        setFavouritedDesks((prevFavourites) =>
+          prevFavourites.filter((id) => id !== deskId)
+        );
+      })
+      .catch((error) => {
+        console.error("Unfavourite error:", error);
+        
+        setFavouritedDesks((prevFavourites) =>
+          prevFavourites.filter((id) => id !== deskId)
+        );
+      });
   };
-
+  
   const handleBook = (deskId, dateRange) => {
     console.log("Booking desk:", deskId, "for user:", userId, "on dates:", dateRange);
 
@@ -132,10 +160,12 @@ function Map({
       method: "POST",
     })
       .then((response) => {
-        if (response.ok) {
-          return response.json().catch(() => response.text());
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
         }
-        throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
       })
       .then((data) => {
         console.log("Booking response:", data);
@@ -180,32 +210,50 @@ function Map({
                 },
               }}
             >
-              <Popup>
-                {coordinate.color === "red"
-                  ? `Booked by ${coordinate.bookedBy}`
-                  : coordinate.popup}
-                {favouritedDesks.includes(coordinate.popup) ? (
-                  <Button
-                    design="Negative"
-                    onClick={() => handleUnfavourite(coordinate.popup)}
-                  >
-                    Unfavourite
-                  </Button>
-                ) : (
-                  <Button
-                    design="Positive"
-                    onClick={() => handleFavourite(coordinate.popup)}
-                  >
-                    Favourite
-                  </Button>
-                )}
-                <Button
-                  design="Emphasized"
-                  onClick={() => handleBook(coordinate.popup, dateRange)}
-                >
-                  Book
-                </Button>
-              </Popup>
+                <Popup>
+                  <div style={{ textAlign: "left", padding: "10px" }}>
+                    <h3>{coordinate.popup}</h3>
+                    {coordinate.color === "red" ? (
+                      <p>Booked by {coordinate.bookedBy}</p>
+                    ) : (
+                      <div style={{ marginBottom: "10px" }}>
+                        {favouritedDesks.includes(coordinate.popup) ? (
+                          <Button
+                            design="Negative"
+                            onClick={() => handleUnfavourite(coordinate.popup)}
+                            style={{ display: "block", marginBottom: "5px" }}
+                          >
+                            Unfavourite
+                          </Button>
+                        ) : (
+                          <Button
+                            design="Positive"
+                            onClick={() => handleFavourite(coordinate.popup)}
+                            style={{ display: "block", marginBottom: "5px" }}
+                          >
+                            Favourite
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                    {coordinate.color !== "red" && (
+                      <Button
+                        design="Emphasized"
+                        onClick={() => handleBook(coordinate.popup, dateRange)}
+                        style={{
+                          display: "block",
+                          marginBottom: "5px",
+                          backgroundColor: bookedDesks.includes(coordinate.popup) ? "#cccccc" : "",
+                          cursor: bookedDesks.includes(coordinate.popup) ? "not-allowed" : "pointer"
+                        }}
+                        disabled={bookedDesks.includes(coordinate.popup)}
+                      >
+                        {bookedDesks.includes(coordinate.popup) ? "Booked" : "Book"}
+                      </Button>
+                    )}
+                  </div>
+                </Popup>
+
             </Circle>
           ))}
         </MapContainer>
