@@ -7,9 +7,8 @@ import Map from "../components/Maps/BookMeetingMap";
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
   const [building, setBuilding] = useState("2");
   const [floor, setFloor] = useState("1");
-  // Replace datetime and time with startTime and endTime
-  const [startTime, setStartTime] = useState(new Date()); // This will handle start date and time
-  const [endTime, setEndTime] = useState(new Date()); // This will handle end date and time
+  const [startTime, setStartTime] = useState(new Date()); 
+  const [endTime, setEndTime] = useState(new Date()); 
 
   const handleBuildingChange = (newBuilding) => {
     console.log("Selected Building:", newBuilding);

@@ -24,33 +24,35 @@ function BookTeam() {
   return (
     <Grid
       defaultSpan="XL6 L12 M12 S12"
-      vSpacing={"1rem"}
-      hSpacing={"1rem"}
-      style={{ margin: "4rem" }}
+      vSpacing="1rem"
+      hSpacing="1rem"
+      style={{ margin: "2rem" }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          height: "100%",
-        }}
-      >
-        <TeamBooking
+      <TeamBooking
           selectedDesks={selectedDesks}
           onBuildingChange={handleBuildingChange}
           onFloorChange={handleFloorChange}
           onDateRangeChange={handleDateRangeChange}
+         
         />
-      </div>
-      <TeamMap
-        onCircleClick={() => {}} // Keep as a placeholder if needed
+  
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          marginTop: "2rem", 
+        }}
+      >
+         <TeamMap
+        onCircleClick={() => {}} 
         selectedBuilding={selectedBuilding}
         selectedFloor={selectedFloor}
         dateRange={dateRange}
         selectedDesks={selectedDesks}
         setSelectedDesks={setSelectedDesks}
-      />
+      /> 
+      </div>
     </Grid>
   );
 }

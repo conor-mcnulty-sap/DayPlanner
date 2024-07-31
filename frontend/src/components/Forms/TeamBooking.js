@@ -10,7 +10,7 @@ import {
   Option,
   Dialog,
   Bar,
-  TextArea
+  TextArea,
 } from "@ui5/webcomponents-react";
 import { sendEmail, getEvents } from "../Tasks/Calendar/GraphFunctions";
 import config from "../Tasks/Calendar/Config";
@@ -113,7 +113,7 @@ function TeamBooking({
     setBuilding(selectedBuilding);
     if (onBuildingChange) {
       onBuildingChange(selectedBuilding);
-      console.log("Selected building",selectedBuilding)
+      console.log("Selected building", selectedBuilding);
     }
   };
 
@@ -122,7 +122,7 @@ function TeamBooking({
     setFloor(selectedFloor);
     if (onFloorChange) {
       onFloorChange(selectedFloor);
-      console.log("Selected floor",selectedFloor)
+      console.log("Selected floor", selectedFloor);
     }
   };
 
@@ -136,6 +136,22 @@ function TeamBooking({
       onDateRangeChange(newDateRange);
     }
   };
+  const processEmailAddresses = (input) => {
+    
+    const normalizedInput = input
+      .replace(/\s+and\s+/gi, ',') 
+      .replace(/[\s,;]+|&+/g, ',') 
+      .replace(/^,|,$/g, ''); 
+  
+    const emailList = normalizedInput
+      .split(',')
+      .map((email) => email.trim())
+      .filter((email) => email !== "");
+  
+    console.log("Processed email list:", emailList); // Log the processed email list
+    return emailList;
+  };
+  
 
   const handleSendEmail = async () => {
     if (!accessToken) {
@@ -143,12 +159,13 @@ function TeamBooking({
       return;
     }
 
-    const emailList = emailAddresses.split(",").map((email) => email.trim());
+    const emailList = processEmailAddresses(emailAddresses);
 
     if (emailList.length !== selectedDesks.length) {
       setDialogOpen(true);
-      setDialogContent("The number of emails does not match the number of selected desks.");
-
+      setDialogContent(
+        "The number of emails does not match the number of selected desks."
+      );
       return;
     }
 
@@ -177,10 +194,9 @@ function TeamBooking({
   };
 
   const handleBookDesks = () => {
-    const emailList = emailAddresses.split(",").map((email) => email.trim());
+    const emailList = processEmailAddresses(emailAddresses);
 
     if (emailList.length !== selectedDesks.length) {
-
       return;
     }
 
@@ -222,29 +238,29 @@ function TeamBooking({
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "50%",
-      }}
-    >
-      <Form
-        backgroundDesign="Transparent"
-        columnsL={1}
-        columnsM={1}
-        columnsS={1}
-        columnsXL={1}
-        labelSpanL={4}
-        labelSpanM={2}
-        labelSpanS={12}
-        labelSpanXL={4}
         style={{
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
+          marginTop: "10rem"
         }}
       >
+        <Form
+          backgroundDesign="Transparent"
+          columnsL={1}
+          columnsM={1}
+          columnsS={1}
+          columnsXL={1}
+          labelSpanL={4}
+          labelSpanM={2}
+          labelSpanS={12}
+          labelSpanXL={4}
+          style={{
+            alignItems: "center",
+          }}
+        >
         <FormGroup titleText="">
-          <FormItem label="Email Addresses (comma separated)">
+          <FormItem label="Email Addresses">
             <TextArea
               type="text"
               name="emailAddresses"
@@ -263,7 +279,7 @@ function TeamBooking({
             />
           </FormItem>
           <FormItem label="Building">
-          <Select
+            <Select
               onChange={(event) => {
                 const selectedBuilding =
                   event.detail.selectedOption.dataset.value;
@@ -273,9 +289,8 @@ function TeamBooking({
               style={{ width: "100%" }}
             >
               <Option data-value="3">DUB05</Option>
-
               <Option data-value="2">DUB03</Option>
-              </Select>
+            </Select>
           </FormItem>
           <FormItem label="Floor">
             <Select
@@ -291,8 +306,15 @@ function TeamBooking({
         </FormGroup>
       </Form>
       {error && <p style={{ color: "red" }}>{error}</p>}
-   
-      <Button onClick={() => { handleSendEmail(); handleBookDesks(); }}>Book Desks</Button>
+
+      <Button
+        onClick={() => {
+          handleSendEmail();
+          handleBookDesks();
+        }}
+      >
+        Book Desks
+      </Button>
 
       <Dialog
         headerText="Booking Status"
