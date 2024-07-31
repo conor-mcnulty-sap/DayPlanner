@@ -29,7 +29,6 @@ function Carpool() {
         </div>
         <CarpoolMap />
         <CarpooleeList />
-        <CarpoolList />
       </Grid>
     </div>
   );
