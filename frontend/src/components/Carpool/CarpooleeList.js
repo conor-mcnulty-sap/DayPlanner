@@ -6,22 +6,22 @@ import {
   CardHeader,
   Popover,
   Label,
-  Button
+  Button,
 } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 
 function CarpooleeList() {
   const [listData, setListData] = useState([]);
-  const [userId, setUserId] = useState('');
-  const [selectedEmail, setSelectedEmail] = useState('');
-  const [selectedName, setSelectedName] = useState('');
-  const [distanceToYou, setDistanceToYou] = useState('');
-  const [distanceToOffice, setDistanceToOffice] = useState('');
-  const [timeAdded, setTimeAdded] = useState('');
+  const [userId, setUserId] = useState("");
+  const [selectedEmail, setSelectedEmail] = useState("");
+  const [selectedName, setSelectedName] = useState("");
+  const [distanceToYou, setDistanceToYou] = useState("");
+  const [distanceToOffice, setDistanceToOffice] = useState("");
+  const [timeAdded, setTimeAdded] = useState("");
   const popoverRef = useRef();
 
   useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
+    const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
@@ -34,40 +34,58 @@ function CarpooleeList() {
       fetch(
         `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpoolee?user_id=${userId}`
       )
-        .then(response => {
+        .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           console.log("Fetched Distance: ", data);
           data.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
-          setListData(data);
+          return Promise.all(
+            data.map((item) =>
+              fetchArrivalData(item.carpoolee.users.id).then((arrivalData) => ({
+                ...item,
+                ...arrivalData,
+              }))
+            )
+          );
         })
-        .catch(error => console.log("Fetching Distance failed: ", error));
+        .then((updatedData) => {
+          setListData(updatedData);
+        })
+        .catch((error) => console.log("Fetching Distance failed: ", error));
     }
   }, [userId]);
 
   const fetchArrivalData = (carpooleeUserId) => {
-    console.log(`Fetching arrival data for carpoolee user_id: ${carpooleeUserId} and user_id: ${userId}`);
-    
-    fetch(
+    console.log(
+      `Fetching arrival data for carpoolee user_id: ${carpooleeUserId} and user_id: ${userId}`
+    );
+
+    return fetch(
       `${process.env.REACT_APP_API_URL}/api/carpools/arrival?carpooler=${userId}&carpoolee=${carpooleeUserId}`
     )
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.text(); // Get response as text
       })
-      .then(text => {
+      .then((text) => {
         console.log("Raw Arrival Data Response:", text);
 
         // Split the response text by spaces and parse as floats
-        const [rawDistanceToYou, rawDistanceToOffice, rawTimeAdded] = text.split(' ').map(Number);
+        const [rawDistanceToYou, rawDistanceToOffice, rawTimeAdded] = text
+          .split(" ")
+          .map(Number);
 
-        if (isNaN(rawDistanceToYou) || isNaN(rawDistanceToOffice) || isNaN(rawTimeAdded)) {
+        if (
+          isNaN(rawDistanceToYou) ||
+          isNaN(rawDistanceToOffice) ||
+          isNaN(rawTimeAdded)
+        ) {
           throw new Error("Invalid data format in API response.");
         }
 
@@ -86,20 +104,21 @@ function CarpooleeList() {
         console.log(`Formatted Distance to Office: ${distanceToOffice}`);
         console.log(`Formatted Time Added to Journey: ${timeAdded}`);
 
-        setDistanceToYou(distanceToYou);
-        setDistanceToOffice(distanceToOffice);
-        setTimeAdded(timeAdded);
+        return {
+          distanceToYou,
+          distanceToOffice,
+          timeAdded,
+        };
       })
-      .catch(error => console.log("Fetching Arrival Data failed:", error));
+      .catch((error) => {
+        console.log("Fetching Arrival Data failed:", error);
+        return {};
+      });
   };
 
-  const handleItemClick = (event, email, name, carpooleeUserId) => {
+  const handleItemClick = (event, email, name) => {
     setSelectedEmail(email);
     setSelectedName(name);
-
-    // Fetch arrival data when an item is clicked
-    fetchArrivalData(carpooleeUserId);
-
     popoverRef.current.showAt(event.target);
   };
 
@@ -108,12 +127,12 @@ function CarpooleeList() {
   };
 
   const handleTeamsChatClick = () => {
-    window.open(`msteams:/l/chat/0/0?users=${selectedEmail}`, '_blank');
+    window.open(`msteams:/l/chat/0/0?users=${selectedEmail}`, "_blank");
   };
 
   return (
     <Card
-      header={<CardHeader titleText="Carpoolee" />}
+      header={<CardHeader titleText="Time added to journey" />}
       style={{ width: "100%" }}
     >
       <div
@@ -135,15 +154,29 @@ function CarpooleeList() {
             overflow: "auto",
           }}
         >
-          {listData.map((item, index) => (
-            <StandardListItem
-              key={index}
-              additionalText={`${item.distance} km`}
-              onClick={(event) => handleItemClick(event, item.carpoolee.users.email, item.carpoolee.users.name, item.carpoolee.users.id)}
-            >
-              {item.carpoolee.users.name}
-            </StandardListItem>
-          ))}
+          {listData.map((item, index) => {
+            let displayTimeAdded = item.timeAdded
+              ? item.timeAdded
+              : "Loading...";
+            if (displayTimeAdded.startsWith("0 hours")) {
+              displayTimeAdded = displayTimeAdded.replace("0 hours ", "");
+            }
+            return (
+              <StandardListItem
+                key={index}
+                additionalText={displayTimeAdded}
+                onClick={(event) =>
+                  handleItemClick(
+                    event,
+                    item.carpoolee.users.email,
+                    item.carpoolee.users.name
+                  )
+                }
+              >
+                {item.carpoolee.users.name}
+              </StandardListItem>
+            );
+          })}
         </List>
       </div>
       <Popover
@@ -154,26 +187,32 @@ function CarpooleeList() {
         placementType="Bottom"
         onAfterClose={handleClosePopover}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '1rem' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            padding: "1rem",
+          }}
+        >
           <Label>
-            <strong>Name: </strong>{selectedName}
+            <strong>Name: </strong>
+            {selectedName}
           </Label>
           <Label>
-            <strong>Email: </strong><a href={`mailto:${selectedEmail}`}>{selectedEmail}</a>
-          </Label>
-     
-          <Label>
-            <strong>Time to Office: </strong>{distanceToOffice}
+            <strong>Email: </strong>
+            <a href={`mailto:${selectedEmail}`}>{selectedEmail}</a>
           </Label>
           <Label>
-            <strong>Time Added to Journey: </strong>{timeAdded}
+            <strong>Time to Office: </strong>
+            {distanceToOffice}
           </Label>
-          <Button
-            design="Emphasized"
-          
-            onClick={handleTeamsChatClick}
-          >
-          Chat in Teams
+          <Label>
+            <strong>Time Added to Journey: </strong>
+            {timeAdded}
+          </Label>
+          <Button design="Emphasized" onClick={handleTeamsChatClick}>
+            Chat in Teams
           </Button>
         </div>
       </Popover>

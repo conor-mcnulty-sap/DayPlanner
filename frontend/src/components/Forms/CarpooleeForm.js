@@ -97,7 +97,7 @@ const CarpooleeForm = () => {
   return (
   
     <Card
-      header={<CardHeader titleText="Get a Lift" />}
+      header={<CardHeader titleText="Register to Get a Lift" />}
       style={{
         width: "50%",
         height:"18rem",
@@ -126,7 +126,7 @@ const CarpooleeForm = () => {
             marginBottom: "1rem",
           }}
         >
-          <FormGroup titleText="Personal Data">
+          <FormGroup >
             <FormItem label="Eircode">
               <Input type="Text" ref={eircodeRef} />
             </FormItem>
