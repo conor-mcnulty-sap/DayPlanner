@@ -185,6 +185,7 @@ export default class TaskForm extends Component {
   };
 
   render() {
+    const { dialogOpen, selectedColor } = this.state;
     const { today, dialogOpen, selectedColor, duration } = this.state;
 
     return (

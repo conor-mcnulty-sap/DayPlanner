@@ -9,7 +9,6 @@ import {
 } from "@ui5/webcomponents-react";
 
 function DeskForm({
-  selectedDesk,
   onBuildingChange,
   onFloorChange,
   onDateRangeChange,
@@ -19,7 +18,6 @@ function DeskForm({
   const [floor, setFloor] = useState("3");
   const [dateRange, setDateRange] = useState("");
 
-  // Get today's date and format it
   const today = new Date();
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -28,12 +26,10 @@ function DeskForm({
     return `${year}-${month}-${day}`;
   };
 
-  // Initialize dateRange to today-today
   const todayString = formatDate(today);
   const defaultRange = `${todayString} - ${todayString}`;
 
   useEffect(() => {
-    // Set initial date range
     setDateRange(defaultRange);
   }, []);
 
@@ -64,9 +60,6 @@ function DeskForm({
         `${process.env.REACT_APP_API_URL}/api/desks/filterbyfloor?floor=${floorNumber}`
       )
         .then((response) => response.json())
-        .then((data) => {
-          // Update desk options if needed
-        })
         .catch((error) => console.error("Error fetching desks:", error));
     }
   }, [floor]);
@@ -114,7 +107,7 @@ function DeskForm({
               onChange={handleDateRangeChange}
               primaryCalendarType="Gregorian"
               valueState="None"
-              value={dateRange} // Use value instead of defaultValue
+              value={dateRange}
               style={{ width: "100%" }}
             />
           </FormItem>

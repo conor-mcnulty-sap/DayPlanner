@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import MeetingRoomCarousel from "../components/Carousels/MeetingRoomCarousel";
 import MeetingRoomForm from "../components/Forms/MeetingRoomForm";
 import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";

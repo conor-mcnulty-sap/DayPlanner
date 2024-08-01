@@ -1,5 +1,5 @@
 import React from "react";
-import { TabContainer, Tab, Button } from "@ui5/webcomponents-react";
+import { TabContainer, Tab } from "@ui5/webcomponents-react";
 import { useNavigate } from "react-router-dom";
 
 const TabRoutes = {
@@ -23,13 +23,6 @@ export function NavBar() {
     } else {
       console.error(`No route found for tab "${selectedTabText}"`);
     }
-  };
-
-  const handleButtonClick = () => {
-    // Handle button click action
-    console.log("Button clicked");
-    // Example navigation to a specific route
-    navigate("/some-route");
   };
 
   const currentRoute = window.location.pathname;
