@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Dialog, Bar, Title, Text } from "@ui5/webcomponents-react";
+import { Button, Dialog, Text } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents/dist/features/InputSuggestions.js"; // Ensure InputSuggestions feature is imported
 
 function VerifyDesk() {

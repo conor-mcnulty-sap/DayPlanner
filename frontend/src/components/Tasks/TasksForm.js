@@ -185,7 +185,7 @@ export default class TaskForm extends Component {
   };
 
   render() {
-    const { today, dialogOpen, selectedColor } = this.state;
+    const { dialogOpen, selectedColor } = this.state;
 
     return (
       <Card header={<CardHeader titleText="Create A Task" />} style={{ width: "100%" }}>

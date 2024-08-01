@@ -6,7 +6,6 @@ import {
 } from "@ui5/webcomponents-react";
 import moment from "moment";
 import { deleteEvents } from './Calendar/GraphFunctions';
-import { PublicClientApplication, BrowserAuthError } from '@azure/msal-browser';
 import config from './Calendar/Config';
 
 export default class MyTasks extends Component {
