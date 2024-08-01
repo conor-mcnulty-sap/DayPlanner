@@ -21,8 +21,8 @@ const floorPlans = {
 
 function Map({
   onCircleClick,
-  selectedBuilding = "DUB05", // Default building
-  selectedFloor = "3", // Default floor
+  selectedBuilding = "DUB05",
+  selectedFloor = "3",
   dateRange = getDate(),
   selectedDesks,
   setSelectedDesks,
@@ -31,7 +31,6 @@ function Map({
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
-  // State for the selected floor plan
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-1"]);
   const bookedDesks = useGetBookings(dateRange, selectedBuilding, selectedFloor);
 
@@ -178,7 +177,7 @@ function Map({
               pathOptions={{
                 color: coordinate.color,
                 fillColor: coordinate.color,
-                fillOpacity: 0.5, // Adjusted opacity for better visibility
+                fillOpacity: 0.5,
                 fill: true,
               }}
               eventHandlers={{
@@ -190,29 +189,30 @@ function Map({
               <Popup>
                 <div style={{ textAlign: "left", padding: "10px" }}>
                   <h3>{coordinate.popup}</h3>
-                  {coordinate.color === "red" ? (
+                  {coordinate.color === "red" && (
                     <p>Booked By Another User</p>
-                  ) : (
+                  )}
+                  <div style={{ marginBottom: "10px" }}>
+                    {favouritedDesks.includes(coordinate.popup) ? (
+                      <Button
+                        design="Negative"
+                        onClick={() => handleUnfavourite(coordinate.popup)}
+                        style={{ display: "block", marginBottom: "5px" }}
+                      >
+                        Unfavourite
+                      </Button>
+                    ) : (
+                      <Button
+                        design="Positive"
+                        onClick={() => handleFavourite(coordinate.popup)}
+                        style={{ display: "block", marginBottom: "5px" }}
+                      >
+                        Favourite
+                      </Button>
+                    )}
+                  </div>
+                  {coordinate.color !== "red" && (
                     <>
-                      <div style={{ marginBottom: "10px" }}>
-                        {favouritedDesks.includes(coordinate.popup) ? (
-                          <Button
-                            design="Negative"
-                            onClick={() => handleUnfavourite(coordinate.popup)}
-                            style={{ display: "block", marginBottom: "5px" }}
-                          >
-                            Unfavourite
-                          </Button>
-                        ) : (
-                          <Button
-                            design="Positive"
-                            onClick={() => handleFavourite(coordinate.popup)}
-                            style={{ display: "block", marginBottom: "5px" }}
-                          >
-                            Favourite
-                          </Button>
-                        )}
-                      </div>
                       <Button
                         design="Emphasized"
                         onClick={() => toggleSelectDesk(coordinate.popup)}
@@ -223,7 +223,6 @@ function Map({
                           color: selectedDesks.includes(coordinate.popup) ? "black" : "",
                           cursor: "pointer",
                         }}
-                        disabled={false} // Ensure the button is clickable
                       >
                         {selectedDesks.includes(coordinate.popup) ? "Deselect" : "Select"}
                       </Button>

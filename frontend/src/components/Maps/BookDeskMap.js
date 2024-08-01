@@ -216,29 +216,22 @@ function Map({
               <Popup>
                 <div style={{ textAlign: "left", padding: "10px" }}>
                   <h3>{coordinate.popup}</h3>
-                  {coordinate.color === "red" ? (
+                  {coordinate.color === "red" && (
                     <p>Booked By Another User</p>
-                  ) : (
-                    <div style={{ marginBottom: "10px" }}>
-                      {favouritedDesks.includes(coordinate.popup) ? (
-                        <Button
-                          design="Negative"
-                          onClick={() => handleUnfavourite(coordinate.popup)}
-                          style={{ display: "block", marginBottom: "5px" }}
-                        >
-                          Unfavourite
-                        </Button>
-                      ) : (
-                        <Button
-                          design="Positive"
-                          onClick={() => handleFavourite(coordinate.popup)}
-                          style={{ display: "block", marginBottom: "5px" }}
-                        >
-                          Favourite
-                        </Button>
-                      )}
-                    </div>
                   )}
+                  <div style={{ marginBottom: "10px" }}>
+                    <Button
+                      design={favouritedDesks.includes(coordinate.popup) ? "Negative" : "Positive"}
+                      onClick={() => 
+                        favouritedDesks.includes(coordinate.popup)
+                          ? handleUnfavourite(coordinate.popup)
+                          : handleFavourite(coordinate.popup)
+                      }
+                      style={{ display: "block", marginBottom: "5px" }}
+                    >
+                      {favouritedDesks.includes(coordinate.popup) ? "Unfavourite" : "Favourite"}
+                    </Button>
+                  </div>
                   {coordinate.color !== "red" && (
                     <Button
                       design="Emphasized"

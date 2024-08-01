@@ -34,7 +34,8 @@ export default class TaskForm extends Component {
       userId: '',
       email: '',
       dialogOpen: false,
-      selectedColor: '#DF1278' // Set default color
+      selectedColor: '#DF1278', // Set default color
+      duration: '01:00' // Set default duration to 1 hour
     };
   }
 
@@ -63,13 +64,12 @@ export default class TaskForm extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { today, userId, email, selectedColor } = this.state;
+    const { today, userId, email, selectedColor, duration } = this.state;
 
     // Get values from refs
     const title = this.titleRef.current ? this.titleRef.current.value : '';
     const colour = selectedColor;
     const time = this.timeRef.current ? this.timeRef.current.value : '';
-    const duration = this.durationRef.current ? this.durationRef.current.value : '';
     const desc = this.descRef.current ? this.descRef.current.value : '';
 
     console.log('Title:', title);
@@ -173,7 +173,7 @@ export default class TaskForm extends Component {
     // Clear input fields
     if (this.titleRef.current) this.titleRef.current.value = '';
     if (this.timeRef.current) this.timeRef.current.value = '';
-    if (this.durationRef.current) this.durationRef.current.value = '';
+    if (this.durationRef.current) this.durationRef.current.value = '01:00'; // Reset to default duration
     if (this.descRef.current) this.descRef.current.value = '';
     if (this.colourRef.current) this.colourRef.current.value = 'null';
   };
@@ -185,7 +185,7 @@ export default class TaskForm extends Component {
   };
 
   render() {
-    const { today, dialogOpen, selectedColor } = this.state;
+    const { today, dialogOpen, selectedColor, duration } = this.state;
 
     return (
       <Card header={<CardHeader titleText="Create A Task" />} style={{ width: "100%" }}>
@@ -210,7 +210,12 @@ export default class TaskForm extends Component {
               <TimePicker ref={this.timeRef} formatPattern="HH:mm" placeholder="Enter Time" />
             </FormItem>
             <FormItem label={<Label>Duration</Label>}>
-              <TimePicker ref={this.durationRef} formatPattern="HH:mm" placeholder="Enter Duration" />
+              <TimePicker
+                ref={this.durationRef}
+                formatPattern="HH:mm"
+                placeholder="Enter Duration"
+                value={duration} // Set default duration value
+              />
             </FormItem>
             <FormItem label={<Label>Description</Label>}>
               <TextArea placeholder="Description" rows={5} ref={this.descRef} />
