@@ -44,12 +44,16 @@ function Map({
       .then((data) => {
         const updatedCoordinates = data.map((coordinate) => ({
           ...coordinate,
-          color: bookedDesks.includes(coordinate.popup) ? "red" : "green",
+          color: selectedDesks.includes(coordinate.popup)
+            ? "#add8e6" // Light blue for selected desks
+            : bookedDesks.includes(coordinate.popup)
+            ? "red"
+            : "green",
         }));
         setCoordinates(updatedCoordinates);
       })
       .catch((error) => console.error(error));
-  }, [selectedFloor, selectedBuilding, bookedDesks]);
+  }, [selectedFloor, selectedBuilding, bookedDesks, selectedDesks]);
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -174,7 +178,7 @@ function Map({
               pathOptions={{
                 color: coordinate.color,
                 fillColor: coordinate.color,
-                fillOpacity: 0.2,
+                fillOpacity: 0.5, // Adjusted opacity for better visibility
                 fill: true,
               }}
               eventHandlers={{
@@ -215,7 +219,8 @@ function Map({
                         style={{
                           display: "block",
                           marginBottom: "5px",
-                          backgroundColor: selectedDesks.includes(coordinate.popup) ? "#cccccc" : "",
+                          backgroundColor: selectedDesks.includes(coordinate.popup) ? "#add8e6" : "",
+                          color: selectedDesks.includes(coordinate.popup) ? "black" : "",
                           cursor: "pointer",
                         }}
                         disabled={false} // Ensure the button is clickable
