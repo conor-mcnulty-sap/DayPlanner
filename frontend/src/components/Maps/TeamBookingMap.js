@@ -21,8 +21,8 @@ const floorPlans = {
 
 function Map({
   onCircleClick,
-  selectedBuilding,
-  selectedFloor,
+  selectedBuilding = "DUB05", // Default building
+  selectedFloor = "3", // Default floor
   dateRange = getDate(),
   selectedDesks,
   setSelectedDesks,
@@ -31,33 +31,24 @@ function Map({
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
 
-  // Add a new state variable for the selected floor plan
-  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
-  console.log("a"+dateRange);
-  const bookedDesks = useGetBookings(
-    dateRange,
-    selectedBuilding,
-    selectedFloor
-  );
+  // State for the selected floor plan
+  const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["3-1"]);
+  const bookedDesks = useGetBookings(dateRange, selectedBuilding, selectedFloor);
 
-  
   const [coordinates, setCoordinates] = useState([]);
 
-  // Fetch the coordinates from the JSON file when the component mounts
   useEffect(() => {
     const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`;
     fetch(coordinatesFile)
       .then((response) => response.json())
       .then((data) => {
-        // Update each coordinate's color based on whether it's booked
         const updatedCoordinates = data.map((coordinate) => ({
           ...coordinate,
-          color: bookedDesks.includes(coordinate.popup) ? "red" : "green", // Assuming 'popup' contains the desk ID
+          color: bookedDesks.includes(coordinate.popup) ? "red" : "green",
         }));
         setCoordinates(updatedCoordinates);
       })
       .catch((error) => console.error(error));
-      console.log(dateRange)
   }, [selectedFloor, selectedBuilding, bookedDesks]);
 
   useEffect(() => {
@@ -78,40 +69,22 @@ function Map({
     setIsMapInit(true);
   }, []);
 
-  // Add a useEffect to update the selected floor plan when the selected building or floor changes
   useEffect(() => {
     const floorPlanKey = `${selectedBuilding}-${selectedFloor}`;
     if (floorPlans[floorPlanKey]) {
       setSelectedFloorPlan(floorPlans[floorPlanKey]);
     } else {
       console.warn(
-        `Floor plan ${floorPlanKey} does not exist. Defaulting to '2-1'.`
+        `Floor plan ${floorPlanKey} does not exist. Defaulting to '3-1'.`
       );
-      setSelectedFloorPlan(floorPlans["2-1"]);
+      setSelectedFloorPlan(floorPlans["3-1"]);
     }
   }, [selectedBuilding, selectedFloor]);
-  console.log(selectedBuilding + "-" + selectedFloor);
 
   const bounds = [
     [0, 0],
     [10, 29],
   ];
-
-  // Fetch the coordinates from the JSON file when the component mounts
-  useEffect(() => {
-    const coordinatesFile = `/coordinates-${selectedBuilding}-${selectedFloor}.json`;
-    fetch(coordinatesFile)
-      .then((response) => response.json())
-      .then((data) => {
-        // Update each coordinate's color based on whether it's booked
-        const updatedCoordinates = data.map((coordinate) => ({
-          ...coordinate,
-          color: bookedDesks.includes(coordinate.popup) ? "red" : "green", // Assuming 'popup' contains the desk ID
-        }));
-        setCoordinates(updatedCoordinates);
-      })
-      .catch((error) => console.error(error));
-  }, [selectedFloor, selectedBuilding, bookedDesks]); // Add selectedFloor as a dependency
 
   const handleFavourite = (deskId) => {
     fetch(
@@ -163,7 +136,6 @@ function Map({
         })
         .catch((error) => console.error(error));
     });
-    // Clear selected desks after booking
     setSelectedDesks([]);
   };
 
@@ -212,48 +184,51 @@ function Map({
               }}
             >
               <Popup>
-                {coordinate.color === "red"
-                  ? `Booked by ${coordinate.bookedBy}`
-                  : coordinate.popup}
-                {favouritedDesks.includes(coordinate.popup) ? (
-                  <Button
-                    design="Negative"
-                    onClick={() => handleUnfavourite(coordinate.popup)}
-                  >
-                    Unfavourite
-                  </Button>
-                ) : (
-                  <Button
-                    design="Positive"
-                    onClick={() => handleFavourite(coordinate.popup)}
-                  >
-                    Favourite
-                  </Button>
-                )}
-                {selectedDesks.includes(coordinate.popup) ? (
-                  <Button
-                    design="Negative"
-                    onClick={() => toggleSelectDesk(coordinate.popup)}
-                  >
-                    Deselect
-                  </Button>
-                ) : (
-                  <Button
-                    design="Emphasized"
-                    onClick={() => toggleSelectDesk(coordinate.popup)}
-                  >
-                    Select
-                  </Button>
-                )}
+                <div style={{ textAlign: "left", padding: "10px" }}>
+                  <h3>{coordinate.popup}</h3>
+                  {coordinate.color === "red" ? (
+                    <p>Booked by {coordinate.bookedBy}</p>
+                  ) : (
+                    <>
+                      <div style={{ marginBottom: "10px" }}>
+                        {favouritedDesks.includes(coordinate.popup) ? (
+                          <Button
+                            design="Negative"
+                            onClick={() => handleUnfavourite(coordinate.popup)}
+                            style={{ display: "block", marginBottom: "5px" }}
+                          >
+                            Unfavourite
+                          </Button>
+                        ) : (
+                          <Button
+                            design="Positive"
+                            onClick={() => handleFavourite(coordinate.popup)}
+                            style={{ display: "block", marginBottom: "5px" }}
+                          >
+                            Favourite
+                          </Button>
+                        )}
+                      </div>
+                      <Button
+                        design="Emphasized"
+                        onClick={() => toggleSelectDesk(coordinate.popup)}
+                        style={{
+                          display: "block",
+                          marginBottom: "5px",
+                          backgroundColor: selectedDesks.includes(coordinate.popup) ? "#cccccc" : "",
+                          cursor: "pointer",
+                        }}
+                        disabled={false} // Ensure the button is clickable
+                      >
+                        {selectedDesks.includes(coordinate.popup) ? "Deselect" : "Select"}
+                      </Button>
+                    </>
+                  )}
+                </div>
               </Popup>
             </Circle>
           ))}
         </MapContainer>
-      )}
-      {selectedDesks.length > 0 && (
-        <Button design="Emphasized" onClick={handleBook}>
-          Book Selected Desks
-        </Button>
       )}
     </Card>
   );

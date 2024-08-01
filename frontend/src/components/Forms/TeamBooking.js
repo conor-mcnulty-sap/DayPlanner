@@ -3,7 +3,6 @@ import {
   Form,
   FormGroup,
   FormItem,
-  Input,
   Button,
   DateRangePicker,
   Select,
@@ -22,8 +21,8 @@ function TeamBooking({
   onDateRangeChange,
 }) {
   const [userId, setUserId] = useState("");
-  const [building, setBuilding] = useState("3");
-  const [floor, setFloor] = useState("3");
+  const [building, setBuilding] = useState("3"); // Default building
+  const [floor, setFloor] = useState("3"); // Default floor
   const [dateRange, setDateRange] = useState("");
   const [deskOptions, setDeskOptions] = useState([]);
   const [emailAddresses, setEmailAddresses] = useState("");
@@ -109,7 +108,7 @@ function TeamBooking({
   }, [selectedDesks]);
 
   const handleBuildingChange = (event) => {
-    const selectedBuilding = event.detail.selectedOption.innerText;
+    const selectedBuilding = event.detail.selectedOption.dataset.value;
     setBuilding(selectedBuilding);
     if (onBuildingChange) {
       onBuildingChange(selectedBuilding);
@@ -118,7 +117,7 @@ function TeamBooking({
   };
 
   const handleFloorChange = (event) => {
-    const selectedFloor = event.detail.selectedOption.innerText;
+    const selectedFloor = event.detail.selectedOption.dataset.value;
     setFloor(selectedFloor);
     if (onFloorChange) {
       onFloorChange(selectedFloor);
@@ -136,22 +135,21 @@ function TeamBooking({
       onDateRangeChange(newDateRange);
     }
   };
+
   const processEmailAddresses = (input) => {
-    
     const normalizedInput = input
-      .replace(/\s+and\s+/gi, ',') 
-      .replace(/[\s,;]+|&+/g, ',') 
-      .replace(/^,|,$/g, ''); 
-  
+      .replace(/\s+and\s+/gi, ",")
+      .replace(/[\s,;]+|&+/g, ",")
+      .replace(/^,|,$/g, "");
+
     const emailList = normalizedInput
-      .split(',')
+      .split(",")
       .map((email) => email.trim())
       .filter((email) => email !== "");
-  
-    console.log("Processed email list:", emailList); // Log the processed email list
+
+    console.log("Processed email list:", emailList);
     return emailList;
   };
-  
 
   const handleSendEmail = async () => {
     if (!accessToken) {
@@ -160,6 +158,14 @@ function TeamBooking({
     }
 
     const emailList = processEmailAddresses(emailAddresses);
+
+    if (emailList.length === 0 || selectedDesks.length === 0) {
+      setDialogOpen(true);
+      setDialogContent(
+        "Please select desks and enter email addresses."
+      );
+      return;
+    }
 
     if (emailList.length !== selectedDesks.length) {
       setDialogOpen(true);
@@ -184,8 +190,7 @@ function TeamBooking({
       for (const message of messages) {
         await sendEmail(accessToken, { message, saveToSentItems: "true" });
       }
-      setDialogOpen(true);
-      setDialogContent("Emails sent successfully");
+
       console.log("Emails sent successfully");
     } catch (error) {
       console.error("Error sending emails", error);
@@ -196,17 +201,31 @@ function TeamBooking({
   const handleBookDesks = () => {
     const emailList = processEmailAddresses(emailAddresses);
 
-    if (emailList.length !== selectedDesks.length) {
+    if (emailList.length === 0 || selectedDesks.length === 0) {
+      setDialogOpen(true);
+      setDialogContent(
+        "Please select desks and enter email addresses."
+      );
       return;
     }
 
+    if (emailList.length !== selectedDesks.length) {
+      setDialogOpen(true);
+      setDialogContent(
+        "The number of emails does not match the number of selected desks."
+      );
+      return;
+    }
+
+    const bookingDetails = [];
+
     selectedDesks.forEach((deskId, index) => {
-      const bookingDetails = {
+      const bookingDetail = {
         deskId: deskId,
-        dateRange: dateRange,
         email: emailList[index],
       };
-      console.log("Booking details:", bookingDetails);
+
+      bookingDetails.push(bookingDetail);
 
       fetch(
         `${process.env.REACT_APP_API_URL}/api/teambooking/bookdesk?user_email=${emailList[index]}&desk_id=${deskId}&date=${dateRange}`,
@@ -222,13 +241,35 @@ function TeamBooking({
         })
         .catch((error) => {
           console.error(error);
-          console.log("Booking details:", bookingDetails);
+          console.log("Booking details:", bookingDetail);
         });
     });
 
-    setError(""); // Clear the error message on successful booking
+    setError("");
     setDialogOpen(true);
-    setDialogContent("Desks booked successfully");
+    setDialogContent(
+      ` <text> Desks Booked Successfully</text>
+      <table>
+        <thead>
+          <tr>
+            <th>Desk ID</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${bookingDetails
+            .map(
+              (detail) => `
+            <tr>
+              <td>${detail.deskId}</td>
+              <td>${detail.email}</td>
+            </tr>
+          `
+            )
+            .join("")}
+        </tbody>
+      </table>`
+    );
   };
 
   const closeDialog = () => {
@@ -238,27 +279,27 @@ function TeamBooking({
 
   return (
     <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: "10rem",
+      }}
+    >
+      <Form
+        backgroundDesign="Transparent"
+        columnsL={1}
+        columnsM={1}
+        columnsS={1}
+        columnsXL={1}
+        labelSpanL={4}
+        labelSpanM={2}
+        labelSpanS={12}
+        labelSpanXL={4}
         style={{
-          display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          marginTop: "10rem"
         }}
       >
-        <Form
-          backgroundDesign="Transparent"
-          columnsL={1}
-          columnsM={1}
-          columnsS={1}
-          columnsXL={1}
-          labelSpanL={4}
-          labelSpanM={2}
-          labelSpanS={12}
-          labelSpanXL={4}
-          style={{
-            alignItems: "center",
-          }}
-        >
         <FormGroup titleText="">
           <FormItem label="Email Addresses">
             <TextArea
@@ -280,11 +321,7 @@ function TeamBooking({
           </FormItem>
           <FormItem label="Building">
             <Select
-              onChange={(event) => {
-                const selectedBuilding =
-                  event.detail.selectedOption.dataset.value;
-                setBuilding(selectedBuilding);
-              }}
+              onChange={handleBuildingChange}
               selectedKey={building}
               style={{ width: "100%" }}
             >
@@ -294,13 +331,13 @@ function TeamBooking({
           </FormItem>
           <FormItem label="Floor">
             <Select
-              value={floor}
+              value={floor} // This ensures the default value is reflected
               onChange={handleFloorChange}
               style={{ width: "100%" }}
             >
-              <Option>1</Option>
-              <Option>2</Option>
-              <Option>3</Option>
+              <Option data-value="3">3</Option>
+              <Option data-value="2">2</Option>
+              <Option data-value="1">1</Option>
             </Select>
           </FormItem>
         </FormGroup>
@@ -321,10 +358,13 @@ function TeamBooking({
         open={dialogOpen}
         onClose={closeDialog}
         footer={
-          <Bar design="Footer" endContent={<Button onClick={closeDialog}>Close</Button>} />
+          <Bar
+            design="Footer"
+            endContent={<Button onClick={closeDialog}>Close</Button>}
+          />
         }
       >
-        {dialogContent}
+        <div dangerouslySetInnerHTML={{ __html: dialogContent }} />
       </Dialog>
     </div>
   );

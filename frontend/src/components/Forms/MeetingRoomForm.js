@@ -28,7 +28,7 @@ export default class BookMeetingRoom extends Component {
       room: "",
       subject: "",
       startDateTime: "",
-      duration: "",
+      duration: "01:00", 
       email: "",
       dialogOpen: false,
       dialogMessage: "",
@@ -435,7 +435,7 @@ export default class BookMeetingRoom extends Component {
           }
           open={dialogOpen}
           onAfterClose={this.closeDialog}
-          style={{ zIndex: 1000}} // Inline style added here
+          style={{ zIndex: 1000 }} // Inline style added here
         >
           <p>{dialogMessage}</p>
         </Dialog>
