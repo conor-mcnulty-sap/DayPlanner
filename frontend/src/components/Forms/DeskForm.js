@@ -18,12 +18,9 @@ function DeskForm({
   const [building, setBuilding] = useState("3");
   const [floor, setFloor] = useState("3");
   const [dateRange, setDateRange] = useState("");
-  const [deskOptions, setDeskOptions] = useState([]);
-  //console.log(building + " " + floor)
-  const today = new Date();
-  const endDate = new Date();
-  endDate.setDate(today.getDate() + 7);
 
+  // Get today's date and format it
+  const today = new Date();
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -31,10 +28,14 @@ function DeskForm({
     return `${year}-${month}-${day}`;
   };
 
-  const startString = formatDate(today);
-  const endString = formatDate(endDate);
+  // Initialize dateRange to today-today
+  const todayString = formatDate(today);
+  const defaultRange = `${todayString} - ${todayString}`;
 
-  const defaultRange = `${startString} - ${endString}`;
+  useEffect(() => {
+    // Set initial date range
+    setDateRange(defaultRange);
+  }, []);
 
   useEffect(() => {
     if (building) {
@@ -64,7 +65,7 @@ function DeskForm({
       )
         .then((response) => response.json())
         .then((data) => {
-          //console.log("Desks data:", data);
+          // Update desk options if needed
         })
         .catch((error) => console.error("Error fetching desks:", error));
     }
@@ -88,7 +89,7 @@ function DeskForm({
       onDateRangeChange(newDateRange);
     }
   };
-  //console.log(building + " " + floor)
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -113,7 +114,7 @@ function DeskForm({
               onChange={handleDateRangeChange}
               primaryCalendarType="Gregorian"
               valueState="None"
-              defaultValue={defaultRange}
+              value={dateRange} // Use value instead of defaultValue
               style={{ width: "100%" }}
             />
           </FormItem>
@@ -123,18 +124,20 @@ function DeskForm({
                 const selectedBuilding =
                   event.detail.selectedOption.dataset.value;
                 setBuilding(selectedBuilding);
+                if (onBuildingChange) {
+                  onBuildingChange(selectedBuilding);
+                }
               }}
               selectedKey={building}
               style={{ width: "100%" }}
             >
               <Option data-value="3">DUB05</Option>
-
               <Option data-value="2">DUB03</Option>
             </Select>
           </FormItem>
           <FormItem label="Floor">
             <Select
-              onChange={handleFloorChange} // Use the new function here
+              onChange={handleFloorChange}
               selectedKey={floor}
               style={{ width: "100%" }}
             >
