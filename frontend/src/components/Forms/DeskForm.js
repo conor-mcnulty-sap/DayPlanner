@@ -102,7 +102,7 @@ function DeskForm({
         }}
       >
         <FormGroup titleText="">
-          <FormItem>
+          <FormItem label="Date">
             <DateRangePicker
               onChange={handleDateRangeChange}
               primaryCalendarType="Gregorian"
