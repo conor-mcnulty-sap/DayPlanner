@@ -20,6 +20,7 @@ export default class BookMeetingRoom extends Component {
   constructor(props) {
     super(props);
 
+    // Initialize state
     this.state = {
       events: [],
       event: {},
@@ -27,7 +28,7 @@ export default class BookMeetingRoom extends Component {
       floor: "1", // Default floor
       room: "",
       subject: "",
-      startDateTime: "",
+      startDateTime: moment().format("YYYY-MM-DDTHH:mm"), // Set to current date and time
       duration: "01:00", 
       email: "",
       dialogOpen: false,
@@ -296,12 +297,6 @@ export default class BookMeetingRoom extends Component {
         this.updateEndDateTime();
       }
     });
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-
-    this.setState({ [name]: value });
   }
 
   closeDialog() {
