@@ -33,6 +33,10 @@ function Map({
   const bookedDesks = useGetBookings(dateRange, selectedBuilding, selectedFloor);
 
   useEffect(() => {
+    console.log("Booked Desks:", bookedDesks);
+  }, [bookedDesks]);
+
+  useEffect(() => {
     const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
@@ -112,7 +116,7 @@ function Map({
         setFavouritedDesks((prevFavourites) => [...prevFavourites, deskId]);
       });
   };
-  
+
   const handleUnfavourite = (deskId) => {
     console.log("Unfavouriting desk:", deskId, "for user:", userId);
     fetch(
@@ -129,7 +133,7 @@ function Map({
           });
         }
         return response.json().catch(() => {
-       
+          // If JSON parsing fails, just return an empty object
           return {};
         });
       })
@@ -140,13 +144,12 @@ function Map({
       })
       .catch((error) => {
         console.error("Unfavourite error:", error);
-        
         setFavouritedDesks((prevFavourites) =>
           prevFavourites.filter((id) => id !== deskId)
         );
       });
   };
-  
+
   const handleBook = (deskId, dateRange) => {
     console.log("Booking desk:", deskId, "for user:", userId, "on dates:", dateRange);
 
@@ -210,50 +213,49 @@ function Map({
                 },
               }}
             >
-                <Popup>
-                  <div style={{ textAlign: "left", padding: "10px" }}>
-                    <h3>{coordinate.popup}</h3>
-                    {coordinate.color === "red" ? (
-                      <p>Booked by {coordinate.bookedBy}</p>
-                    ) : (
-                      <div style={{ marginBottom: "10px" }}>
-                        {favouritedDesks.includes(coordinate.popup) ? (
-                          <Button
-                            design="Negative"
-                            onClick={() => handleUnfavourite(coordinate.popup)}
-                            style={{ display: "block", marginBottom: "5px" }}
-                          >
-                            Unfavourite
-                          </Button>
-                        ) : (
-                          <Button
-                            design="Positive"
-                            onClick={() => handleFavourite(coordinate.popup)}
-                            style={{ display: "block", marginBottom: "5px" }}
-                          >
-                            Favourite
-                          </Button>
-                        )}
-                      </div>
-                    )}
-                    {coordinate.color !== "red" && (
-                      <Button
-                        design="Emphasized"
-                        onClick={() => handleBook(coordinate.popup, dateRange)}
-                        style={{
-                          display: "block",
-                          marginBottom: "5px",
-                          backgroundColor: bookedDesks.includes(coordinate.popup) ? "#cccccc" : "",
-                          cursor: bookedDesks.includes(coordinate.popup) ? "not-allowed" : "pointer"
-                        }}
-                        disabled={bookedDesks.includes(coordinate.popup)}
-                      >
-                        {bookedDesks.includes(coordinate.popup) ? "Booked" : "Book"}
-                      </Button>
-                    )}
-                  </div>
-                </Popup>
-
+              <Popup>
+                <div style={{ textAlign: "left", padding: "10px" }}>
+                  <h3>{coordinate.popup}</h3>
+                  {coordinate.color === "red" ? (
+                    <p>Booked by {coordinate.bookedBy}</p>
+                  ) : (
+                    <div style={{ marginBottom: "10px" }}>
+                      {favouritedDesks.includes(coordinate.popup) ? (
+                        <Button
+                          design="Negative"
+                          onClick={() => handleUnfavourite(coordinate.popup)}
+                          style={{ display: "block", marginBottom: "5px" }}
+                        >
+                          Unfavourite
+                        </Button>
+                      ) : (
+                        <Button
+                          design="Positive"
+                          onClick={() => handleFavourite(coordinate.popup)}
+                          style={{ display: "block", marginBottom: "5px" }}
+                        >
+                          Favourite
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                  {coordinate.color !== "red" && (
+                    <Button
+                      design="Emphasized"
+                      onClick={() => handleBook(coordinate.popup, dateRange)}
+                      style={{
+                        display: "block",
+                        marginBottom: "5px",
+                        backgroundColor: bookedDesks.includes(coordinate.popup) ? "#cccccc" : "",
+                        cursor: bookedDesks.includes(coordinate.popup) ? "not-allowed" : "pointer"
+                      }}
+                      disabled={bookedDesks.includes(coordinate.popup)}
+                    >
+                      {bookedDesks.includes(coordinate.popup) ? "Booked" : "Book"}
+                    </Button>
+                  )}
+                </div>
+              </Popup>
             </Circle>
           ))}
         </MapContainer>
