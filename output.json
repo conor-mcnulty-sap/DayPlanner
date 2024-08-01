@@ -1,11 +1,46 @@
 {
   "Articles": [
     {
+      "title": "Swiss Transportation Company BLS AG Moves HR Processes to the Cloud with SAP SuccessFactors HCM",
+      "link": "https://news.sap.com/2024/07/bls-ag-hr-cloud-sap-successfactors/",
+      "author": "Jeanette Rohr",
+      "date": "July 30, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/30/280439_GettyImages-157671924_uncropped_F-1920x600-1721908831.jpg"
+    },
+    {
+      "title": "Fratelli Branca Distillerie in Argentina Modernizes for Greater Efficiency with SAP Sales Cloud",
+      "link": "https://news.sap.com/2024/07/fratelli-branca-modernizes-sap-sales-cloud/",
+      "author": "Jacqueline Prause",
+      "date": "July 29, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/29/295499_GettyImages-902810140_uncropped_F-540x310-1722001209.jpg"
+    },
+    {
+      "title": "SAP Recognized as a Leader in IDC MarketScape: Worldwide SaaS and Cloud-Enabled Medium-Sized Business ERP Applications 2024",
+      "link": "https://news.sap.com/2024/07/sap-a-leader-idc-marketscape-worldwide-saas-and-cloud-enabled-medium-sized-business-erp-applications/",
+      "author": "Justin Raudys",
+      "date": "July 29, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/29/300781_GettyImages-691573717_medium_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "From IT Outage to IT Control: The Power of an Effective Software Testing Environment",
+      "link": "https://news.sap.com/2024/07/it-outage-effective-software-testing-environment/",
+      "author": "Bil Khan",
+      "date": "July 26, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/26/298313_GettyImages-1338106337_medium_uncropped-f-540x310.jpg"
+    },
+    {
+      "title": "SAP Recognized as One of the World’s Most Sustainable Companies in 2024",
+      "link": "https://news.sap.com/2024/07/sap-one-of-worlds-most-sustainable-companies/",
+      "author": "Monica Molesag",
+      "date": "July 25, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/25/289552_GettyImages-183848746_uncropped_F-e1721738336514-540x310-1721738685.jpg"
+    },
+    {
       "title": "Unlocking the Potential of Intelligent ERP: SAP S/4HANA Cloud Public Edition 2408 Update",
       "link": "https://news.sap.com/2024/07/sap-s-4hana-cloud-public-edition-2408-update/",
       "author": "Arpan Shah",
       "date": "July 24, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/24/296267_GettyImages-507896609_medium_uncropped_F-1920x600-1721659894.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/24/296267_GettyImages-507896609_medium_uncropped_F-540x310.jpg"
     },
     {
       "title": "Serving Customers Better with Lean Selective Data Transition",
@@ -33,7 +68,7 @@
       "link": "https://news.sap.com/2024/07/hornbach-platform-for-growth/",
       "author": "Stefanie Glenk",
       "date": "July 18, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/296157_GettyImages-722222785_uncropped_F-540x310.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/Hornbach-Still-540x310.jpg"
     },
     {
       "title": "Sustainable Impact Through Cross-Sector Partnership",
@@ -55,41 +90,6 @@
       "author": "Vishal Verma",
       "date": "July 17, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/01/09/299930_GettyImages-1306394663_medium_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Makes AI Available to All RISE with SAP Customers with Improved Commercial Packages",
-      "link": "https://news.sap.com/2024/07/ai-available-rise-with-sap-commercial-packages/",
-      "author": "Maura Hameroff",
-      "date": "July 16, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2023/11/08/287964_GettyImages-1219158877_medium_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "WEConnect and SAP BTP Help Women-Owned Businesses Level Up in the Global Marketplace",
-      "link": "https://news.sap.com/2024/07/weconnect-sap-btp-help-women-owned-businesses/",
-      "author": "Timo Elliott",
-      "date": "July 16, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/16/287077_GettyImages-758280391_uncropped_F-540x310-1721057244.jpg"
-    },
-    {
-      "title": "Sun Life Spotlights the Incredible Market Growth Power of Digital Modernization",
-      "link": "https://news.sap.com/2024/07/sun-life-spotlights-digital-modernization/",
-      "author": "Susan Galer",
-      "date": "July 16, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/10/276350_276350_l_srgb_s_gl_uncropped_F-540x310-1720552471.jpg"
-    },
-    {
-      "title": "GROW with SAP: Expanding the Value of Cloud ERP with SAP Sales Cloud and Concur Expense ",
-      "link": "https://news.sap.com/2024/07/grow-with-sap-sap-sales-cloud-concur-expense/",
-      "author": "Jonathan Rhodes",
-      "date": "July 15, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/15/283656_shutterstock_307287704_2600_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Support Accreditation Updates Highlight SAP’s AI Support Offerings",
-      "link": "https://news.sap.com/2024/07/support-accreditation-updates-highlight-ai/",
-      "author": "Leonardo Mauhs",
-      "date": "July 11, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/11/300985_GettyImages-1253370535_uncropped_F-540x310.jpg"
     }
   ]
 }

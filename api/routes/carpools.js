@@ -381,6 +381,9 @@ router.get('/arrival', async (req, res) => {
     let carpooler = req.query.carpooler;
     let carpoolee = req.query.carpoolee;
 
+    console.log(carpooler);
+    console.log(carpoolee);
+
     //Get carpooler eircode
     const {data: user, error} = await supabase
     .from('carpooler')
@@ -425,5 +428,34 @@ router.get('/arrival', async (req, res) => {
 
 });
 
+// Get user coordinates
+router.get('/coordinates', async (req, res) => {
+    let user_id = req.query.user_id;
+
+    //Get user eircode
+    const {data: user, error1} = await supabase
+    .from('carpooler')
+    .select('eircode')
+    .eq('user_id', user_id);
+
+    // If user does not exist
+    if (user.length == 0) {
+        res.send('User does not exist');
+        console.log('User does not exist');
+        return;
+    }
+
+    let user_eircode = user[0].eircode;
+
+    //Get coordinates
+    let url = "http://dev.virtualearth.net/REST/v1/Locations?q="+user_eircode+"&key=" + BING_MAPS_KEY;
+    response = await axios.get(url);
+    let coordinates = response.data.resourceSets[0].resources[0].geocodePoints[0].coordinates;
+    console.log(coordinates)
+    console.log("Returned Coordinates of user");
+    res.send(coordinates);
+
+
+});
 
 module.exports = router;

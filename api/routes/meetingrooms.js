@@ -160,6 +160,68 @@ router.get("/checkavailability", async (req, res) => {
 });
 
 //Check availability of Meeting Room at certain date and time and building and floor
+// router.get("/checkavailabilitybuildingfloor", async (req, res) => {
+//     let in_start_date_time = req.query.start_date_time;
+//     let in_building = req.query.building;
+//     let in_floor = req.query.floor;
+//     let in_end_date_time = req.query.end_date_time;
+
+//     // Check if input is empty
+//     if (in_start_date_time == "" && in_building == "" && in_floor == "" && in_end_time == "") {
+//         res.send('Invalid input');
+//         console.log('Invalid input (Null)');
+//         return;
+//     }
+
+//     //Get all meeting rooms
+//     const {data: meeting_rooms, error} = await supabase
+//     .from('meeting_rooms')
+//     .select('*')
+//     .eq('building',in_building)
+//     .eq('floor',in_floor);
+
+//     //Get all bookings for meeting rooms during start_date_time and end_date_time
+//     const {data: bookings, error2} = await supabase
+//     .from('bookings_meeting_rooms')
+//     .select('meeting_room')
+//     .lte('start_date_time', in_start_date_time)
+//     .gte('end_date_time', in_end_date_time);
+
+//     if (bookings == null)
+//     {
+//         console.log("booking meeting room null");
+//         return;
+//     }
+
+//     //If no bookings found
+//     if (bookings.length == 0) {
+//         res.send(meeting_rooms);
+//         console.log('All meeting rooms available');
+//         return;
+//     }
+//     else 
+//     {
+//         //Get all meeting rooms that are not booked during start_date_time
+//         var available_meeting_rooms = [];
+//         for (var i = 0; i < meeting_rooms.length; i++) {
+//             var booked = false;
+//             for (var j = 0; j < bookings.length; j++) {
+//                 if (meeting_rooms[i].meeting_room == bookings[j].meeting_room) {
+//                     console.log(meeting_rooms[i].meeting_room + " Booked");
+//                     booked = true;
+//                     break;
+//                 }
+//             }
+//             if (!booked) {
+//                 available_meeting_rooms.push(meeting_rooms[i]);
+//             }
+//         }
+//         console.log(available_meeting_rooms);
+//         res.send(available_meeting_rooms);
+//         console.log('Available meeting rooms sent');
+//     }
+// });
+
 router.get("/checkavailabilitybuildingfloor", async (req, res) => {
     let in_start_date_time = req.query.start_date_time;
     let in_building = req.query.building;
@@ -167,61 +229,61 @@ router.get("/checkavailabilitybuildingfloor", async (req, res) => {
     let in_end_date_time = req.query.end_date_time;
 
     // Check if input is empty
-    if (in_start_date_time == "" && in_building == "" && in_floor == "" && in_end_time == "") {
-        res.send('Invalid input');
+    if (!in_start_date_time || !in_building || !in_floor || !in_end_date_time) {
+        res.status(400).send('Invalid input');
         console.log('Invalid input (Null)');
         return;
     }
 
-    //Get all meeting rooms
-    const {data: meeting_rooms, error} = await supabase
-    .from('meeting_rooms')
-    .select('*')
-    .eq('building',in_building)
-    .eq('floor',in_floor);
+    // Get all bookings for the current date and time range
+    let dateParts = in_start_date_time.split(' ')[0].split('-');
 
-    //Get all bookings for meeting rooms during start_date_time and end_date_time
-    const {data: bookings, error2} = await supabase
-    .from('bookings_meeting_rooms')
-    .select('meeting_room')
-    .lte('start_date_time', in_start_date_time)
-    .gte('end_date_time', in_end_date_time);
+    let year = dateParts[0];
+    let month = dateParts[1];
+    let day = dateParts[2];
 
-    if (bookings == null)
-    {
-        console.log("booking meeting room null");
-        return;
-    }
+    let dateParts2 = in_end_date_time.split(' ')[0].split('-');
 
-    //If no bookings found
-    if (bookings.length == 0) {
-        res.send(meeting_rooms);
-        console.log('All meeting rooms available');
-        return;
-    }
-    else 
-    {
-        //Get all meeting rooms that are not booked during start_date_time
-        var available_meeting_rooms = [];
-        for (var i = 0; i < meeting_rooms.length; i++) {
-            var booked = false;
-            for (var j = 0; j < bookings.length; j++) {
-                if (meeting_rooms[i].meeting_room == bookings[j].meeting_room) {
-                    console.log(meeting_rooms[i].meeting_room + " Booked");
-                    booked = true;
-                    break;
-                }
-            }
-            if (!booked) {
-                available_meeting_rooms.push(meeting_rooms[i]);
+    let year2 = dateParts2[0];
+    let month2 = dateParts2[1];
+    let day2 = dateParts2[2];
+
+
+    const hours = '00';
+    const minutes = '00';
+    const hours2 = '23';
+    const minutes2 = '59';
+
+    let date = `${year}-${month}-${day} ${hours}:${minutes}`;
+    let end_date = `${year2}-${month2}-${day2} ${hours2}:${minutes2}`;
+
+        const { data: bookings, error } = await supabase
+            .from('bookings_meeting_rooms')
+            .select('*, meeting_room!inner(*)')
+            .eq('meeting_room.building', in_building)
+            .eq('meeting_room.floor', in_floor)
+            .gte('start_date_time', date)
+            .lte('end_date_time', end_date);
+
+        if (error) {
+            throw error;
+        }
+
+        var booked_meeting_rooms = [];
+
+        // Check for overlap with existing bookings
+        for (const booking of bookings) {
+            const bookingStart = new Date(booking.start_date_time);
+            const bookingEnd = new Date(booking.end_date_time);
+            const requestedStart = new Date(in_start_date_time);
+            const requestedEnd = new Date(in_end_date_time);
+
+            if (requestedStart < bookingEnd && requestedEnd > bookingStart) {
+                booked_meeting_rooms.push(booking.meeting_room);
+                break;
             }
         }
-        res.send(available_meeting_rooms);
-        console.log('Available meeting rooms sent');
-    }
+    res.send(booked_meeting_rooms);
 });
-
-
-    
 
 module.exports = router;

@@ -108,6 +108,10 @@ Host: localhost:5000
 GET /api/carpools/arrival?carpooler=f05a1ff8024542ea&carpoolee=ef933ddfd84db7e6 HTTP/1.1
 Host: localhost:5000
 
+### Get Coordinates
+GET /api/carpools/coordinates?user_id=f05a1ff8024542ea HTTP/1.1
+Host: localhost:5000
+
 ### Get tasks
 GET /api/tasks HTTP/1.1
 Host: localhost:5000
@@ -162,7 +166,7 @@ GET /api/meetingrooms/checkavailability?start_date_time=2024-06-13 14:14 HTTP/1.
 Host: localhost:5000
 
 ### Checking availablity of meeting room building and floor
-GET /api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=2024-06-13 14:14&building=DUB05&floor=2&end_date_time=2024-06-13 17:14 HTTP/1.1
+GET /api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=2024-07-29 10:53&building=DUB05&floor=3&end_date_time=2024-07-30 10:14 HTTP/1.1
 Host: localhost:5000
 
 ### Add teambooking

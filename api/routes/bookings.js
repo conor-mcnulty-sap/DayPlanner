@@ -17,7 +17,7 @@ router.post('/bookdesk', async (req, res) => {
     let in_userid = req.query.user_id;
     let in_date = req.query.date;
     let auth = true;
-
+    
     // Check if input is empty
     if (in_deskid == "" || in_userid == "" || in_date == "") {
         res.send('Invalid input');
@@ -350,6 +350,7 @@ router.get('/bookingsbydatefloor', async (req, res) => {
     let in_date = req.query.date;
     let in_building = req.query.building;
     let in_floor = req.query.floor;
+
 
     //Split date
     var dates = in_date.split("-");
