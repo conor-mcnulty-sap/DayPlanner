@@ -75,7 +75,7 @@ function CarpoolMap() {
         {positionU && (
           <Marker position={positionU} icon={customIcon}>
             <Popup>
-              Your current location.
+              Your home location.
             </Popup>
           </Marker>
         )}
