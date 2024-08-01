@@ -25,7 +25,6 @@ function CarpooleeList() {
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
-      console.log("User ID:", userDetails.id);
     }
   }, []);
 
@@ -41,7 +40,6 @@ function CarpooleeList() {
           return response.json();
         })
         .then((data) => {
-          console.log("Fetched Distance: ", data);
           data.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
           return Promise.all(
             data.map((item) =>
@@ -60,10 +58,6 @@ function CarpooleeList() {
   }, [userId]);
 
   const fetchArrivalData = (carpooleeUserId) => {
-    console.log(
-      `Fetching arrival data for carpoolee user_id: ${carpooleeUserId} and user_id: ${userId}`
-    );
-
     return fetch(
       `${process.env.REACT_APP_API_URL}/api/carpools/arrival?carpooler=${userId}&carpoolee=${carpooleeUserId}`
     )
@@ -71,12 +65,9 @@ function CarpooleeList() {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text(); // Get response as text
+        return response.text();
       })
       .then((text) => {
-        console.log("Raw Arrival Data Response:", text);
-
-        // Split the response text by spaces and parse as floats
         const [rawDistanceToYou, rawDistanceToOffice, rawTimeAdded] = text
           .split(" ")
           .map(Number);
@@ -99,10 +90,6 @@ function CarpooleeList() {
         const distanceToYou = formatTime(rawDistanceToYou);
         const distanceToOffice = formatTime(rawDistanceToOffice);
         const timeAdded = formatTime(rawTimeAdded);
-
-        console.log(`Formatted Distance to You: ${distanceToYou}`);
-        console.log(`Formatted Distance to Office: ${distanceToOffice}`);
-        console.log(`Formatted Time Added to Journey: ${timeAdded}`);
 
         return {
           distanceToYou,
