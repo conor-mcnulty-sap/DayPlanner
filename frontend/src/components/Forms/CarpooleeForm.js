@@ -16,30 +16,26 @@ const CarpooleeForm = () => {
   const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
+    const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
       setDisplayName(userDetails.displayName);
-      setEmail(userDetails.email); 
-  
-      console.log("User ID:", userDetails.id);
-      console.log("Email:", userDetails.mail);
-      console.log("Display Name:", userDetails.displayName);
+      setEmail(userDetails.email);
     }
   }, []);
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     const eircode = eircodeRef.current.value;
-  
+
     try {
       const queryParams = new URLSearchParams({
         user_id: userId,
         eircode: eircode,
       });
-  
+
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/carpools/addcarpoolee?${queryParams}`,
         {
@@ -49,27 +45,23 @@ const CarpooleeForm = () => {
           },
         }
       );
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`Error: ${response.statusText}`);
       }
-  
-      const data = await response.text(); // Read response as text
-      console.log("Response data:", data); // Log response data
-  
     } catch (error) {
       console.error("Error during fetch:", error);
     }
   };
-  
+
   const handleDeregister = async () => {
     try {
       const queryParams = new URLSearchParams({
         user_id: userId,
       });
-  
+
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/carpools/removecarpoolee?${queryParams}`,
         {
@@ -79,28 +71,23 @@ const CarpooleeForm = () => {
           },
         }
       );
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`Error: ${response.statusText}`);
       }
-  
-      const data = await response.text(); // Read response as text
-      console.log("Response data:", data); // Log response data
-  
     } catch (error) {
       console.error("Error during fetch:", error);
     }
   };
-  
+
   return (
-  
     <Card
       header={<CardHeader titleText="Register to Get a Lift" />}
       style={{
         width: "50%",
-        height:"18rem",
+        height: "18rem",
         maxHeight: "50vh",
       }}
     >
@@ -126,7 +113,7 @@ const CarpooleeForm = () => {
             marginBottom: "1rem",
           }}
         >
-          <FormGroup >
+          <FormGroup>
             <FormItem label="Eircode">
               <Input type="Text" ref={eircodeRef} />
             </FormItem>
