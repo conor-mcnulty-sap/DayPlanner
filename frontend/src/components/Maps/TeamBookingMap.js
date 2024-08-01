@@ -191,7 +191,7 @@ function Map({
                 <div style={{ textAlign: "left", padding: "10px" }}>
                   <h3>{coordinate.popup}</h3>
                   {coordinate.color === "red" ? (
-                    <p>Booked by {coordinate.bookedBy}</p>
+                    <p>Booked By Another User</p>
                   ) : (
                     <>
                       <div style={{ marginBottom: "10px" }}>

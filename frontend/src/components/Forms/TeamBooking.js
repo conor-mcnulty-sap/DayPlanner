@@ -32,10 +32,8 @@ function TeamBooking({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState("");
 
+  // Get today's date for default range
   const today = new Date();
-  const endDate = new Date();
-  endDate.setDate(today.getDate() + 7);
-
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -43,10 +41,10 @@ function TeamBooking({
     return `${year}-${month}-${day}`;
   };
 
-  const startString = formatDate(today);
-  const endString = formatDate(endDate);
+  const todayString = formatDate(today);
 
-  const defaultRange = `${startString} - ${endString}`;
+  // Default range set to today-to-today
+  const defaultRange = `${todayString} - ${todayString}`;
 
   useEffect(() => {
     if (building) {
@@ -315,7 +313,7 @@ function TeamBooking({
               onChange={handleDateRangeChange}
               primaryCalendarType="Gregorian"
               valueState="None"
-              defaultValue={defaultRange}
+              value={defaultRange} // Set default value to today's date
               style={{ width: "100%" }}
             />
           </FormItem>
