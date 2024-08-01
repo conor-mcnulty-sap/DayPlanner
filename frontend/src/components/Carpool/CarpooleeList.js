@@ -15,7 +15,8 @@ function CarpooleeList() {
   const [userId, setUserId] = useState("");
   const [selectedEmail, setSelectedEmail] = useState("");
   const [selectedName, setSelectedName] = useState("");
-  const [distanceToYou, setDistanceToYou] = useState("");  const [distanceToOffice, setDistanceToOffice] = useState("");
+  const [distanceToYou, setDistanceToYou] = useState("");
+  const [distanceToOffice, setDistanceToOffice] = useState("");
   const [timeAdded, setTimeAdded] = useState("");
   const popoverRef = useRef();
 
@@ -129,6 +130,21 @@ function CarpooleeList() {
     window.open(`msteams:/l/chat/0/0?users=${selectedEmail}`, "_blank");
   };
 
+  const parseTimeAdded = (timeAdded) => {
+    const [hours, minutes] = timeAdded
+      .replace(" hours", "")
+      .replace(" minutes", "")
+      .split(" ")
+      .map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const sortedListData = [...listData].sort((a, b) => {
+    const timeA = parseTimeAdded(a.timeAdded);
+    const timeB = parseTimeAdded(b.timeAdded);
+    return timeA - timeB;
+  });
+
   return (
     <Card
       header={<CardHeader titleText="Time added to journey" />}
@@ -153,7 +169,7 @@ function CarpooleeList() {
             overflow: "auto",
           }}
         >
-          {listData.map((item, index) => {
+          {sortedListData.map((item, index) => {
             let displayTimeAdded = item.timeAdded
               ? item.timeAdded
               : "Loading...";

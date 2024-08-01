@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -6,7 +7,7 @@ import {
   List,
   Dialog,
   Bar,
-  Icon
+  Icon,
 } from "@ui5/webcomponents-react";
 import moment from "moment";
 
@@ -201,9 +202,9 @@ const FavouriteDesk = () => {
             })
           ) : (
             <Card header={<CardHeader titleText="No Favourite Desks!" />}>
-              <Button design="Positive" style={{ marginRight: "20px" }}>
-                Book a Desk
-              </Button>
+              <Link to="/bookdesk">
+                <Button design="Positive">Book a Desk</Button>
+              </Link>
             </Card>
           )}
         </List>

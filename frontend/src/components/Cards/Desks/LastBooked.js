@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardHeader, List, Button, Dialog, Bar } from "@ui5/webcomponents-react";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  List,
+  Button,
+  Dialog,
+  Bar,
+} from "@ui5/webcomponents-react";
 import moment from "moment";
 
 const LastBooked = () => {
   const [userId, setUserId] = useState("");
   const [lastBooked, setLastBooked] = useState([]);
-  const [isBookedByCurrentUserToday, setIsBookedByCurrentUserToday] = useState(false);
+  const [isBookedByCurrentUserToday, setIsBookedByCurrentUserToday] =
+    useState(false);
   const [isDeskBooked, setIsDeskBooked] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
@@ -41,10 +50,14 @@ const LastBooked = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log("Desks booked today:", data);
-          const deskBookedToday = data.find(booking => booking.desk_id === lastBooked[0].desk_id);
+          const deskBookedToday = data.find(
+            (booking) => booking.desk_id === lastBooked[0].desk_id
+          );
           console.log("deskbookedToday:", deskBookedToday);
           setIsDeskBooked(!!deskBookedToday);
-          setIsBookedByCurrentUserToday(deskBookedToday && deskBookedToday.user_id === userId);
+          setIsBookedByCurrentUserToday(
+            deskBookedToday && deskBookedToday.user_id === userId
+          );
         })
         .catch((error) => console.error(error));
     }
@@ -54,14 +67,21 @@ const LastBooked = () => {
     const deskId = lastBooked[0].desk_id;
     const today = moment().format("YYYY-MM-DD");
     const dateRange = `${today}-${today}`;
-  
-    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user_id: userId, desk_id: deskId, date: dateRange }),
-    })
+
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          desk_id: deskId,
+          date: dateRange,
+        }),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -104,18 +124,34 @@ const LastBooked = () => {
 
   return (
     <Card header={<CardHeader titleText="Last Booked Desk" />}>
-      <List headerText={`${lastBooked.length > 0 ? `Desk ID: ${lastBooked[0].desk_id}` : "No desk booked"}`}>
+      <List
+        headerText={`${
+          lastBooked.length > 0
+            ? `Desk ID: ${lastBooked[0].desk_id}`
+            : "No desk booked"
+        }`}
+      >
         {lastBooked.length > 0 && isDeskBooked ? (
-          <Button design="Negative" disabled={isBookedByCurrentUserToday}>Booked by You</Button>
+          <Button design="Negative" disabled={isBookedByCurrentUserToday}>
+            Booked by You
+          </Button>
         ) : (
-          <Button design="Positive" onClick={bookDesk}>Book a Desk</Button>
+          <Link to="/bookdesk">
+            <Button design="Positive">Book a Desk</Button>
+          </Link>
         )}
       </List>
 
       <Dialog
         headerText="Book A Desk"
         footer={
-          <Bar endContent={<Button design="Emphasized" onClick={closeDialog}>OK</Button>} />
+          <Bar
+            endContent={
+              <Button design="Emphasized" onClick={closeDialog}>
+                OK
+              </Button>
+            }
+          />
         }
         open={dialogOpen}
         onAfterClose={closeDialog}
