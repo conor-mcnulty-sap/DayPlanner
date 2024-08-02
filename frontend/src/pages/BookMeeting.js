@@ -4,8 +4,8 @@ import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
 
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
-  const [building, setBuilding] = useState("2");
-  const [floor, setFloor] = useState("1");
+  const [building, setBuilding] = useState("3");
+  const [floor, setFloor] = useState("3");
   const [startTime, setStartTime] = useState(new Date()); 
   const [endTime, setEndTime] = useState(new Date()); 
 

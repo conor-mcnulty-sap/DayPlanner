@@ -20,12 +20,12 @@ export default class BookMeetingRoom extends Component {
   constructor(props) {
     super(props);
 
-    // Initialize state
+    // Initialize state with default building as DUB05 and floor as 3
     this.state = {
       events: [],
       event: {},
-      building: "DUB03", // Default building
-      floor: "1", // Default floor
+      building: "DUB05", // Default building
+      floor: "3", // Default floor
       room: "",
       subject: "",
       startDateTime: moment().format("YYYY-MM-DDTHH:mm"), // Set to current date and time
@@ -338,6 +338,7 @@ export default class BookMeetingRoom extends Component {
           labelSpanXL={4}
           style={{
             alignItems: "center",
+            paddingTop:"10rem"
           }}
         >
           <FormGroup titleText="">
@@ -382,8 +383,8 @@ export default class BookMeetingRoom extends Component {
                 selectedKey={building}
                 style={{ width: "100%" }}
               >
-                <Option key="DUB03">DUB03</Option>
                 <Option key="DUB05">DUB05</Option>
+                <Option key="DUB03">DUB03</Option>
               </Select>
             </FormItem>
             <FormItem label="Floor">
@@ -392,9 +393,9 @@ export default class BookMeetingRoom extends Component {
                 selectedKey={floor}
                 style={{ width: "100%" }}
               >
-                <Option key="1">1</Option>
-                <Option key="2">2</Option>
                 <Option key="3">3</Option>
+                <Option key="2">2</Option>
+                <Option key="1">1</Option>
               </Select>
             </FormItem>
             <FormItem label="Room">
