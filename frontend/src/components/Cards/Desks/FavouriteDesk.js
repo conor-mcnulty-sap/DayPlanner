@@ -193,6 +193,7 @@ const FavouriteDesk = () => {
                     {buttonText}
                   </Button>
                   <Button
+                  style={{marginLeft:"1rem"}}
                     design="Negative"
                     onClick={() => handleUnfavouriteDesk(desk.desk_id)}
                   >
@@ -204,7 +205,7 @@ const FavouriteDesk = () => {
           ) : (
             <Card header={<CardHeader titleText="No Favourite Desks!" />}>
               <Link to="/bookdesk">
-                <Button design="Emphasized">Book Desk</Button>
+                <Button style={{marginLeft:"1rem"}} design="Emphasized">Book Desk</Button>
               </Link>
             </Card>
           )}
@@ -215,7 +216,7 @@ const FavouriteDesk = () => {
           footer={
             <Bar
               endContent={
-                <Button design="Emphasized" onClick={closeDialog}>
+                <Button design="Emphasized" style={{marginLeft:"1rem"}} onClick={closeDialog}>
                   OK
                 </Button>
               }

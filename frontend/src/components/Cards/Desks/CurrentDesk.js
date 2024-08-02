@@ -87,7 +87,7 @@ const CurrentDesk = () => {
         <List
           headerText={booking[0].desk_id} 
         >
-          <Button design="Negative" onClick={handleCancelBooking}>Cancel Booking</Button>
+          <Button design="Negative" style={{marginLeft:"1rem"}} onClick={handleCancelBooking}>Cancel Booking</Button>
         </List>
       </Card>
     );
