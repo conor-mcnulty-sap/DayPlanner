@@ -369,6 +369,7 @@ function TeamBooking({
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <Button
+         design="Emphasized"
         onClick={() => {
           handleSendEmail();
           handleBookDesks();

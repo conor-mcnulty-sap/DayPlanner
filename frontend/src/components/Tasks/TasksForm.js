@@ -235,7 +235,9 @@ export default class TaskForm extends Component {
               </div>
             </FormItem>
             <FormItem style={{ paddingLeft: "50%" }}>
-              <Button type="submit" onClick={this.handleSubmit}>
+              <Button 
+                 design="Emphasized"
+              type="submit" onClick={this.handleSubmit}>
                 Submit
               </Button>
             </FormItem>

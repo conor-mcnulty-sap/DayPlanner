@@ -137,7 +137,7 @@ const LastBooked = () => {
           </Button>
         ) : (
           <Link to="/bookdesk">
-            <Button design="Positive">Book a Desk</Button>
+            <Button design="Emphasized">Book Desk</Button>
           </Link>
         )}
       </List>

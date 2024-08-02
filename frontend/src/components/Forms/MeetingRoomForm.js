@@ -413,8 +413,10 @@ export default class BookMeetingRoom extends Component {
             </FormItem>
           </FormGroup>
         </Form>
-        <Button color="primary" onClick={this.onClick}>
-          Create Event
+        <Button
+           design="Emphasized"
+         color="primary" onClick={this.onClick}>
+          Book Meeting Room
         </Button>
 
         <Dialog

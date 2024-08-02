@@ -120,6 +120,7 @@ const CarpooleeForm = () => {
           </FormGroup>
           <FormItem>
             <Button
+              design="Emphasized"
               type="submit"
               onClick={handleSubmit}
               style={{ marginRight: "20px" }}

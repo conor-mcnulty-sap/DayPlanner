@@ -97,7 +97,7 @@ const CurrentDesk = () => {
         header={<CardHeader titleText="Current Desk" />}
       >
         <List headerText="No Desk Booked">
-          <Link to="/bookdesk"><Button design="Positive">Book a Desk</Button></Link>
+          <Link to="/bookdesk"><Button design="Emphasized" style={{marginLeft:"1rem"}}>Book Desk</Button></Link>
         </List>
       </Card>
     );

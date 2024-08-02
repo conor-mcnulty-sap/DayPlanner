@@ -171,7 +171,8 @@ const FavouriteDesk = () => {
                 buttonDesign = "Negative";
                 buttonText = "Booking Unavailable";
               } else {
-                buttonDesign = "Positive";
+                buttonDesign = "Emphasized";
+                
                 buttonText = "Book Desk";
               }
 
@@ -186,7 +187,7 @@ const FavouriteDesk = () => {
                       if (!userHasBookingToday && !booking)
                         bookDesk(desk.desk_id);
                     }}
-                    style={{ marginRight: "20px" }}
+                    style={{ marginRight: "20px",marginLeft:"1rem" }}
                     disabled={userHasBookingToday}
                   >
                     {buttonText}
@@ -203,7 +204,7 @@ const FavouriteDesk = () => {
           ) : (
             <Card header={<CardHeader titleText="No Favourite Desks!" />}>
               <Link to="/bookdesk">
-                <Button design="Positive">Book a Desk</Button>
+                <Button design="Emphasized">Book Desk</Button>
               </Link>
             </Card>
           )}

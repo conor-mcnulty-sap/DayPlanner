@@ -148,9 +148,9 @@ class SignIn extends Component {
     return (
       <div>
         {!isAuthenticated ? (
-          <Button onClick={this.handleLogin}>Sign In</Button>
+          <Button  design="Emphasized" onClick={this.handleLogin}>Sign In</Button>
         ) : (
-          <Button onClick={this.handleLogout}>Sign Out</Button>
+          <Button design="Emphasized" onClick={this.handleLogout}>Sign Out</Button>
         )}
       </div>
     );
