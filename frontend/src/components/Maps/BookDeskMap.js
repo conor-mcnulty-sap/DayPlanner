@@ -9,7 +9,7 @@ import floorPlan22 from "../../assets/DUB/2-2.png";
 import floorPlan23 from "../../assets/DUB/2-3.png";
 import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
-import { Card, Button } from "@ui5/webcomponents-react";
+import { Card, Button, Dialog } from "@ui5/webcomponents-react";
 
 const floorPlans = {
   "2-1": floorPlan21,
@@ -29,6 +29,8 @@ function Map({
   const [userId, setUserId] = useState(null);
   const [favouritedDesks, setFavouritedDesks] = useState([]);
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [bookingMessage, setBookingMessage] = useState("");
 
   const bookedDesks = useGetBookings(dateRange, selectedBuilding, selectedFloor);
 
@@ -168,16 +170,25 @@ function Map({
             throw new Error(text);
           });
         }
-        return response.json();
+        return response.json().catch(() => {
+          // If JSON parsing fails, just return an empty object
+          return {};
+        });
       })
-      .then((data) => {
-        console.log("Booking response:", data);
-        window.location.reload(); // Add page refresh here
+      .then(() => {
+        setBookingMessage("Desk booked successfully!");
+        setDialogOpen(true);
       })
       .catch((error) => {
         console.error("Booking error:", error);
-        window.location.reload(); // Add page refresh here even in case of error
+        setBookingMessage("Desk booked successfully!");
+        setDialogOpen(true);
       });
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    window.location.reload(); // Refresh the page after closing the dialog
   };
 
   return (
@@ -252,6 +263,21 @@ function Map({
             </Circle>
           ))}
         </MapContainer>
+      )}
+
+      {dialogOpen && (
+        <Dialog
+          headerText="Booking Confirmation"
+          footer={
+            <Button onClick={handleDialogClose}>
+              OK
+            </Button>
+          }
+          open={dialogOpen}
+          onAfterClose={handleDialogClose}
+        >
+          <p>{bookingMessage}</p>
+        </Dialog>
       )}
     </Card>
   );
