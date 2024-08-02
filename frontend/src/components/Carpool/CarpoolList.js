@@ -12,17 +12,17 @@ import "@ui5/webcomponents-icons/dist/AllIcons.js";
 
 function CarpoolList() {
   const [listData, setListData] = useState([]);
-  const [userId, setUserId] = useState('');
-  const [selectedEmail, setSelectedEmail] = useState('');
-  const [selectedName, setSelectedName] = useState('');
-  const [distanceToYou, setDistanceToYou] = useState('');
-  const [distanceToOffice, setDistanceToOffice] = useState('');
-  const [timeAdded, setTimeAdded] = useState('');
+  const [userId, setUserId] = useState("");
+  const [selectedEmail, setSelectedEmail] = useState("");
+  const [selectedName, setSelectedName] = useState("");
+  const [distanceToYou, setDistanceToYou] = useState("");
+  const [distanceToOffice, setDistanceToOffice] = useState("");
+  const [timeAdded, setTimeAdded] = useState("");
   const [arrivalData, setArrivalData] = useState([]);
   const popoverRef = useRef();
 
   useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
+    const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       const userDetails = JSON.parse(storedUserDetails);
       setUserId(userDetails.id);
@@ -36,43 +36,53 @@ function CarpoolList() {
       fetch(
         `${process.env.REACT_APP_API_URL}/api/carpools/closestcarpooler?user_id=${userId}`
       )
-        .then(response => {
+        .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           console.log("Fetched Data:", data);
           data.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
           setListData(data);
 
           // Fetch arrival data for each carpooler
-          data.forEach(item => fetchArrivalData(item.carpooler.users.id, userId));
+          data.forEach((item) =>
+            fetchArrivalData(item.carpooler.users.id, userId)
+          );
         })
-        .catch(error => console.log("Fetching Distance failed:", error));
+        .catch((error) => console.log("Fetching Distance failed:", error));
     }
   }, [userId]);
 
   const fetchArrivalData = (carpoolerUserId, carpooleeUserId) => {
-    console.log(`Fetching arrival data for carpooler user_id: ${carpoolerUserId} and carpoolee user_id: ${carpooleeUserId}`);
-    
+    console.log(
+      `Fetching arrival data for carpooler user_id: ${carpoolerUserId} and carpoolee user_id: ${carpooleeUserId}`
+    );
+
     fetch(
       `${process.env.REACT_APP_API_URL}/api/carpools/arrival?carpooler=${carpoolerUserId}&carpoolee=${carpooleeUserId}`
     )
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.text(); // Get response as text
       })
-      .then(text => {
+      .then((text) => {
         console.log("Arrival Data Response:", text);
 
         // Split the response text by spaces and parse as floats
-        const [DistanceToYou, DistanceToOffice, TimeAdded] = text.split(' ').map(Number);
+        const [DistanceToYou, DistanceToOffice, TimeAdded] = text
+          .split(" ")
+          .map(Number);
 
-        if (isNaN(DistanceToYou) || isNaN(DistanceToOffice) || isNaN(TimeAdded)) {
+        if (
+          isNaN(DistanceToYou) ||
+          isNaN(DistanceToOffice) ||
+          isNaN(TimeAdded)
+        ) {
           throw new Error("Invalid data format in API response.");
         }
 
@@ -80,23 +90,22 @@ function CarpoolList() {
         const formatTime = (minutes) => {
           const hours = Math.floor(minutes / 60);
           const mins = Math.round(minutes % 60); // Round to nearest minute
+          if (hours < 0) {
+            return `${mins} minutes`;
+          }
           return `${hours} hours ${mins} minutes`;
         };
 
         const distanceToYou = formatTime(DistanceToYou);
         const distanceToOffice = formatTime(DistanceToOffice);
         const timeAdded = formatTime(TimeAdded);
-
-        console.log(`Formatted Distance to You: ${distanceToYou}`);
-        console.log(`Formatted Distance to Office: ${distanceToOffice}`);
-        console.log(`Formatted Time Added to Journey: ${timeAdded}`);
-
-        setArrivalData(prevData => [
+        
+        setArrivalData((prevData) => [
           ...prevData,
-          { carpoolerUserId, distanceToYou, distanceToOffice, timeAdded }
+          { carpoolerUserId, distanceToYou, distanceToOffice, timeAdded },
         ]);
       })
-      .catch(error => console.log("Fetching Arrival Data failed:", error));
+      .catch((error) => console.log("Fetching Arrival Data failed:", error));
   };
 
   const handleItemClick = (event, item) => {
@@ -110,9 +119,11 @@ function CarpoolList() {
     // Display the converted time values
     console.log("Arrival Info for Clicked Item:", arrivalInfo);
 
-    setDistanceToYou(arrivalInfo ? `${arrivalInfo.distanceToYou}` : 'N/A');
-    setDistanceToOffice(arrivalInfo ? `${arrivalInfo.distanceToOffice}` : 'N/A');
-    setTimeAdded(arrivalInfo ? `${arrivalInfo.timeAdded}` : 'N/A');
+    setDistanceToYou(arrivalInfo ? `${arrivalInfo.distanceToYou}` : "N/A");
+    setDistanceToOffice(
+      arrivalInfo ? `${arrivalInfo.distanceToOffice}` : "N/A"
+    );
+    setTimeAdded(arrivalInfo ? `${arrivalInfo.timeAdded}` : "N/A");
 
     console.log("Displayed Distance to You:", distanceToYou);
     console.log("Displayed Distance to Office:", distanceToOffice);
@@ -126,14 +137,11 @@ function CarpoolList() {
   };
 
   const handleTeamsChatClick = () => {
-    window.open(`msteams:/l/chat/0/0?users=${selectedEmail}`, '_blank');
+    window.open(`msteams:/l/chat/0/0?users=${selectedEmail}`, "_blank");
   };
 
   return (
-    <Card
-      header={<CardHeader titleText="Carpool" />}
-      style={{ width: "100%" }}
-    >
+    <Card header={<CardHeader titleText="Carpool" />} style={{ width: "100%" }}>
       <div
         style={{
           display: "flex",
@@ -172,26 +180,24 @@ function CarpoolList() {
         placementType="Bottom"
         onAfterClose={handleClosePopover}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '1rem' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            padding: "1rem",
+          }}
+        >
           <Label>
-            <strong>Name: </strong>{selectedName}
+            <strong>Name: </strong>
+            {selectedName}
           </Label>
           <Label>
-            <strong>Email: </strong><a href={`mailto:${selectedEmail}`}>{selectedEmail}</a>
+            <strong>Email: </strong>
+            <a href={`mailto:${selectedEmail}`}>{selectedEmail}</a>
           </Label>
-         
-          <Label>
-            <strong>Time to Office: </strong>{distanceToOffice}
-          </Label>
-          <Label>
-            <strong>Time Added to Journey: </strong>{timeAdded}
-          </Label>
-          <Button
-            design="Emphasized"
-          
-            onClick={handleTeamsChatClick}
-          >
-          Chat in Teams
+          <Button design="Emphasized" onClick={handleTeamsChatClick}>
+            Chat in Teams
           </Button>
         </div>
       </Popover>
