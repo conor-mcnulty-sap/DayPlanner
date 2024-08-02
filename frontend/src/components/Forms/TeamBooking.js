@@ -47,6 +47,10 @@ function TeamBooking({
   const defaultRange = `${todayString} - ${todayString}`;
 
   useEffect(() => {
+    setDateRange(defaultRange);
+  }, []);
+
+  useEffect(() => {
     if (building) {
       onBuildingChange(building);
     }
@@ -127,7 +131,7 @@ function TeamBooking({
     const [startDate, endDate] = event.detail.value.split(" - ");
     const formattedStartDate = formatDate(new Date(startDate));
     const formattedEndDate = formatDate(new Date(endDate));
-    const newDateRange = `${formattedStartDate}-${formattedEndDate}`;
+    const newDateRange = `${formattedStartDate} - ${formattedEndDate}`;
     setDateRange(newDateRange);
     if (onDateRangeChange) {
       onDateRangeChange(newDateRange);
@@ -151,50 +155,72 @@ function TeamBooking({
 
   const handleSendEmail = async () => {
     if (!accessToken) {
-      console.error("Access token is not available");
-      return;
+        console.error("Access token is not available");
+        return;
     }
 
     const emailList = processEmailAddresses(emailAddresses);
 
     if (emailList.length === 0 || selectedDesks.length === 0) {
-      setDialogOpen(true);
-      setDialogContent(
-        "Please select desks and enter email addresses."
-      );
-      return;
+        setDialogOpen(true);
+        setDialogContent(
+            "Please select desks and enter email addresses."
+        );
+        return;
     }
 
     if (emailList.length !== selectedDesks.length) {
-      setDialogOpen(true);
-      setDialogContent(
-        "The number of emails does not match the number of selected desks."
-      );
-      return;
+        setDialogOpen(true);
+        setDialogContent(
+            "The number of emails does not match the number of selected desks."
+        );
+        return;
     }
 
+    // Helper function to format date
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split("-");
+        const date = new Date(year, month - 1, day);
+        return new Intl.DateTimeFormat('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        }).format(date);
+    };
+
+    // Determine if the date range is a single day or a range
+    const [startDate, endDate] = dateRange.split(" - ");
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+
+    const formattedDateRange = startDate === endDate
+        ? `${formattedStartDate}`
+        : `from ${formattedStartDate} to ${formattedEndDate}`;
+
+    // Create email messages with descriptive desk information
     const messages = emailList.map((email, index) => ({
-      subject: `Desk Booked For You by ${displayName}`,
-      body: {
-        contentType: "Text",
-        content: `${displayName} booked desk ${selectedDesks[index]} for you for ${dateRange}. Please follow this link to verify the booking: http://localhost:3000/verifydesk`,
-      },
-      toRecipients: [{ emailAddress: { address: email } }],
+        subject: `Desk Booking Confirmation from ${displayName}`,
+        body: {
+            contentType: "Text",
+            content: `${displayName} has booked Desk ${selectedDesks[index]} for you. The booking is for ${formattedDateRange}. Please follow this link to verify your booking: http://localhost:3000/verifydesk`,
+        },
+        toRecipients: [{ emailAddress: { address: email } }],
     }));
 
     console.log("Email messages to be sent:", messages);
 
     try {
-      for (const message of messages) {
-        await sendEmail(accessToken, { message, saveToSentItems: "true" });
-      }
+        for (const message of messages) {
+            await sendEmail(accessToken, { message, saveToSentItems: "true" });
+        }
 
-      console.log("Emails sent successfully");
+        console.log("Emails sent successfully");
     } catch (error) {
-      console.error("Error sending emails", error);
-      setError("Failed to send emails. Please try again.");
+        console.error("Error sending emails", error);
+        setError("Failed to send emails. Please try again.");
     }
-  };
+};
+
 
   const handleBookDesks = () => {
     const emailList = processEmailAddresses(emailAddresses);
@@ -313,7 +339,7 @@ function TeamBooking({
               onChange={handleDateRangeChange}
               primaryCalendarType="Gregorian"
               valueState="None"
-              value={defaultRange} // Set default value to today's date
+              value={dateRange} // Use the state variable here
               style={{ width: "100%" }}
             />
           </FormItem>
