@@ -205,7 +205,7 @@ router.get('/bookingsbydate', async (req, res) => {
     // If no bookings found
     if (data.length === 0) {
         console.log(data);
-        res.send('No bookings found');
+        res.send([]);
         console.log('No bookings found');
         return;
     }
@@ -239,7 +239,7 @@ router.get('/bookingsbyuser', async (req, res) => {
 
     // If no bookings found
     if (data.length === 0) {
-        res.send('No bookings found');
+        res.send([]);
         console.log('No bookings found');
         return;
     }
@@ -269,7 +269,7 @@ router.get('/lastbooked', async (req, res) => {
     
     // If no booking found
     if (data.length === 0) {
-        res.send('No last booking found');
+        res.send([]);
         console.log('No last booking found');
         return;
     }
@@ -298,7 +298,7 @@ router.get('/finddesk', async (req, res) => {
 
     // If no booking found
     if (data.length === 0) {
-        res.send('No booking found');
+        res.send([]);
         console.log('No booking found');
         return;
     }
@@ -321,7 +321,7 @@ router.get('/getbookinguserdate', async (req, res) => {
 
     // If no booking found
     if (data.length === 0) {
-        res.send('No booking found');
+        res.send([]);
         console.log('No booking found');
         return;
     }
@@ -377,7 +377,7 @@ router.get('/bookingsbydatefloor', async (req, res) => {
 
     //If no bookings found
     if (data.length === 0) {
-        res.send('No bookings found');
+        res.send([]);
         console.log('No bookings found');
         return;
     }
