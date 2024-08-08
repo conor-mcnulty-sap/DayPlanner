@@ -10,6 +10,7 @@ import floorPlan23 from "../../assets/DUB/2-3.png";
 import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
 import { Card, Button, Dialog } from "@ui5/webcomponents-react";
+import moment from "moment";
 
 const floorPlans = {
   "2-1": floorPlan21,
@@ -31,8 +32,58 @@ function Map({
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlans["2-1"]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [bookingMessage, setBookingMessage] = useState("");
+  const bookedDesks = useGetBookings(
+    dateRange,
+    selectedBuilding,
+    selectedFloor
+  );
+  const [bookingsInRange, setBookingsInRange] = useState([]);
+  const [userHasBookingInRange, setUserHasBookingInRange] = useState(false);
 
-  const bookedDesks = useGetBookings(dateRange, selectedBuilding, selectedFloor);
+  // Helper function to get all dates in a range
+  const getDatesInRange = (startDate, endDate) => {
+    const dates = [];
+    let currentDate = moment(startDate);
+    const end = moment(endDate);
+
+    while (currentDate <= end) {
+      dates.push(currentDate.format("YYYY-MM-DD"));
+      currentDate = currentDate.add(1, "days");
+    }
+
+    return dates;
+  };
+
+  const fetchBookingsInRange = (dateRange) => {
+    setUserHasBookingInRange(false);
+    if (userId) {
+      const dates = getDatesInRange(dateRange.start, dateRange.end);
+      const allBookings = [];
+
+      dates.forEach((date) => {
+        fetch(
+          `${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${date}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            allBookings.push(...data);
+            const userBooking = data.find(
+              (booking) => booking.user_id === userId
+            );
+            if (userBooking) {
+              setUserHasBookingInRange(true);
+            }
+          })
+          .catch((error) => console.error(error));
+      });
+
+      setBookingsInRange(allBookings);
+    }
+  };
+
+  useEffect(() => {
+    fetchBookingsInRange(dateRange);
+  }, [dateRange, userId]);
 
   useEffect(() => {
     console.log("Booked Desks:", bookedDesks);
@@ -85,6 +136,7 @@ function Map({
           color: bookedDesks.includes(coordinate.popup) ? "red" : "green",
         }));
         setCoordinates(updatedCoordinates);
+        console.log(userHasBookingInRange);
       })
       .catch((error) => console.error("Error fetching coordinates:", error));
   }, [selectedFloor, selectedBuilding, bookedDesks]);
@@ -153,7 +205,14 @@ function Map({
   };
 
   const handleBook = (deskId, dateRange) => {
-    console.log("Booking desk:", deskId, "for user:", userId, "on dates:", dateRange);
+    console.log(
+      "Booking desk:",
+      deskId,
+      "for user:",
+      userId,
+      "on dates:",
+      dateRange
+    );
 
     const params = new URLSearchParams({
       user_id: userId,
@@ -161,9 +220,14 @@ function Map({
       date: dateRange,
     });
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?${params.toString()}`, {
-      method: "POST",
-    })
+    fetch(
+      `${
+        process.env.REACT_APP_API_URL
+      }/api/bookings/bookdesk?${params.toString()}`,
+      {
+        method: "POST",
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           return response.text().then((text) => {
@@ -227,20 +291,24 @@ function Map({
               <Popup>
                 <div style={{ textAlign: "left", padding: "10px" }}>
                   <h3>{coordinate.popup}</h3>
-                  {coordinate.color === "red" && (
-                    <p>Booked By Another User</p>
-                  )}
+                  {coordinate.color === "red" && <p>Booked By Another User</p>}
                   <div style={{ marginBottom: "10px" }}>
                     <Button
-                      design={favouritedDesks.includes(coordinate.popup) ? "Negative" : "Positive"}
-                      onClick={() => 
+                      design={
+                        favouritedDesks.includes(coordinate.popup)
+                          ? "Negative"
+                          : "Positive"
+                      }
+                      onClick={() =>
                         favouritedDesks.includes(coordinate.popup)
                           ? handleUnfavourite(coordinate.popup)
                           : handleFavourite(coordinate.popup)
                       }
                       style={{ display: "block", marginBottom: "5px" }}
                     >
-                      {favouritedDesks.includes(coordinate.popup) ? "Unfavourite" : "Favourite"}
+                      {favouritedDesks.includes(coordinate.popup)
+                        ? "Unfavourite"
+                        : "Favourite"}
                     </Button>
                   </div>
                   {coordinate.color !== "red" && (
@@ -250,12 +318,18 @@ function Map({
                       style={{
                         display: "block",
                         marginBottom: "5px",
-                        backgroundColor: bookedDesks.includes(coordinate.popup) ? "#cccccc" : "",
-                        cursor: bookedDesks.includes(coordinate.popup) ? "not-allowed" : "pointer"
+                        backgroundColor: bookedDesks.includes(coordinate.popup)
+                          ? "#cccccc"
+                          : "",
+                        cursor: bookedDesks.includes(coordinate.popup)
+                          ? "not-allowed"
+                          : "pointer",
                       }}
                       disabled={bookedDesks.includes(coordinate.popup)}
                     >
-                      {bookedDesks.includes(coordinate.popup) ? "Booked" : "Book"}
+                      {bookedDesks.includes(coordinate.popup)
+                        ? "Booked"
+                        : "Book"}
                     </Button>
                   )}
                 </div>
@@ -268,11 +342,7 @@ function Map({
       {dialogOpen && (
         <Dialog
           headerText="Booking Confirmation"
-          footer={
-            <Button onClick={handleDialogClose}>
-              OK
-            </Button>
-          }
+          footer={<Button onClick={handleDialogClose}>OK</Button>}
           open={dialogOpen}
           onAfterClose={handleDialogClose}
         >

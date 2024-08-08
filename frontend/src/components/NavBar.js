@@ -28,18 +28,27 @@ export function NavBar() {
   const currentRoute = window.location.pathname;
 
   return (
-    <TabContainer
-      contentBackgroundDesign="Solid"
-      headerBackgroundDesign="Solid"
-      onTabSelect={handleTabSelect}
-      collapsed="true"
-      fixed="true"
-      tabLayout="Standard"
-    >
-      {Object.entries(TabRoutes).map(([tabText, route]) => (
-        <Tab key={tabText} text={tabText} selected={route === currentRoute} />
-      ))}
-     
-    </TabContainer>
+    <>
+      <style>
+        {`
+          /* Remove shadow from TabContainer */
+          ui5-tabcontainer::part(content) {
+            box-shadow: none;
+          }
+        `}
+      </style>
+      <TabContainer
+        contentBackgroundDesign="Solid"
+        headerBackgroundDesign="Solid"
+        onTabSelect={handleTabSelect}
+        collapsed="true"
+        fixed="true"
+        tabLayout="Standard"
+      >
+        {Object.entries(TabRoutes).map(([tabText, route]) => (
+          <Tab key={tabText} text={tabText} selected={route === currentRoute} />
+        ))}
+      </TabContainer>
+    </>
   );
 }

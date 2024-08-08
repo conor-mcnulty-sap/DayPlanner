@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useGetBookings(dateRange, selectedBuilding, selectedFloor) {
+export function useGetBookings(dateRange, selectedBuilding, selectedFloor = "3") {
     const [bookedDesks, setBookedDesks] = useState([]);
 
     useEffect(() => {
