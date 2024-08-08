@@ -20,10 +20,6 @@ export default class MyTasks extends Component {
     };
   }
 
-  componentDidMount() {
-    this.fetchUserTasks();
-  }
-
   async componentDidMount() {
     try {
       console.log("Attempting to acquire token silently");
@@ -115,70 +111,76 @@ export default class MyTasks extends Component {
 
     return (
       <Card header={<CardHeader titleText="My Tasks" />} style={{}}>
-        {filteredTasks.map((task) => (
-          <div
-            key={task.id}
-            style={{
-              borderBottom: "1px solid #ddd",
-              marginBottom: "10px",
-              paddingBottom: "5px",
-              position: "relative",
-              paddingTop: "5px",
-              cursor: "pointer",
-            }}
-            onClick={() => this.handleToggleTaskCompletion(task.id)}
-          >
-            <div style={{ display: "flex", left: "10px", alignItems: "left" }}>
-              <div
-                style={{
-                  width: "3px",
-                  height: "20px",
-                  backgroundColor: task.colour,
-                  borderRadius: "2px",
-                  marginRight: "10px",
-                  marginLeft: "18px",
-                }}
-              ></div>
-              <div>
-                <h3
-                  style={{
-                    margin: "0",
-                    textAlign: "left",
-                    color: "#666",
-                    fontWeight: "normal",
-                    textDecoration: completedTasks[task.id] ? "line-through" : "none",
-                  }}
-                >
-                  {moment(task.time, "HH:mm").format("h:mm A")} - {task.task}
-                </h3>
-                <h4
-                  style={{
-                    margin: "1px 0",
-                    textAlign: "left",
-                    color: "#666",
-                    fontWeight: "normal",
-                    textDecoration: completedTasks[task.id] ? "line-through" : "none",
-                  }}
-                >
-                  {task.description}
-                </h4>
-              </div>
-            </div>
-            <Icon
-              name="delete"
+        {filteredTasks.map((task) => {
+          const startTime = moment(task.time, "HH:mm");
+          const duration = moment.duration(task.duration);
+          const endTime = startTime.clone().add(duration);
+
+          return (
+            <div
+              key={task.id}
               style={{
-                position: "absolute",
-                right: "10px",
-                top: "25%",
+                borderBottom: "1px solid #ddd",
+                marginBottom: "10px",
+                paddingBottom: "5px",
+                position: "relative",
+                paddingTop: "5px",
                 cursor: "pointer",
               }}
-              onClick={(e) => {
-                e.stopPropagation();
-                this.handleDeleteTask(task.event_id); 
-              }}
-            />
-          </div>
-        ))}
+              onClick={() => this.handleToggleTaskCompletion(task.id)}
+            >
+              <div style={{ display: "flex", left: "10px", alignItems: "left" }}>
+                <div
+                  style={{
+                    width: "3px",
+                    height: "20px",
+                    backgroundColor: task.colour,
+                    borderRadius: "2px",
+                    marginRight: "10px",
+                    marginLeft: "18px",
+                  }}
+                ></div>
+                <div>
+                  <h3
+                    style={{
+                      margin: "0",
+                      textAlign: "left",
+                      color: "#666",
+                      fontWeight: "normal",
+                      textDecoration: completedTasks[task.id] ? "line-through" : "none",
+                    }}
+                  >
+                    {startTime.format("h:mm A")} - {endTime.format("h:mm A")} - {task.task}
+                  </h3>
+                  <h4
+                    style={{
+                      margin: "1px 0",
+                      textAlign: "left",
+                      color: "#666",
+                      fontWeight: "normal",
+                      textDecoration: completedTasks[task.id] ? "line-through" : "none",
+                    }}
+                  >
+                    {task.description}
+                  </h4>
+                </div>
+              </div>
+              <Icon
+                name="delete"
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "25%",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  this.handleDeleteTask(task.event_id); 
+                }}
+              />
+            </div>
+          );
+        })}
       </Card>
     );
   }

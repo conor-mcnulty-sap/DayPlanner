@@ -143,7 +143,11 @@ export default class TaskForm extends Component {
         event_id: eventId // Include the event ID in the parameters
       });
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/addtask?${params.toString()}`, {
+      // Log the request URL
+      const requestUrl = `${process.env.REACT_APP_API_URL}/api/tasks/addtask?${params.toString()}`;
+      console.log('Request URL:', requestUrl);
+
+      const response = await fetch(requestUrl, {
         method: 'POST',
       });
 
