@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  Card,
-  CardHeader,
-  List,
-  Button,
-  Dialog,
-  Bar,
-} from "@ui5/webcomponents-react";
+import { Card, CardHeader, List, Button, Dialog, Bar } from "@ui5/webcomponents-react";
 import moment from "moment";
 
 const LastBooked = () => {
   const [userId, setUserId] = useState("");
   const [lastBooked, setLastBooked] = useState([]);
-  const [isBookedByCurrentUserToday, setIsBookedByCurrentUserToday] =
-    useState(false);
+  const [isBookedByCurrentUserToday, setIsBookedByCurrentUserToday] = useState(false);
   const [isDeskBooked, setIsDeskBooked] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
@@ -29,9 +20,7 @@ const LastBooked = () => {
 
   useEffect(() => {
     if (userId) {
-      fetch(
-        `${process.env.REACT_APP_API_URL}/api/bookings/lastbooked?user_id=${userId}`
-      )
+      fetch(`${process.env.REACT_APP_API_URL}/api/bookings/lastbooked?user_id=${userId}`)
         .then((response) => response.json())
         .then((data) => {
           console.log("Last booked desk:", data);
@@ -44,20 +33,14 @@ const LastBooked = () => {
   useEffect(() => {
     if (lastBooked && lastBooked.length > 0) {
       const today = moment().format("YYYY-MM-DD");
-      fetch(
-        `${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${today}`
-      )
+      fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookingsbydate?date=${today}`)
         .then((response) => response.json())
         .then((data) => {
           console.log("Desks booked today:", data);
-          const deskBookedToday = data.find(
-            (booking) => booking.desk_id === lastBooked[0].desk_id
-          );
+          const deskBookedToday = data.find((booking) => booking.desk_id === lastBooked[0].desk_id);
           console.log("deskbookedToday:", deskBookedToday);
           setIsDeskBooked(!!deskBookedToday);
-          setIsBookedByCurrentUserToday(
-            deskBookedToday && deskBookedToday.user_id === userId
-          );
+          setIsBookedByCurrentUserToday(deskBookedToday && deskBookedToday.user_id === userId);
         })
         .catch((error) => console.error(error));
     }
@@ -68,20 +51,17 @@ const LastBooked = () => {
     const today = moment().format("YYYY-MM-DD");
     const dateRange = `${today}-${today}`;
 
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          desk_id: deskId,
-          date: dateRange,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_URL}/api/bookings/bookdesk?user_id=${userId}&desk_id=${deskId}&date=${dateRange}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        desk_id: deskId,
+        date: dateRange,
+      }),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -132,13 +112,13 @@ const LastBooked = () => {
         }`}
       >
         {lastBooked.length > 0 && isDeskBooked ? (
-          <Button style={{marginLeft:"1rem"}} design="Negative" disabled={isBookedByCurrentUserToday}>
+          <Button style={{ marginLeft: "1rem" }} design="Negative" disabled={isBookedByCurrentUserToday}>
             Booked by You
           </Button>
         ) : (
-          <Link to="/bookdesk">
-            <Button style={{marginLeft:"1rem"}} design="Emphasized">Book Desk</Button>
-          </Link>
+          <Button style={{ marginLeft: "1rem" }} design="Emphasized" onClick={bookDesk}>
+            Book Desk
+          </Button>
         )}
       </List>
 
@@ -147,7 +127,7 @@ const LastBooked = () => {
         footer={
           <Bar
             endContent={
-              <Button  design="Emphasized" style={{marginLeft:"1rem"}} onClick={closeDialog}>
+              <Button design="Emphasized" style={{ marginLeft: "1rem" }} onClick={closeDialog}>
                 OK
               </Button>
             }
