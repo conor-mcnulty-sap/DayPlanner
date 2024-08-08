@@ -261,7 +261,12 @@ function Map({
         <MapContainer
           center={[5, 14.5]}
           zoom={5}
-          style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
+          style={{
+            height: "90vh",
+            width: "100%",
+            backgroundColor: "white",
+            zIndex: 100,
+          }}
           crs={L.CRS.Simple}
           attributionControl={false}
         >
@@ -345,6 +350,7 @@ function Map({
           footer={<Button onClick={handleDialogClose}>OK</Button>}
           open={dialogOpen}
           onAfterClose={handleDialogClose}
+          style={{ zIndex: 1000 }} 
         >
           <p>{bookingMessage}</p>
         </Dialog>
