@@ -1,11 +1,25 @@
 {
   "Articles": [
     {
+      "title": "SAP TechEd in 2024: Registration Now Live",
+      "link": "https://news.sap.com/2024/08/sap-teched-in-2024-registration-now-live/",
+      "author": "JG Chirapurath",
+      "date": "August 8, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/08/287796_GettyImages-490772140_medium_uncropped_F-1920x600.jpg"
+    },
+    {
+      "title": "Customer Support at SAP: Partnering with Customers to Maximize Value for Their Businesses",
+      "link": "https://news.sap.com/2024/08/customer-support-maximize-value-for-customers/",
+      "author": "Renuka Abraham",
+      "date": "August 8, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/08/291520_GettyImages-1157345255_uncropped_F-540x310-1723036952.jpg"
+    },
+    {
       "title": "Everyone’s a Winner at SAP Spend Connect Live",
       "link": "https://news.sap.com/2024/08/everyones-a-winner-at-sap-spend-connect-live-2024/",
       "author": "Etosha Thurman",
       "date": "August 6, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/06/283031_GettyImages-535829219_uncropped_F-1920x600.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/06/283031_GettyImages-535829219_uncropped_F-540x310.jpg"
     },
     {
       "title": "SAP Preferred Success: Turning Process Transformation into an Ongoing Opportunity",
@@ -76,20 +90,6 @@
       "author": "Jeff Collier",
       "date": "July 19, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/19/302074_GettyImages-679772514_uncropped_F-540x310-1721307554.jpg"
-    },
-    {
-      "title": "Hornbach’s Platform for Growth",
-      "link": "https://news.sap.com/2024/07/hornbach-platform-for-growth/",
-      "author": "Stefanie Glenk",
-      "date": "July 18, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/Hornbach-Still-540x310.jpg"
-    },
-    {
-      "title": "Sustainable Impact Through Cross-Sector Partnership",
-      "link": "https://news.sap.com/2024/07/sustainable-impact-through-cross-sector-partnership/",
-      "author": "Hemang Desai",
-      "date": "July 18, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/285691_GettyImages-646457692_2600_uncropped_F-540x310-1721222657.jpg"
     }
   ]
 }

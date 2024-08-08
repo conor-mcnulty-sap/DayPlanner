@@ -76,16 +76,17 @@ router.post('/bookdesk', async (req, res) => {
                     authorisation: auth
                 }
             );
+            console.log("booking worked");
             const {data2, error2} = await supabase
             .from('last_booked')
             .insert(
                 {
                     desk_id: in_deskid,
                     user_id: in_userid,
-                    date: date1_str,
-                    authorisation: auth
+                    date: date1_str
                 }
             );
+            console.log("last booked worked");
             if (error) {
                 res.send('Error booking desk');
                 console.log('Error booking desk');
@@ -256,10 +257,24 @@ router.get('/bookingsbyuser', async (req, res) => {
 router.get('/lastbooked', async (req, res) => {
     let in_userid = req.query.user_id;
 
+    // Get the current date
+    const now = new Date();
+
+    // Extract the year, month, and day
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(now.getDate()).padStart(2, '0');
+
+    // Format the date as YYYY-MM-DD
+    const currentDate = `${year}-${month}-${day}`;
+
+    console.log(currentDate);
+
     const {data, error} = await supabase
     .from('last_booked')
     .select('*,desks(*)')
     .eq('user_id', in_userid)
+    .lt('date', currentDate)
     .order('id', {ascending: false})
     .limit(1);
 
