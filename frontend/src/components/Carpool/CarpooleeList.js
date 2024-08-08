@@ -205,14 +205,7 @@ function CarpooleeList() {
             <strong>Email: </strong>
             <a href={`mailto:${selectedEmail}`}>{selectedEmail}</a>
           </Label>
-          <Label>
-            <strong>Time to Office: </strong>
-            {distanceToOffice}
-          </Label>
-          <Label>
-            <strong>Time Added to Journey: </strong>
-            {timeAdded}
-          </Label>
+          
           <Button design="Emphasized" onClick={handleTeamsChatClick}>
             Chat in Teams
           </Button>
