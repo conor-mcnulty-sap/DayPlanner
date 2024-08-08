@@ -159,7 +159,7 @@ function Map({
         <MapContainer
           center={[5, 14.5]}
           zoom={5}
-          style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
+          style={{ height: "90vh", width: "100%", backgroundColor: "white", zIndex: 100, }}
           crs={L.CRS.Simple}
           attributionControl={false}
         >
