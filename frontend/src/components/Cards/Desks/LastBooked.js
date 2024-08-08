@@ -132,12 +132,12 @@ const LastBooked = () => {
         }`}
       >
         {lastBooked.length > 0 && isDeskBooked ? (
-          <Button design="Negative" disabled={isBookedByCurrentUserToday}>
+          <Button style={{marginLeft:"1rem"}} design="Negative" disabled={isBookedByCurrentUserToday}>
             Booked by You
           </Button>
         ) : (
           <Link to="/bookdesk">
-            <Button design="Emphasized">Book Desk</Button>
+            <Button style={{marginLeft:"1rem"}} design="Emphasized">Book Desk</Button>
           </Link>
         )}
       </List>
@@ -147,7 +147,7 @@ const LastBooked = () => {
         footer={
           <Bar
             endContent={
-              <Button design="Emphasized" onClick={closeDialog}>
+              <Button  design="Emphasized" style={{marginLeft:"1rem"}} onClick={closeDialog}>
                 OK
               </Button>
             }
