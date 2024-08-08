@@ -1,11 +1,25 @@
 {
   "Articles": [
     {
+      "title": "Everyone’s a Winner at SAP Spend Connect Live",
+      "link": "https://news.sap.com/2024/08/everyones-a-winner-at-sap-spend-connect-live-2024/",
+      "author": "Etosha Thurman",
+      "date": "August 6, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/06/283031_GettyImages-535829219_uncropped_F-1920x600.jpg"
+    },
+    {
+      "title": "SAP Preferred Success: Turning Process Transformation into an Ongoing Opportunity",
+      "link": "https://news.sap.com/2024/08/sap-preferred-success-process-transformation-ongoing-opportunity/",
+      "author": "Marcel Bitter",
+      "date": "August 5, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/21/301453_GettyImages-1043627262_uncropped_F-540x310-1721922977.jpg"
+    },
+    {
       "title": "Swiss Transportation Company BLS AG Moves HR Processes to the Cloud with SAP SuccessFactors HCM",
       "link": "https://news.sap.com/2024/07/bls-ag-hr-cloud-sap-successfactors/",
       "author": "Jeanette Rohr",
       "date": "July 30, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/30/280439_GettyImages-157671924_uncropped_F-1920x600-1721908831.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/30/280439_GettyImages-157671924_uncropped_F-540x310.jpg"
     },
     {
       "title": "Fratelli Branca Distillerie in Argentina Modernizes for Greater Efficiency with SAP Sales Cloud",
@@ -76,20 +90,6 @@
       "author": "Hemang Desai",
       "date": "July 18, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/18/285691_GettyImages-646457692_2600_uncropped_F-540x310-1721222657.jpg"
-    },
-    {
-      "title": "The Evolving Influence of Procurement in Organizations",
-      "link": "https://news.sap.com/2024/07/economist-impact-report-evolving-influence-of-procurement/",
-      "author": "Baber Farooq",
-      "date": "July 17, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/17/295101_GettyImages-916875274_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Recognized by Chartis Research as a Leader in Governance, Risk, and Compliance",
-      "link": "https://news.sap.com/2024/07/chartis-research-sap-a-leader-in-grc/",
-      "author": "Vishal Verma",
-      "date": "July 17, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/01/09/299930_GettyImages-1306394663_medium_F-540x310.jpg"
     }
   ]
 }

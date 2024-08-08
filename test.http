@@ -19,11 +19,11 @@ GET /api/bookings HTTP/1.1
 Host: localhost:5000
 
 ### Get bookings by user
-GET /api/bookings/bookingsbyuser?user_id=I744462 HTTP/1.1
+GET /api/bookings/bookingsbyuser?user_id=f69d8ac470bb0523 HTTP/1.1
 Host: localhost:5000
 
 ### Get last booked
-GET /api/bookings/lastbooked?user_id=ef933ddfd84db7e6 HTTP/1.1
+GET /api/bookings/lastbooked?user_id=f69d8ac470bb0523 HTTP/1.1
 Host: localhost:5000
 
 ### Find desk by booking
@@ -31,7 +31,7 @@ GET /api/bookings/finddesk?user_id=3&date=3123-12-23 HTTP/1.1
 Host: localhost:5000
 
 ### Add booking
-POST /api/bookings/bookdesk?user_id=I744418&desk_id=DUB05-2-L-22&date=2024-05-24-2024-05-24 HTTP/1.1
+POST /api/bookings/bookdesk?user_id=f69d8ac470bb0523&desk_id=DUB05-2-L-22&date=2024-08-05-2024-08-05 HTTP/1.1
 Host: localhost:5000
 
 ### Remove booking
@@ -121,7 +121,7 @@ GET /api/tasks/usertasks?user_id=112 HTTP/1.1
 Host: localhost:5000
 
 ### Add task
-POST /api/tasks/addtask?event_id=123&user_id=1&task_name=test&task_description=test description&task_date=2022-09-15&task_time=12:00:00&duration=1:00&task_colour=red HTTP/1.1
+POST /api/tasks/addtask?event_id=123&user_id=1&task_name=test&task_description=test description&task_date=2022-09-15&task_time=12:00&task_duration=13:00&task_colour=red HTTP/1.1
 Host: localhost:5000
 
 ### Remove task
