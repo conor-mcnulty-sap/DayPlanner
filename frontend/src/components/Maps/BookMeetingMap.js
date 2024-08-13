@@ -86,10 +86,10 @@ function Map(props) {
     const fetchBookedRooms = async () => {
       try {
         const response = await fetch(
-          `https://9m5765t2-5000.eun1.devtunnels.ms/api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=${startTime}&building=${selectedBuilding}&floor=${selectedFloor}&end_date_time=${endTime}`
+          `${process.env.REACT_APP_API_URL}/api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=${startTime}&building=${selectedBuilding}&floor=${selectedFloor}&end_date_time=${endTime}`
         );
         const data = await response.json();
-        setBookedRooms(data[0].id);
+        setBookedRooms(data);
         console.log("Booked rooms:", data);
       } catch (error) {
         console.error("Failed to fetch booked rooms:", error);
