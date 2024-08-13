@@ -127,98 +127,104 @@ export default class BookMeetingRoom extends Component {
   }
 
   async onClick() {
-    try {
-      const { building, floor, room, subject, startDateTime, duration, email } =
-        this.state;
+    const { building, floor, room, subject, startDateTime, duration, email } = this.state;
 
-      // Check room availability
-      const availability = await this.checkRoomAvailability();
-      if (
-        availability === "Meeting Room already booked for that date and time"
-      ) {
+    // Validation: Check if all fields are filled
+    if (!subject || !room || !email || !startDateTime || !duration) {
         this.setState({
-          dialogOpen: true,
-          dialogMessage: "Meeting room already booked.",
+            dialogOpen: true,
+            dialogMessage: "Please fill in all fields before booking the meeting room.",
         });
-        return;
-      }
-
-      console.log(
-        "Button clicked, attempting to acquire token silently for event creation"
-      );
-      var accessToken = await window.msal.acquireTokenSilent({
-        scopes: config.scopes,
-      });
-      console.log("Access token acquired for event creation", accessToken);
-
-      const formattedStartDateTime = moment(startDateTime).format(
-        "YYYY-MM-DD HH:mm:ss"
-      );
-      const [hours, minutes] = duration.split(":").map(Number);
-      const endDateTime = moment(formattedStartDateTime)
-        .add(hours, "hours")
-        .add(minutes, "minutes")
-        .toISOString();
-
-      console.log("Current state values:", {
-        building,
-        floor,
-        room,
-        subject,
-        formattedStartDateTime,
-        endDateTime,
-        email,
-      });
-
-      const event = {
-        subject: subject,
-        body: {
-          contentType: "HTML",
-        },
-        start: {
-          dateTime: moment(startDateTime).toISOString(),
-          timeZone: "Europe/Dublin",
-        },
-        end: {
-          dateTime: endDateTime,
-          timeZone: "Europe/Dublin",
-        },
-        attendees: [
-          {
-            emailAddress: {
-              address: email,
-              name: room,
-            },
-            type: "Required",
-          },
-        ],
-        location: {
-          displayName: `${building} - ${floor} - ${room}`,
-          locationType: "Default",
-        },
-      };
-
-      this.setState({ event: event });
-
-      console.log("Event to be created", event);
-
-      await createEvents(accessToken, event);
-      console.log("Event created successfully");
-      this.setState({
-        dialogOpen: true,
-        dialogMessage: "Meeting Room Booked successfully.",
-      });
-    } catch (err) {
-      console.error("Error creating event", err);
-      this.setState({
-        dialogOpen: true,
-        dialogMessage: "Error booking the meeting room.",
-      });
-      if (this.props.showError) {
-        this.props.showError("ERROR", JSON.stringify(err));
-      }
+        return; // Exit the function early
     }
-  }
+
+    try {
+        // Check room availability
+        const availability = await this.checkRoomAvailability();
+        if (availability === "Meeting Room already booked for that date and time") {
+            this.setState({
+                dialogOpen: true,
+                dialogMessage: "Meeting room already booked.",
+            });
+            return;
+        }
+
+        console.log(
+            "Button clicked, attempting to acquire token silently for event creation"
+        );
+        var accessToken = await window.msal.acquireTokenSilent({
+            scopes: config.scopes,
+        });
+        console.log("Access token acquired for event creation", accessToken);
+
+        const formattedStartDateTime = moment(startDateTime).format(
+            "YYYY-MM-DD HH:mm:ss"
+        );
+        const [hours, minutes] = duration.split(":").map(Number);
+        const endDateTime = moment(formattedStartDateTime)
+            .add(hours, "hours")
+            .add(minutes, "minutes")
+            .toISOString();
+
+        console.log("Current state values:", {
+            building,
+            floor,
+            room,
+            subject,
+            formattedStartDateTime,
+            endDateTime,
+            email,
+        });
+
+        const event = {
+            subject: subject,
+            body: {
+                contentType: "HTML",
+            },
+            start: {
+                dateTime: moment(startDateTime).toISOString(),
+                timeZone: "Europe/Dublin",
+            },
+            end: {
+                dateTime: endDateTime,
+                timeZone: "Europe/Dublin",
+            },
+            attendees: [
+                {
+                    emailAddress: {
+                        address: email,
+                        name: room,
+                    },
+                    type: "Required",
+                },
+            ],
+            location: {
+                displayName: `${building} - ${floor} - ${room}`,
+                locationType: "Default",
+            },
+        };
+
+        this.setState({ event: event });
+
+        console.log("Event to be created", event);
+
+        await createEvents(accessToken, event);
+        console.log("Event created successfully");
+        this.setState({
+            dialogOpen: true,
+            dialogMessage: "Meeting Room Booked successfully.",
+        });
+    } catch (err) {
+        console.error("Error creating event", err);
+        this.setState({
+            dialogOpen: true,
+            dialogMessage: "Error booking the meeting room.",
+        });
+        if (this.props.showError) {
+            this.props.showError("ERROR", JSON.stringify(err));
+        }
+    }
+}
 
   setBuilding(event) {
     const building = event.detail.selectedOption.innerText;
