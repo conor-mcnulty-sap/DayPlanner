@@ -89,7 +89,8 @@ function Map(props) {
           `https://9m5765t2-5000.eun1.devtunnels.ms/api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=${startTime}&building=${selectedBuilding}&floor=${selectedFloor}&end_date_time=${endTime}`
         );
         const data = await response.json();
-        setBookedRooms(data);
+        setBookedRooms(data[0].id);
+        console.log("Booked rooms:", data);
       } catch (error) {
         console.error("Failed to fetch booked rooms:", error);
       }
