@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import MeetingRoomForm from "../components/Forms/MeetingRoomForm";
 import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/BookMeetingMap";
+import moment from "moment";
 
 const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
   const [building, setBuilding] = useState("3");
   const [floor, setFloor] = useState("3");
-  const [startTime, setStartTime] = useState(new Date()); 
-  const [endTime, setEndTime] = useState(new Date()); 
+  const [startTime, setStartTime] = useState(moment().format("YYYY-MM-DDTHH:mm")); 
+  const [endTime, setEndTime] = useState(moment(startTime).add(moment.duration("1:00")).format("YYYY-MM-DDTHH:mm")); 
 
   const handleBuildingChange = (newBuilding) => {
     console.log("Selected Building:", newBuilding);
@@ -18,7 +19,6 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
     console.log("Selected Floor:", newFloor);
     setFloor(newFloor);
   };
-
 
   const onDateTimeChange = (newStartTime, newEndTime) => {
     console.log(
@@ -51,7 +51,6 @@ const BookMeeting = ({ isAuthenticated, user, logout, login }) => {
           onBuildingChange={handleBuildingChange}
           onFloorChange={handleFloorChange}
           onDateTimeChange={onDateTimeChange}
-
         />
       </div>
       <Map

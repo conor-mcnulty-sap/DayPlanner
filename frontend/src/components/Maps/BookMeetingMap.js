@@ -8,7 +8,7 @@ import floorPlan22 from "../../assets/DUB/2-2.png";
 import floorPlan23 from "../../assets/DUB/2-3.png";
 import floorPlan31 from "../../assets/DUB/3-1.png";
 import floorPlan33 from "../../assets/DUB/3-3.png";
-import { useGetMeetingRooms } from "../../hooks/useGetMeetingRooms";
+
 
 const floorPlans = {
   "2-1": floorPlan21,
@@ -25,23 +25,42 @@ const getMeetingRoomImageUrl = (meetingRoomName) => {
   return url;
 };
 
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+};
+
 function Map(props) {
-  const { selectedBuilding = "DUB05", selectedFloor = "3", startTime, endTime } = props;
+  console.log("Map props:", props); // Log the props to the console
+
+  let { selectedBuilding = "DUB05", selectedFloor = "3", startTime, endTime } = props;
+
+  // Adjust the selectedBuilding value
+  if (selectedBuilding === '3') {
+    selectedBuilding = 'DUB05';
+  } else if (selectedBuilding === '2') {
+    selectedBuilding = 'DUB03';
+  }
+
+  // Format the dates
+  startTime = formatDate(new Date(startTime));
+  endTime = formatDate(new Date(endTime));
+
+  console.log("Formatted dates:", startTime, endTime); // Log the formatted dates to the console
+
   const [selectedFloorPlan, setSelectedFloorPlan] = useState(floorPlan33); // Default to floorPlan33
   const [isMapInit, setIsMapInit] = useState(false);
   const [polygons, setPolygons] = useState([]);
+  const [bookedRooms, setBookedRooms] = useState(null);
 
   const bounds = [
     [0, 0],
     [10, 29],
   ];
-
-  const bookedRooms = useGetMeetingRooms(
-    startTime,
-    selectedBuilding,
-    selectedFloor,
-    endTime
-  );
 
   useEffect(() => {
     setIsMapInit(true);
@@ -64,9 +83,32 @@ function Map(props) {
       setSelectedFloorPlan(floorPlans["3-3"]);
     }
 
+    const fetchBookedRooms = async () => {
+      try {
+        const response = await fetch(
+          `https://9m5765t2-5000.eun1.devtunnels.ms/api/meetingrooms/checkavailabilitybuildingfloor?start_date_time=${startTime}&building=${selectedBuilding}&floor=${selectedFloor}&end_date_time=${endTime}`
+        );
+        const data = await response.json();
+        setBookedRooms(data);
+      } catch (error) {
+        console.error("Failed to fetch booked rooms:", error);
+      }
+    };
+
+    fetchBookedRooms();
+  }, [selectedBuilding, selectedFloor, startTime, endTime]);
+
+  useEffect(() => {
     if (!bookedRooms) {
       console.log("Waiting for available rooms...");
       return;
+    }
+
+    let adjustedBuilding = selectedBuilding;
+    if (selectedBuilding === "DUB03") {
+      adjustedBuilding = "2";
+    } else if (selectedBuilding === "DUB05") {
+      adjustedBuilding = "3";
     }
 
     fetch(`/MeetingCoordinates-${adjustedBuilding}-${selectedFloor}.json`)
