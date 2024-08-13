@@ -1,11 +1,32 @@
 {
   "Articles": [
     {
+      "title": "SAP Is a Leader in the 2024 Gartner® Magic Quadrant™ for Recurring Billing Applications",
+      "link": "https://news.sap.com/2024/08/sap-a-leader-gartner-magic-quadrant-recurring-billing-applications/",
+      "author": "Martin Barkman",
+      "date": "August 13, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/13/296886_GettyImages-1385483200_medium_uncropped_F-1920x600-1723214687.jpg"
+    },
+    {
+      "title": "New Process AI Capabilities for SAP Signavio Offer Instant, Tailored Recommendations",
+      "link": "https://news.sap.com/2024/08/new-sap-signavio-process-ai-capabilities-instant-tailored-recommendations/",
+      "author": "Lucas de Boer",
+      "date": "August 13, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/13/283844_SAP_GettyImages-815186572_Lo-Res_RGB_uncropped_F-540x310.jpg"
+    },
+    {
+      "title": "Three Reasons to Include the Next Generation on Big Decisions",
+      "link": "https://news.sap.com/2024/08/international-youth-day-2024-big-decisions-include-next-generation/",
+      "author": "Selina Henn",
+      "date": "August 12, 2024",
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/12/300787_GettyImages-910934060_medium_uncropped_F-540x310.jpg"
+    },
+    {
       "title": "SAP TechEd in 2024: Registration Now Live",
       "link": "https://news.sap.com/2024/08/sap-teched-in-2024-registration-now-live/",
       "author": "JG Chirapurath",
       "date": "August 8, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/08/287796_GettyImages-490772140_medium_uncropped_F-1920x600.jpg"
+      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/08/08/287796_GettyImages-490772140_medium_uncropped_F-540x310.jpg"
     },
     {
       "title": "Customer Support at SAP: Partnering with Customers to Maximize Value for Their Businesses",
@@ -27,13 +48,6 @@
       "author": "Marcel Bitter",
       "date": "August 5, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/06/21/301453_GettyImages-1043627262_uncropped_F-540x310-1721922977.jpg"
-    },
-    {
-      "title": "Swiss Transportation Company BLS AG Moves HR Processes to the Cloud with SAP SuccessFactors HCM",
-      "link": "https://news.sap.com/2024/07/bls-ag-hr-cloud-sap-successfactors/",
-      "author": "Jeanette Rohr",
-      "date": "July 30, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/30/280439_GettyImages-157671924_uncropped_F-540x310.jpg"
     },
     {
       "title": "Fratelli Branca Distillerie in Argentina Modernizes for Greater Efficiency with SAP Sales Cloud",
@@ -76,20 +90,6 @@
       "author": "Karin Baeumler",
       "date": "July 22, 2024",
       "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/22/287639_GettyImages-932631926_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "Revolutionizing Proactive Risk Management to Accelerate Business Process Transformation",
-      "link": "https://news.sap.com/2024/07/revolutionizing-proactive-risk-management-datricks-sap-signavio/",
-      "author": "Mani Pirouz",
-      "date": "July 22, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/17/291697_GettyImages-831909044_uncropped_F-540x310.jpg"
-    },
-    {
-      "title": "SAP Is Leading the AI Revolution in Spend Management and Business Network Software",
-      "link": "https://news.sap.com/2024/07/sap-ai-spend-management-business-network/",
-      "author": "Jeff Collier",
-      "date": "July 19, 2024",
-      "image": "https://news.sap.com/wp-content/blogs.dir/1/files/2024/07/19/302074_GettyImages-679772514_uncropped_F-540x310-1721307554.jpg"
     }
   ]
 }

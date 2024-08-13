@@ -18,7 +18,7 @@ async function initializePuppeteer() {
   page = await browser.newPage();
 }
  
-cron.schedule('* * * * *', async () => { // replace with your desired cron schedule
+cron.schedule('0 * * * *', async () => { // replace with your desired cron schedule
   await initializePuppeteer();
  
   // Navigate the page to a URL

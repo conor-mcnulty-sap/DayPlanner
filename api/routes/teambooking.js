@@ -11,6 +11,10 @@ router.post('/bookdesk', async (req, res) => {
     let auth = false;
     let time = new Date();
 
+    console.log(in_deskid);
+    console.log(in_useremail);
+    console.log(in_date);
+
     // Check if input is empty
     if (in_deskid == "" || in_useremail == "" || in_date == "") {
         res.send('Invalid input');
@@ -62,8 +66,16 @@ router.post('/bookdesk', async (req, res) => {
     
     else {
         // Make a booking from date 1 to date 2 (including dates inbetween)
+        console.log(date1);
+        console.log(date1);
+
         var date1 = new Date(date1);
         var date2 = new Date(date2);
+
+        date1.setDate(date1.getDate() + 1);
+        date2.setDate(date1.getDate() + 1);
+        console.log(date1);
+        console.log(date2);
 
         while (date1 <= date2) {
             date1_str = date1.toISOString().split('T')[0];
