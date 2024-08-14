@@ -1,0 +1,8 @@
+---
+applications:
+- name: Dayplanner-back
+  path: .
+  buildpack: nodejs_buildpack
+  memory: 1024M
+  services:
+  - nodeuaa
