@@ -4,6 +4,7 @@ import CarpoolerForm from "../components/Forms/CarpoolerForm";
 import CarpooleeList from "../components/Carpool/CarpooleeList";
 import { Grid } from "@ui5/webcomponents-react";
 import CarpoolMap from "../components/Carpool/CarpoolMap";
+import "./Carpool.css"; // Import the CSS file
 
 function Carpool() {
   return (
@@ -17,17 +18,20 @@ function Carpool() {
     >
       <Grid
         defaultSpan="xl6 l6 m12 s12"
-        
         hSpacing={"2rem"}
         vSpacing={"2rem"}
         style={{ margin: "2rem" }}
       >
         <div style={{ display: "flex", gap: "2rem", flexDirection:"column"}}>
-        <div style={{ display: "flex", gap: "2rem" }}>
-          <CarpooleeForm />
-          <CarpoolerForm />
-        </div>
-        <CarpoolMap />
+          <Grid defaultSpan="xl6 l6 m12 s12">
+            <div style={{width:"100%"}}>
+              <CarpooleeForm />
+            </div>
+            <div style={{width:"100%"}}>
+              <CarpoolerForm />
+            </div>
+          </Grid>
+          <CarpoolMap />
         </div>
         <CarpooleeList />
       </Grid>

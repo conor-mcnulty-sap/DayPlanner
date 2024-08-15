@@ -37,7 +37,7 @@ const formatDate = (date) => {
 function Map(props) {
   console.log("Map props:", props); // Log the props to the console
 
-  let { selectedBuilding = "DUB05", selectedFloor = "3", startTime, endTime } = props;
+  let { selectedBuilding = "DUB05", selectedFloor = "3", startTime, endTime, zoom, center } = props;
 
   // Adjust the selectedBuilding value
   if (selectedBuilding === '3') {
@@ -132,8 +132,8 @@ function Map(props) {
     <Card style={{ width: "100%", height: "100%" }}>
       {isMapInit && (
         <MapContainer
-          center={[5, 14.5]}
-          zoom={5}
+          center={center}
+          zoom={zoom}
           style={{
             height: "90vh",
             width: "100%",

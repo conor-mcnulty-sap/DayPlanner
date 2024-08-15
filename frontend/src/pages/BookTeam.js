@@ -73,6 +73,8 @@ function BookTeam() {
           dateRange={dateRange}
           selectedDesks={selectedDesks}
           setSelectedDesks={setSelectedDesks}
+          zoom={zoom}
+          center={center}
         />
       </div>
     </Grid>

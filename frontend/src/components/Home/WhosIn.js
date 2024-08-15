@@ -11,10 +11,11 @@ import {
 const WhosIn = () => {
   const [users, setUsers] = useState([]);
   const [foundUsers, setFoundUsers] = useState([]);
-  const [isCheckboxTicked, setIsCheckboxTicked] = useState(false);
+  const [isCheckboxTicked, setIsCheckboxTicked] = useState('false');
   const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
 
+  console.log(isCheckboxTicked);
   useEffect(() => {
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
@@ -60,6 +61,7 @@ const WhosIn = () => {
    */
   const filter = (event) => {
     const keyword = event.target.value;
+    console.log(isCheckboxTicked);
     if (!isCheckboxTicked) { // Only filter if checkbox is not ticked
       if (keyword !== "") {
         const results = users.filter((user) => {
@@ -80,7 +82,7 @@ const WhosIn = () => {
       style={{ width: "100%", maxHeight: "50vh"}}
     >
       <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-        <CheckBox onChange={(e) => setIsCheckboxTicked(e.target.checked)}></CheckBox>
+        <CheckBox onChange={(e) => setIsCheckboxTicked('true')}></CheckBox>
         <span style={{ marginLeft: "0.5rem" }}>Filter to your floor</span>
       </div>
       <div

@@ -86,9 +86,7 @@ const CarpooleeForm = () => {
     <Card
       header={<CardHeader titleText="Register to Get a Lift" />}
       style={{
-        width: "50%",
-        height: "18rem",
-        maxHeight: "50vh",
+        height: "12rem",
       }}
     >
       <div
