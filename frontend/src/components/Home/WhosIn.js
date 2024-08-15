@@ -11,7 +11,7 @@ import {
 const WhosIn = () => {
   const [users, setUsers] = useState([]);
   const [foundUsers, setFoundUsers] = useState([]);
-  const [isCheckboxTicked, setIsCheckboxTicked] = useState('false');
+  const [isCheckboxTicked, setIsCheckboxTicked] = useState(false);
   const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
 
@@ -82,7 +82,10 @@ const WhosIn = () => {
       style={{ width: "100%", maxHeight: "50vh"}}
     >
       <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-        <CheckBox onChange={(e) => setIsCheckboxTicked('true')}></CheckBox>
+        <CheckBox
+          onChange={(e) => setIsCheckboxTicked(e.target.checked)}
+          valueState="None"
+        />
         <span style={{ marginLeft: "0.5rem" }}>Filter to your floor</span>
       </div>
       <div
