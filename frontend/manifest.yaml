@@ -1,0 +1,7 @@
+---
+applications:
+- name: Dayplanner
+  path: .
+ 
+  memory: 1000M
+  disk_quota: 5000M

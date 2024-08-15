@@ -404,19 +404,22 @@ export default class BookMeetingRoom extends Component {
                 <Option key="1">1</Option>
               </Select>
             </FormItem>
-            <FormItem label="Room">
-              <Select
-                onChange={this.setRoom}
-                selectedKey={room}
-                style={{ width: "100%" }}
-              >
-                {filteredRooms.map((meetingRoom) => (
-                  <Option key={meetingRoom.id}>
-                    {meetingRoom.meeting_room}
-                  </Option>
-                ))}
-              </Select>
-            </FormItem>
+             <FormItem label="Room">
+            <Select
+              onChange={this.setRoom}
+              selectedKey={room}
+              style={{ width: "100%" }}
+            >
+              <Option key="default" >
+                --Select Meeting Room--
+              </Option>
+              {filteredRooms.map((meetingRoom) => (
+                <Option key={meetingRoom.id}>
+                  {meetingRoom.meeting_room}
+                </Option>
+              ))}
+            </Select>
+          </FormItem>
           </FormGroup>
         </Form>
         <Button

@@ -7,6 +7,7 @@ const LastBooked = () => {
   const [lastBooked, setLastBooked] = useState([]);
   const [isBookedByCurrentUserToday, setIsBookedByCurrentUserToday] = useState(false);
   const [isDeskBooked, setIsDeskBooked] = useState(false);
+  const [isBookingUnavailable, setIsBookingUnavailable] = useState(false); // New state variable
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
 
@@ -41,6 +42,15 @@ const LastBooked = () => {
           console.log("deskbookedToday:", deskBookedToday);
           setIsDeskBooked(!!deskBookedToday);
           setIsBookedByCurrentUserToday(deskBookedToday && deskBookedToday.user_id === userId);
+        })
+        .catch((error) => console.error(error));
+
+      // Check if the user has a desk booked for today
+      fetch(`${process.env.REACT_APP_API_URL}/api/bookings/getbookinguserdate?user_id=${userId}&date=${today}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("User booking for today:", data);
+          setIsBookingUnavailable(data.length > 0); // Assuming the response is an array of bookings
         })
         .catch((error) => console.error(error));
     }
@@ -111,10 +121,16 @@ const LastBooked = () => {
             : "No desk booked"
         }`}
       >
-        {lastBooked.length > 0 && isDeskBooked ? (
-          <Button style={{ marginLeft: "1rem" }} design="Negative" disabled={isBookedByCurrentUserToday}>
-            Booked by You
-          </Button>
+        {lastBooked.length > 0 ? (
+          isBookingUnavailable ? (
+            <Button style={{ marginLeft: "1rem" }} design="Negative" disabled>
+              Booking Unavailable
+            </Button>
+          ) : (
+            <Button style={{ marginLeft: "1rem" }} design="Emphasized" onClick={bookDesk} disabled={isBookedByCurrentUserToday}>
+              {isBookedByCurrentUserToday ? "Booked by You" : "Book Desk"}
+            </Button>
+          )
         ) : (
           <Button style={{ marginLeft: "1rem" }} design="Emphasized" onClick={bookDesk}>
             Book Desk

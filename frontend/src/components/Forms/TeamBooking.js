@@ -202,7 +202,7 @@ function TeamBooking({
         subject: `Desk Booking Confirmation from ${displayName}`,
         body: {
             contentType: "Text",
-            content: `${displayName} has booked Desk ${selectedDesks[index]} for you. The booking is for ${formattedDateRange}. Please follow this link to verify your booking: http://localhost:3000/verifydesk`,
+            content: `${displayName} has booked Desk ${selectedDesks[index]} for you. The booking is for ${formattedDateRange}. Please follow this link to verify your booking: https://dayplanner.cfapps.eu10.hana.ondemand.com/verifydesk`,
         },
         toRecipients: [{ emailAddress: { address: email } }],
     }));

@@ -54,7 +54,7 @@ export default class MyTasks extends Component {
           return response.json();
         })
         .then((data) => {
-          console.log("My Tasks: ", data);
+          
           this.setState({ tasksData: data });
         })
         .catch((error) => console.log("My Tasks failed: ", error));
@@ -71,7 +71,7 @@ export default class MyTasks extends Component {
 
       // First, delete the task from Outlook
       await deleteEvents(accessToken, event_id);
-      console.log("Task deleted from Outlook successfully");
+   
 
       // Then, delete the task from local storage
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/removetask?id=${event_id}`, {
@@ -82,7 +82,7 @@ export default class MyTasks extends Component {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      console.log("Task deleted successfully from local storage");
+    
 
       // Remove the task from the UI
       this.setState((prevState) => ({

@@ -11,7 +11,7 @@ class SignIn extends Component {
     this.userAgentApplication = new UserAgentApplication({
       auth: {
         clientId: config.appId,
-        redirectUri: 'http://localhost:3000',
+        redirectUri: 'https://dayplanner.cfapps.eu10.hana.ondemand.com',
       },
       cache: {
         cacheLocation: 'localStorage',
