@@ -25,6 +25,8 @@ function Map({
   selectedBuilding,
   selectedFloor,
   dateRange = getDate(),
+  zoom,
+  center
 }) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -259,8 +261,8 @@ function Map({
     <Card>
       {isMapInit && (
         <MapContainer
-          center={[5, 14.5]}
-          zoom={5}
+          center={center}
+          zoom={zoom}
           style={{
             height: "90vh",
             width: "100%",

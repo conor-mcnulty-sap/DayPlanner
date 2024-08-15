@@ -1,0 +1,47 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2rem auto;
+    width: 90%;
+    flex-wrap: wrap;
+  }
+  
+  .left-column,
+  .right-column {
+    width: 48%;
+    margin-bottom: 1rem;
+  }
+  
+  .desks-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .desks-row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .desk-item {
+    flex: 1 1 48%;
+    margin: 0.5rem;
+  }
+  
+  .tasks-container,
+  .news-container {
+    margin-top: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .left-column,
+    .right-column {
+      width: 100%;
+    }
+  
+    .desk-item {
+      flex: 1 1 100%;
+    }
+  }

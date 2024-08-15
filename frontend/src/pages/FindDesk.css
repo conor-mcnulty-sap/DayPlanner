@@ -1,0 +1,16 @@
+.map-container {
+  height: 80vh; /* Default height for desktop */
+  overflow: hidden; /* Optional: to handle overflow content */
+}
+
+@media (max-width: 1440px) {
+  .map-container {
+    height: 40vh; /* Adjust the height for mobile devices */
+  }
+}
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure the container takes the full height of its parent */
+}

@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@ui5/webcomponents-react";
 import Map from "../components/Maps/FindDeskMap";
 import SingleSelectCalendar from "../components/FindDesk/Calendar";
+import "./FindDesk.css";
 
 function FindDesk() {
   const [deskId, setDeskId] = useState(null);
+  const [zoom, setZoom] = useState(15); // Default zoom level
+  const [center, setCenter] = useState([5, 14.5]); // Default center coordinates
+
+  useEffect(() => {
+    const updateMapSettings = () => {
+      if (window.innerWidth <= 768) {
+        setZoom(4); // Zoom out on mobile
+        setCenter([-5, 13.5]); // Adjust center for mobile
+      } else {
+        setZoom(5); // Default zoom level for desktop
+        setCenter([5, 14.5]); // Default center for desktop
+      }
+    };
+
+    updateMapSettings();
+    window.addEventListener("resize", updateMapSettings);
+
+    return () => {
+      window.removeEventListener("resize", updateMapSettings);
+    };
+  }, []);
 
   return (
     <Grid
@@ -13,15 +35,7 @@ function FindDesk() {
       hSpacing={"1rem"}
       style={{ margin: "2rem" }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-        }}
-      >
+      <div className="calendar-container">
         <SingleSelectCalendar
           onDeskIdFetched={(fetchedDeskId) => {
             console.log("Fetched desk id:", fetchedDeskId);
@@ -29,7 +43,9 @@ function FindDesk() {
           }}
         />
       </div>
-      <Map deskId={deskId} />
+      <div className="map-container">
+        <Map deskId={deskId} zoom={zoom} center={center} />
+      </div>
     </Grid>
   );
 }

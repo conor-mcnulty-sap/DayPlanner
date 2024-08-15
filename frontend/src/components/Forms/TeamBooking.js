@@ -307,7 +307,6 @@ function TeamBooking({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginTop: "10rem",
       }}
     >
       <Form

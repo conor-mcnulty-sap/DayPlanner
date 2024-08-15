@@ -4,7 +4,7 @@ import { MapContainer, ImageOverlay, Marker, Popup, Rectangle } from "react-leaf
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-function Map({ deskId = "" }) {
+function Map({ deskId = "" , zoom, center }) {
   const [isMapInit, setIsMapInit] = useState(false);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [floorPlan, setFloorPlan] = useState("");
@@ -66,8 +66,8 @@ function Map({ deskId = "" }) {
     <Card style={{ width: "100%", height: "100%" }}>
       {isMapInit && floorPlan && (
         <MapContainer
-          center={[5, 14.5]}
-          zoom={5}
+          center={center}
+          zoom={zoom}
           style={{ height: "90vh", width: "100%", backgroundColor: "white" }}
           crs={L.CRS.Simple}
           attributionControl={false}
